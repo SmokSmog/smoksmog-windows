@@ -1,0 +1,27 @@
+<Application x:Class="SmokSmog.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:globalization="using:SmokSmog.Globalization"
+             xmlns:local="using:SmokSmog" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:valueconverters="using:SmokSmog.Xaml.Data.ValueConverters"
+             xmlns:viewmodel="using:SmokSmog.ViewModel"
+             RequestedTheme="Light"
+             mc:Ignorable="d">
+    <!--  Windows Store 8.1  -->
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <globalization:LocalizedStrings x:Key="LocalizedStrings" />
+            <valueconverters:BooleanToVisability x:Key="BooleanToVisabilityValueConverter" />
+            <valueconverters:StringGetFirstChar x:Key="StringGetFirstCharValueConverter" />
+            <valueconverters:StringToLower x:Key="StringToLowerValueConverter" />
+            <valueconverters:StringToUpper x:Key="StringToUpperValueConverter" />
+            <valueconverters:ValueConverterGroup x:Key="StringGetFirstCharAndToLowerValueConverter">
+                <valueconverters:StringGetFirstChar />
+                <valueconverters:StringToLower />
+            </valueconverters:ValueConverterGroup>
+            <viewmodel:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,20 @@
+﻿<Page x:Class="SmokSmog.Design.TestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:b="using:SmokSmog.Xaml.Controls.Behaviors"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:SmokSmog.Xaml.Interactivity"
+      xmlns:local="using:SmokSmog.Test"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock FontSize="80" Text="sample text in my textblock">
+            <i:Interaction.Behaviors>
+                <b:TextBlockHighlightBehavior Highlight="Red"
+                                              IsCaseSensitive="False"
+                                              SearchString="my" />
+            </i:Interaction.Behaviors>
+        </TextBlock>
+    </Grid>
+</Page>

@@ -1,0 +1,26 @@
+<Application x:Class="SmokSmog.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:globalization="using:SmokSmog.Globalization" xmlns:local="using:SmokSmog" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodel="using:SmokSmog.ViewModel" RequestedTheme="Light" mc:Ignorable="d">
+  <!--  Windows Phone 8.1  -->
+  <Application.Resources>
+    <ResourceDictionary>
+      <viewmodel:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+      <globalization:LocalizedStrings x:Key="LocalizedStrings" />
+      <ResourceDictionary.MergedDictionaries>
+        <!--<ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
+        <!--<ResourceDictionary Source="/SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
+        <!--<ResourceDictionary Source="ms-resource:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
+        <!--  for ResourcesDictionary from other assembly  -->
+        <!--<ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT/Styles/StationListViewStyle.xaml" />-->
+        <!--  for ResourcesDictionary from other assembly  -->
+        <ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT/Xaml/Data/ValueConverters.xaml">
+        </ResourceDictionary>
+        <ResourceDictionary Source="/Themes/ButtonThemes.xaml">
+        </ResourceDictionary>
+        <ResourceDictionary Source="/Themes/StationListViewStyle.xaml">
+        </ResourceDictionary>
+        <ResourceDictionary Source="/Themes/VectorGraphicsAssets.xaml">
+          <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="using:SmokSmog.ViewModel" />
+        </ResourceDictionary>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>
