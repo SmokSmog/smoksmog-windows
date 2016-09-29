@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SmokSmog.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SmokSmog.Model;
 
 namespace SmokSmog.Services.RestApi
 {
@@ -134,8 +134,10 @@ namespace SmokSmog.Services.RestApi
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<Station>> IDataService.GetStationsAsync()
+        async Task<IEnumerable<Station>> IDataService.GetStationsAsync()
         {
+            // TEST BUILD
+            return new[] { new Station() };
             throw new NotImplementedException();
         }
 
