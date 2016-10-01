@@ -10,7 +10,7 @@ namespace SmokSmog.Services
 
         IGeolocationService GeolocationService { get; }
 
-        ISettingService SettingService { get; }
+        ISettingsService SettingService { get; }
 
         IDataService DataService { get; }
     }

@@ -60,6 +60,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.pl.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\RestApi\RestDataServiceBase.cs" />
+    <Compile Include="Services\RestApi\GiosRestApiDataService.cs" />
     <Compile Include="Xaml\Data\Array.cs" />
     <Compile Include="Xaml\Data\ArrayItem.cs" />
     <Compile Include="Xaml\Data\ValueConverters\AqiIntToImage.cs" />
@@ -80,12 +82,12 @@
     <Compile Include="Model\Parameter.cs" />
     <Compile Include="Model\Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\RestApi\DataService.cs" />
+    <Compile Include="Services\RestApi\SmokSmogApiDataService.cs" />
     <Compile Include="Services\Geolocation\GeolocationStatus.cs" />
     <Compile Include="Services\Storage\IFileService.cs" />
     <Compile Include="Services\Geolocation\IGeolocationService.cs" />
     <Compile Include="Services\IServiceLocator.cs" />
-    <Compile Include="Services\Storage\ISettingService.cs" />
+    <Compile Include="Services\Storage\ISettingsService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="ViewModel\StationListViewModel.cs" />
     <Compile Include="Services\RestApi\IDataService.cs" />

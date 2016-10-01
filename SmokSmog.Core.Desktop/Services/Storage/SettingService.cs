@@ -3,8 +3,24 @@ using System.Threading.Tasks;
 
 namespace SmokSmog.Services.Storage
 {
-    public class SettingService : ISettingService
+    public class SettingService : ISettingsService
     {
+        public string Language
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string LanguageCode
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public T GetSetting<T>(string key)
         {
             throw new NotImplementedException();

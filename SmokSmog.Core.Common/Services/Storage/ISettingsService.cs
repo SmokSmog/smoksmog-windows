@@ -2,7 +2,7 @@
 
 namespace SmokSmog.Services.Storage
 {
-    public interface ISettingService
+    public interface ISettingsService
     {
         /// <summary>
         /// Save setting
@@ -33,5 +33,9 @@ namespace SmokSmog.Services.Storage
         /// <param name="key"></param>
         /// <returns></returns>
         Task<T> GetSettingAsync<T>(string key);
+
+        string Language { get; }
+
+        string LanguageCode { get; }
     }
 }

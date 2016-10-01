@@ -5,6 +5,8 @@ namespace SmokSmog.Services.RestApi
 {
     public interface IDataService
     {
+        string Name { get; }
+
         IEnumerable<Model.Measurement> GetStationMeasurements(int stationId);
 
         Task<IEnumerable<Model.Measurement>> GetStationMeasurementsAsync(int stationId);
