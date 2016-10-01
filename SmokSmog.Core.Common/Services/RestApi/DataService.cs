@@ -134,10 +134,8 @@ namespace SmokSmog.Services.RestApi
             throw new NotImplementedException();
         }
 
-        async Task<IEnumerable<Station>> IDataService.GetStationsAsync()
+        Task<IEnumerable<Station>> IDataService.GetStationsAsync()
         {
-            // TEST BUILD
-            return new[] { new Station() };
             throw new NotImplementedException();
         }
 
