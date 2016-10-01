@@ -1,0 +1,26 @@
+version: 1.0.{build}.{branch}
+install:
+- ps: >-
+    Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\SmokSmog.App.UWP\SmokSmog.App.UWP_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My
+
+    Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\SmokSmog.App.win81\SmokSmog.App.win81_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My
+
+
+    # Install MultilingualAppToolkit.msi
+
+    $msiPath = "$($env:USERPROFILE)\MultilingualAppToolkit.msi"
+
+    (New-Object Net.WebClient).DownloadFile('https://visualstudiogallery.msdn.microsoft.com/6dab9154-a7e1-46e4-bbfa-18b5e81df520/file/143697/18/MultilingualAppToolkit.msi', $msiPath)
+
+    cmd /c start /wait msiexec /i $msiPath /q
+before_build:
+- ps: >-
+    C:\projects\smoksmog-windows\.nuget\NuGet.exe update -self
+
+    C:\projects\smoksmog-windows\.nuget\NuGet.exe restore C:\projects\smoksmog-windows\SmokSmog.vs2015.sln > $null 2> $null
+build:
+  project: SmokSmog.vs2015.sln
+  parallel: true
+  verbosity: minimal
+test: off
+deploy: off
