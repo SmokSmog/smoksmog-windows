@@ -1,23 +1,17 @@
 ﻿namespace SmokSmog.Exceptions
 {
-    //[System.Serializable]
-    public class ApplicationErrorException : System.Exception
+    public class ApplicationException : System.Exception
     {
-        public ApplicationErrorException()
+        public ApplicationException()
         {
         }
 
-        public ApplicationErrorException(string message) : base(message)
+        public ApplicationException(string message) : base(message)
         {
         }
 
-        public ApplicationErrorException(string message, System.Exception inner) : base(message, inner)
+        public ApplicationException(string message, System.Exception inner) : base(message, inner)
         {
         }
-
-        //protected ErrorException(
-        //  System.Runtime.Serialization.SerializationInfo info,
-        //  System.Runtime.Serialization.StreamingContext context) : base(info, context)
-        //{ }
     }
 }

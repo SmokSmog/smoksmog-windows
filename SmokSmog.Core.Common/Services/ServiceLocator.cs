@@ -28,12 +28,12 @@ namespace SmokSmog.Services
             }
             else
             {
-                SimpleIoc.Default.Register<IDataService, DataService>();
+                SimpleIoc.Default.Register<IDataService, SmokSmogApiDataService>();
                 SimpleIoc.Default.Register<IGeolocationService, GeolocationService>();
             }
 
             SimpleIoc.Default.Register<IFileService, FileService>();
-            SimpleIoc.Default.Register<ISettingService, SettingService>();
+            SimpleIoc.Default.Register<ISettingsService, SettingService>();
         }
 
         public IFileService FileService
@@ -52,11 +52,11 @@ namespace SmokSmog.Services
             }
         }
 
-        public ISettingService SettingService
+        public ISettingsService SettingService
         {
             get
             {
-                return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<ISettingService>();
+                return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<ISettingsService>();
             }
         }
 

@@ -8,6 +8,8 @@ namespace SmokSmog.Design.Services
 {
     public class DataService : IDataService
     {
+        public string Name => "Design Time DataService";
+
         public List<StationState> GetStationInfo(IEnumerable<int> stationIds)
         {
             throw new NotImplementedException();
