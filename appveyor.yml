@@ -22,5 +22,4 @@ build:
   project: SmokSmog.vs2015.sln
   parallel: true
   verbosity: minimal
-test: off
 deploy: off
