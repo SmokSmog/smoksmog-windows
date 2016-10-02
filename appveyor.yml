@@ -1,8 +1,5 @@
 version: 1.0.{build}.{branch}
 configuration: Release
-platform:
-- x86
-- Any CPU
 install:
 - ps: >-
     Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\SmokSmog.App.UWP\SmokSmog.App.UWP_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My
