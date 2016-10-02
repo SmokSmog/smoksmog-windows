@@ -1,6 +1,8 @@
 version: 1.0.{build}.{branch}
 configuration: Release
-platform: Any CPU
+platform:
+- x86
+- Any CPU
 install:
 - ps: >-
     Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\SmokSmog.App.UWP\SmokSmog.App.UWP_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My
@@ -19,7 +21,7 @@ before_build:
 - ps: >-
     C:\projects\smoksmog-windows\.nuget\NuGet.exe update -self
 
-    C:\projects\smoksmog-windows\.nuget\NuGet.exe restore C:\projects\smoksmog-windows\SmokSmog.vs2015.sln 
+    C:\projects\smoksmog-windows\.nuget\NuGet.exe restore C:\projects\smoksmog-windows\SmokSmog.vs2015.sln > $null 2> $null
 build:
   project: SmokSmog.vs2015.sln
   parallel: true
