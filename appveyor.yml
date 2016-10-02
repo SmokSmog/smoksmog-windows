@@ -1,12 +1,13 @@
 version: 1.0.{build}.{branch}
-configuration: Release
+configuration: AppVeyor
 install:
 - ps: >-
-    Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\SmokSmog.App.UWP\SmokSmog.App.UWP_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My
+    Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\SmokSmog.App.UWP\SmokSmog.App.UWP_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My > $null 2> $null
 
-    Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\SmokSmog.App.win81\SmokSmog.App.win81_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My
+    Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\SmokSmog.App.win81\SmokSmog.App.win81_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My > $null 2> $null
 
-
+    Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\SmokSmog.Core.WinRT.Tests\SmokSmog.Core.WinRT.Tests_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My > $null 2> $null
+    
     # Install MultilingualAppToolkit.msi
 
     $msiPath = "$($env:USERPROFILE)\MultilingualAppToolkit.msi"

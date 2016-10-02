@@ -1,21 +1,20 @@
 # # AppVeyor
-$projectPath = "C:\projects\smoksmog-windows"
-$pythonPath= "C:\Python35"
-$Configuration = "Release"
-$Platform = "AnyCPU"
+# $projectPath = "C:\projects\smoksmog-windows"
+# $pythonPath= "C:\Python35"
+$Configuration = "AppVeyor"
 
 # #local
-# $projectPath = "D:\dev\Visual Studio 2015\Projects\smoksmog-windows"
-# $pythonPath= "C:\Program Files (x86)\Python35-32"
-# $Configuration = "Debug"
-# $Platform = "AnyCPU"
+$projectPath = "D:\dev\Visual Studio 2015\Projects\smoksmog-windows"
+$pythonPath= "C:\Program Files (x86)\Python35-32"
+#$Configuration = "Debug"
 
 # Setup Python and get codecov script
 $pythonScripts = "$pythonPath\Scripts"
 & "$pythonScripts\pip" install codecov > $null
 
-# Visual Studio 2015 MSTest
+# Visual Studio 2015 Tests
 $msTest = "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\MSTest.exe"
+$vsTest = "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"
 
 # Search for OpenCover in packages
 $openCoverPath = @(gci "$projectPath\packages\OpenCover*")[0]
@@ -35,14 +34,14 @@ foreach ($testProject in $testProjects) {
 
 	$file = [xml](gc $csprojPath)
 	$assemblyName = ($file.Project.PropertyGroup[0].AssemblyName)
-	$outputPath = ($file.Project.PropertyGroup | ? Condition -Like "*$Configuration|$Platform*" | select OutputPath).OutputPath
-
-	Write-Host $assemblyName
-	Write-Host $outputPath
+	$outputType = ($file.Project.PropertyGroup[0].OutputType)
+	$outputPath = "bin\$Configuration"
 
 	$testContainer = """$testProject\$outputPath\$assemblyName.dll"""
-
-	Write-Host $testContainer
+	if($outputType -ne "Library"){
+		continue
+		$testContainer = """$testProject\$outputPath\$assemblyName.exe"""
+	}
 
 	# Manual run MSTest
 	#& $msTest /noresults /noisolation /testcontainer:"$testContainer"
