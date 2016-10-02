@@ -60,5 +60,5 @@ foreach ($testProject in $testProjects) {
 		-target:$msTest `
 		-targetargs:"/noresults /noisolation /testcontainer:""$testContainer"
 
-	& "$pythonScripts\codecov" -f $outputCoverage
+	& "$pythonScripts\codecov" -f $outputCoverage -X gcov 2> $null
 }
