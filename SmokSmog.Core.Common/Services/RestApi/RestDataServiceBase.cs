@@ -53,9 +53,10 @@ namespace SmokSmog.Services.RestApi
 
         public abstract Task<IEnumerable<Station>> GetStationsAsync();
 
-        protected Task<string> GetStringAsync(string relativeUri) => GetStringAsync(new Uri(relativeUri, UriKind.Relative));
+        protected virtual async Task<string> GetStringAsync(string relativeUri)
+            => await GetStringAsync(new Uri(relativeUri, UriKind.Relative));
 
-        protected async Task<string> GetStringAsync(Uri relativeUri)
+        protected virtual async Task<string> GetStringAsync(Uri relativeUri)
         {
             try
             {

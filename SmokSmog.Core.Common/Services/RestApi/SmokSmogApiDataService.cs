@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using SmokSmog.Model;
@@ -69,38 +71,53 @@ namespace SmokSmog.Services.RestApi
 
         public override async Task<IEnumerable<Station>> GetStationsAsync()
         {
-            //Models.Stations data = null;
-
-            var stations = new List<Model.Station>();
+            var stations = new List<Station>();
 
             try
             {
-                string response = await GetStringAsync(language + "/stations");
-                response = response.Replace("null", "0");
+                Task<string> stationTask = GetStringAsync("/stations");
+                Task<string> provincesTask = GetStringAsync(language + "/provinces");
 
-                var s = JArray.Parse(response);
-
-                foreach (var item in s)
+                string stationResponse = await stationTask;
+                var stationsJArray = JArray.Parse(stationResponse);
+                // manual parse stations
+                foreach (var item in stationsJArray)
                 {
-                    var station = new Model.Station()
+                    var station = new Station()
                     {
-                        Id = item["id"].Value<int>(),
-                        Name = item["name"].Value<string>(),
+                        Id = item["id"].Value<int?>() ?? 0,
+                        Name = Regex.Replace(item["name"].Value<string>() ?? "", " {2,}", " ").Trim(),
                         Geocoordinate = new Geocoordinate()
                         {
-                            Latitude = item["lat"].Value<double>(),
-                            Longitude = item["lon"].Value<double>()
+                            Latitude = item["lat"].Value<double?>() ?? 0d,
+                            Longitude = item["lon"].Value<double?>() ?? 0d
                         },
                     };
                     stations.Add(station);
                 }
 
-                //data.Sort(
-                //    delegate (Models.Station p1, Models.Station p2)
-                //    {
-                //        return String.Compare(p1.name, p2.name);
-                //    }
-                //);
+                string provincesResponse = await provincesTask;
+                var provincesJArray = JArray.Parse(provincesResponse);
+                // get provinces information for stations
+                foreach (var province in provincesJArray)
+                {
+                    string name = province["name"].Value<string>()?.Trim();
+                    var stationsInProvince = province["stations"].Values<JToken>();
+
+                    if (stationsInProvince == null || string.IsNullOrWhiteSpace(name))
+                        continue;
+
+                    name = Regex.Replace(name, " {2,}", " ");
+
+                    foreach (var station in stationsInProvince)
+                    {
+                        int id = station["id"].Value<int?>() ?? -1;
+
+                        var st = (from s in stations where s.Id == id select s).FirstOrDefault();
+                        if (st != null)
+                            st.Province = name;
+                    }
+                }
 
                 return stations;
             }
