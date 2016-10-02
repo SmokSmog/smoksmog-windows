@@ -22,4 +22,6 @@ build:
   project: SmokSmog.vs2015.sln
   parallel: true
   verbosity: minimal
+after_test:
+  - bash <(curl -s https://codecov.io/bash)
 deploy: off
