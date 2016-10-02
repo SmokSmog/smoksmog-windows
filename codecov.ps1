@@ -2,7 +2,7 @@
 $projectPath = "C:\projects\smoksmog-windows"
 $pythonPath= "C:\Python35"
 $Configuration = "Release"
-$Platform = "x86"
+$Platform = "AnyCPU"
 
 # #local
 # $projectPath = "D:\dev\Visual Studio 2015\Projects\smoksmog-windows"
