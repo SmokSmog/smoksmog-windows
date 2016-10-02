@@ -1,11 +1,13 @@
 # # AppVeyor
-# $projectPath = "C:\projects\smoksmog-windows"
-# $pythonPath= "C:\Python35"
-$Configuration = "AppVeyor"
+$projectPath = "C:\projects\smoksmog-windows"
+$pythonPath= "C:\Python35"
 
 # #local
-$projectPath = "D:\dev\Visual Studio 2015\Projects\smoksmog-windows"
-$pythonPath= "C:\Program Files (x86)\Python35-32"
+#$projectPath = "D:\dev\Visual Studio 2015\Projects\smoksmog-windows"
+#$pythonPath= "C:\Program Files (x86)\Python35-32"
+
+# Build setup
+$Configuration = "AppVeyor"
 
 # Setup Python and get codecov script
 $pythonScripts = "$pythonPath\Scripts"
