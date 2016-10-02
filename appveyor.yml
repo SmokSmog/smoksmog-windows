@@ -23,5 +23,7 @@ build:
   parallel: true
   verbosity: minimal
 after_test:
-  - bash <(curl -s https://codecov.io/bash)
+- ps: >-
+    C:\projects\smoksmog-windows\codecov.ps1
+    
 deploy: off
