@@ -1,18 +1,23 @@
-#AppVeyor
+# # AppVeyor
 $projectPath = "C:\projects\smoksmog-windows"
-SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%
-pip install codecov
+$pythonPath= "C:\Python35"
 $Configuration = "Release"
 $Platform = "AnyCPU"
 
 # #local
 # $projectPath = "D:\dev\Visual Studio 2015\Projects\smoksmog-windows"
+# $pythonPath= "C:\Program Files (x86)\Python35-32"
 # $Configuration = "Debug"
 # $Platform = "AnyCPU"
-#
+
+# Setup Python and get codecov script
+$pythonScripts = "$pythonPath\Scripts"
+& "$pythonScripts\pip" install codecov > $null
 
 # Visual Studio 2015 MSTest
 $msTest = "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\MSTest.exe"
+
+# Search for OpenCover in packages
 $openCoverPath = @(gci "$projectPath\packages\OpenCover*")[0]
 $openCoverConsole = "$openCoverPath\tools\OpenCover.Console.exe"
 
@@ -24,28 +29,28 @@ New-Item -ItemType Directory -Force -Path $testResultsPath 2> $null > $null
 
 foreach ($testProject in $testProjects) {
 	Write-Host $testProject
-	
+
 	$csprojPath = @(gci "$testProject\*.csproj")[0]
 	Write-Host $csprojPath
-	
+
 	$file = [xml](gc $csprojPath)
 	$assemblyName = ($file.Project.PropertyGroup[0].AssemblyName)
 	$outputPath = ($file.Project.PropertyGroup | ? Condition -Like "*$Configuration|$Platform*" | select OutputPath).OutputPath
-	
+
 	Write-Host $assemblyName
 	Write-Host $outputPath
-	
+
 	$testContainer = """$testProject\$outputPath\$assemblyName.dll"""
-	
+
 	Write-Host $testContainer
-	
+
 	# Manual run MSTest
 	#& $msTest /noresults /noisolation /testcontainer:"$testContainer"
-	
+
 	$outputCoverage = """$testResultsPath\$assemblyName.coverage.xml"""
-	
+
 	Write-Host $outputCoverage
-	
+
 	& $openCoverConsole `
 		-register:user `
 		-output:$outputCoverage `
@@ -53,9 +58,7 @@ foreach ($testProject in $testProjects) {
 		"-excludebyattribute:*.ExcludeFromCodeCoverage*" `
 		-hideskipped:All `
 		-target:$msTest `
-		-targetargs:"/noresults /noisolation /testcontainer:""$testContainer" 
+		-targetargs:"/noresults /noisolation /testcontainer:""$testContainer"
 
-	codecov -f $outputCoverage
+	& "$pythonScripts\codecov" -f $outputCoverage
 }
-
-

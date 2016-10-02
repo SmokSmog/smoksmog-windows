@@ -1,4 +1,6 @@
 version: 1.0.{build}.{branch}
+platform:
+- Any CPU
 install:
 - ps: >-
     Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\SmokSmog.App.UWP\SmokSmog.App.UWP_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My
@@ -23,7 +25,5 @@ build:
   parallel: true
   verbosity: minimal
 after_test:
-- ps: >-
-    C:\projects\smoksmog-windows\codecov.ps1
-    
+- ps: C:\projects\smoksmog-windows\codecov.ps1
 deploy: off
