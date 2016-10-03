@@ -1,23 +1,32 @@
-﻿using GalaSoft.MvvmLight;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
+using GalaSoft.MvvmLight;
 
 namespace SmokSmog.Model
 {
+    public enum AirQualityEnum : int
+    {
+        VeryGood = 5,
+        Good = 4,
+        Moderate = 3,
+        Sufficient = 2,
+        Bad = 1,
+        VeryBad = 0
+    }
+
     [DataContract(Namespace = "SmokSmog.Model")]
     public class StationState : ObservableObject
     {
         private double? _aqi = null;
-
         private bool _isActive = false;
-
         private DateTime _lastCheckUtc = DateTime.MinValue;
         private DateTime _lastUpdateUtc = DateTime.MinValue;
-        private int[] _ParametersIds = new int[] { };
+        private int[] _ParametersIds = new int[0];
         private int _stationId = -1;
 
-        public StationState()
+        public StationState(int stationId)
         {
+            _stationId = stationId;
             _lastCheckUtc = DateTime.UtcNow;
         }
 
@@ -51,6 +60,12 @@ namespace SmokSmog.Model
             }
         }
 
+        public DateTime LastCheck
+        {
+            get { return LastCheckUtc.ToLocalTime(); }
+            set { LastUpdateUtc = value.ToUniversalTime(); }
+        }
+
         /// <summary>
         /// Date and Time when data was downloaded
         /// </summary>
@@ -64,6 +79,12 @@ namespace SmokSmog.Model
                 _lastCheckUtc = value;
                 RaisePropertyChanged(nameof(LastCheckUtc));
             }
+        }
+
+        public DateTime LastUpdate
+        {
+            get { return LastUpdate.ToLocalTime(); }
+            set { LastUpdate = value.ToUniversalTime(); }
         }
 
         /// <summary>
