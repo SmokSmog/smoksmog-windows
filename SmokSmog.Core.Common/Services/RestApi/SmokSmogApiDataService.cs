@@ -75,7 +75,7 @@ namespace SmokSmog.Services.RestApi
 
             try
             {
-                Task<string> stationTask = GetStringAsync("/stations");
+                Task<string> stationTask = GetStringAsync(language + "/stations");
                 Task<string> provincesTask = GetStringAsync(language + "/provinces");
 
                 string stationResponse = await stationTask;
