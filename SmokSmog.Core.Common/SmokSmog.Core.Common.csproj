@@ -42,6 +42,15 @@
     <MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
     <MultilingualFallbackLanguage>en</MultilingualFallbackLanguage>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppVeyor|AnyCPU'">
+    <OutputPath>bin\AppVeyor\</OutputPath>
+    <DefineConstants>TRACE;PORTABLE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Design\Services\DataService.cs" />
     <Compile Include="Design\Services\GeolocationService.cs" />
@@ -49,6 +58,7 @@
     <Compile Include="Exceptions\UserInterruptedException.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Globalization\LocalizedStrings.cs" />
+    <Compile Include="Model\AirQualityIndex.cs" />
     <Compile Include="Model\StationState.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -1,9 +1,24 @@
-﻿using GalaSoft.MvvmLight;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
+using GalaSoft.MvvmLight;
 
 namespace SmokSmog.Model
 {
+    public enum ParameterType
+    {
+        UNKNOWN = -1,
+
+        SO2 = 1,    // Sulphur dioxide
+        NO = 2,     // Nitrogen oxide
+        NO2 = 3,    // Nitrogen dioxide
+        CO = 4,     // Carbon monoxide
+        O3 = 5,     // Ozone
+        NOx = 6,    // Nitrogen oxides
+        PM10 = 7,   // Particulate matter
+        PM25 = 8,   // Particulate matter
+        C6H6 = 11,  // Benzene
+    }
+
     [DataContract(Namespace = "SmokSmog.Model")]
     public partial class Parameter : ObservableObject, IComparable<int>
     {
@@ -21,8 +36,9 @@ namespace SmokSmog.Model
 
         private string _unit = Resources.AppResources.StringUnknown;
 
-        public Parameter() : base()
+        public Parameter(int id) : base()
         {
+            _id = id;
         }
 
         /// <summary>
@@ -47,7 +63,7 @@ namespace SmokSmog.Model
         public int Id
         {
             get { return _id; }
-            set
+            private set
             {
                 if (_id == value) return;
                 _id = value;
@@ -116,6 +132,16 @@ namespace SmokSmog.Model
                 if (_shortName == value) return;
                 _shortName = value;
                 RaisePropertyChanged(nameof(ShortName));
+            }
+        }
+
+        public ParameterType Type
+        {
+            get
+            {
+                if (Enum.IsDefined(typeof(ParameterType), _id))
+                    return (ParameterType)_id;
+                return ParameterType.UNKNOWN;
             }
         }
 
