@@ -1,14 +1,12 @@
-﻿using GalaSoft.MvvmLight;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
+using GalaSoft.MvvmLight;
 
 namespace SmokSmog.Model
 {
     [DataContract(Namespace = "SmokSmog.Model")]
     public partial class Measurement : ObservableObject
     {
-        private double? _aqi = null;
-
         private DateTime _date = DateTime.MinValue;
 
         private int _parameterId = -1;
@@ -22,17 +20,7 @@ namespace SmokSmog.Model
         /// <summary>
         /// Air Quality Index value
         /// </summary>
-        [DataMember]
-        public double? Aqi
-        {
-            get { return _aqi; }
-            set
-            {
-                if (_aqi == value) return;
-                _aqi = value;
-                RaisePropertyChanged(nameof(Aqi));
-            }
-        }
+        public AirQualityIndex Aqi => AirQualityIndex.CalculateAirQualityIndex((ParameterType)_parameterId, Value);
 
         /// <summary>
         /// Date and time of Measurement
@@ -114,6 +102,7 @@ namespace SmokSmog.Model
                 if (_value == value) return;
                 _value = value;
                 RaisePropertyChanged(nameof(Value));
+                RaisePropertyChanged(nameof(Aqi));
             }
         }
 

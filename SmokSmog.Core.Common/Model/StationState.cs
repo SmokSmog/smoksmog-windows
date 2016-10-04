@@ -4,16 +4,6 @@ using GalaSoft.MvvmLight;
 
 namespace SmokSmog.Model
 {
-    public enum AirQualityEnum : int
-    {
-        VeryGood = 5,
-        Good = 4,
-        Moderate = 3,
-        Sufficient = 2,
-        Bad = 1,
-        VeryBad = 0
-    }
-
     [DataContract(Namespace = "SmokSmog.Model")]
     public class StationState : ObservableObject
     {
