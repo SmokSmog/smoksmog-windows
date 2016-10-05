@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SmokSmog.Services.RestApi
 {
     public interface IDataService
     {
+        /// <summary>
+        /// Unique Identification number of service 
+        /// </summary>
+        Guid Id { get; }
+
         string Name { get; }
 
         IEnumerable<Model.Measurement> GetStationMeasurements(int stationId);

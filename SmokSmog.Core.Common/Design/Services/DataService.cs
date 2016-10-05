@@ -8,6 +8,8 @@ namespace SmokSmog.Design.Services
 {
     public class DataService : IDataService
     {
+        public Guid Id { get; } = new Guid("{5FC2BA10-542B-4D61-A328-C5E78BED0E09}");
+
         public string Name => "Design Time DataService";
 
         public List<StationState> GetStationInfo(IEnumerable<int> stationIds)

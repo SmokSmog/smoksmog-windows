@@ -35,6 +35,8 @@ namespace SmokSmog.Services.RestApi
 
         public abstract string Name { get; }
 
+        public abstract Guid Id { get; }
+
         public abstract List<StationState> GetStationInfo(IEnumerable<int> stationIds);
 
         public abstract StationState GetStationInfo(int stationId);

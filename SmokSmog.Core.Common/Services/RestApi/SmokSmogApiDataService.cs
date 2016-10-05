@@ -16,6 +16,8 @@ namespace SmokSmog.Services.RestApi
         {
         }
 
+        public override Guid Id { get; } = new Guid("2A0E0002-CDD2-484F-A4DA-2B2973D8BC33");
+
         public override string Name => "SmokSmog REST API";
 
         private string language

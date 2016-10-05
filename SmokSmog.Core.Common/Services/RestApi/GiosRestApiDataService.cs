@@ -15,6 +15,8 @@ namespace SmokSmog.Services.RestApi
         {
         }
 
+        public override Guid Id { get; } = new Guid("DE31CB91-5FAE-4C2A-A1D9-70AA3DAA0190");
+
         public override string Name => "GIOS REST API";
 
         public override StationState GetStationInfo(int stationId)
