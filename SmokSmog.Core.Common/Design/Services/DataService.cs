@@ -47,7 +47,7 @@ namespace SmokSmog.Design.Services
             throw new NotImplementedException();
         }
 
-        public ICollection<Station> GetStations()
+        public IEnumerable<Station> GetStations()
         {
             return new List<Station>()
                 {
@@ -65,7 +65,7 @@ namespace SmokSmog.Design.Services
 
 #pragma warning disable 1998
 
-        public async Task<ICollection<Station>> GetStationsAsync()
+        public async Task<IEnumerable<Station>> GetStationsAsync()
         {
             return GetStations();
         }
@@ -86,16 +86,6 @@ namespace SmokSmog.Design.Services
         }
 
         Task<IEnumerable<Parameter>> IDataService.GetStationParticulatesAsync(int stationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<Station> IDataService.GetStations()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<Station>> IDataService.GetStationsAsync()
         {
             throw new NotImplementedException();
         }

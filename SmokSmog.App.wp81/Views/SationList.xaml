@@ -140,15 +140,6 @@
                          Fill="{Binding AQI,
                                         Converter={StaticResource AqiIntToBrushValueConverter}}" />
 
-                <Image Grid.RowSpan="2"
-                       Width="42"
-                       Height="42"
-                       Margin="6"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Source="{Binding AQI,
-                                        Converter={StaticResource AqiIntToImageValueConverter}}" />
-
                 <TextBlock Grid.Column="0"
                            HorizontalAlignment="Right"
                            FontFamily="Segoe UI Symbol"
