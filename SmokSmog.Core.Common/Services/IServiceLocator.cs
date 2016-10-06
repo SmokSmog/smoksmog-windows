@@ -1,5 +1,5 @@
-﻿using SmokSmog.Services.Geolocation;
-using SmokSmog.Services.RestApi;
+﻿using SmokSmog.Services.DataService;
+using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Storage;
 
 namespace SmokSmog.Services

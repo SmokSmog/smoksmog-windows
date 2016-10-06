@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmokSmog.Services.RestApi
+namespace SmokSmog.Services.DataService
 {
     public interface IDataService
     {

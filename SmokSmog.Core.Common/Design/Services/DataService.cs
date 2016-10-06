@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SmokSmog.Model;
-using SmokSmog.Services.RestApi;
+using SmokSmog.Services.DataService;
 
 namespace SmokSmog.Design.Services
 {

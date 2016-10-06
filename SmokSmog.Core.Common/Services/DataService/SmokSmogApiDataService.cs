@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using SmokSmog.Model;
 using SmokSmog.Services.Storage;
 
-namespace SmokSmog.Services.RestApi
+namespace SmokSmog.Services.DataService
 {
     public class SmokSmogApiDataService : RestDataServiceBase
     {

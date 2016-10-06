@@ -12,11 +12,8 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using SmokSmog.Services.Geolocation;
-using SmokSmog.Services.RestApi;
 
 namespace SmokSmog.ViewModel
 {
@@ -31,17 +28,6 @@ namespace SmokSmog.ViewModel
         /// </summary>
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                SimpleIoc.Default.Register<IDataService, Design.Services.DataService>();
-                SimpleIoc.Default.Register<IGeolocationService, Design.Services.GeolocationService>();
-            }
-            else
-            {
-            }
-
             SimpleIoc.Default.Register<StationListViewModel>();
         }
 

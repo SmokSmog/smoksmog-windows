@@ -5,21 +5,9 @@ namespace SmokSmog.Services.Storage
 {
     public class SettingService : ISettingsService
     {
-        public string Language
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string Language => System.Globalization.CultureInfo.CurrentUICulture.NativeName;
 
-        public string LanguageCode
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string LanguageCode => System.Globalization.CultureInfo.CurrentUICulture.Name;
 
         public T GetSetting<T>(string key)
         {

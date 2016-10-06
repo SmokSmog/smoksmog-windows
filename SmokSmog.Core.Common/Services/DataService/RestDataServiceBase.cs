@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using SmokSmog.Model;
 using SmokSmog.Services.Storage;
 
-namespace SmokSmog.Services.RestApi
+namespace SmokSmog.Services.DataService
 {
     public abstract class RestDataServiceBase : IDataService
     {

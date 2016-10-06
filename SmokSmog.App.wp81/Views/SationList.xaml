@@ -61,7 +61,7 @@
             </Border>
         </DataTemplate>
 
-        <GroupStyle x:Name="ListViewGroupStyle">
+        <!--<GroupStyle x:Name="ListViewGroupStyle">
             <GroupStyle.HeaderContainerStyle>
                 <Style TargetType="ListViewHeaderItem">
                     <Setter Property="Margin" Value="0" />
@@ -97,7 +97,9 @@
                     </Border>
                 </DataTemplate>
             </GroupStyle.HeaderTemplate>
-        </GroupStyle>
+
+            <GroupStyle.HidesIfEmpty>True</GroupStyle.HidesIfEmpty>
+        </GroupStyle>-->
 
         <DataTemplate x:Key="StationListGrouppedListViewTemplate" x:Name="StationListGrouppedListViewTemplate">
 
@@ -127,30 +129,34 @@
 
                 <Rectangle Grid.RowSpan="2"
                            Grid.ColumnSpan="4"
-                           Width="1000"
+                           Width="600"
                            Fill="#00000001" />
 
-                <Ellipse x:Name="Ellipse"
-                         Grid.RowSpan="2"
-                         Width="32"
-                         Height="32"
-                         Margin="6"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Fill="{Binding AQI,
-                                        Converter={StaticResource AqiIntToBrushValueConverter}}" />
+                <Viewbox Grid.RowSpan="2"
+                         Width="5"
+                         Stretch="Fill">
 
-                <TextBlock Grid.Column="0"
+                    <Rectangle x:Name="Ellipse"
+                               Grid.RowSpan="2"
+                               Width="24"
+                               Height="24"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Fill="{Binding AQI,
+                                              Converter={StaticResource AqiIntToBrushValueConverter}}" />
+                </Viewbox>
+
+                <!--<TextBlock Grid.Column="0"
                            HorizontalAlignment="Right"
                            FontFamily="Segoe UI Symbol"
                            FontSize="15"
                            Text="&#xE1CF;"
                            Visibility="{Binding IsFavorite,
-                                                Converter={StaticResource BooleanToVisabilityValueConverter}}" />
+                                                Converter={StaticResource BooleanToVisabilityValueConverter}}" />-->
 
                 <TextBlock Grid.Column="1"
-                           Margin="12,6,0,0"
-                           FontSize="15"
+                           Margin="12,3,0,0"
+                           FontSize="18"
                            FontWeight="Bold"
                            Style="{ThemeResource BaseTextBlockStyle}"
                            Text="{Binding Name}" />
@@ -158,7 +164,7 @@
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
                            Margin="12,0,0,6"
-                           FontSize="14"
+                           FontSize="12"
                            Style="{ThemeResource BaseTextBlockStyle}"
                            Text="{Binding Province}" />
             </Grid>
@@ -373,7 +379,7 @@
                         <Run Foreground="{ThemeResource PhoneAccentBrush}" Text="{Binding Path=CurrentStationGroupingMode, Converter={StaticResource StationGroupingModeEnumToString}}" />
                     </TextBlock.Inlines>
 
-                    <FlyoutBase.AttachedFlyout>
+                    <!--<FlyoutBase.AttachedFlyout>
                         <ListPickerFlyout ItemsSource="{Binding StationGroupingModeList}"
                                           Placement="Top"
                                           SelectedItem="{Binding Path=CurrentStationGroupingMode,
@@ -385,7 +391,7 @@
                                 </DataTemplate>
                             </ListPickerFlyout.ItemTemplate>
                         </ListPickerFlyout>
-                    </FlyoutBase.AttachedFlyout>
+                    </FlyoutBase.AttachedFlyout>-->
                 </TextBlock>
             </StackPanel>
 
@@ -446,11 +452,44 @@
                               Style="{StaticResource SmokSmogListViewStyle}">
 
                         <ListView.GroupStyle>
-                            <GroupStyle HeaderContainerStyle="{Binding Path=HeaderContainerStyle,
-                                                                       Source={StaticResource ListViewGroupStyle}}"
-                                        HeaderTemplate="{Binding Path=HeaderTemplate,
-                                                                 Source={StaticResource ListViewGroupStyle}}"
-                                        HidesIfEmpty="True" />
+                            <GroupStyle HidesIfEmpty="True">
+                                <GroupStyle.HeaderContainerStyle>
+                                    <Style TargetType="ListViewHeaderItem">
+                                        <Setter Property="Margin" Value="0" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListViewHeaderItem">
+                                                    <Border Background="Transparent" Padding="0">
+                                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                          Content="{TemplateBinding Content}"
+                                                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                          ContentTransitions="{TemplateBinding ContentTransitions}" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GroupStyle.HeaderContainerStyle>
+
+                                <GroupStyle.HeaderTemplate>
+
+                                    <DataTemplate>
+                                        <Border Height="48"
+                                                Margin="0"
+                                                Background="Transparent"
+                                                Padding="0">
+
+                                            <TextBlock Margin="10,0,0,0"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="32"
+                                                       Padding="0"
+                                                       Text="{Binding Path=Key}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
                         </ListView.GroupStyle>
                     </ListView>
                 </SemanticZoom.ZoomedInView>
