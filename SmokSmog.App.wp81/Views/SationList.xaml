@@ -260,10 +260,13 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid>
+        
+        
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="50" />
@@ -282,6 +285,7 @@
                                  VerticalAlignment="Top"
                                  IsIndeterminate="True"
                                  Padding="0" />
+
                     <TextBlock Margin="0,15,0,0" Text="{Binding Path=GeolocationNotyficationText}" />
 
                     <Button Width="50"
