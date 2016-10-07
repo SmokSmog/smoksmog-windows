@@ -1,17 +1,17 @@
 ﻿/*
 
-Included as link to librarys implemented interfaces
+Included as link to library implemented interfaces
 
 */
 
 #if !PORTABLE
 
+using System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using SmokSmog.Services.DataService;
 using SmokSmog.Services.Geolocation;
-using SmokSmog.Services.RestApi;
 using SmokSmog.Services.Storage;
-using System;
 
 namespace SmokSmog.Services
 {

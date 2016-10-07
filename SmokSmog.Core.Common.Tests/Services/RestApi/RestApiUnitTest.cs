@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SmokSmog.Services.RestApi;
+using SmokSmog.Services.DataService;
 using SmokSmog.Services.Storage;
 
 namespace SmokSmog.Core.Common.Tests.Services.RestApi

@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 using SmokSmog.Model;
 using SmokSmog.Services.Storage;
 
-namespace SmokSmog.Services.RestApi
+namespace SmokSmog.Services.DataService
 {
     public class GiosRestApiDataService : RestDataServiceBase
     {
@@ -14,6 +14,8 @@ namespace SmokSmog.Services.RestApi
             base(settingsService, @"http://powietrze.gios.gov.pl/pjp/rest/")
         {
         }
+
+        public override Guid Id { get; } = new Guid("DE31CB91-5FAE-4C2A-A1D9-70AA3DAA0190");
 
         public override string Name => "GIOS REST API";
 

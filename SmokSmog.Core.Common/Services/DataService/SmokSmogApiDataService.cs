@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using SmokSmog.Model;
 using SmokSmog.Services.Storage;
 
-namespace SmokSmog.Services.RestApi
+namespace SmokSmog.Services.DataService
 {
     public class SmokSmogApiDataService : RestDataServiceBase
     {
@@ -15,6 +15,8 @@ namespace SmokSmog.Services.RestApi
             : base(settingsService, "http://api.smoksmog.jkostrz.name")
         {
         }
+
+        public override Guid Id { get; } = new Guid("2A0E0002-CDD2-484F-A4DA-2B2973D8BC33");
 
         public override string Name => "SmokSmog REST API";
 

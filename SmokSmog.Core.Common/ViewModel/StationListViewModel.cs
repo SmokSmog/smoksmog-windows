@@ -1,13 +1,13 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using SmokSmog.Extensions;
-using SmokSmog.Services.Geolocation;
-using SmokSmog.Services.RestApi;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using SmokSmog.Extensions;
+using SmokSmog.Services.DataService;
+using SmokSmog.Services.Geolocation;
 
 namespace SmokSmog.ViewModel
 {
@@ -29,7 +29,7 @@ namespace SmokSmog.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public StationListViewModel(IGeolocationService geolocationService, IDataService dataService)
+        public StationListViewModel(IDataService dataService, IGeolocationService geolocationService)
         {
             //if (IsInDesignMode) { /* Code runs in Blend --> create design time data. */ }
 
@@ -337,11 +337,8 @@ namespace SmokSmog.ViewModel
                         }
                         return (from pair in dictionary
                                 orderby pair.Key
-                                select new SmokSmog.Linq.GroupingStation()
-                                {
-                                    Key = pair.Key,
-                                    Items = (from s in pair.Value orderby s.City + s.Address select s).ToList()
-                                }).ToList();
+                                select new SmokSmog.Linq.GroupingStation(
+                                    pair.Key, (from s in pair.Value orderby s.City + s.Address select s))).ToList();
 
                     case StationGroupingModeEnum.Province:
                         // grouping and sort by province and then by city and adress
@@ -354,11 +351,9 @@ namespace SmokSmog.ViewModel
                         }
                         return (from pair in dictionary
                                 orderby pair.Key
-                                select new SmokSmog.Linq.GroupingStation()
-                                {
-                                    Key = pair.Key,
-                                    Items = (from s in pair.Value orderby s.City + s.Address select s).ToList()
-                                }).ToList();
+                                select new SmokSmog.Linq.GroupingStation(
+                                    pair.Key,
+                                    from s in pair.Value orderby s.City + s.Address select s)).ToList();
 
                     case StationGroupingModeEnum.Name:
                     default:
@@ -377,11 +372,10 @@ namespace SmokSmog.ViewModel
                         }
                         return (from pair in dictionary
                                 orderby pair.Key
-                                select new SmokSmog.Linq.GroupingStation()
-                                {
-                                    Key = pair.Key,
-                                    Items = (from s in pair.Value orderby s.Name select s).ToList()
-                                }).ToList();
+                                select new SmokSmog.Linq.GroupingStation(
+                                    pair.Key,
+                                    from s in pair.Value orderby s.Name select s)
+                                ).ToList();
                 }
 
                 #endregion Grouping Logic

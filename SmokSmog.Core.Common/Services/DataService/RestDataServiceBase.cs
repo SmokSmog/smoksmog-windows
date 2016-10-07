@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using SmokSmog.Model;
 using SmokSmog.Services.Storage;
 
-namespace SmokSmog.Services.RestApi
+namespace SmokSmog.Services.DataService
 {
     public abstract class RestDataServiceBase : IDataService
     {
@@ -34,6 +34,8 @@ namespace SmokSmog.Services.RestApi
         }
 
         public abstract string Name { get; }
+
+        public abstract Guid Id { get; }
 
         public abstract List<StationState> GetStationInfo(IEnumerable<int> stationIds);
 

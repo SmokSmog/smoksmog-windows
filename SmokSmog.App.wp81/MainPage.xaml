@@ -11,8 +11,6 @@
       xmlns:local="using:SmokSmog"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       x:Name="_This"
-      d:DataContext="{Binding Path=StationList,
-                              Source={StaticResource Locator}}"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       RequestedTheme="Light"
       mc:Ignorable="d">
@@ -34,42 +32,6 @@
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot" RequestedTheme="Light">
-
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateGroup">
-                <VisualState x:Name="Small">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="MinWidth">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
-                        </ObjectAnimationUsingKeyFrames>
-
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrameXaml" Storyboard.TargetProperty="Margin">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="0,0,0,0" />
-                        </ObjectAnimationUsingKeyFrames>
-
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-                <VisualState x:Name="Default">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="MinWidth">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmokSmogMenuButtonWidth}" />
-                        </ObjectAnimationUsingKeyFrames>
-
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrameXaml" Storyboard.TargetProperty="Margin">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="60,0,0,0" />
-                        </ObjectAnimationUsingKeyFrames>
-
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -294,5 +256,40 @@
                 </StackPanel>
             </Grid>
         </Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Small">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="MinWidth">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrameXaml" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0,0,0,0" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Default">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="MinWidth">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmokSmogMenuButtonWidth}" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrameXaml" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="60,0,0,0" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

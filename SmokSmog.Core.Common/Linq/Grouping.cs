@@ -1,50 +1,64 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using GalaSoft.MvvmLight;
 
 namespace SmokSmog.Linq
 {
-    public class Grouping<TKey, TElement> : System.Linq.IGrouping<TKey, TElement>
+    public class Grouping<TKey, TElement> : ObservableObject, System.Linq.IGrouping<TKey, TElement>
     {
-        private TKey _key;
+        private ObservableCollection<TElement> _items = new ObservableCollection<TElement>();
 
-        public TKey Key
+        private TKey _key = default(TKey);
+
+        public Grouping(TKey key)
         {
-            get { return _key; }
-            set { _key = value; }
+            Key = key;
         }
 
-        private bool? _isEmpty = null;
-
-        public bool IsEmpty
+        public Grouping(TKey key, IEnumerable<TElement> items)
+            : this(key)
         {
-            get
-            {
-                if (!_isEmpty.HasValue)
-                    _isEmpty = Items.Count <= 0;
-                return _isEmpty.Value;
-            }
+            Items = new ObservableCollection<TElement>(items);
         }
 
-        private IList<TElement> _items = new List<TElement>();
+        public bool IsEmpty => !Items?.Any() ?? true;
 
-        public IList<TElement> Items
+        public ObservableCollection<TElement> Items
         {
             get { return _items; }
             set
             {
                 _items = value;
-                _isEmpty = Items.Count <= 0;
+                RaisePropertyChanged(nameof(Items));
+            }
+        }
+
+        public TKey Key
+        {
+            get { return _key; }
+            set
+            {
+                if (_key != null && _key.Equals(value)) return;
+                _key = value;
+                RaisePropertyChanged(nameof(Key));
             }
         }
 
         public IEnumerator<TElement> GetEnumerator()
         {
-            return Items.GetEnumerator();
+            return Items?.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return Items.GetEnumerator();
+            return Items?.GetEnumerator();
+        }
+
+        public override string ToString()
+        {
+            return Key.ToString();
         }
     }
 }
