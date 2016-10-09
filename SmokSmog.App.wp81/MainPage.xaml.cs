@@ -37,6 +37,9 @@ namespace SmokSmog
             var page = ContentFrame.Content as Page;
             var viewModel = page?.DataContext;
             var searchable = viewModel as ISearchable;
+
+            SearchEnable = searchable != null;
+            SetSearchStatus();
         }
 
         private void page_Loaded(object sender, RoutedEventArgs e)
@@ -53,6 +56,7 @@ namespace SmokSmog
         private void MainPage_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
         {
             VisualStateManager.GoToState(this, GetState(e.NewSize.Width), true);
+            SetSearchStatus();
         }
 
         private string GetState(double width)
@@ -84,6 +88,44 @@ namespace SmokSmog
         public Frame ContentFrame
         {
             get { return ContentFrameXaml; }
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetSearchStatus(true);
+        }
+
+        private bool SearchEnable = false;
+
+        private void SetSearchStatus(bool open = false)
+        {
+            var stateBefore = SearchVisualStateGroup.CurrentState?.Name;
+
+            if (!SearchEnable)
+            {
+                SearchTextBox.Text = string.Empty;
+                VisualStateManager.GoToState(this, "DisableSearchState", true);
+                return;
+            }
+
+            if ((SearchTextBox.FocusState == FocusState.Unfocused && string.IsNullOrWhiteSpace(SearchTextBox.Text)) && !open)
+            {
+                VisualStateManager.GoToState(this, "ClosedSearchState", true);
+                return;
+            }
+
+            if (ActualWidth > 520)
+                VisualStateManager.GoToState(this, "WideSearchState", true);
+            else
+                VisualStateManager.GoToState(this, "NarrowSearchState", true);
+
+            if (stateBefore != "WideSearchState" && stateBefore != "NarrowSearchState")
+                SearchTextBox.Focus(FocusState.Keyboard);
+        }
+
+        private void SearchRoot_LostFocus(object sender, RoutedEventArgs e)
+        {
+            SetSearchStatus();
         }
     }
 }
