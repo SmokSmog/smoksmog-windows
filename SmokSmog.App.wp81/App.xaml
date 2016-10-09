@@ -11,10 +11,8 @@
     <!--  Windows Phone 8.1  -->
     <Application.Resources>
         <ResourceDictionary>
-            <viewmodel:ViewModelLocator x:Key="Locator"
-                                        x:Name="Locator"
-                                        d:IsDataSource="True" />
-            <globalization:LocalizedStrings x:Key="LocalizedStrings" />
+            <viewmodel:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+            <globalization:LocalizedStrings x:Key="LocalizedStrings" d:IsDataSource="True" />
             <ResourceDictionary.MergedDictionaries>
                 <!--<ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
                 <!--<ResourceDictionary Source="/SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->

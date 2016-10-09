@@ -72,6 +72,9 @@
     </Compile>
     <Compile Include="Services\DataService\RestDataServiceBase.cs" />
     <Compile Include="Services\DataService\GiosRestApiDataService.cs" />
+    <Compile Include="Services\Search\ISearchable.cs" />
+    <Compile Include="Services\Search\SearchQuerry.cs" />
+    <Compile Include="Services\Search\SearchSettings.cs" />
     <Compile Include="Xaml\Data\Array.cs" />
     <Compile Include="Xaml\Data\ArrayItem.cs" />
     <Compile Include="Xaml\Data\ValueConverters\AqiIntToImage.cs" />

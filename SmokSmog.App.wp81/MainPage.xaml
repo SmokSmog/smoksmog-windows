@@ -20,15 +20,15 @@
     </Page.BottomAppBar>-->
 
     <Page.Resources>
-        <x:Double x:Key="SmokSmogMenuButtonWidth">60</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonHeight">60</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonWidth">50</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonHeight">50</x:Double>
         <FontFamily x:Key="SmokSmogMenuButtonIconFontFamily">/Assets/Fonts/SEGMDL2.TTF#Segoe MDL2 Assets</FontFamily>
-        <x:Double x:Key="SmokSmogMenuButtonIconFontSize">25</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonTextFontSize">24</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonTextBlockWidth">240</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonIconFontSize">22</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonTextFontSize">20</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonTextBlockWidth">220</x:Double>
 
-        <Thickness x:Key="SmokSmogContentMargin">60,0,0,0</Thickness>
-        <GridLength x:Key="SmokSmogMenuButtonWidthGl">60</GridLength>
+        <Thickness x:Key="SmokSmogContentMargin">50,0,0,0</Thickness>
+        <GridLength x:Key="SmokSmogMenuButtonWidthGl">50</GridLength>
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot" RequestedTheme="Light">
@@ -40,9 +40,19 @@
         <!--  Page Header  -->
         <Grid x:Name="HeaderPanel">
 
-            <StackPanel Margin="{StaticResource SmokSmogContentMargin}" Orientation="Horizontal">
-                <Border Width="50"
-                        Height="50"
+            <Grid Margin="{StaticResource SmokSmogContentMargin}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Border Width="{StaticResource SmokSmogMenuButtonWidth}"
+                        Height="{StaticResource SmokSmogMenuButtonHeight}"
                         Margin="5,0,0,0"
                         HorizontalAlignment="Left">
                     <Viewbox Width="40" Height="40">
@@ -53,15 +63,87 @@
                     </Viewbox>
                 </Border>
 
+                <Grid Grid.Column="1"
+                      MinWidth="300"
+                      MaxWidth="350"
+                      HorizontalAlignment="Stretch">
+
+                    <!--<StackPanel Margin="0,0,10,0"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                        <Button Width="40"
+                                Height="40"
+                                MinWidth="40"
+                                MinHeight="40"
+                                MaxWidth="40"
+                                MaxHeight="40"
+                                Content="&#x2715;"
+                                FontFamily="Segoe UI Symbol"
+                                FontSize="15"
+                                Style="{StaticResource SmokSmogButtonStyle}" />
+
+                        <Button Width="40"
+                                Height="40"
+                                MinWidth="40"
+                                MinHeight="40"
+                                MaxWidth="40"
+                                MaxHeight="40"
+                                BorderThickness="0"
+                                Content="&#xE1D2;"
+                                FontFamily="Segoe UI Symbol"
+                                FontSize="15"
+                                Style="{StaticResource SmokSmogButtonStyle}" />
+                    </StackPanel>-->
+
+                    <!--<StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="Localizing ..." Margin="10,-10,10,0" />
+                        <ProgressBar Height="5"
+                                     Margin="10,0,45,0"
+                                     IsIndeterminate="True"
+                                     Padding="0" />
+                    </StackPanel>-->
+
+                    <!--<TextBox Grid.Column="1"
+                             Margin="10,0"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Center"
+                             Background="Transparent"
+                             BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"
+                             Padding="7,1,40,0"
+                             PlaceholderText="{Binding LocalizedResources.StringSearch,
+                                                       Source={StaticResource LocalizedStrings}}"
+                             RequestedTheme="Light" />-->
+                </Grid>
+
                 <TextBlock x:Name="ApplicationTitle"
+                           Grid.Column="1"
                            Margin="5,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontFamily="Segoe UI"
                            FontSize="30"
+                           Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
                            Text="{Binding LocalizedResources.ApplicationTitle,
                                           Source={StaticResource LocalizedStrings}}" />
-            </StackPanel>
+
+                <Button Grid.Column="2"
+                        Width="{StaticResource SmokSmogMenuButtonWidth}"
+                        Height="{StaticResource SmokSmogMenuButtonHeight}"
+                        MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
+                        MinHeight="{StaticResource SmokSmogMenuButtonHeight}"
+                        MaxWidth="{StaticResource SmokSmogMenuButtonWidth}"
+                        MaxHeight="{StaticResource SmokSmogMenuButtonHeight}"
+                        HorizontalAlignment="Right"
+                        BorderThickness="0"
+                        Style="{StaticResource SmokSmogButtonStyle}">
+
+                    <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
+                              Height="{StaticResource SmokSmogMenuButtonHeight}"
+                              FontFamily="{StaticResource SmokSmogMenuButtonIconFontFamily}"
+                              FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                              Glyph="&#xE11A;" />
+                </Button>
+            </Grid>
             <Border Margin="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
@@ -121,11 +203,10 @@
                         <ic:ChangePropertyAction PropertyName="IsChecked"
                                                  TargetObject="{Binding ElementName=MenuButtonHamburger}"
                                                  Value="False" />
-                -->
-                <!--<ic:ChangePropertyAction PropertyName="Width"
+
+                <ic:ChangePropertyAction PropertyName="Width"
                                                  TargetObject="{Binding ElementName=RightSideMenuGrid}"
-                                                 Value="0" />-->
-                <!--
+                                                 Value="0" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>-->
 
@@ -147,7 +228,7 @@
                                 <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
                                            VerticalAlignment="Center"
                                            FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
-                                           Text="{Binding LocalizedResources.StringHomeStation,
+                                           Text="{Binding Path=LocalizedResources.StringHomeStation,
                                                           Source={StaticResource LocalizedStrings},
                                                           Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                             </StackPanel>
@@ -258,7 +339,7 @@
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateGroup">
+            <VisualStateGroup>
                 <VisualState x:Name="Small">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="MinWidth">

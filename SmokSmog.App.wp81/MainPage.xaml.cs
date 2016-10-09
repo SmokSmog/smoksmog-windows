@@ -1,4 +1,5 @@
-﻿using Windows.UI.ViewManagement;
+﻿using SmokSmog.Services.Search;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -21,6 +22,21 @@ namespace SmokSmog
 
             this.Loaded += page_Loaded;
             this.Unloaded += page_Unloaded;
+            ContentFrame.Navigated += ContentFrame_Navigated;
+        }
+
+        private void ContentFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            var content = ContentFrame.Content;
+            var contentString = content?.ToString();
+        }
+
+        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            // check if ViewModel is search-able
+            var page = ContentFrame.Content as Page;
+            var viewModel = page?.DataContext;
+            var searchable = viewModel as ISearchable;
         }
 
         private void page_Loaded(object sender, RoutedEventArgs e)
