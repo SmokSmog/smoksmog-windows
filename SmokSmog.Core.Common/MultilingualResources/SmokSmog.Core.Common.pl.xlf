@@ -74,6 +74,10 @@
           <source>Unknown</source>
           <target state="translated">Nieznany</target>
         </trans-unit>
+        <trans-unit id="StringDeterminingLocation" translate="yes" xml:space="preserve">
+          <source>Determining location</source>
+          <target state="translated">Ustalanie lokalizacji</target>
+        </trans-unit>
       </group>
     </body>
   </file>

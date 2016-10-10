@@ -110,24 +110,38 @@
                                 Style="{StaticResource SmokSmogButtonStyle}" />
                     </StackPanel>-->
 
-                    <!--<StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                        <TextBlock Text="Localizing ..." Margin="10,-10,10,0" />
-                        <ProgressBar Height="5"
-                                     Margin="10,0,45,0"
-                                     IsIndeterminate="True"
-                                     Padding="0" />
-                    </StackPanel>-->
-
                     <TextBox x:Name="SearchTextBox"
                              Margin="10,0"
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Center"
                              Background="Transparent"
                              BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"
-                             Padding="7,1,40,0"
+                             Padding="7,3,40,0"
                              PlaceholderText="{Binding LocalizedResources.StringSearch,
                                                        Source={StaticResource LocalizedStrings}}"
                              RequestedTheme="Light" />
+
+                    <StackPanel HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+
+                        <!--<Viewbox Width="30" Height="30" Stretch="UniformToFill">
+                        <ProgressRing Width="60"
+                                      Height="60"
+                                      Margin="0,0,0,0"
+                                      HorizontalAlignment="Left"
+                                      IsActive="True"
+                                      Padding="0" />
+                        </Viewbox>-->
+
+                        <TextBlock Margin="10,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="15"
+                                   Padding="0"
+                                   Text="Determining location" />
+
+                        <ProgressBar Margin="10,0" IsIndeterminate="True" />
+                    </StackPanel>
                 </Grid>
 
                 <Button x:Name="SearchButton"

@@ -132,6 +132,9 @@
   <data name="StringAddToFavorites" xml:space="preserve">
     <value>Add to Favorites</value>
   </data>
+  <data name="StringDeterminingLocation" xml:space="preserve">
+    <value>Determining location</value>
+  </data>
   <data name="StringFavorite" xml:space="preserve">
     <value>favorite</value>
   </data>

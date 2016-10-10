@@ -84,7 +84,9 @@ namespace SmokSmog.ViewModel
 
         private async void LoadStationListBase()
         {
-            BaseStationsList = (await _dataService.GetStationsAsync()).ToList();
+            //TODO make catch and retry 3 times then when it fails return message
+            var result = await _dataService.GetStationsAsync();
+            BaseStationsList = result?.ToList() ?? new List<Model.Station>();
         }
 
         #endregion Base Station List
