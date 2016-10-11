@@ -9,6 +9,7 @@
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:local="using:SmokSmog"
+      xmlns:controls="using:SmokSmog.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       x:Name="_This"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -83,65 +84,7 @@
                       LostFocus="SearchRoot_LostFocus"
                       Visibility="Visible">
 
-                    <!--<StackPanel Margin="0,0,10,0"
-                                HorizontalAlignment="Right"
-                                Orientation="Horizontal">
-                        <Button Width="40"
-                                Height="40"
-                                MinWidth="40"
-                                MinHeight="40"
-                                MaxWidth="40"
-                                MaxHeight="40"
-                                Content="&#x2715;"
-                                FontFamily="Segoe UI Symbol"
-                                FontSize="15"
-                                Style="{StaticResource SmokSmogButtonStyle}" />
-
-                        <Button Width="40"
-                                Height="40"
-                                MinWidth="40"
-                                MinHeight="40"
-                                MaxWidth="40"
-                                MaxHeight="40"
-                                BorderThickness="0"
-                                Content="&#xE1D2;"
-                                FontFamily="Segoe UI Symbol"
-                                FontSize="15"
-                                Style="{StaticResource SmokSmogButtonStyle}" />
-                    </StackPanel>-->
-
-                    <TextBox x:Name="SearchTextBox"
-                             Margin="10,0"
-                             HorizontalAlignment="Stretch"
-                             VerticalAlignment="Center"
-                             Background="Transparent"
-                             BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"
-                             Padding="7,3,40,0"
-                             PlaceholderText="{Binding LocalizedResources.StringSearch,
-                                                       Source={StaticResource LocalizedStrings}}"
-                             RequestedTheme="Light" />
-
-                    <StackPanel HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Orientation="Vertical">
-
-                        <!--<Viewbox Width="30" Height="30" Stretch="UniformToFill">
-                        <ProgressRing Width="60"
-                                      Height="60"
-                                      Margin="0,0,0,0"
-                                      HorizontalAlignment="Left"
-                                      IsActive="True"
-                                      Padding="0" />
-                        </Viewbox>-->
-
-                        <TextBlock Margin="10,0,0,0"
-                                   VerticalAlignment="Center"
-                                   FontSize="15"
-                                   Padding="0"
-                                   Text="Determining location" />
-
-                        <ProgressBar Margin="10,0" IsIndeterminate="True" />
-                    </StackPanel>
+                    <controls:SearchBox x:Name="SearchTextBox"/>
                 </Grid>
 
                 <Button x:Name="SearchButton"

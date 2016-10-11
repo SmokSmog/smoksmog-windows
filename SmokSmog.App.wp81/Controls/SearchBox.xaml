@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="SmokSmog.Xaml.Controls.SearchBox"
+﻿<UserControl x:Class="SmokSmog.Controls.SearchBox"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:globalization="using:SmokSmog.Globalization"
-             xmlns:local="using:SmokSmog.Xaml.Controls"
+             xmlns:local="using:SmokSmog.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="50"
              d:DesignWidth="400"
@@ -24,10 +24,12 @@
                                            Source={StaticResource LocalizedStrings}}"
                  RequestedTheme="Light" />
 
-        <StackPanel Margin="0,5,0,0"
+        <StackPanel x:Name="IndicationPanel"
+                    Margin="0,5,0,0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
-                    Orientation="Vertical">
+                    Orientation="Vertical"
+                    Visibility="Collapsed">
 
             <TextBlock Margin="10,0,0,0"
                        VerticalAlignment="Center"

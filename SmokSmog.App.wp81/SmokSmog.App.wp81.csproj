@@ -120,8 +120,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\SearchBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Design\Test.xaml">
       <SubType>Designer</SubType>
