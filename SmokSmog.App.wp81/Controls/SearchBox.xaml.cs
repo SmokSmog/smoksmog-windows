@@ -22,5 +22,30 @@ namespace SmokSmog.Controls
         // binding, etc...
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(SearchBox), new PropertyMetadata(string.Empty));
+
+        public event TextChangedEventHandler TextChanged
+        {
+            add { SearchTextBox.TextChanged += value; }
+            remove { SearchTextBox.TextChanged -= value; }
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            {
+                CancelationButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CancelationButton.Visibility = Visibility.Collapsed;
+            }
+
+            Text = SearchTextBox.Text ?? string.Empty;
+        }
+
+        private void CancelationButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchTextBox.Text = string.Empty;
+        }
     }
 }

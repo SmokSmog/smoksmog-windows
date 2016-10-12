@@ -390,16 +390,23 @@ namespace SmokSmog.ViewModel
 
         public SearchSettings Settings { get; } = new SearchSettings() { Geocoordinate = true };
 
+        private SearchQuerry _querry;
+
         public SearchQuerry Querry
         {
             get
             {
-                throw new NotImplementedException();
+                return _querry;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _querry = value;
+
+                if (_querry == null || string.IsNullOrWhiteSpace(_querry.String))
+                    StationFilter = string.Empty;
+                else
+                    StationFilter = value.String;
             }
         }
 

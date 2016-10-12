@@ -5,11 +5,11 @@
       xmlns:SSXControls="using:SmokSmog.Xaml.Controls"
       xmlns:SSXDValueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
       xmlns:SSXInteractivity="using:SmokSmog.Xaml.Interactivity"
+      xmlns:controls="using:SmokSmog.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:local="using:SmokSmog"
-      xmlns:controls="using:SmokSmog.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       x:Name="_This"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -40,7 +40,9 @@
 
         <!--  Page Header  -->
         <Grid x:Name="HeaderPanel">
-            <Grid x:Name="TitleRoot" Margin="{StaticResource SmokSmogContentMargin}">
+            <Grid x:Name="TitleRoot"
+                  Margin="{StaticResource SmokSmogContentMargin}"
+                  GotFocus="TitleRoot_GotFocus">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
@@ -76,16 +78,14 @@
                                               Source={StaticResource LocalizedStrings}}" />
                 </StackPanel>
 
-                <Grid x:Name="SearchRoot"
-                      Grid.Column="1"
-                      MinWidth="280"
-                      MaxWidth="350"
-                      HorizontalAlignment="Stretch"
-                      LostFocus="SearchRoot_LostFocus"
-                      Visibility="Visible">
-
-                    <controls:SearchBox x:Name="SearchTextBox"/>
-                </Grid>
+                <controls:SearchBox x:Name="SearchTextBox"
+                                    Grid.Column="1"
+                                    MinWidth="280"
+                                    MaxWidth="350"
+                                    HorizontalAlignment="Stretch"
+                                    LostFocus="SearchTextBox_LostFocus"
+                                    TextChanged="SearchTextBox_TextChanged"
+                                    Visibility="Collapsed" />
 
                 <Button x:Name="SearchButton"
                         Grid.Column="1"
@@ -107,6 +107,7 @@
                               Glyph="&#xE11A;" />
                 </Button>
             </Grid>
+
             <Border Margin="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
@@ -145,6 +146,7 @@
                Grid.Row="1"
                x:FieldModifier="public"
                Background="{ThemeResource BackButtonBackgroundThemeBrush}"
+               GotFocus="ContentFrameXaml_GotFocus"
                Padding="10,10,10,10"
                RequestedTheme="{Binding RequestedTheme,
                                         ElementName=_This}" />
@@ -349,7 +351,7 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchRoot" Storyboard.TargetProperty="Visibility">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
@@ -365,11 +367,11 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchRoot" Storyboard.TargetProperty="Visibility">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchRoot" Storyboard.TargetProperty="HorizontalAlignment">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="HorizontalAlignment">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Stretch" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
@@ -385,11 +387,11 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchRoot" Storyboard.TargetProperty="Visibility">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchRoot" Storyboard.TargetProperty="HorizontalAlignment">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="HorizontalAlignment">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Right" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
@@ -405,7 +407,7 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchRoot" Storyboard.TargetProperty="Visibility">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>

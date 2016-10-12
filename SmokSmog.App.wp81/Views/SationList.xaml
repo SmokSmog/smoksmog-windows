@@ -260,12 +260,10 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <!--<RowDefinition Height="50" />-->
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        
-        
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -279,7 +277,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <!--<StackPanel Grid.Row="0" Grid.ColumnSpan="2">
                 <Grid Margin="0,0,0,10" Visibility="{Binding Path=GeolocationNotyficationVisable, Converter={StaticResource BooleanToVisabilityValueConverter}, ConverterParameter='Reverse NONE'}">
                     <ProgressBar Margin="0"
                                  VerticalAlignment="Top"
@@ -364,7 +362,7 @@
                         Visibility="{Binding Path=IsStationFilterOn,
                                              Converter={StaticResource BooleanToVisabilityValueConverter},
                                              ConverterParameter='Reverse'}" />
-            </Border>
+            </Border>-->
 
             <StackPanel Grid.Row="2"
                         Margin="0,6,0,0"

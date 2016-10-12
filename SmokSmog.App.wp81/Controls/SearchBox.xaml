@@ -22,7 +22,8 @@
                  Padding="7,3,40,0"
                  PlaceholderText="{Binding LocalizedResources.StringSearch,
                                            Source={StaticResource LocalizedStrings}}"
-                 RequestedTheme="Light" />
+                 RequestedTheme="Light"
+                 TextChanged="SearchTextBox_TextChanged" />
 
         <StackPanel x:Name="IndicationPanel"
                     Margin="0,5,0,0"
@@ -45,16 +46,19 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
 
-            <Button Width="40"
+            <Button x:Name="CancelationButton"
+                    Width="40"
                     Height="40"
                     MinWidth="40"
                     MinHeight="40"
                     MaxWidth="40"
                     MaxHeight="40"
+                    Click="CancelationButton_Click"
                     Content="&#x2715;"
                     FontFamily="Segoe UI Symbol"
                     FontSize="15"
-                    Style="{StaticResource SmokSmogButtonStyle}" />
+                    Style="{StaticResource SmokSmogButtonStyle}"
+                    Visibility="Collapsed" />
 
             <!--<Button Width="40"
                                 Height="40"
