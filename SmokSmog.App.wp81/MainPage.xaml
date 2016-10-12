@@ -5,6 +5,7 @@
       xmlns:SSXControls="using:SmokSmog.Xaml.Controls"
       xmlns:SSXDValueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
       xmlns:SSXInteractivity="using:SmokSmog.Xaml.Interactivity"
+      xmlns:controls="using:SmokSmog.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
@@ -20,15 +21,15 @@
     </Page.BottomAppBar>-->
 
     <Page.Resources>
-        <x:Double x:Key="SmokSmogMenuButtonWidth">60</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonHeight">60</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonWidth">50</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonHeight">50</x:Double>
         <FontFamily x:Key="SmokSmogMenuButtonIconFontFamily">/Assets/Fonts/SEGMDL2.TTF#Segoe MDL2 Assets</FontFamily>
-        <x:Double x:Key="SmokSmogMenuButtonIconFontSize">25</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonTextFontSize">24</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonTextBlockWidth">240</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonIconFontSize">22</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonTextFontSize">20</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonTextBlockWidth">220</x:Double>
 
-        <Thickness x:Key="SmokSmogContentMargin">60,0,0,0</Thickness>
-        <GridLength x:Key="SmokSmogMenuButtonWidthGl">60</GridLength>
+        <Thickness x:Key="SmokSmogContentMargin">50,0,0,0</Thickness>
+        <GridLength x:Key="SmokSmogMenuButtonWidthGl">50</GridLength>
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot" RequestedTheme="Light">
@@ -39,29 +40,74 @@
 
         <!--  Page Header  -->
         <Grid x:Name="HeaderPanel">
+            <Grid x:Name="TitleRoot"
+                  Margin="{StaticResource SmokSmogContentMargin}"
+                  GotFocus="TitleRoot_GotFocus">
 
-            <StackPanel Margin="{StaticResource SmokSmogContentMargin}" Orientation="Horizontal">
-                <Border Width="50"
-                        Height="50"
-                        Margin="5,0,0,0"
-                        HorizontalAlignment="Left">
-                    <Viewbox Width="40" Height="40">
-                        <Path Width="800"
-                              Height="800"
-                              Data="{StaticResource SmokSmogLogoPathData}"
-                              Fill="{ThemeResource ApplicationHeaderForegroundThemeBrush}" />
-                    </Viewbox>
-                </Border>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                <TextBlock x:Name="ApplicationTitle"
-                           Margin="5,0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           FontFamily="Segoe UI"
-                           FontSize="30"
-                           Text="{Binding LocalizedResources.ApplicationTitle,
-                                          Source={StaticResource LocalizedStrings}}" />
-            </StackPanel>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <StackPanel x:Name="ApplicationTitle" Orientation="Horizontal">
+                    <Border x:Name="ApplicationTitleLogo"
+                            Width="{StaticResource SmokSmogMenuButtonWidth}"
+                            Height="{StaticResource SmokSmogMenuButtonHeight}"
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Left">
+                        <Viewbox Width="40" Height="40">
+                            <Path Width="800"
+                                  Height="800"
+                                  Data="{StaticResource SmokSmogLogoPathData}"
+                                  Fill="{ThemeResource ApplicationHeaderForegroundThemeBrush}" />
+                        </Viewbox>
+                    </Border>
+
+                    <TextBlock x:Name="ApplicationTitleName"
+                               Margin="5,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontFamily="Segoe UI"
+                               FontSize="30"
+                               Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
+                               Text="{Binding LocalizedResources.ApplicationTitle,
+                                              Source={StaticResource LocalizedStrings}}" />
+                </StackPanel>
+
+                <controls:SearchBox x:Name="SearchTextBox"
+                                    Grid.Column="1"
+                                    MinWidth="280"
+                                    MaxWidth="350"
+                                    HorizontalAlignment="Stretch"
+                                    LostFocus="SearchTextBox_LostFocus"
+                                    TextChanged="SearchTextBox_TextChanged"
+                                    Visibility="Collapsed" />
+
+                <Button x:Name="SearchButton"
+                        Grid.Column="1"
+                        Width="{StaticResource SmokSmogMenuButtonWidth}"
+                        Height="{StaticResource SmokSmogMenuButtonHeight}"
+                        MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
+                        MinHeight="{StaticResource SmokSmogMenuButtonHeight}"
+                        MaxWidth="{StaticResource SmokSmogMenuButtonWidth}"
+                        MaxHeight="{StaticResource SmokSmogMenuButtonHeight}"
+                        HorizontalAlignment="Right"
+                        BorderThickness="0"
+                        Click="SearchButton_Click"
+                        Style="{StaticResource SmokSmogButtonStyle}">
+
+                    <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
+                              Height="{StaticResource SmokSmogMenuButtonHeight}"
+                              FontFamily="{StaticResource SmokSmogMenuButtonIconFontFamily}"
+                              FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                              Glyph="&#xE11A;" />
+                </Button>
+            </Grid>
+
             <Border Margin="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
@@ -100,6 +146,7 @@
                Grid.Row="1"
                x:FieldModifier="public"
                Background="{ThemeResource BackButtonBackgroundThemeBrush}"
+               GotFocus="ContentFrameXaml_GotFocus"
                Padding="10,10,10,10"
                RequestedTheme="{Binding RequestedTheme,
                                         ElementName=_This}" />
@@ -121,11 +168,10 @@
                         <ic:ChangePropertyAction PropertyName="IsChecked"
                                                  TargetObject="{Binding ElementName=MenuButtonHamburger}"
                                                  Value="False" />
-                -->
-                <!--<ic:ChangePropertyAction PropertyName="Width"
+
+                <ic:ChangePropertyAction PropertyName="Width"
                                                  TargetObject="{Binding ElementName=RightSideMenuGrid}"
-                                                 Value="0" />-->
-                <!--
+                                                 Value="0" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>-->
 
@@ -147,7 +193,7 @@
                                 <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
                                            VerticalAlignment="Center"
                                            FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
-                                           Text="{Binding LocalizedResources.StringHomeStation,
+                                           Text="{Binding Path=LocalizedResources.StringHomeStation,
                                                           Source={StaticResource LocalizedStrings},
                                                           Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                             </StackPanel>
@@ -258,7 +304,8 @@
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateGroup">
+            <VisualStateGroup x:Name="MenuVisualStateGroup">
+
                 <VisualState x:Name="Small">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="MinWidth">
@@ -274,6 +321,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
+
                 <VisualState x:Name="Default">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="MinWidth">
@@ -286,6 +334,81 @@
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="SearchVisualStateGroup">
+
+                <VisualState x:Name="DisableSearchState">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ApplicationTitle" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButton" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="NarrowSearchState">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ApplicationTitle" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButton" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="HorizontalAlignment">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Stretch" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="WideSearchState">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ApplicationTitle" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButton" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="HorizontalAlignment">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Right" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="ClosedSearchState">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ApplicationTitle" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButton" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>

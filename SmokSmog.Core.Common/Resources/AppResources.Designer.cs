@@ -107,6 +107,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Determining location.
+        /// </summary>
+        public static string StringDeterminingLocation {
+            get {
+                return ResourceManager.GetString("StringDeterminingLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to favorite.
         /// </summary>
         public static string StringFavorite {

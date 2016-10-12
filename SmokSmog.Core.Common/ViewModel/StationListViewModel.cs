@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Command;
 using SmokSmog.Extensions;
 using SmokSmog.Services.DataService;
 using SmokSmog.Services.Geolocation;
+using SmokSmog.Services.Search;
 
 namespace SmokSmog.ViewModel
 {
@@ -19,7 +20,7 @@ namespace SmokSmog.ViewModel
     /// <para>You can also use Blend to data bind with the tool's support.</para>
     /// <para>See http://www.galasoft.ch/mvvm</para>
     /// </summary>
-    public sealed class StationListViewModel : ViewModelBase
+    public sealed class StationListViewModel : ViewModelBase, ISearchable
     {
         // TODO - implement IDispose !! unregister all events !!
 
@@ -83,7 +84,9 @@ namespace SmokSmog.ViewModel
 
         private async void LoadStationListBase()
         {
-            BaseStationsList = (await _dataService.GetStationsAsync()).ToList();
+            //TODO make catch and retry 3 times then when it fails return message
+            var result = await _dataService.GetStationsAsync();
+            BaseStationsList = result?.ToList() ?? new List<Model.Station>();
         }
 
         #endregion Base Station List
@@ -221,7 +224,6 @@ namespace SmokSmog.ViewModel
         public RelayCommand ClearFilterCommand => new RelayCommand(() => { StationFilter = string.Empty; }, () => true);
 
         public bool IsStationFilterOn => !string.IsNullOrWhiteSpace(StationFilter);
-        public string IsStationFilterOnPropertyName => "IsStationFilterOn";
 
         public string StationFilter
         {
@@ -251,21 +253,17 @@ namespace SmokSmog.ViewModel
                     }
                 }
 
-                RaisePropertyChanged(StationFilterPropertyName);
-                RaisePropertyChanged(StationListFilteredPropertyName);
-                RaisePropertyChanged(IsStationFilterOnPropertyName);
+                RaisePropertyChanged(nameof(StationFilter));
+                RaisePropertyChanged(nameof(StationListFiltered));
+                RaisePropertyChanged(nameof(IsStationFilterOn));
             }
         }
-
-        public string StationFilterPropertyName => "StationFilter";
 
         public ObservableCollection<Model.Station> StationListFiltered
         {
             get { return _stationListFiltered; }
-            set { _stationListFiltered = value; RaisePropertyChanged(StationListFilteredPropertyName); }
+            set { _stationListFiltered = value; RaisePropertyChanged(nameof(StationListFiltered)); }
         }
-
-        public string StationListFilteredPropertyName => "StationListFiltered";
 
         #endregion Filtering Station List
 
@@ -387,5 +385,31 @@ namespace SmokSmog.ViewModel
         }
 
         #endregion Grouping Station List
+
+        #region ISearchable
+
+        public SearchSettings Settings { get; } = new SearchSettings() { Geocoordinate = true };
+
+        private SearchQuerry _querry;
+
+        public SearchQuerry Querry
+        {
+            get
+            {
+                return _querry;
+            }
+
+            set
+            {
+                _querry = value;
+
+                if (_querry == null || string.IsNullOrWhiteSpace(_querry.String))
+                    StationFilter = string.Empty;
+                else
+                    StationFilter = value.String;
+            }
+        }
+
+        #endregion ISearchable
     }
 }

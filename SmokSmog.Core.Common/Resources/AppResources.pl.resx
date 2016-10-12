@@ -63,4 +63,7 @@
   <data name="StringUnknown" xml:space="preserve">
     <value>Nieznany</value>
   </data>
+  <data name="StringDeterminingLocation" xml:space="preserve">
+    <value>Ustalanie lokalizacji</value>
+  </data>
 </root>
