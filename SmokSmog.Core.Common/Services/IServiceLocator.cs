@@ -1,4 +1,4 @@
-﻿using SmokSmog.Services.DataService;
+﻿using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Storage;
 
@@ -12,6 +12,6 @@ namespace SmokSmog.Services
 
         ISettingsService SettingService { get; }
 
-        IDataService DataService { get; }
+        IDataProvider DataService { get; }
     }
 }

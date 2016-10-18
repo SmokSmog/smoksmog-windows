@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using SmokSmog.Model;
 using SmokSmog.Services.Storage;
 
-namespace SmokSmog.Services.DataService
+namespace SmokSmog.Services.Data
 {
-    public class SmokSmogApiDataService : RestDataServiceBase
+    public class SmokSmogApiDataProvider : RestDataProviderBase
     {
-        public SmokSmogApiDataService(ISettingsService settingsService)
+        public SmokSmogApiDataProvider(ISettingsService settingsService)
             : base(settingsService, "http://api.smoksmog.jkostrz.name")
         {
         }
@@ -23,62 +24,24 @@ namespace SmokSmog.Services.DataService
         private string language
             => (SettingsService?.LanguageCode?.ToLowerInvariant() ?? "en").Equals("pl") ? "pl" : "en";
 
-        public override StationState GetStationInfo(int stationId)
+        public override Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public override List<StationState> GetStationInfo(IEnumerable<int> stationIds)
+        public override Task<IEnumerable<Parameter>> GetParticulatesAsync(int stationId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public override List<StationState> GetStationInfoAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IEnumerable<Measurement> GetStationMeasurements(int stationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<IEnumerable<Measurement>> GetStationMeasurementsAsync(int stationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IEnumerable<Parameter> GetStationParticulates(int stationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<IEnumerable<Parameter>> GetStationParticulatesAsync(int stationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IEnumerable<Station> GetStations()
-        {
-            IEnumerable<Station> result = new Station[0];
-            try
-            {
-                result = GetStationsAsync().Result;
-            }
-            finally
-            {
-            }
-            return result;
-        }
-
-        public override async Task<IEnumerable<Station>> GetStationsAsync()
+        public override async Task<IEnumerable<Station>> GetStationsAsync(CancellationToken cancellationToken)
         {
             var stations = new List<Station>();
 
             try
             {
-                Task<string> stationTask = GetStringAsync(language + "/stations");
-                Task<string> provincesTask = GetStringAsync(language + "/provinces");
+                Task<string> stationTask = GetStringAsync(language + "/stations", cancellationToken);
+                Task<string> provincesTask = GetStringAsync(language + "/provinces", cancellationToken);
 
                 string stationResponse = await stationTask;
                 var stationsJArray = JArray.Parse(stationResponse);
@@ -120,6 +83,8 @@ namespace SmokSmog.Services.DataService
                             st.Province = name;
                     }
                 }
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 return stations;
             }
