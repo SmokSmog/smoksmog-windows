@@ -9,7 +9,7 @@ Included as link to library implemented interfaces
 using System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using SmokSmog.Services.DataService;
+using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Storage;
 
@@ -23,12 +23,12 @@ namespace SmokSmog.Services
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
-                SimpleIoc.Default.Register<IDataService, Design.Services.DataService>();
+                SimpleIoc.Default.Register<IDataProvider, Design.Services.DesignDataProvider>();
                 SimpleIoc.Default.Register<IGeolocationService, Design.Services.GeolocationService>();
             }
             else
             {
-                SimpleIoc.Default.Register<IDataService, SmokSmogApiDataService>();
+                SimpleIoc.Default.Register<IDataProvider, SmokSmogApiDataProvider>();
                 SimpleIoc.Default.Register<IGeolocationService, GeolocationService>();
             }
 
@@ -60,11 +60,11 @@ namespace SmokSmog.Services
             }
         }
 
-        public IDataService DataService
+        public IDataProvider DataService
         {
             get
             {
-                return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<IDataService>();
+                return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<IDataProvider>();
             }
         }
 

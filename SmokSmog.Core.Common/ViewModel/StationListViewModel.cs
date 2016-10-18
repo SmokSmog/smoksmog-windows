@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using SmokSmog.Extensions;
-using SmokSmog.Services.DataService;
+using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Search;
 
@@ -24,13 +24,13 @@ namespace SmokSmog.ViewModel
     {
         // TODO - implement IDispose !! unregister all events !!
 
-        private IDataService _dataService;
+        private IDataProvider _dataService;
         private IGeolocationService _geolocationService;
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public StationListViewModel(IDataService dataService, IGeolocationService geolocationService)
+        public StationListViewModel(IDataProvider dataService, IGeolocationService geolocationService)
         {
             //if (IsInDesignMode) { /* Code runs in Blend --> create design time data. */ }
 

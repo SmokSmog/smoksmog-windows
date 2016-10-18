@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SmokSmog.Model;
 using SmokSmog.Services.Storage;
 
-namespace SmokSmog.Services.DataService
+namespace SmokSmog.Services.Data
 {
-    public class GiosRestApiDataService : RestDataServiceBase
+    public class GiosRestApiDataService : RestDataProviderBase
     {
         public GiosRestApiDataService(ISettingsService settingsService) :
             base(settingsService, @"http://powietrze.gios.gov.pl/pjp/rest/")
@@ -19,47 +20,17 @@ namespace SmokSmog.Services.DataService
 
         public override string Name => "GIOS REST API";
 
-        public override StationState GetStationInfo(int stationId)
+        public override Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public override List<StationState> GetStationInfo(IEnumerable<int> stationIds)
+        public override Task<IEnumerable<Parameter>> GetParticulatesAsync(int stationId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public override List<StationState> GetStationInfoAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IEnumerable<Measurement> GetStationMeasurements(int stationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<IEnumerable<Measurement>> GetStationMeasurementsAsync(int stationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IEnumerable<Parameter> GetStationParticulates(int stationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<IEnumerable<Parameter>> GetStationParticulatesAsync(int stationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IEnumerable<Station> GetStations()
-        {
-            return GetStationsAsync().Result;
-        }
-
-        public override async Task<IEnumerable<Station>> GetStationsAsync()
+        public override async Task<IEnumerable<Station>> GetStationsAsync(CancellationToken cancellationToken)
         {
             string responseText = await GetStringAsync("station/findAll");
 

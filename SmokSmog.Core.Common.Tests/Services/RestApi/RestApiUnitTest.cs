@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SmokSmog.Services.DataService;
+using SmokSmog.Services.Data;
 using SmokSmog.Services.Storage;
 
 namespace SmokSmog.Core.Common.Tests.Services.RestApi
@@ -9,7 +9,7 @@ namespace SmokSmog.Core.Common.Tests.Services.RestApi
     [TestClass]
     public class RestApiUnitTest
     {
-        private SmokSmogApiDataService _service;
+        private SmokSmogApiDataProvider _service;
 
         private Mock<ISettingsService> _settingsMock;
 
@@ -20,7 +20,7 @@ namespace SmokSmog.Core.Common.Tests.Services.RestApi
             _settingsMock.Setup(x => x.Language).Returns("Polish");
             _settingsMock.Setup(x => x.LanguageCode).Returns("pl");
 
-            _service = new SmokSmogApiDataService(_settingsMock.Object);
+            _service = new SmokSmogApiDataProvider(_settingsMock.Object);
         }
 
         [TestMethod]

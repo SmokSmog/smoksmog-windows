@@ -52,7 +52,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Design\Services\DataService.cs" />
+    <Compile Include="Design\Services\DesignDataProvider.cs" />
     <Compile Include="Design\Services\GeolocationService.cs" />
     <Compile Include="Exceptions\ApplicationErrorException.cs" />
     <Compile Include="Exceptions\UserInterruptedException.cs" />
@@ -70,8 +70,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.pl.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\DataService\RestDataServiceBase.cs" />
-    <Compile Include="Services\DataService\GiosRestApiDataService.cs" />
+    <Compile Include="Services\Data\AsyncDataProviderBase.cs" />
+    <Compile Include="Services\Data\RestDataServiceBase.cs" />
+    <Compile Include="Services\Data\GiosRestApiDataService.cs" />
     <Compile Include="Services\Search\ISearchable.cs" />
     <Compile Include="Services\Search\SearchQuerry.cs" />
     <Compile Include="Services\Search\SearchSettings.cs" />
@@ -95,7 +96,7 @@
     <Compile Include="Model\Parameter.cs" />
     <Compile Include="Model\Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\DataService\SmokSmogApiDataService.cs" />
+    <Compile Include="Services\Data\SmokSmogApiDataService.cs" />
     <Compile Include="Services\Geolocation\GeolocationStatus.cs" />
     <Compile Include="Services\Storage\IFileService.cs" />
     <Compile Include="Services\Geolocation\IGeolocationService.cs" />
@@ -103,7 +104,7 @@
     <Compile Include="Services\Storage\ISettingsService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="ViewModel\StationListViewModel.cs" />
-    <Compile Include="Services\DataService\IDataService.cs" />
+    <Compile Include="Services\Data\IDataProvider.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Xaml\Documents\InlineCollection.cs" />
   </ItemGroup>
