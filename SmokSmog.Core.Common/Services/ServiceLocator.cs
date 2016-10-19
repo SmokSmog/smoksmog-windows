@@ -13,13 +13,17 @@ using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Storage;
 
+using ServiceLocation = Microsoft.Practices.ServiceLocation;
+
 namespace SmokSmog.Services
 {
     public class ServiceLocator : IServiceLocator
     {
+        private ServiceLocation.IServiceLocator _locator;
+
         static ServiceLocator()
         {
-            Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            ServiceLocation.ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
@@ -36,37 +40,22 @@ namespace SmokSmog.Services
             SimpleIoc.Default.Register<ISettingsService, SettingService>();
         }
 
-        public IFileService FileService
+        public ServiceLocator()
         {
-            get
-            {
-                return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<IFileService>();
-            }
-        }
-
-        public IGeolocationService GeolocationService
-        {
-            get
-            {
-                return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<IGeolocationService>();
-            }
-        }
-
-        public ISettingsService SettingService
-        {
-            get
-            {
-                return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<ISettingsService>();
-            }
+            _locator = ServiceLocation.ServiceLocator.Current;
         }
 
         public IDataProvider DataService
-        {
-            get
-            {
-                return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<IDataProvider>();
-            }
-        }
+            => _locator.GetInstance<IDataProvider>();
+
+        public IFileService FileService
+                    => _locator.GetInstance<IFileService>();
+
+        public IGeolocationService GeolocationService
+            => _locator.GetInstance<IGeolocationService>();
+
+        public ISettingsService SettingService
+            => _locator.GetInstance<ISettingsService>();
 
         /// <summary>
         /// Cleans up all the resources.

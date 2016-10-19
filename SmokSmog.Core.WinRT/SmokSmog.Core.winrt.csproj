@@ -97,7 +97,7 @@
     <Compile Include="Design\TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Globalization\WindowsRuntimeResourceManager.cs" />
+    <Compile Include="Globalization\WinRTResourceManager.cs" />
     <Compile Include="Xaml\Controls\Behaviors\TextBlockHighlightBehavior.cs" />
     <Compile Include="Xaml\Controls\Common\PropertyChangeEventSource.cs" />
     <Compile Include="Xaml\Controls\TextBlockHighlighted.xaml.cs">

@@ -11,10 +11,10 @@
       xmlns:local="using:SmokSmog"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       d:DataContext="{Binding Path=StationList,
-                              Source={StaticResource Locator}}"
+                              Source={StaticResource ViewModelLocator}}"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       DataContext="{Binding Path=StationList,
-                            Source={StaticResource Locator}}"
+                            Source={StaticResource ViewModelLocator}}"
       RequestedTheme="Light"
       mc:Ignorable="d">
 
@@ -233,7 +233,7 @@
                            FontWeight="Bold"
                            Text="{Binding Name}">
                     <SSXInteractivity:Interaction.Behaviors>
-                        <SSXCBehaviors:TextBlockHighlightBehavior Highlight="{ThemeResource PhoneAccentBrush}" SearchString="{Binding Path=StationList.StationFilter, Source={StaticResource Locator}}" />
+                        <SSXCBehaviors:TextBlockHighlightBehavior Highlight="{ThemeResource PhoneAccentBrush}" SearchString="{Binding Path=StationList.StationFilter, Source={StaticResource ViewModelLocator}}" />
                     </SSXInteractivity:Interaction.Behaviors>
                 </TextBlock>
 
@@ -251,7 +251,7 @@
                     </TextBlock.Inlines>
 
                     <SSXInteractivity:Interaction.Behaviors>
-                        <SSXCBehaviors:TextBlockHighlightBehavior Highlight="{ThemeResource PhoneAccentBrush}" SearchString="{Binding Path=StationList.StationFilter, Source={StaticResource Locator}}" />
+                        <SSXCBehaviors:TextBlockHighlightBehavior Highlight="{ThemeResource PhoneAccentBrush}" SearchString="{Binding Path=StationList.StationFilter, Source={StaticResource ViewModelLocator}}" />
                     </SSXInteractivity:Interaction.Behaviors>
                 </TextBlock>
             </Grid>
@@ -420,7 +420,7 @@
                                                ConverterParameter='Reverse'}">
 
                 <SemanticZoom.ZoomedOutView>
-                    <GridView Margin="0"
+                    <GridView Margin="0,0,0,0"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Top"
                               HorizontalContentAlignment="Center"
