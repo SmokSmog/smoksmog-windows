@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Design\Services\DesignDataProvider.cs" />
     <Compile Include="Design\Services\GeolocationService.cs" />
+    <Compile Include="Diagnostics\Logger.cs" />
     <Compile Include="Exceptions\ApplicationErrorException.cs" />
     <Compile Include="Exceptions\UserInterruptedException.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
