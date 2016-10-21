@@ -1,5 +1,5 @@
-﻿using SmokSmog.Globalization;
-using System;
+﻿using System;
+using SmokSmog.Globalization;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -16,8 +16,6 @@ namespace SmokSmog
     /// </summary>
     public sealed partial class App : Application
     {
-        public Services.IServiceLocator ServiceLocator { get; private set; }
-
         private TransitionCollection transitions;
 
         /// <summary>
@@ -29,10 +27,8 @@ namespace SmokSmog
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
 
-            //this line is required in order to register all required dependences for injection
-            ServiceLocator = new Services.ServiceLocator();
-
-            WindowsRuntimeResourceManager.InjectIntoResxGeneratedApplicationResourcesClass(typeof(SmokSmog.Resources.AppResources));
+            // inject WinRT Resource Manager into Resx Generated App Resources Classes
+            WinRTResourceManager.InjectIntoResxGeneratedAppResources(typeof(SmokSmog.Resources.AppResources));
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SmokSmog.Extensions
 {
@@ -9,6 +10,11 @@ namespace SmokSmog.Extensions
     {
         public static bool Contains(this string str, string value, StringComparison comparisonType = StringComparison.Ordinal)
         {
+            if (string.IsNullOrWhiteSpace(str)) return false;
+
+            if (value == null)
+                return false;
+
             switch (comparisonType)
             {
                 case StringComparison.CurrentCultureIgnoreCase:
@@ -22,38 +28,38 @@ namespace SmokSmog.Extensions
             }
         }
 
-        public static bool ContainsAll(this string str, ICollection<string> exp, StringComparison comparisonType = StringComparison.Ordinal)
+        public static bool ContainsAll(this string str,
+            IEnumerable<string> expressions, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            if (exp == null)
-                throw new ArgumentException("the expression collection can not be null", "exp");
-            if (string.IsNullOrWhiteSpace(str)) return false;
-            if (exp.Count == 0) return false;
+            if (string.IsNullOrWhiteSpace(str) || expressions == null || expressions.Count() == 0)
+                return false;
 
-            foreach (var item in exp)
+            foreach (var item in expressions)
             {
                 if (!str.Contains(item, comparisonType)) return false;
             }
             return true;
         }
 
-        public static bool ContainsAny(this string str, ICollection<string> exp, StringComparison comparisonType = StringComparison.Ordinal)
+        public static bool ContainsAny(this string str,
+            IEnumerable<string> expressions, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            if (exp == null)
-                throw new ArgumentException("the expression collection can not be null", "exp");
-            if (string.IsNullOrWhiteSpace(str)) return false;
-            if (exp.Count == 0) return false;
+            if (string.IsNullOrWhiteSpace(str) || expressions == null || expressions.Count() == 0)
+                return false;
 
-            foreach (var item in exp)
+            foreach (var item in expressions)
             {
                 if (str.Contains(item, comparisonType)) return true;
             }
             return false;
         }
 
-        public static IEnumerable<int> IndexOfAll(this string str, string value, StringComparison comparisonType = StringComparison.Ordinal)
+        public static IEnumerable<int> IndexOfAll(this string str,
+            string value, StringComparison comparisonType = StringComparison.Ordinal)
         {
             if (string.IsNullOrEmpty(value))
                 throw new ArgumentException("the string to find may not be empty", "value");
+
             for (int index = 0; ; index += value.Length)
             {
                 index = str.IndexOf(value, index, comparisonType);
@@ -63,20 +69,29 @@ namespace SmokSmog.Extensions
             }
         }
 
-        public static IDictionary<string, IList<int>> IndexOfAll(this string str, ICollection<string> exp, StringComparison comparisonType = StringComparison.Ordinal)
+        public static IDictionary<string, IEnumerable<int>> IndexOfAll(this string str,
+            IEnumerable<string> expressions, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            var result = new Dictionary<string, IList<int>>();
-            if (exp == null)
-                throw new ArgumentException("the expression collection can not be null", "exp");
-            if (exp.Count == 0) return result;
+            var result = new Dictionary<string, IEnumerable<int>>();
 
-            foreach (var item in exp)
+            if (string.IsNullOrWhiteSpace(str) || expressions == null || expressions.Count() == 0)
+                return result;
+
+            foreach (var item in expressions)
             {
                 if (!string.IsNullOrEmpty(item))
                     result.Add(item, str.IndexOfAll(item, comparisonType).ToList());
             }
 
             return result;
+        }
+
+        public static string RemoveDuplicateSpaces(this string str)
+        {
+            if (str == null)
+                throw new ArgumentNullException(nameof(str));
+
+            return Regex.Replace(str ?? "", " {2,}", " ");
         }
 
         public static string ToFirstCharCase(this string str)
@@ -92,6 +107,9 @@ namespace SmokSmog.Extensions
 
         public static string ToSentenceCase(this string str)
         {
+            if (str == null)
+                throw new ArgumentNullException(nameof(str));
+
             bool IsNewSentense = true;
             var result = new StringBuilder(str.Length);
             for (int i = 0; i < str.Length; i++)
@@ -115,6 +133,9 @@ namespace SmokSmog.Extensions
 
         public static string ToWordsCase(this string str)
         {
+            if (str == null)
+                throw new ArgumentNullException(nameof(str));
+
             bool IsNewWord = true;
             var result = new StringBuilder(str.Length);
             for (int i = 0; i < str.Length; i++)

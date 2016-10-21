@@ -5,13 +5,15 @@
              xmlns:globalization="using:SmokSmog.Globalization"
              xmlns:local="using:SmokSmog"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:services="using:SmokSmog.Services"
              xmlns:viewmodel="using:SmokSmog.ViewModel"
              RequestedTheme="Light"
              mc:Ignorable="d">
     <!--  Windows Phone 8.1  -->
     <Application.Resources>
         <ResourceDictionary>
-            <viewmodel:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+            <services:ServiceLocator x:Key="ServiceLocator" d:IsDataSource="True" />
+            <viewmodel:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
             <globalization:LocalizedStrings x:Key="LocalizedStrings" d:IsDataSource="True" />
             <ResourceDictionary.MergedDictionaries>
                 <!--<ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->

@@ -104,7 +104,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Services\RestApi\RestApiUnitTest.cs" />
+    <Compile Include="Extensions\StringExtensionTests.cs" />
+    <Compile Include="Services\Data\SmokSmogApiDataProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
