@@ -53,9 +53,9 @@ namespace SmokSmog.Services.Data
 
                     var parameter = new Parameter(id.Value)
                     {
-                        Name = (item["name"].Value<string>() ?? "")?.RemoveDuplicateSpaces()?.Trim(),
-                        ShortName = (item["short_name"].Value<string>() ?? "")?.RemoveDuplicateSpaces()?.Trim(),
-                        Unit = (item["unit"].Value<string>() ?? "")?.RemoveDuplicateSpaces()?.Trim(),
+                        Name = (item["name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
+                        ShortName = (item["short_name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
+                        Unit = (item["unit"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
                         NormValue = item["norm"].Value<double?>(),
                     };
 
@@ -88,7 +88,7 @@ namespace SmokSmog.Services.Data
                     var station = new Station()
                     {
                         Id = item["id"].Value<int?>() ?? 0,
-                        Name = (item["name"].Value<string>() ?? "").RemoveDuplicateSpaces().Trim(),
+                        Name = (item["name"].Value<string>() ?? "").RemoveWhiteSpaces().Trim(),
                         Geocoordinate = new Geocoordinate()
                         {
                             Latitude = item["lat"].Value<double?>() ?? 0d,
@@ -103,7 +103,7 @@ namespace SmokSmog.Services.Data
                 // get provinces information for stations
                 foreach (var province in provincesJArray)
                 {
-                    string name = province["name"].Value<string>()?.RemoveDuplicateSpaces().Trim();
+                    string name = province["name"].Value<string>()?.RemoveWhiteSpaces().Trim();
                     var stationsInProvince = province["stations"].Values<JToken>();
 
                     if (stationsInProvince == null || string.IsNullOrWhiteSpace(name))
