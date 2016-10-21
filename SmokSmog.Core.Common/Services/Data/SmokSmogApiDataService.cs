@@ -6,15 +6,22 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using SmokSmog.Extensions;
 using SmokSmog.Model;
+using SmokSmog.Net.Http;
 using SmokSmog.Services.Storage;
 
 namespace SmokSmog.Services.Data
 {
     public class SmokSmogApiDataProvider : RestDataProviderBase
     {
-        public SmokSmogApiDataProvider(ISettingsService settingsService)
-            : base(settingsService, "http://api.smoksmog.jkostrz.name")
+        private readonly ISettingsService _settingsService;
+
+        public SmokSmogApiDataProvider(IHttpClient httpClient, ISettingsService settingsService)
+            : base(httpClient, "http://api.smoksmog.jkostrz.name")
         {
+            if (settingsService == null)
+                throw new ArgumentNullException(nameof(settingsService));
+
+            _settingsService = settingsService;
         }
 
         public override Guid Id { get; } = new Guid("2A0E0002-CDD2-484F-A4DA-2B2973D8BC33");
@@ -22,7 +29,7 @@ namespace SmokSmog.Services.Data
         public override string Name => "SmokSmog REST API";
 
         private string language
-            => (SettingsService?.LanguageCode?.ToLowerInvariant()?.Substring(0, 2) ?? "en").Equals("pl") ? "pl" : "en";
+            => (_settingsService.LanguageCode?.ToLowerInvariant()?.Substring(0, 2) ?? "en").Equals("pl") ? "pl" : "en";
 
         public override Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken)
         {
@@ -30,13 +37,12 @@ namespace SmokSmog.Services.Data
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <see cref="http://api.smoksmog.jkostrz.name/en/stations/4"/>
         /// <param name="stationId"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public override async Task<IEnumerable<Parameter>> GetParticulatesAsync(int stationId, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
         {
             try
             {

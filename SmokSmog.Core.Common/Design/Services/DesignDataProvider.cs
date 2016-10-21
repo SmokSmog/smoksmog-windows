@@ -18,7 +18,7 @@ namespace SmokSmog.Design.Services
             throw new NotImplementedException();
         }
 
-        public override Task<IEnumerable<Parameter>> GetParticulatesAsync(int stationId, CancellationToken cancellationToken)
+        public override Task<IEnumerable<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SmokSmog.Model;
-using SmokSmog.Services.Storage;
+using SmokSmog.Net.Http;
 
 namespace SmokSmog.Services.Data
 {
     public class GiosRestApiDataService : RestDataProviderBase
     {
-        public GiosRestApiDataService(ISettingsService settingsService) :
-            base(settingsService, @"http://powietrze.gios.gov.pl/pjp/rest/")
+        public GiosRestApiDataService(IHttpClient httpClient) :
+            base(httpClient, @"http://powietrze.gios.gov.pl/pjp/rest/")
         {
         }
 
@@ -25,7 +25,7 @@ namespace SmokSmog.Services.Data
             throw new NotImplementedException();
         }
 
-        public override Task<IEnumerable<Parameter>> GetParticulatesAsync(int stationId, CancellationToken cancellationToken)
+        public override Task<IEnumerable<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

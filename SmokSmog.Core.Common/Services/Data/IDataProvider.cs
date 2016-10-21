@@ -20,11 +20,11 @@ namespace SmokSmog.Services.Data
 
         Task<IEnumerable<Model.Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken);
 
-        IEnumerable<Model.Parameter> GetParticulates(int stationId);
+        IEnumerable<Model.Parameter> GetParameters(int stationId);
 
-        Task<IEnumerable<Model.Parameter>> GetParticulatesAsync(int stationId);
+        Task<IEnumerable<Model.Parameter>> GetParametersAsync(int stationId);
 
-        Task<IEnumerable<Model.Parameter>> GetParticulatesAsync(int stationId, CancellationToken cancellationToken);
+        Task<IEnumerable<Model.Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken);
 
         IEnumerable<Model.Station> GetStations();
 

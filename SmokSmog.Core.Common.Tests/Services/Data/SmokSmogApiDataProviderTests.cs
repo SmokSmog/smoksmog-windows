@@ -1,6 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SmokSmog.Net.Http;
 using SmokSmog.Services.Data;
 using SmokSmog.Services.Storage;
 
@@ -9,34 +13,96 @@ namespace SmokSmog.Core.Common.Tests.Services.Data
     [TestClass]
     public class SmokSmogApiDataProviderTests
     {
-        private IDataProvider _service;
+        private static IHttpClient _httpClientOffline;
+        private static IHttpClient _httpClientOnline;
 
-        private Mock<ISettingsService> _settingsMock;
+        private static IDataProvider _serviceOffline;
+        private static IDataProvider _serviceOnline;
 
-        public SmokSmogApiDataProviderTests()
+        private static Mock<ISettingsService> _settingsMock;
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            //_serviceOnline = null;
+            //_serviceOffline = null;
+            //_settingsMock = null;
+
+            //_httpClientOnline.Dispose();
+            //_httpClientOffline.Dispose();
+        }
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext testContext)
         {
             _settingsMock = new Mock<ISettingsService>(MockBehavior.Default);
             _settingsMock.Setup(x => x.Language).Returns("Polish");
             _settingsMock.Setup(x => x.LanguageCode).Returns("pl-PL");
 
-            _service = new SmokSmogApiDataProvider(_settingsMock.Object);
+            var httpClientOfflineMock = new Mock<IHttpClient>();
+
+            // handler.Setup(x => x.GetAsync(It.IsAny<Uri>())).Returns( () => { throw new
+            // HttpRequestException(); });
+
+            //public Task<HttpResponseMessage> GetAsync(Uri requestUri, CancellationToken cancellationToken);
+
+            httpClientOfflineMock.Setup(x => x.GetAsync(It.IsAny<Uri>(), It.IsAny<CancellationToken>())).ThrowsAsync(new HttpRequestException());
+            // .ThrowsAsync(new HttpRequestException());
+
+            //var handler = new Mock<HttpMessageHandler>();
+            //handler.Protected()
+            //    .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+            //    .Returns(Task<HttpResponseMessage>.Factory.StartNew(() =>
+            //    {
+            //        throw new HttpRequestException();
+            //        //return new HttpResponseMessage(HttpStatusCode.OK);
+            //    }))
+            //    .Callback<HttpRequestMessage, CancellationToken>((r, c) =>
+            //    {
+            //        //Assert.AreEqual(HttpMethod.Get, r.Method);
+            //    });
+
+            _httpClientOnline = new HttpClientProxy(new HttpClient());
+            _httpClientOffline = httpClientOfflineMock.Object;
+
+            _serviceOnline = new SmokSmogApiDataProvider(_httpClientOnline, _settingsMock.Object);
+            _serviceOffline = new SmokSmogApiDataProvider(_httpClientOffline, _settingsMock.Object);
         }
 
         [TestMethod]
-        public void GetStations_Success()
+        [ExpectedException(typeof(HttpRequestException))]
+        public void GetParameters_Offline_Throw_HttpRequestException()
         {
-            var stations = _service.GetStations();
+            // stationId = 4 - Kraków - Aleja Krasińskiego
+            var parameters = _serviceOffline.GetParameters(4);
+            Assert.IsNotNull(parameters);
+            Assert.IsTrue(parameters.Count() > 0);
+        }
+
+        [TestMethod]
+        public void GetParameters_Online_Success()
+        {
+            // stationId = 4 - Kraków - Aleja Krasińskiego
+            var parameters = _serviceOnline.GetParameters(4);
+            Assert.IsNotNull(parameters);
+            Assert.IsTrue(parameters.Count() > 0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(HttpRequestException))]
+        public void GetStations_Offline_Throw_HttpRequestException()
+        {
+            var stations = _serviceOffline.GetStations();
             Assert.IsNotNull(stations);
             Assert.IsTrue(stations.Count() > 0);
         }
 
         [TestMethod]
-        public void GetParticulates_Success()
+        public void GetStations_Online_Success()
         {
-            // stationId = 4 - Kraków - Aleja Krasińskiego
-            var particulates = _service.GetParticulates(4);
-            Assert.IsNotNull(particulates);
-            Assert.IsTrue(particulates.Count() > 0);
+            var stations = _serviceOnline.GetStations();
+            Assert.IsNotNull(stations);
+            Assert.IsTrue(stations.Count() > 0);
         }
     }
 }
