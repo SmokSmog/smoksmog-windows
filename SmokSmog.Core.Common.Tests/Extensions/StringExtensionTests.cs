@@ -104,5 +104,14 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
             // act
             Assert.IsTrue(StringExtension.ContainsAny(_loremIpsumShort, exp));
         }
+
+        [TestMethod]
+        public void RemoveDuplicateSpaces_ValidInputReturnTrue()
+        {
+            string str = "lorem    ipsum";
+
+            // act
+            Assert.IsTrue("lorem ipsum" == StringExtension.RemoveDuplicateSpaces(str));
+        }
     }
 }
