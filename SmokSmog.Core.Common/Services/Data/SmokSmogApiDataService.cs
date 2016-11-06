@@ -31,9 +31,38 @@ namespace SmokSmog.Services.Data
         private string language
             => (_settingsService.LanguageCode?.ToLowerInvariant()?.Substring(0, 2) ?? "en").Equals("pl") ? "pl" : "en";
 
-        public override Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Task<string> task = GetStringAsync($"{language}/stations/{stationId}", cancellationToken);
+                string response = await task;
+                var token = JToken.Parse(response);
+                var particulates = token["particulates"];
+
+                List<Measurement> measurement = new List<Measurement>();
+                foreach (var item in particulates)
+                {
+                    var id = item["id"].Value<int?>();
+                    if (!id.HasValue) continue;
+
+                    var parameter = new Measurement(stationId, id.Value)
+                    {
+                        Value = item["value"].Value<double?>(),
+                    };
+                    if (item["date"].HasValues)
+                        parameter.Date = DateTime.Parse(item["date"].Value<string>());
+
+                    measurement.Add(parameter);
+                }
+
+                return measurement;
+            }
+            catch (Exception ex)
+            {
+                Diagnostics.Logger.Log(ex);
+                throw;
+            }
         }
 
         /// <summary>

@@ -4,6 +4,16 @@ using GalaSoft.MvvmLight;
 
 namespace SmokSmog.Model
 {
+    public enum MeasurementAggregationType
+    {
+        Avg1Hour = 1,
+        Avg8Hour = 8,
+        Avg12Hour = 12,
+        Avg1Day = 24,
+        Avg1Week = 168,
+        Avg1Year = 8760,
+    }
+
     [DataContract(Namespace = "SmokSmog.Model")]
     public partial class Measurement : ObservableObject
     {
@@ -16,6 +26,12 @@ namespace SmokSmog.Model
         private int _stationId;
 
         private double? _value;
+
+        public Measurement(int stationId, int parameterId)
+        {
+            _stationId = stationId;
+            _parameterId = parameterId;
+        }
 
         /// <summary>
         /// Air Quality Index value
@@ -51,7 +67,7 @@ namespace SmokSmog.Model
         public int ParameterId
         {
             get { return _parameterId; }
-            set
+            private set
             {
                 if (_parameterId == value) return;
                 _parameterId = value;
@@ -81,7 +97,7 @@ namespace SmokSmog.Model
         public int StationId
         {
             get { return _stationId; }
-            set
+            private set
             {
                 if (_stationId == value) return;
                 _stationId = value;

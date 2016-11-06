@@ -75,8 +75,6 @@ namespace SmokSmog.Core.Common.Tests.Services.Data
         {
             // stationId = 4 - Kraków - Aleja Krasińskiego
             var parameters = _serviceOffline.GetParameters(4);
-            Assert.IsNotNull(parameters);
-            Assert.IsTrue(parameters.Count() > 0);
         }
 
         [TestMethod]
@@ -93,8 +91,6 @@ namespace SmokSmog.Core.Common.Tests.Services.Data
         public void GetStations_Offline_Throw_HttpRequestException()
         {
             var stations = _serviceOffline.GetStations();
-            Assert.IsNotNull(stations);
-            Assert.IsTrue(stations.Count() > 0);
         }
 
         [TestMethod]

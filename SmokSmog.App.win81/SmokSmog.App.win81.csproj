@@ -166,6 +166,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\win8\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="WinRTXamlToolkit, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinRTXamlToolkit.Windows.1.8.1.0\lib\netcore451\WinRTXamlToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmokSmog.Core.Common\SmokSmog.Core.Common.csproj">
