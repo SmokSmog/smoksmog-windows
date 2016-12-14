@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using SmokSmog.Extensions;
 
@@ -103,6 +105,76 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
             // act
             Assert.IsTrue(StringExtension.ContainsAny(_loremIpsumShort, exp));
+        }
+
+        [TestMethod]
+        public void IndexOfAll_GetIndexOfAllTestWords()
+        {
+            // act
+            var result = StringExtension.IndexOfAll(_loremIpsumLong, " in ");
+            int count = result.Count();
+            Assert.IsTrue(count == 3);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void IndexOfAll_NullStringThrowException()
+        {
+            // act
+
+            string str = null;
+            str.IndexOfAll(_loremIpsumShort);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void IndexOfAll_NullValueThrowException()
+        {
+            string value = null;
+
+            // act
+            StringExtension.IndexOfAll(_loremIpsumShort, value, StringComparison.Ordinal);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RemoveWhiteSpaces_NullStringThrowException()
+        {
+            // act
+            StringExtension.RemoveWhiteSpaces(null);
+        }
+
+        [TestMethod]
+        public void RemoveWhiteSpaces_ValidInputReturnTrue()
+        {
+            string str = "lorem    ipsum";
+
+            // act
+            Assert.IsTrue("lorem ipsum" == StringExtension.RemoveWhiteSpaces(str));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToFirstCharCase_NullStringThrowException()
+        {
+            // act
+            StringExtension.ToFirstCharCase(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToSentenceCase_NullStringThrowException()
+        {
+            // act
+            StringExtension.ToSentenceCase(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToWordsCase_NullStringThrowException()
+        {
+            // act
+            StringExtension.ToWordsCase(null);
         }
     }
 }

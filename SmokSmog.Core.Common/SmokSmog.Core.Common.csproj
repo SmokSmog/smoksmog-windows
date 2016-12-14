@@ -61,6 +61,8 @@
     <Compile Include="Globalization\LocalizedStrings.cs" />
     <Compile Include="Model\AirQualityIndex.cs" />
     <Compile Include="Model\StationState.cs" />
+    <Compile Include="Net\Http\HttpClientProxy.cs" />
+    <Compile Include="Net\Http\IHttpClient.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -77,6 +79,7 @@
     <Compile Include="Services\Search\ISearchable.cs" />
     <Compile Include="Services\Search\SearchQuerry.cs" />
     <Compile Include="Services\Search\SearchSettings.cs" />
+    <Compile Include="Threading\AsyncBridge.cs" />
     <Compile Include="Xaml\Data\Array.cs" />
     <Compile Include="Xaml\Data\ArrayItem.cs" />
     <Compile Include="Xaml\Data\ValueConverters\AqiIntToImage.cs" />

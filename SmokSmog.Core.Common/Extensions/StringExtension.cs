@@ -57,24 +57,37 @@ namespace SmokSmog.Extensions
         public static IEnumerable<int> IndexOfAll(this string str,
             string value, StringComparison comparisonType = StringComparison.Ordinal)
         {
+            if (str == null)
+                throw new ArgumentNullException(nameof(str));
+
             if (string.IsNullOrEmpty(value))
-                throw new ArgumentException("the string to find may not be empty", "value");
+                throw new ArgumentException("the string to find may not be empty", nameof(value));
+
+            List<int> indexes = new List<int>();
 
             for (int index = 0; ; index += value.Length)
             {
                 index = str.IndexOf(value, index, comparisonType);
                 if (index == -1)
                     break;
-                yield return index;
+                indexes.Add(index);
             }
+
+            return indexes;
         }
 
         public static IDictionary<string, IEnumerable<int>> IndexOfAll(this string str,
             IEnumerable<string> expressions, StringComparison comparisonType = StringComparison.Ordinal)
         {
+            if (str == null)
+                throw new ArgumentNullException(nameof(str));
+
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
+
             var result = new Dictionary<string, IEnumerable<int>>();
 
-            if (string.IsNullOrWhiteSpace(str) || expressions == null || expressions.Count() == 0)
+            if (string.IsNullOrWhiteSpace(str) || expressions.Count() == 0)
                 return result;
 
             foreach (var item in expressions)
@@ -86,18 +99,18 @@ namespace SmokSmog.Extensions
             return result;
         }
 
-        public static string RemoveDuplicateSpaces(this string str)
+        public static string RemoveWhiteSpaces(this string str)
         {
             if (str == null)
                 throw new ArgumentNullException(nameof(str));
 
-            return Regex.Replace(str ?? "", " {2,}", " ");
+            return Regex.Replace(str ?? "", "(\\s){2,}", " ");
         }
 
         public static string ToFirstCharCase(this string str)
         {
             if (str == null)
-                return null;
+                throw new ArgumentNullException(nameof(str));
 
             if (str.Length > 1)
                 return char.ToUpper(str[0]) + str.Substring(1);

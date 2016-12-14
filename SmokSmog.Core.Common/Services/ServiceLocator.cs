@@ -6,9 +6,10 @@ Included as link to library implemented interfaces
 
 #if !PORTABLE
 
-using System;
+using System.Net.Http;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using SmokSmog.Net.Http;
 using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Storage;
@@ -24,6 +25,9 @@ namespace SmokSmog.Services
         static ServiceLocator()
         {
             ServiceLocation.ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+
+            SimpleIoc.Default.Register<HttpClient>(() => new HttpClient());
+            SimpleIoc.Default.Register<IHttpClient, HttpClientProxy>();
 
             if (ViewModelBase.IsInDesignModeStatic)
             {

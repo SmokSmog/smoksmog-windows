@@ -6,15 +6,22 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using SmokSmog.Extensions;
 using SmokSmog.Model;
+using SmokSmog.Net.Http;
 using SmokSmog.Services.Storage;
 
 namespace SmokSmog.Services.Data
 {
     public class SmokSmogApiDataProvider : RestDataProviderBase
     {
-        public SmokSmogApiDataProvider(ISettingsService settingsService)
-            : base(settingsService, "http://api.smoksmog.jkostrz.name")
+        private readonly ISettingsService _settingsService;
+
+        public SmokSmogApiDataProvider(IHttpClient httpClient, ISettingsService settingsService)
+            : base(httpClient, "http://api.smoksmog.jkostrz.name")
         {
+            if (settingsService == null)
+                throw new ArgumentNullException(nameof(settingsService));
+
+            _settingsService = settingsService;
         }
 
         public override Guid Id { get; } = new Guid("2A0E0002-CDD2-484F-A4DA-2B2973D8BC33");
@@ -22,21 +29,49 @@ namespace SmokSmog.Services.Data
         public override string Name => "SmokSmog REST API";
 
         private string language
-            => (SettingsService?.LanguageCode?.ToLowerInvariant()?.Substring(0, 2) ?? "en").Equals("pl") ? "pl" : "en";
+            => (_settingsService.LanguageCode?.ToLowerInvariant()?.Substring(0, 2) ?? "en").Equals("pl") ? "pl" : "en";
 
-        public override Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Task<string> task = GetStringAsync($"{language}/stations/{stationId}", cancellationToken);
+                string response = await task;
+                var token = JToken.Parse(response);
+                var particulates = token["particulates"];
+
+                List<Measurement> measurement = new List<Measurement>();
+                foreach (var item in particulates)
+                {
+                    var id = item["id"].Value<int?>();
+                    if (!id.HasValue) continue;
+
+                    var parameter = new Measurement(stationId, id.Value)
+                    {
+                        Value = item["value"].Value<double?>(),
+                    };
+                    if (item["date"].HasValues)
+                        parameter.Date = DateTime.Parse(item["date"].Value<string>());
+
+                    measurement.Add(parameter);
+                }
+
+                return measurement;
+            }
+            catch (Exception ex)
+            {
+                Diagnostics.Logger.Log(ex);
+                throw;
+            }
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <see cref="http://api.smoksmog.jkostrz.name/en/stations/4"/>
         /// <param name="stationId"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public override async Task<IEnumerable<Parameter>> GetParticulatesAsync(int stationId, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
         {
             try
             {
@@ -53,9 +88,9 @@ namespace SmokSmog.Services.Data
 
                     var parameter = new Parameter(id.Value)
                     {
-                        Name = (item["name"].Value<string>() ?? "")?.RemoveDuplicateSpaces()?.Trim(),
-                        ShortName = (item["short_name"].Value<string>() ?? "")?.RemoveDuplicateSpaces()?.Trim(),
-                        Unit = (item["unit"].Value<string>() ?? "")?.RemoveDuplicateSpaces()?.Trim(),
+                        Name = (item["name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
+                        ShortName = (item["short_name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
+                        Unit = (item["unit"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
                         NormValue = item["norm"].Value<double?>(),
                     };
 
@@ -88,7 +123,7 @@ namespace SmokSmog.Services.Data
                     var station = new Station()
                     {
                         Id = item["id"].Value<int?>() ?? 0,
-                        Name = (item["name"].Value<string>() ?? "").RemoveDuplicateSpaces().Trim(),
+                        Name = (item["name"].Value<string>() ?? "").RemoveWhiteSpaces().Trim(),
                         Geocoordinate = new Geocoordinate()
                         {
                             Latitude = item["lat"].Value<double?>() ?? 0d,
@@ -103,7 +138,7 @@ namespace SmokSmog.Services.Data
                 // get provinces information for stations
                 foreach (var province in provincesJArray)
                 {
-                    string name = province["name"].Value<string>()?.RemoveDuplicateSpaces().Trim();
+                    string name = province["name"].Value<string>()?.RemoveWhiteSpaces().Trim();
                     var stationsInProvince = province["stations"].Values<JToken>();
 
                     if (stationsInProvince == null || string.IsNullOrWhiteSpace(name))

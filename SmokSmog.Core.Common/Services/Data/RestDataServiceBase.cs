@@ -4,31 +4,34 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using SmokSmog.Services.Storage;
+using SmokSmog.Net.Http;
 
 namespace SmokSmog.Services.Data
 {
     public abstract class RestDataProviderBase : AsyncDataProviderBase
     {
-        protected RestDataProviderBase(ISettingsService settingsService, string baseUrl)
-            : this(settingsService, new Uri(baseUrl))
+        protected RestDataProviderBase(IHttpClient httpClient, string baseUrl)
+            : this(httpClient, new Uri(baseUrl))
         { }
 
-        protected RestDataProviderBase(ISettingsService settingsService, Uri baseUri)
+        protected RestDataProviderBase(IHttpClient httpClient, Uri baseUri)
         {
+            if (httpClient == null)
+                throw new ArgumentNullException(nameof(httpClient));
+            HttpClient = httpClient;
+
+            if (baseUri == null)
+                throw new ArgumentNullException(nameof(baseUri));
+
             BaseUri = baseUri;
             Debug.Assert(baseUri != null && !string.IsNullOrWhiteSpace(BaseUri.AbsolutePath));
 
-            SettingsService = settingsService;
-            Debug.Assert(SettingsService != null);
-
-            HttpClient = new HttpClient();
-            Debug.Assert(HttpClient != null);
+            HttpClient.BaseAddress = BaseUri;
         }
 
         protected Uri BaseUri { get; }
-        protected HttpClient HttpClient { get; }
-        protected ISettingsService SettingsService { get; }
+
+        protected IHttpClient HttpClient { get; }
 
         protected async Task<string> GetStringAsync(string relativeUri)
             => await GetStringAsync(new Uri(relativeUri, UriKind.Relative));
@@ -56,8 +59,9 @@ namespace SmokSmog.Services.Data
                     throw new HttpRequestException($"Code:{message.StatusCode} : {message.ReasonPhrase}");
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Diagnostics.Logger.Log(ex);
                 throw;
             }
         }
