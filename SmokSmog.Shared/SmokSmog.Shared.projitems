@@ -142,4 +142,16 @@
     <None Include="$(MSBuildThisFileDirectory)Assets\Tiles\Small\Square71x71Logo.design" />
     <None Include="$(MSBuildThisFileDirectory)Assets\Tiles\Wide\Wide310x150Logo.design" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Design\Test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Design\Test.xaml.cs">
+      <DependentUpon>Test.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Design\TestViewModel.cs" />
+  </ItemGroup>
 </Project>

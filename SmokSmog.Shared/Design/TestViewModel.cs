@@ -5,6 +5,7 @@
         public int index0 => 0;
 
         private int index1 = 1;
+        public int index3 => 1;
 
         public int Index1
         {

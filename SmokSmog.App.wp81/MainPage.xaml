@@ -54,7 +54,7 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel x:Name="ApplicationTitle" Orientation="Horizontal">
-                    <Border x:Name="ApplicationTitleLogo"
+                    <!--<Border x:Name="ApplicationTitleLogo"
                             Width="{StaticResource SmokSmogMenuButtonWidth}"
                             Height="{StaticResource SmokSmogMenuButtonHeight}"
                             Margin="5,0,0,0"
@@ -65,10 +65,10 @@
                                   Data="{StaticResource SmokSmogLogoPathData}"
                                   Fill="{ThemeResource ApplicationHeaderForegroundThemeBrush}" />
                         </Viewbox>
-                    </Border>
+                    </Border>-->
 
                     <TextBlock x:Name="ApplicationTitleName"
-                               Margin="5,0"
+                               Margin="15,0"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                FontFamily="Segoe UI"
