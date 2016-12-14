@@ -21,6 +21,14 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Badge\BadgeLogo.scale-400.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Badge\BadgeLogo.scale-80.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\SEGMDL2.TTF" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.scale-140.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.scale-180.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.scale-80.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.targetsize-16.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.targetsize-256.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.targetsize-32.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.targetsize-48.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.scale-100.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.scale-125.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.scale-140.png" />
@@ -94,6 +102,10 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Tiles\Medium\Square150x150Logo.scale-300.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Tiles\Medium\Square150x150Logo.scale-400.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Tiles\Medium\Square150x150Logo.scale-80.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Tiles\Small\Square70x70Logo.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Tiles\Small\Square70x70Logo.scale-140.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Tiles\Small\Square70x70Logo.scale-180.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Tiles\Small\Square70x70Logo.scale-80.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Tiles\Small\Square71x71Logo.scale-100.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Tiles\Small\Square71x71Logo.scale-125.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Tiles\Small\Square71x71Logo.scale-140.png" />
@@ -119,8 +131,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Assets\Badge\BadgeLogo.design" />
-    <None Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.scale.design" />
-    <None Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.targetsize.design" />
+    <None Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo_scale.design" />
+    <None Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo_targetsize.design" />
     <None Include="$(MSBuildThisFileDirectory)Assets\SplashScreen\SplashScreenHorizontal.design" />
     <None Include="$(MSBuildThisFileDirectory)Assets\SplashScreen\SplashScreenVertical.design" />
     <None Include="$(MSBuildThisFileDirectory)Assets\Store\StoreLogo.design" />
