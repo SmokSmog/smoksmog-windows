@@ -4,7 +4,7 @@
   <Properties>
     <DisplayName>SmokSmog</DisplayName>
     <PublisherDisplayName>SmokSmog</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\Store\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
     <OSMinVersion>6.3.0</OSMinVersion>
@@ -16,8 +16,16 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SmokSmog.App">
-      <m2:VisualElements DisplayName="SmokSmog" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="SmokSmog" ForegroundText="light" BackgroundColor="#464646">
-        <m2:SplashScreen Image="Assets\SplashScreen.png" />
+      <m2:VisualElements DisplayName="SmokSmog" Square150x150Logo="Assets\Tiles\Medium\Square150x150Logo.png" Square30x30Logo="Assets\Icon\Square44x44Logo.png" Description="SmokSmog" ForegroundText="light" BackgroundColor="transparent">
+        <m2:LockScreen Notification="badge" BadgeLogo="Assets\Badge\BadgeLogo.png" />
+        <m2:DefaultTile Wide310x150Logo="Assets\Tiles\Wide\Wide310x150Logo.png" Square70x70Logo="Assets\Tiles\Small\Square71x71Logo.png" ShortName="SmokSmog" Square310x310Logo="Assets\Tiles\Large\Square310x310Logo.png" DefaultSize="square150x150Logo">
+          <m2:ShowNameOnTiles>
+            <m2:ShowOn Tile="square150x150Logo" />
+            <m2:ShowOn Tile="wide310x150Logo" />
+            <m2:ShowOn Tile="square310x310Logo" />
+          </m2:ShowNameOnTiles>
+        </m2:DefaultTile>
+        <m2:SplashScreen Image="Assets\SplashScreen\SplashScreenHorizontal.png" />
       </m2:VisualElements>
     </Application>
   </Applications>
