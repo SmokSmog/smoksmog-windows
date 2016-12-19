@@ -16,6 +16,9 @@
             <viewmodel:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
             <globalization:LocalizedStrings x:Key="LocalizedStrings" d:IsDataSource="True" />
             <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="/Themes/Generic.xaml" />
+
                 <!--<ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
                 <!--<ResourceDictionary Source="/SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
                 <!--<ResourceDictionary Source="ms-resource:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->

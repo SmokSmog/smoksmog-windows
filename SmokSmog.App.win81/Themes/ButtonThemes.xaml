@@ -7,16 +7,16 @@
            TargetType="Button">
 
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{ThemeResource SmokSmogForegroundBrush}" />
-        <Setter Property="Foreground" Value="{ThemeResource SmokSmogForegroundBrush}" />
+        <Setter Property="BorderBrush" Value="Green" />
+        <Setter Property="Foreground" Value="Green" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="FontFamily" Value="{ThemeResource SmokSmogFontFamilyNormal}" />
-        <Setter Property="FontWeight" Value="{ThemeResource PhoneButtonFontWeight}" />
-        <Setter Property="FontSize" Value="{ThemeResource TextStyleLargeFontSize}" />
+        <Setter Property="FontFamily" Value="Arial" />
+        <Setter Property="FontWeight" Value="24" />
+        <Setter Property="FontSize" Value="24" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0"/>
-        <Setter Property="MinHeight" Value="{ThemeResource PhoneButtonMinHeight}" />
-        <Setter Property="MinWidth" Value="{ThemeResource PhoneButtonMinWidth}" />
+        <Setter Property="MinHeight" Value="60" />
+        <Setter Property="MinWidth" Value="60" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">

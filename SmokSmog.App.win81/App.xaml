@@ -6,22 +6,30 @@
              xmlns:local="using:SmokSmog" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:valueconverters="using:SmokSmog.Xaml.Data.ValueConverters"
              xmlns:viewmodel="using:SmokSmog.ViewModel"
+             xmlns:services="using:SmokSmog.Services"
              RequestedTheme="Light"
              mc:Ignorable="d">
     <!--  Windows Store 8.1  -->
     <Application.Resources>
         <ResourceDictionary>
+            <services:ServiceLocator x:Key="ServiceLocator" d:IsDataSource="True" />
+            <viewmodel:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
+            <globalization:LocalizedStrings x:Key="LocalizedStrings" d:IsDataSource="True" />
+            <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
+                <!--<ResourceDictionary Source="/SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
+                <!--<ResourceDictionary Source="ms-resource:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
+                <!--  for ResourcesDictionary from other assembly  -->
+                <!--<ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT/Styles/StationListViewStyle.xaml" />-->
+                <!--  for ResourcesDictionary from other assembly  -->
+                <ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT/Xaml/Data/ValueConverters.xaml" />
 
-            <globalization:LocalizedStrings x:Key="LocalizedStrings" />
-            <valueconverters:BooleanToVisability x:Key="BooleanToVisabilityValueConverter" />
-            <valueconverters:StringGetFirstChar x:Key="StringGetFirstCharValueConverter" />
-            <valueconverters:StringToLower x:Key="StringToLowerValueConverter" />
-            <valueconverters:StringToUpper x:Key="StringToUpperValueConverter" />
-            <valueconverters:ValueConverterGroup x:Key="StringGetFirstCharAndToLowerValueConverter">
-                <valueconverters:StringGetFirstChar />
-                <valueconverters:StringToLower />
-            </valueconverters:ValueConverterGroup>
-            <viewmodel:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+                <ResourceDictionary Source="/Themes/ButtonThemes.xaml" />
+
+                <ResourceDictionary Source="/Themes/StationListViewStyle.xaml" />
+
+                <ResourceDictionary Source="/Themes/VectorGraphicsAssets.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
