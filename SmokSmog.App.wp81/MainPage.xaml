@@ -110,7 +110,7 @@
             <Border Margin="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Background="{ThemeResource CommandBarBackgroundThemeBrush}">
+                    Background="{StaticResource SmokSmogChromeBrush}">
 
                 <ToggleButton x:Name="MenuButtonHamburger"
                               MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
@@ -176,9 +176,9 @@
 
                 <Border Grid.Column="0"
                         Margin="0"
-                        Background="{ThemeResource CommandBarBackgroundThemeBrush}" />
+                        Background="{StaticResource SmokSmogChromeBrush}" />
 
-                <ScrollViewer Grid.Column="0" Margin="0,0,0,150">
+                <ScrollViewer Grid.Column="0" Margin="0,0,0,150" VerticalScrollBarVisibility="Auto">
                     <StackPanel VerticalAlignment="Top">
 
                         <!--  Home Station Button  -->

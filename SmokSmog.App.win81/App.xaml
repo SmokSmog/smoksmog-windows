@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:globalization="using:SmokSmog.Globalization"
-             xmlns:local="using:SmokSmog" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:SmokSmog"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:services="using:SmokSmog.Services"
              xmlns:valueconverters="using:SmokSmog.Xaml.Data.ValueConverters"
              xmlns:viewmodel="using:SmokSmog.ViewModel"
-             xmlns:services="using:SmokSmog.Services"
              RequestedTheme="Light"
              mc:Ignorable="d">
     <!--  Windows Store 8.1  -->
@@ -16,19 +17,17 @@
             <viewmodel:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
             <globalization:LocalizedStrings x:Key="LocalizedStrings" d:IsDataSource="True" />
             <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="/Themes/SmokSmogTheme.xaml" />
+
+                <!--  for ResourcesDictionary from other assembly  -->
+                <ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT/Xaml/Data/ValueConverters.xaml" />
+
                 <!--<ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
                 <!--<ResourceDictionary Source="/SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
                 <!--<ResourceDictionary Source="ms-resource:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
                 <!--  for ResourcesDictionary from other assembly  -->
                 <!--<ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT/Styles/StationListViewStyle.xaml" />-->
-                <!--  for ResourcesDictionary from other assembly  -->
-                <ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT/Xaml/Data/ValueConverters.xaml" />
-
-                <ResourceDictionary Source="/Themes/ButtonThemes.xaml" />
-
-                <ResourceDictionary Source="/Themes/StationListViewStyle.xaml" />
-
-                <ResourceDictionary Source="/Themes/VectorGraphicsAssets.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -23,7 +23,6 @@
     <Page.Resources>
         <x:Double x:Key="SmokSmogMenuButtonWidth">50</x:Double>
         <x:Double x:Key="SmokSmogMenuButtonHeight">50</x:Double>
-        <FontFamily x:Key="SmokSmogMenuButtonIconFontFamily">/Assets/Fonts/SEGMDL2.TTF#Segoe MDL2 Assets</FontFamily>
         <x:Double x:Key="SmokSmogMenuButtonIconFontSize">22</x:Double>
         <x:Double x:Key="SmokSmogMenuButtonTextFontSize">20</x:Double>
         <x:Double x:Key="SmokSmogMenuButtonTextBlockWidth">220</x:Double>
@@ -78,22 +77,6 @@
                                               Source={StaticResource LocalizedStrings}}" />
                 </StackPanel>
 
-                <TextBlock x:Name="SearchTextBox"
-                                    Grid.Column="1"
-                                    MinWidth="280"
-                                    MaxWidth="350"
-                                    HorizontalAlignment="Stretch"
-                                    LostFocus="SearchTextBox_LostFocus"
-                                    Visibility="Collapsed"/>
-
-                <!--<controls:SearchBox x:Name="SearchTextBox"
-                                    Grid.Column="1"
-                                    MinWidth="280"
-                                    MaxWidth="350"
-                                    HorizontalAlignment="Stretch"
-                                    LostFocus="SearchTextBox_LostFocus"
-                                    Visibility="Collapsed" />-->
-
                 <Button x:Name="SearchButton"
                         Grid.Column="1"
                         Width="{StaticResource SmokSmogMenuButtonWidth}"
@@ -109,7 +92,7 @@
 
                     <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                               Height="{StaticResource SmokSmogMenuButtonHeight}"
-                              FontFamily="{StaticResource SmokSmogMenuButtonIconFontFamily}"
+                              FontFamily="{StaticResource SmokSmogIconFontFamily}"
                               FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
                               Glyph="&#xE11A;" />
                 </Button>
@@ -117,7 +100,8 @@
 
             <Border Margin="0"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Top"
+                    Background="{StaticResource SmokSmogChromeBrush}">
 
                 <ToggleButton x:Name="MenuButtonHamburger"
                               MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
@@ -127,7 +111,7 @@
                               Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
                               Style="{StaticResource SmokSmogToggleButtonStyle}">
 
-                    <FontIcon FontFamily="{StaticResource SmokSmogMenuButtonIconFontFamily}"
+                    <FontIcon FontFamily="{StaticResource SmokSmogIconFontFamily}"
                               FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
                               Glyph="&#xE700;" />
 
@@ -166,7 +150,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid x:Name="RightSideMenuGrid"
-                  Width="60"
+                  Width="0"
                   HorizontalAlignment="Left">
 
                 <!--<i:Interaction.Behaviors>
@@ -182,9 +166,10 @@
                 </i:Interaction.Behaviors>-->
 
                 <Border Grid.Column="0"
-                        Margin="0" />
+                        Margin="0"
+                        Background="{StaticResource SmokSmogChromeBrush}" />
 
-                <ScrollViewer Grid.Column="0" Margin="0,0,0,150">
+                <ScrollViewer Grid.Column="0" Margin="0,0,0,150" VerticalScrollBarVisibility="Auto">
                     <StackPanel VerticalAlignment="Top">
 
                         <!--  Home Station Button  -->
@@ -192,7 +177,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                           Height="{StaticResource SmokSmogMenuButtonHeight}"
-                                          FontFamily="{StaticResource SmokSmogMenuButtonIconFontFamily}"
+                                          FontFamily="{StaticResource SmokSmogIconFontFamily}"
                                           FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
                                           Glyph="&#xE10F;" />
                                 <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
@@ -211,7 +196,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                           Height="{StaticResource SmokSmogMenuButtonHeight}"
-                                          FontFamily="{StaticResource SmokSmogMenuButtonIconFontFamily}"
+                                          FontFamily="{StaticResource SmokSmogIconFontFamily}"
                                           FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
                                           Glyph="&#xE728;" />
                                 <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
@@ -228,7 +213,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                           Height="{StaticResource SmokSmogMenuButtonHeight}"
-                                          FontFamily="{StaticResource SmokSmogMenuButtonIconFontFamily}"
+                                          FontFamily="{StaticResource SmokSmogIconFontFamily}"
                                           FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
                                           Glyph="&#xE11A;" />
                                 <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
@@ -275,7 +260,7 @@
                         <StackPanel Orientation="Horizontal">
                             <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                       Height="{StaticResource SmokSmogMenuButtonHeight}"
-                                      FontFamily="{StaticResource SmokSmogMenuButtonIconFontFamily}"
+                                      FontFamily="{StaticResource SmokSmogIconFontFamily}"
                                       FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
                                       Glyph="&#xEA1F;" />
                             <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
@@ -293,7 +278,7 @@
                         <StackPanel Orientation="Horizontal">
                             <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                       Height="{StaticResource SmokSmogMenuButtonHeight}"
-                                      FontFamily="{StaticResource SmokSmogMenuButtonIconFontFamily}"
+                                      FontFamily="{StaticResource SmokSmogIconFontFamily}"
                                       FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
                                       Glyph="&#xE115;" />
                             <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
