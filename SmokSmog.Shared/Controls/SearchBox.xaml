@@ -47,16 +47,17 @@
                     Orientation="Horizontal">
 
             <Button x:Name="CancelationButton"
-                    Width="40"
-                    Height="40"
-                    MinWidth="40"
-                    MinHeight="40"
-                    MaxWidth="40"
-                    MaxHeight="40"
+                    Width="32"
+                    Height="32"
+                    MinWidth="32"
+                    MinHeight="32"
+                    MaxWidth="32"
+                    MaxHeight="32"
                     Click="CancelationButton_Click"
                     Content="&#x2715;"
-                    FontFamily="Segoe UI Symbol"
+                    FontFamily="Segoe UI"
                     FontSize="15"
+                    FontWeight="Black"
                     Style="{StaticResource SmokSmogButtonStyle}"
                     Visibility="Collapsed" />
 

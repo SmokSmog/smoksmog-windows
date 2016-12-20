@@ -1,5 +1,5 @@
-﻿using System;
-using SmokSmog.Globalization;
+﻿using SmokSmog.Globalization;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -16,7 +16,7 @@ namespace SmokSmog
     /// </summary>
     public sealed partial class App : Application
     {
-        private TransitionCollection transitions;
+        private TransitionCollection _transitions;
 
         /// <summary>
         /// Initializes the singleton application object. This is the first line of authored code
@@ -71,10 +71,10 @@ namespace SmokSmog
                 // Removes the turnstile navigation for startup.
                 if (mainPage.ContentFrame.ContentTransitions != null)
                 {
-                    this.transitions = new TransitionCollection();
+                    this._transitions = new TransitionCollection();
                     foreach (var c in mainPage.ContentFrame.ContentTransitions)
                     {
-                        this.transitions.Add(c);
+                        this._transitions.Add(c);
                     }
                 }
 
@@ -84,7 +84,7 @@ namespace SmokSmog
                 // When the navigation stack isn't restored navigate to the first page, configuring
                 // the new page by passing required information as a navigation parameter
 
-                if (!mainPage.ContentFrame.Navigate(typeof(SmokSmog.Views.SationList), e.Arguments))
+                if (!mainPage.ContentFrame.Navigate(typeof(Views.SationList), e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
@@ -148,7 +148,7 @@ namespace SmokSmog
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
             var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
+            rootFrame.ContentTransitions = this._transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
         }
 
@@ -162,7 +162,6 @@ namespace SmokSmog
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-
             // TODO: Save application state and stop any background activity
             deferral.Complete();
         }

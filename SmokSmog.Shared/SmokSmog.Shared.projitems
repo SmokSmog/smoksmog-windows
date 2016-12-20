@@ -155,6 +155,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SationList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\StationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\SearchBox.xaml.cs">
@@ -164,5 +172,11 @@
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Design\TestViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SationList.xaml.cs">
+      <DependentUpon>SationList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StationPage.xaml.cs">
+      <DependentUpon>StationPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

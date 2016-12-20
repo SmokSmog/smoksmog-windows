@@ -1,8 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace SmokSmog.Controls
 {
     public sealed partial class SearchBox : UserControl
@@ -31,6 +29,7 @@ namespace SmokSmog.Controls
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+#if WINDOWS_PHONE
             if (!string.IsNullOrWhiteSpace(SearchTextBox.Text))
             {
                 CancelationButton.Visibility = Visibility.Visible;
@@ -39,7 +38,7 @@ namespace SmokSmog.Controls
             {
                 CancelationButton.Visibility = Visibility.Collapsed;
             }
-
+#endif
             Text = SearchTextBox.Text ?? string.Empty;
         }
 
