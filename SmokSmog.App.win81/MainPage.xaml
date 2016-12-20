@@ -31,7 +31,7 @@
         <GridLength x:Key="SmokSmogMenuButtonWidthGl">50</GridLength>
     </Page.Resources>
 
-    <Grid x:Name="LayoutRoot" RequestedTheme="Light" Background="White">
+    <Grid x:Name="LayoutRoot" RequestedTheme="Light"  Background="{StaticResource SmokSmogBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -76,6 +76,15 @@
                                Text="{Binding LocalizedResources.ApplicationTitle,
                                               Source={StaticResource LocalizedStrings}}" />
                 </StackPanel>
+
+                <controls:SearchBox x:Name="SearchTextBox"
+                                    Grid.Column="1"
+                                    MinWidth="280"
+                                    MaxWidth="350"
+                                    HorizontalAlignment="Stretch"
+                                    LostFocus="SearchTextBox_LostFocus"
+                                    TextChanged="SearchTextBox_TextChanged"
+                                    Visibility="Collapsed" />
 
                 <Button x:Name="SearchButton"
                         Grid.Column="1"

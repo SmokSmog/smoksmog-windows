@@ -92,34 +92,34 @@ namespace SmokSmog
 
         private void SetSearchStatus(bool open = false)
         {
-            //var stateBefore = SearchVisualStateGroup.CurrentState?.Name;
+            var stateBefore = SearchVisualStateGroup.CurrentState?.Name;
 
-            //if (_searchable == null)
-            //{
-            //    SearchTextBox.Text = string.Empty;
-            //    VisualStateManager.GoToState(this, "DisableSearchState", true);
-            //    return;
-            //}
+            if (_searchable == null)
+            {
+                SearchTextBox.Text = string.Empty;
+                VisualStateManager.GoToState(this, "DisableSearchState", true);
+                return;
+            }
 
-            //if ((string.IsNullOrWhiteSpace(SearchTextBox.Text)) && !open)
-            //{
-            //    VisualStateManager.GoToState(this, "ClosedSearchState", true);
-            //    return;
-            //}
+            if ((SearchTextBox.FocusState == FocusState.Unfocused && string.IsNullOrWhiteSpace(SearchTextBox.Text)) && !open)
+            {
+                VisualStateManager.GoToState(this, "ClosedSearchState", true);
+                return;
+            }
 
-            //if (ActualWidth > 520)
-            //    VisualStateManager.GoToState(this, "WideSearchState", true);
-            //else
-            //    VisualStateManager.GoToState(this, "NarrowSearchState", true);
+            if (ActualWidth > 520)
+                VisualStateManager.GoToState(this, "WideSearchState", true);
+            else
+                VisualStateManager.GoToState(this, "NarrowSearchState", true);
 
-            //if (stateBefore != "WideSearchState" && stateBefore != "NarrowSearchState")
-            //    SearchTextBox.Focus(FocusState.Keyboard);
+            if (stateBefore != "WideSearchState" && stateBefore != "NarrowSearchState")
+                SearchTextBox.Focus(FocusState.Keyboard);
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (_searchable != null)
-            //    _searchable.Querry = new SearchQuerry() { String = SearchTextBox.Text, };
+            if (_searchable != null)
+                _searchable.Querry = new SearchQuerry() { String = SearchTextBox.Text, };
         }
 
         private void TitleRoot_GotFocus(object sender, RoutedEventArgs e)
