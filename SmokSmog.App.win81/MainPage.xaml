@@ -97,6 +97,7 @@
                         HorizontalAlignment="Right"
                         BorderThickness="0"
                         Click="SearchButton_Click"
+                        Visibility="Collapsed"
                         Style="{StaticResource SmokSmogButtonStyle}">
 
                     <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
@@ -159,7 +160,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid x:Name="RightSideMenuGrid"
-                  Width="0"
+                  Width="48"
                   HorizontalAlignment="Left">
 
                 <!--<i:Interaction.Behaviors>
@@ -178,7 +179,7 @@
                         Margin="0"
                         Background="{StaticResource SmokSmogChromeBrush}" />
 
-                <ScrollViewer Grid.Column="0" Margin="0,0,0,150" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Grid.Column="0" Margin="0,0,0,150" VerticalScrollBarVisibility="Hidden">
                     <StackPanel VerticalAlignment="Top">
 
                         <!--  Home Station Button  -->
