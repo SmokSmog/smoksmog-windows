@@ -25,10 +25,11 @@ namespace SmokSmog.Globalization
             Assembly assembly = appResourcesType.GetTypeInfo().Assembly;
             ResourceManager resourceManager = new WinRTResourceManager(name, assembly);
 
-            appResourcesType
+            var resourceMan = appResourcesType
                 .GetRuntimeFields()
-                .First(m => m.Name == "resourceMan")
-                .SetValue(null, resourceManager);
+                .First(m => m.Name == "resourceMan");
+
+            resourceMan.SetValue(null, resourceManager);
         }
 
         public override string GetString(string name, CultureInfo culture)

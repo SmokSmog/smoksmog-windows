@@ -16,6 +16,7 @@
             <services:ServiceLocator x:Key="ServiceLocator" d:IsDataSource="True" />
             <viewmodel:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
             <globalization:LocalizedStrings x:Key="LocalizedStrings" d:IsDataSource="True" />
+            
             <ResourceDictionary.MergedDictionaries>
 
                 <ResourceDictionary Source="/Themes/SmokSmogTheme.xaml" />

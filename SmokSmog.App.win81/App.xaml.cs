@@ -7,14 +7,12 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
-
 namespace SmokSmog
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    public sealed partial class App : Application
     {
         private TransitionCollection _transitions;
 
@@ -24,19 +22,28 @@ namespace SmokSmog
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
-
             // inject WinRT Resource Manager into Resx Generated App Resources Classes
             WinRTResourceManager.InjectIntoResxGeneratedAppResources(typeof(SmokSmog.Resources.AppResources));
+
+            SmokSmog.Services.ServiceLocator.Initialize();
+
+            this.InitializeComponent();
+            this.Suspending += this.OnSuspending;
         }
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user. Other entry points
-        /// will be used such as when the application is launched to open a specific file.
+        /// will be used when the application is launched to open a specific file, to display search
+        /// results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
+#if WINDOWS_PHONE
+
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+#else
+
         protected override void OnLaunched(LaunchActivatedEventArgs e)
+#endif
         {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -79,6 +86,7 @@ namespace SmokSmog
 
                 mainPage.ContentFrame.ContentTransitions = null;
                 mainPage.ContentFrame.Navigated += this.RootFrame_FirstNavigated;
+                mainPage.ContentFrame.NavigationFailed += OnNavigationFailed;
 
                 // When the navigation stack isn't restored navigate to the first page, configuring
                 // the new page by passing required information as a navigation parameter
@@ -91,8 +99,9 @@ namespace SmokSmog
 
             // Ensure the current window is active
             Window.Current.Activate();
-
-            //await Windows.UI.ViewManagement.StatusBar.GetForCurrentView().HideAsync();
+#if WINDOWS_PHONE
+            await Windows.UI.ViewManagement.StatusBar.GetForCurrentView().HideAsync();
+#endif
         }
 
         /// <summary>
@@ -106,18 +115,6 @@ namespace SmokSmog
         }
 
         /// <summary>
-        /// Restores the content transitions after the app has launched.
-        /// </summary>
-        /// <param name="sender">The object where the handler is attached.</param>
-        /// <param name="e">Details about the navigation event.</param>
-        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
-        {
-            var rootFrame = sender as Frame;
-            //rootFrame.ContentTransitions = this._transitions ?? new TransitionCollection() { new Windows.UI.Xaml.Media.Animation NavigationThemeTransition() };
-            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
-        }
-
-        /// <summary>
         /// Invoked when application execution is being suspended. Application state is saved without
         /// knowing whether the application will be terminated or resumed with the contents of memory
         /// still intact.
@@ -127,8 +124,27 @@ namespace SmokSmog
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+            // TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        /// <summary>
+        /// Restores the content transitions after the app has launched.
+        /// </summary>
+        /// <param name="sender">The object where the handler is attached.</param>
+        /// <param name="e">Details about the navigation event.</param>
+        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
+        {
+            var rootFrame = sender as Frame;
+
+            rootFrame.ContentTransitions = this._transitions ?? new TransitionCollection()
+            {
+#if WINDOWS_UWP || WINDOWS_PHONE
+                new NavigationThemeTransition(),
+#endif
+            };
+
+            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
         }
     }
 }

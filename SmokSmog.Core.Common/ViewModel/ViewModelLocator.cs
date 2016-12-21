@@ -28,7 +28,7 @@ namespace SmokSmog.ViewModel
         /// </summary>
         public ViewModelLocator()
         {
-            SimpleIoc.Default.Register<StationListViewModel>();
+            SimpleIoc.Default.Register<StationListViewModel>();            
         }
 
         public StationListViewModel StationList

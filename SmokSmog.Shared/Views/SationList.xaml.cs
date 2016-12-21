@@ -36,5 +36,12 @@ namespace SmokSmog.Views
         {
             Windows.UI.Xaml.Controls.Primitives.FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
+
+        public void StationListSemanticZoomToggleActiveView()
+        {
+#if WINDOWS_APP
+            StationListSemanticZoom.ToggleActiveView();
+#endif
+        }
     }
 }

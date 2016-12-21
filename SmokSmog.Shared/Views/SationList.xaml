@@ -16,7 +16,8 @@
       DataContext="{Binding Path=StationList,
                             Source={StaticResource ViewModelLocator}}"
       RequestedTheme="Light"
-      mc:Ignorable="d">
+      mc:Ignorable="d"
+      x:Name="This">
 
     <Page.Resources>
 
@@ -216,15 +217,15 @@
                           Grid.ColumnSpan="2"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
-                          Style="{StaticResource SmokSmogSemanticZoomStyle}"
+                          
                           Visibility="{Binding Path=IsStationFilterOn,
                                                Converter={StaticResource BooleanToVisabilityValueConverter},
                                                ConverterParameter='Reverse'}">
 
                 <SemanticZoom.ZoomedOutView>
                     <GridView Margin="0,0,0,0"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Top"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
                               HorizontalContentAlignment="Center"
                               VerticalContentAlignment="Top"
                               Background="{StaticResource SmokSmogBackgroundBrush}"
@@ -283,8 +284,8 @@
                                     <DataTemplate>
                                         <Grid>
                                             <i:Interaction.Behaviors>
-                                                <ic:EventTriggerBehavior EventName="Tapped">
-                                                    <ic:CallMethodAction MethodName="ToggleActiveView" TargetObject="{Binding ElementName=StationListSemanticZoom}" />
+                                                <ic:EventTriggerBehavior EventName="Tapped" >
+                                                    <ic:CallMethodAction MethodName="StationListSemanticZoomToggleActiveView" TargetObject="{Binding ElementName=This}" />
                                                 </ic:EventTriggerBehavior>
                                             </i:Interaction.Behaviors>
 
