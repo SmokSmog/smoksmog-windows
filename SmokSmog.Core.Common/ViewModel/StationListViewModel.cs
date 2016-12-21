@@ -1,18 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using SmokSmog.Extensions;
 using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Search;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmokSmog.ViewModel
 {
-    public enum StationGroupingModeEnum { Name, City, Province }
+    public enum StationGroupingModeEnum
+    {
+        Name,
+        Province,
+        //City,
+    }
 
     /// <summary>
     /// This class contains properties that the main View can data bind to.
@@ -313,30 +318,31 @@ namespace SmokSmog.ViewModel
                     "#","a","ą","b","c","ć","d","e","ę",
                     "f","g","h","i","j","k","l","ł",
                     "m","n","ń","o","ó","p","r","s",
-                    "ś","t","u","w","y","z","ź","ż",'\uE12B'.ToString()
+                    "ś","t","u","w","y","z","ź","ż",
+                    //'\uE12B'.ToString()
                 };
 
                 Dictionary<string, List<Model.Station>> dictionary = new Dictionary<string, List<Model.Station>>();
                 switch (CurrentStationGroupingMode)
                 {
-                    case StationGroupingModeEnum.City:
-                        // grouping and sort by city and adress
-                        foreach (var station in BaseStationsList)
-                        {
-                            string key = !string.IsNullOrWhiteSpace(station.City) ? station.City[0].ToString().ToLower() : '\uE12B'.ToString();
-                            if (!dictionary.ContainsKey(key))
-                                dictionary[key] = new List<Model.Station>();
-                            dictionary[key].Add(station);
-                        }
-                        foreach (var key in characters)
-                        {
-                            if (!dictionary.ContainsKey(key))
-                                dictionary[key] = new List<Model.Station>();
-                        }
-                        return (from pair in dictionary
-                                orderby pair.Key
-                                select new SmokSmog.Linq.GroupingStation(
-                                    pair.Key, (from s in pair.Value orderby s.City + s.Address select s))).ToList();
+                    //case StationGroupingModeEnum.City:
+                    //    // grouping and sort by city and adress
+                    //    foreach (var station in BaseStationsList)
+                    //    {
+                    //        string key = !string.IsNullOrWhiteSpace(station.City) ? station.City[0].ToString().ToLower() : '\uE12B'.ToString();
+                    //        if (!dictionary.ContainsKey(key))
+                    //            dictionary[key] = new List<Model.Station>();
+                    //        dictionary[key].Add(station);
+                    //    }
+                    //    foreach (var key in characters)
+                    //    {
+                    //        if (!dictionary.ContainsKey(key))
+                    //            dictionary[key] = new List<Model.Station>();
+                    //    }
+                    //    return (from pair in dictionary
+                    //            orderby pair.Key
+                    //            select new SmokSmog.Linq.GroupingStation(
+                    //                pair.Key, (from s in pair.Value orderby s.City + s.Address select s))).ToList();
 
                     case StationGroupingModeEnum.Province:
                         // grouping and sort by province and then by city and adress

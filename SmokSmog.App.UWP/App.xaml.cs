@@ -37,7 +37,7 @@ namespace SmokSmog
         /// results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || WINDOWS_UWP
 
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
 #else
@@ -100,7 +100,24 @@ namespace SmokSmog
             // Ensure the current window is active
             Window.Current.Activate();
 #if WINDOWS_PHONE
-            await Windows.UI.ViewManagement.StatusBar.GetForCurrentView().HideAsync();
+
+                var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                await statusBar.HideAsync();
+#endif
+
+#if WINDOWS_UWP
+
+            // http://stackoverflow.com/questions/31594625/windows-10-mobile-cannot-hide-status-bar-statusbar-doesnt-exist-in-context
+            var isStatusBarPresent = Windows
+                .Foundation
+                .Metadata
+                .ApiInformation
+                .IsTypePresent(typeof(Windows.UI.ViewManagement.StatusBar).ToString());
+            if (isStatusBarPresent)
+            {
+                var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                await statusBar.HideAsync();
+            }
 #endif
         }
 

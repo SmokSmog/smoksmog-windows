@@ -415,10 +415,10 @@
                                 <ContentPresenter x:Name="ZoomedInPresenter"
                                                   Content="{TemplateBinding ZoomedInView}"
                                                   IsHitTestVisible="False"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                                  ScrollViewer.HorizontalScrollMode="Disabled"
                                                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                                                   ScrollViewer.VerticalScrollMode="Enabled"
-                                                  ScrollViewer.HorizontalScrollMode="Disabled"
-                                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                                   Visibility="Visible">
 
                                     <ContentPresenter.RenderTransform>
@@ -431,10 +431,10 @@
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                   Content="{TemplateBinding ZoomedOutView}"
                                                   IsHitTestVisible="False"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                                  ScrollViewer.HorizontalScrollMode="Disabled"
                                                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                                                   ScrollViewer.VerticalScrollMode="Enabled"
-                                                  ScrollViewer.HorizontalScrollMode="Disabled"
-                                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                                   Visibility="Collapsed">
                                     <ContentPresenter.RenderTransform>
                                         <CompositeTransform x:Name="ZoomedOutTransform" />
@@ -460,6 +460,66 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  SmokSmog style for Windows.UI.Xaml.Controls.GridView  -->
+    <Style x:Key="SmokSmogGridViewStyle" TargetType="GridView">
+        <Setter Property="Padding" Value="0,0,0,10" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="TabNavigation" Value="Once" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
+        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled" />
+        <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True" />
+        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+        <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True" />
+        <Setter Property="IsSwipeEnabled" Value="True" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridView">
+                    <Border HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer x:Name="ScrollViewer"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      AutomationProperties.AccessibilityView="Raw"
+                                      BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
+                                      HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                      HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                      IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                      IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                      IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
+                                      IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                      IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
+                                      TabNavigation="{TemplateBinding TabNavigation}"
+                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                      VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                      ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                            <ItemsPresenter Footer="{TemplateBinding Footer}"
+                                            FooterTemplate="{TemplateBinding FooterTemplate}"
+                                            FooterTransitions="{TemplateBinding FooterTransitions}"
+                                            Header="{TemplateBinding Header}"
+                                            HeaderTemplate="{TemplateBinding HeaderTemplate}"
+                                            HeaderTransitions="{TemplateBinding HeaderTransitions}"
+                                            Padding="{TemplateBinding Padding}" />
+                        </ScrollViewer>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

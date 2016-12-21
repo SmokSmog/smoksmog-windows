@@ -55,8 +55,8 @@ namespace SmokSmog.Xaml.Data.ValueConverters
                     case ViewModel.StationGroupingModeEnum.Name:
                         return localizedStrings.LocalizedString("StationSortModeEnumName");
 
-                    case ViewModel.StationGroupingModeEnum.City:
-                        return localizedStrings.LocalizedString("StationSortModeEnumCity");
+                    //case ViewModel.StationGroupingModeEnum.City:
+                    //    return localizedStrings.LocalizedString("StationSortModeEnumCity");
 
                     case ViewModel.StationGroupingModeEnum.Province:
                         return localizedStrings.LocalizedString("StationSortModeEnumProvince");

@@ -10,14 +10,14 @@
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:local="using:SmokSmog"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      x:Name="This"
       d:DataContext="{Binding Path=StationList,
                               Source={StaticResource ViewModelLocator}}"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       DataContext="{Binding Path=StationList,
                             Source={StaticResource ViewModelLocator}}"
       RequestedTheme="Light"
-      mc:Ignorable="d"
-      x:Name="This">
+      mc:Ignorable="d">
 
     <Page.Resources>
 
@@ -39,7 +39,7 @@
                 <Grid>
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                               FontFamily="{StaticResource SmokSmogFontFamily}"
                                FontSize="50"
                                Foreground="Gray"
                                Padding="0"
@@ -49,7 +49,7 @@
 
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                               FontFamily="{StaticResource SmokSmogFontFamily}"
                                FontSize="50"
                                Padding="0"
                                Text="{Binding Path=Group.Key}"
@@ -91,20 +91,6 @@
                            Width="600"
                            Fill="#00000001" />
 
-                <!--<Viewbox Grid.RowSpan="2"
-                         Width="5"
-                         Stretch="Fill">
-
-                    <Rectangle x:Name="Ellipse"
-                               Grid.RowSpan="2"
-                               Width="24"
-                               Height="24"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Fill="{Binding AQI,
-                                              Converter={StaticResource AqiIntToBrushValueConverter}}" />
-                </Viewbox>-->
-
                 <TextBlock Grid.Column="1"
                            Margin="12,3,0,0"
                            FontSize="18"
@@ -139,7 +125,6 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -151,56 +136,82 @@
 
             <StackPanel Grid.Row="2"
                         Margin="0,6,0,0"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        Visibility="{Binding Path=IsStationFilterOn,
+                                             Converter={StaticResource BooleanToVisabilityValueConverter},
+                                             ConverterParameter='Reverse'}">
 
                 <TextBlock VerticalAlignment="Center"
                            FontSize="16"
-                           Tapped="StackPanel_Tapped"
-                           Visibility="{Binding Path=IsStationFilterOn,
-                                                Converter={StaticResource BooleanToVisabilityValueConverter},
-                                                ConverterParameter='Reverse'}">
+                           Text="{Binding LocalizedResources.StringGroupBy,
+                                          Source={StaticResource LocalizedStrings}}" />
 
-                    <TextBlock.Inlines>
-                        <Run Text="{Binding LocalizedResources.StringGroupBy, Source={StaticResource LocalizedStrings}}" />
-                        <Run Text=": " />
-                        <Run Foreground="{StaticResource SmokSmogAccentBrush}" Text="{Binding Path=CurrentStationGroupingMode, Converter={StaticResource StationGroupingModeEnumToString}}" />
-                    </TextBlock.Inlines>
+                <TextBlock Margin="2,0,6,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Text=":" />
+
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="16"
+                           Foreground="{StaticResource SmokSmogAccentBrush}"
+                           Tapped="StackPanel_Tapped"
+                           Text="{Binding Path=CurrentStationGroupingMode,
+                                          Converter={StaticResource StationGroupingModeEnumToString}}">
 
                     <FlyoutBase.AttachedFlyout>
                         <Flyout>
-                            <ListBox Margin="0"
-                                     BorderThickness="0"
-                                     ItemsSource="{Binding StationGroupingModeList}"
-                                     Padding="0"
-                                     SelectedItem="{Binding Path=CurrentStationGroupingMode,
-                                                            Mode=TwoWay,
-                                                            UpdateSourceTrigger=PropertyChanged}" />
-                        </Flyout>
-                        <!--<MenuFlyout>
-                            <MenuFlyoutItem Text="{Binding LocalizedResources.StringSetAsHomeStation, Source={StaticResource LocalizedStrings}}" />
-                            <MenuFlyoutItem Text="{Binding LocalizedResources.StringAddToFavorites, Source={StaticResource LocalizedStrings}}" />
-                            <MenuFlyoutItem Text="{Binding LocalizedResources.StringPinToStart, Source={StaticResource LocalizedStrings}}" />
-                        </MenuFlyout>-->
-                    </FlyoutBase.AttachedFlyout>
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter">
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="FlyoutPresenter">
+                                                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                  Content="{TemplateBinding Content}"
+                                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                  ContentTransitions="{TemplateBinding ContentTransitions}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
 
-                    <!--<FlyoutBase.AttachedFlyout>
-                        <ListPickerFlyout ItemsSource="{Binding StationGroupingModeList}"
-                                          Placement="Top"
-                                          SelectedItem="{Binding Path=CurrentStationGroupingMode,
-                                                                 Mode=TwoWay,
-                                                                 UpdateSourceTrigger=PropertyChanged}">
-                            <ListPickerFlyout.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Converter={StaticResource StationGroupingModeEnumToString}}" />
-                                </DataTemplate>
-                            </ListPickerFlyout.ItemTemplate>
-                        </ListPickerFlyout>
-                    </FlyoutBase.AttachedFlyout>-->
+                            <StackPanel Background="{StaticResource SmokSmogChromeBrush}">
+                                <!--<TextBlock Text="{Binding LocalizedResources.StringGroupBy, Source={StaticResource LocalizedStrings}}"
+                                       FontSize="20" />-->
+
+                                <ListBox Margin="0"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         ItemsSource="{Binding StationGroupingModeList}"
+                                         Padding="0"
+                                         SelectedItem="{Binding Path=CurrentStationGroupingMode,
+                                                                Mode=TwoWay,
+                                                                UpdateSourceTrigger=PropertyChanged}">
+
+                                    <i:BehaviorCollection />
+
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock FontSize="20" Text="{Binding Converter={StaticResource StationGroupingModeEnumToString}}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
                 </TextBlock>
             </StackPanel>
 
             <ListView Grid.Row="3"
-                      Grid.ColumnSpan="2"
                       IsHoldingEnabled="True"
                       ItemTemplate="{StaticResource StationListGrouppedListViewTemplate}"
                       ItemsSource="{Binding Path=StationListFiltered}"
@@ -212,18 +223,16 @@
                                            ConverterParameter='NonReverse'}" />
 
             <SemanticZoom x:Name="StationListSemanticZoom"
-                          ScrollViewer.VerticalScrollBarVisibility="Visible"
                           Grid.Row="3"
-                          Grid.ColumnSpan="2"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
-                          
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
                           Visibility="{Binding Path=IsStationFilterOn,
                                                Converter={StaticResource BooleanToVisabilityValueConverter},
                                                ConverterParameter='Reverse'}">
 
                 <SemanticZoom.ZoomedOutView>
-                    <GridView Margin="0,0,0,0"
+                    <GridView Margin="0"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
                               HorizontalContentAlignment="Center"
@@ -232,21 +241,8 @@
                               ItemTemplate="{StaticResource StationGridViewGroupItemTemplate}"
                               ItemsSource="{Binding Path=CollectionGroups,
                                                     Source={StaticResource StationsCollectionViewSource}}"
-                              Padding="0">
-
-
-
-                        <GridView.ItemContainerStyle>
-                            <Style TargetType="GridViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="VerticalContentAlignment" Value="Top" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate />
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GridView.ItemContainerStyle>
+                              Padding="0"
+                              Style="{StaticResource SmokSmogGridViewStyle}">
                     </GridView>
                 </SemanticZoom.ZoomedOutView>
 
@@ -284,7 +280,7 @@
                                     <DataTemplate>
                                         <Grid>
                                             <i:Interaction.Behaviors>
-                                                <ic:EventTriggerBehavior EventName="Tapped" >
+                                                <ic:EventTriggerBehavior EventName="Tapped">
                                                     <ic:CallMethodAction MethodName="StationListSemanticZoomToggleActiveView" TargetObject="{Binding ElementName=This}" />
                                                 </ic:EventTriggerBehavior>
                                             </i:Interaction.Behaviors>
