@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using SmokSmog.ViewModel;
+using SmokSmog.Xaml.Data.ValueConverters;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -9,9 +11,28 @@ namespace SmokSmog.Views
     /// </summary>
     public sealed partial class SationList : Page
     {
+        private StationListViewModel _vm => DataContext as StationListViewModel;
+
         public SationList()
         {
             this.InitializeComponent();
+
+            var converter = new StationGroupingModeEnumToString();
+            foreach (var item in _vm.StationGroupingModeList)
+            {
+                var menuItem = new MenuFlyoutItem()
+                {
+                    Text = converter.Convert(item, typeof(string), null, null).ToString(),
+                    Command = new GalaSoft.MvvmLight.Command.RelayCommand(()
+                        => _vm.CurrentStationGroupingMode = item
+                        ),
+                };
+
+                menuItem.Tapped += (object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+                    => _vm.CurrentStationGroupingMode = item;
+
+                ChangeGrouppingModeFlyout.Items.Add(menuItem);
+            }
         }
 
         /// <summary>

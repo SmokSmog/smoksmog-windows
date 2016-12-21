@@ -159,54 +159,7 @@
                                           Converter={StaticResource StationGroupingModeEnumToString}}">
 
                     <FlyoutBase.AttachedFlyout>
-                        <Flyout>
-                            <Flyout.FlyoutPresenterStyle>
-                                <Style TargetType="FlyoutPresenter">
-                                    <Setter Property="Padding" Value="0" />
-                                    <Setter Property="BorderThickness" Value="0" />
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="FlyoutPresenter">
-                                                <ContentPresenter Margin="{TemplateBinding Padding}"
-                                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                                  Content="{TemplateBinding Content}"
-                                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                                  ContentTransitions="{TemplateBinding ContentTransitions}" />
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </Flyout.FlyoutPresenterStyle>
-
-                            <StackPanel Background="{StaticResource SmokSmogChromeBrush}">
-                                <!--<TextBlock Text="{Binding LocalizedResources.StringGroupBy, Source={StaticResource LocalizedStrings}}"
-                                       FontSize="20" />-->
-
-                                <ListBox Margin="0"
-                                         Background="Transparent"
-                                         BorderThickness="0"
-                                         ItemsSource="{Binding StationGroupingModeList}"
-                                         Padding="0"
-                                         SelectedItem="{Binding Path=CurrentStationGroupingMode,
-                                                                Mode=TwoWay,
-                                                                UpdateSourceTrigger=PropertyChanged}">
-
-                                    <i:BehaviorCollection />
-
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock FontSize="20" Text="{Binding Converter={StaticResource StationGroupingModeEnumToString}}" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </StackPanel>
-                        </Flyout>
+                        <MenuFlyout x:Name="ChangeGrouppingModeFlyout" />
                     </FlyoutBase.AttachedFlyout>
                 </TextBlock>
             </StackPanel>
@@ -242,8 +195,7 @@
                               ItemsSource="{Binding Path=CollectionGroups,
                                                     Source={StaticResource StationsCollectionViewSource}}"
                               Padding="0"
-                              Style="{StaticResource SmokSmogGridViewStyle}">
-                    </GridView>
+                              Style="{StaticResource SmokSmogGridViewStyle}" />
                 </SemanticZoom.ZoomedOutView>
 
                 <SemanticZoom.ZoomedInView>
