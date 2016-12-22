@@ -62,8 +62,8 @@
 
         <DataTemplate x:Key="StationListGrouppedListViewTemplate">
 
-            <Grid Holding="Grid_Holding">
-
+            <!--https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.uielement.righttapped-->
+            <Grid RightTapped="Grid_RightTapped">
                 <FlyoutBase.AttachedFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Text="{Binding LocalizedResources.StringSetAsHomeStation, Source={StaticResource LocalizedStrings}}" />
