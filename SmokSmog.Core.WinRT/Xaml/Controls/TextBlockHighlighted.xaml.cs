@@ -1,6 +1,8 @@
 ﻿using SmokSmog.Extensions;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -22,8 +24,7 @@ namespace SmokSmog.Xaml.Controls
             set { SetValue(TextProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Text. This enables animation,
-        // styling, binding, etc...
+        // Using a DependencyProperty as the backing store for Text. This enables animation, styling,
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(TextBlockHighlighted),
                  new PropertyMetadata("", new PropertyChangedCallback(OnSomethingChanged)));
@@ -72,17 +73,30 @@ namespace SmokSmog.Xaml.Controls
             DependencyProperty.Register("Inlines", typeof(Documents.InlineCollection), typeof(TextBlockHighlighted),
                 new PropertyMetadata(new Documents.InlineCollection(), new PropertyChangedCallback(OnSomethingChanged)));
 
-        public static void OnSomethingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static void OnSomethingChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
-            TextBlockHighlighted p = d as TextBlockHighlighted;
-            p.b();
+            TextBlockHighlighted tbh = obj as TextBlockHighlighted;
+
+            if (tbh == null)
+                return;
+
+            var cts = tbh._lastProcessCTS;
+            if (cts != null)
+            {
+                if (!cts.IsCancellationRequested)
+                    cts.Cancel();
+            }
+            cts = new CancellationTokenSource();
+            tbh._lastProcessCTS = cts;
+
+            tbh.Process(cts.Token);
         }
 
-        private void b()
+        private CancellationTokenSource _lastProcessCTS = null;
+
+        private async void Process(CancellationToken token)
         {
-            //InlineCollection a = new List<Inline>();
-            //TextBlock
-            //Inline a;
+            if (token.IsCancellationRequested) return;
 
             StringBuilder stringBuilder = new StringBuilder();
 
@@ -94,17 +108,20 @@ namespace SmokSmog.Xaml.Controls
             {
                 foreach (var inline in this.Inlines)
                 {
+                    if (token.IsCancellationRequested) return;
                     stringBuilder.Append(inline.ContentStart);
                 }
             }
             string text = stringBuilder.ToString();
 
             int len = SearchString.Length;
-            tb.Inlines.Clear();
 
+            TextBlock backStoreTextBlock = new TextBlock();
+
+            if (token.IsCancellationRequested) return;
             if (string.IsNullOrWhiteSpace(SearchString))
             {
-                tb.Inlines.Add(new Run() { Text = text });
+                backStoreTextBlock.Inlines.Add(new Run() { Text = text });
             }
             else
             {
@@ -120,15 +137,21 @@ namespace SmokSmog.Xaml.Controls
 
                 foreach (var item in indexOfAll)
                 {
+                    if (token.IsCancellationRequested) return;
                     foreach (var index in item.Value) { indList.Add(new { start = index, end = index + item.Key.Length }); }
                 }
                 //sort by indexes
                 indList.Sort((a, b) => a.start.CompareTo(b.start));
+
+                if (token.IsCancellationRequested) return;
+
                 // create list of annonymus type
                 var indListAgregated = new[] { type }.ToList(); indListAgregated.RemoveAt(0);
 
                 foreach (var item in indList)
                 {
+                    if (token.IsCancellationRequested) return;
+
                     if (indListAgregated.Count == 0) { indListAgregated.Add(item); continue; }
                     else
                     {
@@ -148,21 +171,31 @@ namespace SmokSmog.Xaml.Controls
 
                 foreach (var item in indListAgregated)
                 {
+                    if (token.IsCancellationRequested) return;
+
                     int l = item.start - last;
                     if (item.start != last && l > 0)
                     {
-                        tb.Inlines.Add(new Run() { Text = text.Substring(last, l) });
+                        backStoreTextBlock.Inlines.Add(new Run() { Text = text.Substring(last, l) });
                     }
-                    tb.Inlines.Add(new Run() { Text = text.Substring(item.start, item.end - item.start), Foreground = Highlight });
+                    backStoreTextBlock.Inlines.Add(new Run() { Text = text.Substring(item.start, item.end - item.start), Foreground = Highlight });
                     last = item.end;
                 }
 
                 if (last < text.Length)
                 {
                     var l = text.Length - last;
-                    tb.Inlines.Add(new Run() { Text = text.Substring(last, l) });
+                    backStoreTextBlock.Inlines.Add(new Run() { Text = text.Substring(last, l) });
                 }
             }
+
+            tb.Inlines.Clear();
+            foreach (var inline in backStoreTextBlock.Inlines)
+            {
+                tb.Inlines.Add(inline);
+            }
+
+            await Task.Delay(System.TimeSpan.FromSeconds(0));
         }
     }
 }

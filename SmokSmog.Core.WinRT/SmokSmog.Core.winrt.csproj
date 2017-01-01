@@ -111,6 +111,7 @@
     <Compile Include="Xaml\Interactivity\BehaviorCollection.cs" />
     <Compile Include="Xaml\Interactivity\BehaviorOfT.cs" />
     <Compile Include="Xaml\Interactivity\Interaction.cs" />
+    <Compile Include="Xaml\SvgData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmokSmog.Core.Common\SmokSmog.Core.Common.csproj">

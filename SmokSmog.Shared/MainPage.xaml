@@ -31,7 +31,7 @@
         <GridLength x:Key="SmokSmogMenuButtonWidthGl">50</GridLength>
     </Page.Resources>
 
-    <Grid x:Name="LayoutRoot" RequestedTheme="Light" Background="{StaticResource SmokSmogBackgroundBrush}">
+    <Grid x:Name="LayoutRoot" RequestedTheme="Light"  Background="{StaticResource SmokSmogBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -97,6 +97,7 @@
                         HorizontalAlignment="Right"
                         BorderThickness="0"
                         Click="SearchButton_Click"
+                        Visibility="Collapsed"
                         Style="{StaticResource SmokSmogButtonStyle}">
 
                     <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
@@ -178,7 +179,7 @@
                         Margin="0"
                         Background="{StaticResource SmokSmogChromeBrush}" />
 
-                <ScrollViewer Grid.Column="0" Margin="0,0,0,150" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Grid.Column="0" Margin="0,0,0,150" VerticalScrollBarVisibility="Hidden">
                     <StackPanel VerticalAlignment="Top">
 
                         <!--  Home Station Button  -->
