@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="7bcdf751-d73a-40c0-aba5-5879491b9dd4" Publisher="CN=SmokSmog" Version="1.0.0.0" />
+  <Identity Name="7bcdf751-d73a-40c0-aba5-5879491b9dd4" Publisher="CN=SmokSmog" Version="2.0.0.0" />
   <Properties>
     <DisplayName>SmokSmog</DisplayName>
     <PublisherDisplayName>SmokSmog</PublisherDisplayName>
