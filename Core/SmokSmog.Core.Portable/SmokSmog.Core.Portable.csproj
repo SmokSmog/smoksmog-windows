@@ -162,7 +162,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <XliffResource Include="MultilingualResources\SmokSmog.Core.Common.pl.xlf" />
+    <XliffResource Include="MultilingualResources\SmokSmog.Core.Portable.pl.xlf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

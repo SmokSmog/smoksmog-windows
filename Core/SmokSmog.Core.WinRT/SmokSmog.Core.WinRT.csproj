@@ -114,9 +114,9 @@
     <Compile Include="Xaml\SvgData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SmokSmog.Core.Portable\SmokSmog.Core.Common.csproj">
+    <ProjectReference Include="..\SmokSmog.Core.Portable\SmokSmog.Core.Portable.csproj">
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
-      <Name>SmokSmog.Core.Common</Name>
+      <Name>SmokSmog.Core.Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -128,9 +128,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\SmokSmog.Core.Portable\SmokSmog.Core.Common.csproj">
+    <ProjectReference Include="..\..\Core\SmokSmog.Core.Portable\SmokSmog.Core.Portable.csproj">
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
-      <Name>SmokSmog.Core.Common</Name>
+      <Name>SmokSmog.Core.Portable</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\SmokSmog.Core.WinRT\SmokSmog.Core.WinRT.csproj">
       <Project>{a7dba75f-ce85-47a2-957f-54ee2dc02e4d}</Project>
