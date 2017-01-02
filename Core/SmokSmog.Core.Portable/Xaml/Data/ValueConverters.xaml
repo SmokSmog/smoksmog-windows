@@ -4,7 +4,6 @@
                     xmlns:valueconverters="using:SmokSmog.Xaml.Data.ValueConverters">
 
   <valueconverters:AqiIntToBrush x:Key="AqiIntToBrushValueConverter" />
-  <valueconverters:AqiIntToImage x:Key="AqiIntToImageValueConverter" />
 
   <valueconverters:BooleanToVisability x:Key="BooleanToVisabilityValueConverter" />
 

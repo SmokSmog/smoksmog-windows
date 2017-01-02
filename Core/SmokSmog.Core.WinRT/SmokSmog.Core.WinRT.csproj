@@ -61,9 +61,6 @@
     <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\AqiIntToBrush.cs">
       <Link>Xaml\Data\ValueConverters\AqiIntToBrush.cs</Link>
     </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\AqiIntToImage.cs">
-      <Link>Xaml\Data\ValueConverters\AqiIntToImage.cs</Link>
-    </Compile>
     <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\BooleanToVisability.cs">
       <Link>Xaml\Data\ValueConverters\BooleanToVisability.cs</Link>
     </Compile>

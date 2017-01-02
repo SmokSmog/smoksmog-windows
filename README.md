@@ -11,4 +11,4 @@
 * [Microsoft .NET Framework 4.6 Developer Pack](https://www.microsoft.com/en-us/download/details.aspx?id=53321)
 * [Multilingual App Toolkit v4.0](https://visualstudiogallery.msdn.microsoft.com/6dab9154-a7e1-46e4-bbfa-18b5e81df520)
 * Universal Windows Application requires Windows 10 with SDK for XAML designer
-* Windows 8.1 and Windows Phone 8.1 APP requires at least Windows 8.1 with SDK for XAML designer
+* Windows 8.1 and Windows Phone 8.1 Applications requires at least Windows 8.1 with SDK for XAML designer

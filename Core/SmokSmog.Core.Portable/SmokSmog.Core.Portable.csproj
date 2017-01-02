@@ -82,7 +82,6 @@
     <Compile Include="Threading\AsyncBridge.cs" />
     <Compile Include="Xaml\Data\Array.cs" />
     <Compile Include="Xaml\Data\ArrayItem.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\AqiIntToImage.cs" />
     <Compile Include="Xaml\Data\ValueConverters\StationGroupingModeEnumToString.cs" />
     <Compile Include="Xaml\Data\ValueConverters\BooleanToVisability.cs" />
     <Compile Include="Xaml\Data\ValueConverters\StringGetFirstChar.cs" />
@@ -142,15 +141,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="Assets\AQI\0.png" />
-    <Content Include="Assets\AQI\1.png" />
-    <Content Include="Assets\AQI\2.png" />
-    <Content Include="Assets\AQI\3.png" />
-    <Content Include="Assets\AQI\4.png" />
-    <Content Include="Assets\AQI\5.png" />
-    <Content Include="Assets\AQI\6.png" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.pl.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
