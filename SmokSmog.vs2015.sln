@@ -42,6 +42,7 @@ Global
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{11d343da-9019-41f5-8ae8-7c5797c900b4}*SharedItemsImports = 13
 		Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems*{1a93cb76-ef97-4592-b0e5-eea5b3e040c6}*SharedItemsImports = 13
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{9389ea2d-bee5-45a4-8624-2d2ce8a2ec99}*SharedItemsImports = 4
+		Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems*{a7dba75f-ce85-47a2-957f-54ee2dc02e4d}*SharedItemsImports = 4
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{c011b579-ac19-4d54-ba90-f288a7556530}*SharedItemsImports = 4
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{e0a6623e-dd65-43a9-9967-63f1cea9a872}*SharedItemsImports = 4
 	EndGlobalSection

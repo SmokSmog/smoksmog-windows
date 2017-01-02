@@ -80,18 +80,6 @@
     <Compile Include="Services\Search\SearchQuerry.cs" />
     <Compile Include="Services\Search\SearchSettings.cs" />
     <Compile Include="Threading\AsyncBridge.cs" />
-    <Compile Include="Xaml\Data\Array.cs" />
-    <Compile Include="Xaml\Data\ArrayItem.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\StationGroupingModeEnumToString.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\BooleanToVisability.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\StringGetFirstChar.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\AqiIntToBrush.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\StringToLower.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\StringToFirstCharCase.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\StringToSentenceCase.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\StringToWordsCase.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\StringToUpper.cs" />
-    <Compile Include="Xaml\Data\ValueConverters\ValueConverterGroup.cs" />
     <Compile Include="Linq\Grouping.cs" />
     <Compile Include="Linq\GroupingStation.cs" />
     <Compile Include="Model\Geocoordinate.cs" />
@@ -109,7 +97,6 @@
     <Compile Include="ViewModel\StationListViewModel.cs" />
     <Compile Include="Services\Data\IDataProvider.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Xaml\Documents\InlineCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
@@ -157,10 +144,6 @@
   <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Xaml\Data\ValueConverters.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

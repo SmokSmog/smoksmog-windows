@@ -9,5 +9,26 @@
     <Import_RootNamespace>SmokSmog.Core</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\Array.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ArrayItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiIntToBrush.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\BooleanToVisability.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StationGroupingModeEnumToString.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringGetFirstChar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToFirstCharCase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToLower.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToSentenceCase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToUpper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToWordsCase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\ValueConverterGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Documents\InlineCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Properties\" />
   </ItemGroup>
 </Project>

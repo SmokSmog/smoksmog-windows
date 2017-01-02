@@ -52,55 +52,16 @@
     <Compile Include="..\SmokSmog.Core.Portable\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
     </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\Array.cs">
-      <Link>Xaml\Data\Array.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ArrayItem.cs">
-      <Link>Xaml\Data\ArrayItem.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\AqiIntToBrush.cs">
-      <Link>Xaml\Data\ValueConverters\AqiIntToBrush.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\BooleanToVisability.cs">
-      <Link>Xaml\Data\ValueConverters\BooleanToVisability.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\StationGroupingModeEnumToString.cs">
-      <Link>Xaml\Data\ValueConverters\StationGroupingModeEnumToString.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\StringGetFirstChar.cs">
-      <Link>Xaml\Data\ValueConverters\StringGetFirstChar.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\StringToFirstCharCase.cs">
-      <Link>Xaml\Data\ValueConverters\StringToFirstCharCase.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\StringToLower.cs">
-      <Link>Xaml\Data\ValueConverters\StringToLower.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\StringToSentenceCase.cs">
-      <Link>Xaml\Data\ValueConverters\StringToSentenceCase.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\StringToUpper.cs">
-      <Link>Xaml\Data\ValueConverters\StringToUpper.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\StringToWordsCase.cs">
-      <Link>Xaml\Data\ValueConverters\StringToWordsCase.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters\ValueConverterGroup.cs">
-      <Link>Xaml\Data\ValueConverters\ValueConverterGroup.cs</Link>
-    </Compile>
-    <Compile Include="..\SmokSmog.Core.Portable\Xaml\Documents\InlineCollection.cs">
-      <Link>Xaml\Documents\InlineCollection.cs</Link>
-    </Compile>
     <Compile Include="Design\TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Globalization\WinRTResourceManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xaml\Controls\Behaviors\TextBlockHighlightBehavior.cs" />
     <Compile Include="Xaml\Controls\Common\PropertyChangeEventSource.cs" />
     <Compile Include="Xaml\Controls\TextBlockHighlighted.xaml.cs">
       <DependentUpon>TextBlockHighlighted.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Geolocation\GeolocationService.cs" />
     <Compile Include="Services\Storage\FileService.cs" />
     <Compile Include="Services\Storage\SettingService.cs" />
@@ -146,11 +107,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\SmokSmog.Core.Portable\Xaml\Data\ValueConverters.xaml">
-      <Link>Xaml\Data\ValueConverters.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Design\TestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,6 +117,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
