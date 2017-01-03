@@ -3,12 +3,12 @@ using System.Resources;
 
 // General Information about an assembly is controlled through the following set of attributes.
 // Change these attribute values to modify the information associated with an assembly.
-[assembly: AssemblyTitle("SmokSmog.Core.Common")]
+[assembly: AssemblyTitle("SmokSmog.Core.Portable")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SmokSmog.Core.Common")]
-[assembly: AssemblyCopyright("Copyright © 2016")]
+[assembly: AssemblyProduct("SmokSmog.Core.Portable")]
+[assembly: AssemblyCopyright("Copyright © 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
