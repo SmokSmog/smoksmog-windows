@@ -8,7 +8,7 @@ using SmokSmog.Net.Http;
 using SmokSmog.Services.Data;
 using SmokSmog.Services.Storage;
 
-namespace SmokSmog.Core.Common.Tests.Services.Data
+namespace SmokSmog.Core.Portable.Tests.Services.Data
 {
     [TestClass]
     public class SmokSmogApiDataProviderTests

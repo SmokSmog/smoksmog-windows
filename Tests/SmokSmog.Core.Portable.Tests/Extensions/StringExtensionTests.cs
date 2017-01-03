@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using SmokSmog.Extensions;
 
-namespace SmokSmog.Core.Common.Tests.Extensions
+namespace SmokSmog.Core.Portable.Tests.Extensions
 {
     [TestClass]
     public class StringExtensionTests
