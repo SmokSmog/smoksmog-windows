@@ -23,7 +23,7 @@ $openCoverConsole = "$openCoverPath\tools\OpenCover.Console.exe"
 
 Write-Host $openCoverConsole
 
-$testProjects = @(gci "$projectPath\*Tests")
+$testProjects = @(gci "$projectPath\Tests\*Tests")
 $testResultsPath = "$projectPath\TestResults"
 New-Item -ItemType Directory -Force -Path $testResultsPath 2> $null > $null
 
