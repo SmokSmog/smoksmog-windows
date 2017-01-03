@@ -132,6 +132,10 @@
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
       <Name>SmokSmog.Core.Portable</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\SmokSmog.Core.WindowsUniversal\SmokSmog.Core.UWP.csproj">
+      <Project>{c214b8bf-f613-4b97-a94e-c8d3cc9513ee}</Project>
+      <Name>SmokSmog.Core.UWP</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

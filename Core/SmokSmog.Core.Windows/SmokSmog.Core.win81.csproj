@@ -8,8 +8,8 @@
     <ProjectGuid>{A7DBA75F-CE85-47A2-957F-54EE2DC02E4D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmokSmog</RootNamespace>
-    <AssemblyName>SmokSmog.Core.WinRT</AssemblyName>
+    <RootNamespace>SmokSmog.Core</RootNamespace>
+    <AssemblyName>SmokSmog.Core</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -45,9 +45,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SmokSmog.Core.Portable\SmokSmog.Core.Portable.csproj">
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
       <Name>SmokSmog.Core.Portable</Name>
@@ -78,6 +75,10 @@
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net45+win8+wpa81\System.Net.Http.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WinRTXamlToolkit, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WinRTXamlToolkit.Windows.1.8.1.0\lib\netcore451\WinRTXamlToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -86,6 +87,9 @@
     <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
       <Name>Behaviors SDK %28XAML%29</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="..\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />

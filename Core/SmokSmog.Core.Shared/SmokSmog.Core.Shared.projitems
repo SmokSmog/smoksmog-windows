@@ -13,6 +13,7 @@
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Globalization\WinRTResourceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ServiceLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\FileService.cs" />

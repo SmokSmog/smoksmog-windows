@@ -129,6 +129,10 @@
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
       <Name>SmokSmog.Core.Portable</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\SmokSmog.Core.WindowsPhone\SmokSmog.Core.wp81.csproj">
+      <Project>{d71ffd62-786f-45a7-b8e5-185598533d98}</Project>
+      <Name>SmokSmog.Core.wp81</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
