@@ -12,18 +12,18 @@
     <AssemblyName>SmokSmog.Core.WinRT</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile32</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINRT</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINRT;NETFX_CORE;WINDOWS_APP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,13 +31,13 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;WINRT</DefineConstants>
+    <DefineConstants>TRACE;WINRT;NETFX_CORE;WINDOWS_APP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppVeyor|AnyCPU'">
     <OutputPath>bin\AppVeyor\</OutputPath>
-    <DefineConstants>TRACE;WINRT</DefineConstants>
+    <DefineConstants>TRACE;WINRT;NETFX_CORE;WINDOWS_APP</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,31 +45,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <TargetPlatform Include="Windows, Version=8.1" />
-    <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\SmokSmog.Core.Portable\Services\ServiceLocator.cs">
-      <Link>Services\ServiceLocator.cs</Link>
-    </Compile>
-    <Compile Include="Design\TestPage.xaml.cs">
-      <DependentUpon>TestPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Globalization\WinRTResourceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Xaml\Controls\Behaviors\TextBlockHighlightBehavior.cs" />
-    <Compile Include="Xaml\Controls\Common\PropertyChangeEventSource.cs" />
-    <Compile Include="Xaml\Controls\TextBlockHighlighted.xaml.cs">
-      <DependentUpon>TextBlockHighlighted.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Services\Geolocation\GeolocationService.cs" />
-    <Compile Include="Services\Storage\FileService.cs" />
-    <Compile Include="Services\Storage\SettingService.cs" />
-    <Compile Include="Xaml\Interactivity\Behavior.cs" />
-    <Compile Include="Xaml\Interactivity\BehaviorCollection.cs" />
-    <Compile Include="Xaml\Interactivity\BehaviorOfT.cs" />
-    <Compile Include="Xaml\Interactivity\Interaction.cs" />
-    <Compile Include="Xaml\SvgData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmokSmog.Core.Portable\SmokSmog.Core.Portable.csproj">
@@ -107,18 +83,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Design\TestPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Xaml\Controls\TextBlockHighlighted.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="..\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems" Label="Shared" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -9,6 +9,19 @@
     <Import_RootNamespace>SmokSmog.Core</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Design\TestPage.xaml.cs">
+      <DependentUpon>TestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Globalization\WinRTResourceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\FileService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\SettingService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Controls\Behaviors\TextBlockHighlightBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Controls\Common\PropertyChangeEventSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Controls\TextBlockHighlighted.xaml.cs">
+      <DependentUpon>TextBlockHighlighted.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\Array.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ArrayItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiIntToBrush.cs" />
@@ -22,8 +35,21 @@
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToWordsCase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\ValueConverterGroup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Documents\InlineCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\Behavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\BehaviorCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\BehaviorOfT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\Interaction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\SvgData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Design\TestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Xaml\Controls\TextBlockHighlighted.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters.xaml">
       <SubType>Designer</SubType>
     </Page>

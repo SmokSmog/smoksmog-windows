@@ -113,8 +113,7 @@ namespace SmokSmog.Services.Geolocation
                 _cts = new CancellationTokenSource();
                 CancellationToken token = _cts.Token;
 
-                if (OnStatusChange != null)
-                    OnStatusChange(this, null);
+                OnStatusChange?.Invoke(this, null);
 
                 // Carry out the operation
                 Geoposition pos = await _geolocator.GetGeopositionAsync().AsTask(token);

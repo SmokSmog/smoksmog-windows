@@ -93,7 +93,6 @@
     <Compile Include="Services\Geolocation\IGeolocationService.cs" />
     <Compile Include="Services\IServiceLocator.cs" />
     <Compile Include="Services\Storage\ISettingsService.cs" />
-    <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="ViewModel\StationListViewModel.cs" />
     <Compile Include="Services\Data\IDataProvider.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
