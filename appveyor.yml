@@ -22,7 +22,7 @@ install:
 
     Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\App\SmokSmog.Windows\SmokSmog.App.win81_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My > $null 2> $null
 
-    Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\Core\SmokSmog.Core.WinRT.Tests\SmokSmog.Core.WinRT.Tests_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My > $null 2> $null
+    Import-PfxCertificate -FilePath "C:\projects\smoksmog-windows\Tests\SmokSmog.Core.WinRT.Tests\SmokSmog.Core.WinRT.Tests_TemporaryKey.pfx" -CertStoreLocation cert:\CurrentUser\My > $null 2> $null
     
     # Install MultilingualAppToolkit.msi
 
