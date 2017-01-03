@@ -17,11 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{AF35BCE5-A81
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SmokSmog.Shared", "App\SmokSmog.Shared\SmokSmog.Shared.shproj", "{11D343DA-9019-41F5-8AE8-7C5797C900B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.App.win81", "App\SmokSmog.Windows\SmokSmog.App.win81.csproj", "{9389EA2D-BEE5-45A4-8624-2D2CE8A2EC99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.win81", "App\SmokSmog.Windows\SmokSmog.win81.csproj", "{9389EA2D-BEE5-45A4-8624-2D2CE8A2EC99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.App.wp81", "App\SmokSmog.WindowsPhone\SmokSmog.App.wp81.csproj", "{C011B579-AC19-4D54-BA90-F288A7556530}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.wp81", "App\SmokSmog.WindowsPhone\SmokSmog.wp81.csproj", "{C011B579-AC19-4D54-BA90-F288A7556530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.App.UWP", "App\SmokSmog.WindowsUniversal\SmokSmog.App.UWP.csproj", "{E0A6623E-DD65-43A9-9967-63F1CEA9A872}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.UWP", "App\SmokSmog.WindowsUniversal\SmokSmog.UWP.csproj", "{E0A6623E-DD65-43A9-9967-63F1CEA9A872}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{80403CA5-C5B8-4A9A-9690-ABBB47B919D2}"
 EndProject
