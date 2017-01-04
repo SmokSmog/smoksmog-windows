@@ -7,7 +7,7 @@ $pythonPath= "C:\Python35"
 #$pythonPath= "C:\Program Files (x86)\Python35-32"
 
 # Build setup
-$Configuration = "AppVeyor"
+$Configuration = "Release"
 
 # Setup Python and get codecov script
 $pythonScripts = "$pythonPath\Scripts"
@@ -23,7 +23,7 @@ $openCoverConsole = "$openCoverPath\tools\OpenCover.Console.exe"
 
 Write-Host $openCoverConsole
 
-$testProjects = @(gci "$projectPath\*Tests")
+$testProjects = @(gci "$projectPath\Tests\*Tests")
 $testResultsPath = "$projectPath\TestResults"
 New-Item -ItemType Directory -Force -Path $testResultsPath 2> $null > $null
 

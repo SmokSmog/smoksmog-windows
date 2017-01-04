@@ -4,7 +4,6 @@
       xmlns:b="using:SmokSmog.Xaml.Controls.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:SmokSmog.Xaml.Interactivity"
-      xmlns:local="using:SmokSmog.Test"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 

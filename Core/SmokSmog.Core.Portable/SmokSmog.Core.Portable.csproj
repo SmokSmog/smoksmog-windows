@@ -42,12 +42,21 @@
     <MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
     <MultilingualFallbackLanguage>en</MultilingualFallbackLanguage>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppVeyor|AnyCPU'">
-    <OutputPath>bin\AppVeyor\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PORTABLE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE;PORTABLE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -93,7 +102,6 @@
     <Compile Include="Services\Geolocation\IGeolocationService.cs" />
     <Compile Include="Services\IServiceLocator.cs" />
     <Compile Include="Services\Storage\ISettingsService.cs" />
-    <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="ViewModel\StationListViewModel.cs" />
     <Compile Include="Services\Data\IDataProvider.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

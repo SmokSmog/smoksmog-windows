@@ -21,7 +21,7 @@
                 <ResourceDictionary Source="/Themes/SmokSmogTheme.xaml" />
 
                 <!--  for ResourcesDictionary from other assembly  -->
-                <ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT/Xaml/Data/ValueConverters.xaml" />
+                <ResourceDictionary Source="ms-appx:///SmokSmog.Core/Xaml/Data/ValueConverters.xaml" />
 
                 <!--<ResourceDictionary Source="ms-appx:///SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
                 <!--<ResourceDictionary Source="/SmokSmog.Core.WinRT;component/Styles/StationListViewStyle.xaml" />-->
