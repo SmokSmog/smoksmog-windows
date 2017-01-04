@@ -46,7 +46,9 @@ before_build:
 - ps: >-
     C:\projects\smoksmog-windows\.nuget\NuGet.exe update -self
 
-    C:\projects\smoksmog-windows\.nuget\NuGet.exe restore > $null 2> $null
+    C:\projects\smoksmog-windows\.nuget\NuGet.exe restore 
+
+# > $null 2> $null
 
 #---------------------------------#
 #       tests configuration       #
