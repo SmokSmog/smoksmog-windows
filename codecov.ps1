@@ -7,7 +7,7 @@ $pythonPath= "C:\Python35"
 #$pythonPath= "C:\Program Files (x86)\Python35-32"
 
 # Build setup
-$Configuration = "AppVeyor"
+$Configuration = "Release"
 
 # Setup Python and get codecov script
 $pythonScripts = "$pythonPath\Scripts"

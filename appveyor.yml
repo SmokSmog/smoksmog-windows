@@ -35,7 +35,11 @@ install:
 #---------------------------------#
 #       build configuration       #
 #---------------------------------#
-configuration: AppVeyor
+configuration: Release
+
+platform:
+  - x86
+#  - Any CPU
 
 build:
   project: SmokSmog.vs2015.sln
