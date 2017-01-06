@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xaml.Interactivity;
+using System;
 using System.Reflection;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
 
 namespace SmokSmog.Xaml.Interactivity
 {
@@ -12,7 +12,7 @@ namespace SmokSmog.Xaml.Interactivity
     /// This is an infrastructure class. Behavior authors should derive from <see
     /// cref="Behavior&lt;T&gt;"/> instead of from this class.
     /// </remarks>
-    public abstract class Behavior : FrameworkElement
+    public abstract class Behavior : DependencyObject, IBehavior
     {
         #region AssociatedObject
 
@@ -24,7 +24,7 @@ namespace SmokSmog.Xaml.Interactivity
         /// <summary>
         /// Gets the object to which this behavior is attached.
         /// </summary>
-        protected DependencyObject AssociatedObject => _associatedObject;
+        public DependencyObject AssociatedObject => _associatedObject;
 
         #endregion AssociatedObject
 
@@ -69,18 +69,16 @@ namespace SmokSmog.Xaml.Interactivity
                 {
                     throw new InvalidOperationException("dependencyObject does not satisfy the Behavior type constraint.");
                 }
-
-                var frameworkElement = this.AssociatedObject as FrameworkElement;
-
-                if (frameworkElement != null)
-                {
-                    frameworkElement.Loaded += AssociatedFrameworkElementLoaded;
-                    frameworkElement.Unloaded += AssociatedFrameworkElementUnloaded;
-                }
-
+                
                 OnAttached();
             }
         }
+
+        /// <summary>
+        /// Called after the behavior is attached to an AssociatedObject.
+        /// </summary>
+        /// <remarks>Override this to hook up functionality to the AssociatedObject.</remarks>
+        protected virtual void OnAttached()        {        }
 
         #endregion Attach()
 
@@ -91,98 +89,20 @@ namespace SmokSmog.Xaml.Interactivity
         /// </summary>
         public void Detach()
         {
-            if (this.AssociatedObject != null)
+            if (AssociatedObject != null)
             {
                 OnDetaching();
-
-                var frameworkElement = this.AssociatedObject as FrameworkElement;
-
-                if (frameworkElement != null)
-                {
-                    frameworkElement.Loaded -= AssociatedFrameworkElementLoaded;
-                    frameworkElement.Unloaded -= AssociatedFrameworkElementUnloaded;
-                }
-
                 _associatedObject = null;
             }
         }
-
-        #endregion Detach()
-
-        #region OnAttached()
-
-        /// <summary>
-        /// Called after the behavior is attached to an AssociatedObject.
-        /// </summary>
-        /// <remarks>Override this to hook up functionality to the AssociatedObject.</remarks>
-        protected virtual void OnAttached()
-        {
-        }
-
-        #endregion OnAttached()
-
-        #region OnDetaching()
 
         /// <summary>
         /// Called when the behavior is being detached from its AssociatedObject, but before it has
         /// actually occurred.
         /// </summary>
         /// <remarks>Override this to unhook functionality from the AssociatedObject.</remarks>
-        protected virtual void OnDetaching()
-        {
-        }
+        protected virtual void OnDetaching() { }
 
-        #endregion OnDetaching()
-
-        #region OnLoaded()
-
-        /// <summary>
-        /// Called after the AssociatedObject is loaded (added to visual tree).
-        /// </summary>
-        /// <remarks>Override this to hook up functionality to the AssociatedObject.</remarks>
-        protected virtual void OnLoaded()
-        {
-        }
-
-        #endregion OnLoaded()
-
-        #region OnUnloaded()
-
-        /// <summary>
-        /// Called after the AssociatedObject is unloaded (removed from visual tree).
-        /// </summary>
-        /// <remarks>Override this to hook up functionality to the AssociatedObject.</remarks>
-        protected virtual void OnUnloaded()
-        {
-        }
-
-        #endregion OnUnloaded()
-
-        #region AssociatedFrameworkElementLoaded()
-
-        private void AssociatedFrameworkElementLoaded(object sender, RoutedEventArgs e)
-        {
-            this.SetBinding(
-                DataContextProperty,
-                new Binding
-                {
-                    Path = new PropertyPath("DataContext"),
-                    Source = _associatedObject
-                });
-            OnLoaded();
-        }
-
-        #endregion AssociatedFrameworkElementLoaded()
-
-        #region AssociatedFrameworkElementUnloaded()
-
-        private void AssociatedFrameworkElementUnloaded(object sender, RoutedEventArgs e)
-        {
-            OnUnloaded();
-            this.ClearValue(DataContextProperty);
-            DataContext = null;
-        }
-
-        #endregion AssociatedFrameworkElementUnloaded()
+        #endregion Detach()
     }
 }

@@ -93,7 +93,7 @@ namespace SmokSmog.Extensions
             foreach (var item in expressions)
             {
                 if (!string.IsNullOrEmpty(item))
-                    result.Add(item, str.IndexOfAll(item, comparisonType).ToList());
+                    result[item] = str.IndexOfAll(item, comparisonType).ToList();
             }
 
             return result;

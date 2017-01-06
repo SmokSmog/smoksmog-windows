@@ -4,7 +4,6 @@
       xmlns:SSXCBehaviors="using:SmokSmog.Xaml.Controls.Behaviors"
       xmlns:SSXControls="using:SmokSmog.Xaml.Controls"
       xmlns:SSXDValueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
-      xmlns:SSXInteractivity="using:SmokSmog.Xaml.Interactivity"
       xmlns:controls="using:SmokSmog.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"

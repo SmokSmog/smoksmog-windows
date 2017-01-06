@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -26,7 +28,7 @@ namespace SmokSmog.Xaml.Controls.Behaviors
         {
             if (DesignMode.DesignModeEnabled)
             {
-                UpdateHighlight();
+                Update();
             }
         }
 
@@ -40,7 +42,7 @@ namespace SmokSmog.Xaml.Controls.Behaviors
                 "SearchString",
                 typeof(string),
                 typeof(TextBlockHighlightBehavior),
-                new PropertyMetadata(null, OnSearchStringChanged));
+                new PropertyMetadata(string.Empty, OnSearchStringChanged));
 
         /// <summary>
         /// Gets or sets the SearchString property. This dependency property indicates the search
@@ -66,7 +68,7 @@ namespace SmokSmog.Xaml.Controls.Behaviors
         {
             var target = (TextBlockHighlightBehavior)d;
             string oldSearchString = (string)e.OldValue;
-            string newSearchString = target.SearchString;
+            string newSearchString = target.SearchString?.Trim() ?? string.Empty;
             target.OnSearchStringChanged(oldSearchString, newSearchString);
         }
 
@@ -75,10 +77,9 @@ namespace SmokSmog.Xaml.Controls.Behaviors
         /// </summary>
         /// <param name="oldSearchString">The old SearchString value</param>
         /// <param name="newSearchString">The new SearchString value</param>
-        private void OnSearchStringChanged(
-            string oldSearchString, string newSearchString)
+        private void OnSearchStringChanged(string oldSearchString, string newSearchString)
         {
-            UpdateHighlight();
+            Update();
         }
 
         #endregion SearchString
@@ -128,10 +129,9 @@ namespace SmokSmog.Xaml.Controls.Behaviors
         /// </summary>
         /// <param name="oldIsCaseSensitive">The old IsCaseSensitive value</param>
         /// <param name="newIsCaseSensitive">The new IsCaseSensitive value</param>
-        private void OnIsCaseSensitiveChanged(
-            bool oldIsCaseSensitive, bool newIsCaseSensitive)
+        private void OnIsCaseSensitiveChanged(bool oldIsCaseSensitive, bool newIsCaseSensitive)
         {
-            UpdateHighlight();
+            Update();
         }
 
         #endregion IsCaseSensitive
@@ -168,8 +168,7 @@ namespace SmokSmog.Xaml.Controls.Behaviors
         /// <param name="e">
         /// Event data that is issued by any event that tracks changes to the effective value of this property.
         /// </param>
-        private static void OnHighlightChanged(
-            DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnHighlightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var target = (TextBlockHighlightBehavior)d;
             Brush oldHighlightBrush = (Brush)e.OldValue;
@@ -182,10 +181,9 @@ namespace SmokSmog.Xaml.Controls.Behaviors
         /// </summary>
         /// <param name="oldHighlightBrush">The old HighlightBrush value</param>
         /// <param name="newHighlightBrush">The new HighlightBrush value</param>
-        private void OnHighlightChanged(
-            Brush oldHighlightBrush, Brush newHighlightBrush)
+        private void OnHighlightChanged(Brush oldHighlightBrush, Brush newHighlightBrush)
         {
-            UpdateHighlight();
+            Update();
         }
 
         #endregion Highlight
@@ -201,10 +199,10 @@ namespace SmokSmog.Xaml.Controls.Behaviors
         /// <remarks>Override this to hook up functionality to the AssociatedObject.</remarks>
         protected override void OnAttached()
         {
-            _textChangeEventSource = new PropertyChangeEventSource<string>(this.AssociatedObject, "Text", BindingMode.OneWay);
+            _textChangeEventSource = new PropertyChangeEventSource<string>(AssociatedObject, "Text", BindingMode.OneWay);
 
             // preserve original InlineCollection of TextBlock
-            foreach (var inline in this.AssociatedObject.Inlines)
+            foreach (var inline in Element.Inlines)
             {
                 _runTextChangeEventSourceList.Add(new PropertyChangeEventSource<string>(inline, "Text", BindingMode.OneWay));
                 _originalInlineList.Add(inline);
@@ -216,7 +214,7 @@ namespace SmokSmog.Xaml.Controls.Behaviors
             }
             _textChangeEventSource.ValueChanged += TextChanged;
 
-            UpdateHighlight();
+            Update();
             base.OnAttached();
         }
 
@@ -242,13 +240,11 @@ namespace SmokSmog.Xaml.Controls.Behaviors
 
         private void TextChanged(object sender, string s)
         {
-            if (string.IsNullOrWhiteSpace(s))
-            {
-                ClearHighlight();
-                return;
-            }
             _originalText = s;
-            UpdateHighlight();
+            if (string.IsNullOrWhiteSpace(_originalText))
+                ClearHighlight();
+            else
+                Update();
         }
 
         private void InlineChanged(object sender, string s)
@@ -259,8 +255,8 @@ namespace SmokSmog.Xaml.Controls.Behaviors
                 return;
             }
 
-            StringBuilder textStringBuilder = new StringBuilder();
-            foreach (var inline in _originalInlineList)
+            StringBuilder textStringBuilder = new StringBuilder(); foreach (var inline in
+            _originalInlineList)
             {
                 if (inline is LineBreak)
                 {
@@ -268,21 +264,39 @@ namespace SmokSmog.Xaml.Controls.Behaviors
                 }
                 else if (inline is Run)
                 {
-                    Run texta = (Run)inline;
-                    textStringBuilder.Append(texta.Text);
+                    Run texta = (Run)inline; textStringBuilder.Append(texta.Text);
                 }
             }
             _originalText = textStringBuilder.ToString();
-
-            UpdateHighlight();
+            Update();
         }
+
+        public void Update()
+        {
+            var cts = _lastUpdateHighlightCts;
+            if (cts != null)
+            {
+                if (!cts.IsCancellationRequested)
+                    cts.Cancel();
+            }
+            cts = new CancellationTokenSource();
+            _lastUpdateHighlightCts = cts;
+
+            UpdateHighlight(cts.Token);
+        }
+
+        private CancellationTokenSource _lastUpdateHighlightCts = null;
 
         /// <summary>
         /// Updates the highlight.
         /// </summary>
-        public void UpdateHighlight()
+        private async void UpdateHighlight(CancellationToken token)
         {
-            if (this.AssociatedObject == null || string.IsNullOrEmpty(this.SearchString))
+            // add some small delay increase responsiveness in case of fast typing (fast changing search string) 
+            await Task.Delay(TimeSpan.FromMilliseconds(100));
+            if (token.IsCancellationRequested) return;
+
+            if (Element == null)
             {
                 ClearHighlight();
                 return;
@@ -291,11 +305,11 @@ namespace SmokSmog.Xaml.Controls.Behaviors
             string text = _originalText;
 
             int len = SearchString.Length;
-            AssociatedObject.Inlines.Clear();
 
+            List<Inline> inlines = new List<Inline>();
             if (string.IsNullOrWhiteSpace(SearchString))
             {
-                AssociatedObject.Inlines.Add(new Run() { Text = text });
+                inlines.Add(new Run() { Text = text });
             }
             else
             {
@@ -307,11 +321,17 @@ namespace SmokSmog.Xaml.Controls.Behaviors
 
                 var type = new { start = 0, end = 0 };
                 // create list of annonymus type
-                var indList = new[] { type }.ToList(); indList.RemoveAt(0);
+                var indList = new[] { type }.ToList();
+                indList.RemoveAt(0);
 
                 foreach (var item in indexOfAll)
                 {
-                    foreach (var index in item.Value) { indList.Add(new { start = index, end = index + item.Key.Length }); }
+                    foreach (var index in item.Value)
+                    {
+                        if (token.IsCancellationRequested) return;
+
+                        indList.Add(new { start = index, end = index + item.Key.Length });
+                    }
                 }
                 //sort by indexes
                 indList.Sort((a, b) => a.start.CompareTo(b.start));
@@ -320,6 +340,8 @@ namespace SmokSmog.Xaml.Controls.Behaviors
 
                 foreach (var item in indList)
                 {
+                    if (token.IsCancellationRequested) return;
+
                     if (indListAgregated.Count == 0) { indListAgregated.Add(item); continue; }
                     else
                     {
@@ -339,21 +361,28 @@ namespace SmokSmog.Xaml.Controls.Behaviors
 
                 foreach (var item in indListAgregated)
                 {
+                    if (token.IsCancellationRequested) return;
+
                     int l = item.start - last;
                     if (item.start != last && l > 0)
                     {
-                        AssociatedObject.Inlines.Add(new Run() { Text = text.Substring(last, l) });
+                        inlines.Add(new Run() { Text = text.Substring(last, l) });
                     }
-                    AssociatedObject.Inlines.Add(new Run() { Text = text.Substring(item.start, item.end - item.start), Foreground = Highlight });
+                    inlines.Add(new Run() { Text = text.Substring(item.start, item.end - item.start), Foreground = Highlight });
                     last = item.end;
                 }
 
                 if (last < text.Length)
                 {
                     var l = text.Length - last;
-                    AssociatedObject.Inlines.Add(new Run() { Text = text.Substring(last, l) });
+                    inlines.Add(new Run() { Text = text.Substring(last, l) });
                 }
             }
+
+            if (token.IsCancellationRequested) return;
+            Element.Inlines.Clear();
+            foreach (var item in inlines)
+                Element.Inlines.Add(item);
         }
 
         /// <summary>
@@ -361,13 +390,8 @@ namespace SmokSmog.Xaml.Controls.Behaviors
         /// </summary>
         public void ClearHighlight()
         {
-            if (this.AssociatedObject == null)
-            {
-                return;
-            }
-
-            this.AssociatedObject.Inlines.Clear();
-            this.AssociatedObject.Inlines.Add(new Run() { Text = _originalText });
+            Element?.Inlines.Clear();
+            Element?.Inlines.Add(new Run() { Text = _originalText });
         }
     }
 }

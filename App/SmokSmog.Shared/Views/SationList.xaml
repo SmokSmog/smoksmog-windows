@@ -62,7 +62,7 @@
 
         <DataTemplate x:Key="StationListGrouppedListViewTemplate">
 
-            <!--https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.uielement.righttapped-->
+            <!--  https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.uielement.righttapped  -->
             <Grid RightTapped="Grid_RightTapped">
                 <FlyoutBase.AttachedFlyout>
                     <MenuFlyout>
@@ -97,9 +97,9 @@
                            FontWeight="Bold"
                            Style="{ThemeResource BaseTextBlockStyle}"
                            Text="{Binding Name}">
-                    <SSXInteractivity:Interaction.Behaviors>
+                    <i:Interaction.Behaviors>
                         <SSXCBehaviors:TextBlockHighlightBehavior Highlight="{StaticResource SmokSmogAccentBrush}" SearchString="{Binding Path=StationList.StationFilter, Source={StaticResource ViewModelLocator}}" />
-                    </SSXInteractivity:Interaction.Behaviors>
+                    </i:Interaction.Behaviors>
                 </TextBlock>
 
                 <TextBlock Grid.Row="1"
@@ -108,9 +108,9 @@
                            FontSize="12"
                            Style="{ThemeResource BaseTextBlockStyle}"
                            Text="{Binding Province}">
-                    <SSXInteractivity:Interaction.Behaviors>
+                    <i:Interaction.Behaviors>
                         <SSXCBehaviors:TextBlockHighlightBehavior Highlight="{StaticResource SmokSmogAccentBrush}" SearchString="{Binding Path=StationList.StationFilter, Source={StaticResource ViewModelLocator}}" />
-                    </SSXInteractivity:Interaction.Behaviors>
+                    </i:Interaction.Behaviors>
                 </TextBlock>
             </Grid>
         </DataTemplate>
