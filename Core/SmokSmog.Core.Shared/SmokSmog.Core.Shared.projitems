@@ -15,8 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\ServiceLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\FileService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\SettingService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Controls\Behaviors\TextBlockHighlightBehavior.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Controls\Common\PropertyChangeEventSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\Array.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ArrayItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiIntToBrush.cs" />
@@ -29,8 +27,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToUpper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToWordsCase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\ValueConverterGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TextBlockHighlightBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\Behavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\BehaviorOfT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\PropertyChangeEventSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\SvgData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -40,5 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Design\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Xaml\Controls\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
 ﻿using SmokSmog.Extensions;
-using SmokSmog.Xaml.Controls.Common;
 using SmokSmog.Xaml.Interactivity;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 
-namespace SmokSmog.Xaml.Controls.Behaviors
+namespace SmokSmog.Xaml.Interactions
 {
     /// <summary>
     /// Provides Text highlighting behavior for TextBlock Control for Text or Inline Property
@@ -292,7 +291,8 @@ namespace SmokSmog.Xaml.Controls.Behaviors
         /// </summary>
         private async void UpdateHighlight(CancellationToken token)
         {
-            // add some small delay increase responsiveness in case of fast typing (fast changing search string) 
+            // add some small delay increase responsiveness in case of fast typing (fast changing
+            // search string)
             await Task.Delay(TimeSpan.FromMilliseconds(100));
             if (token.IsCancellationRequested) return;
 
