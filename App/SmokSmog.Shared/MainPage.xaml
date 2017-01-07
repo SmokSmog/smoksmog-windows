@@ -123,40 +123,40 @@
 
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="Checked">
-                            <ic:ChangePropertyAction PropertyName="Width"
-                                                     TargetObject="{Binding ElementName=RightSideMenuGrid}"
-                                                     Value="300" />
+                            <ic:GoToStateAction StateName="MenuOpen"
+                                                TargetObject="{Binding ElementName=This}"
+                                                UseTransitions="True" />
                         </ic:EventTriggerBehavior>
                         <ic:EventTriggerBehavior EventName="Unchecked">
-                            <ic:ChangePropertyAction PropertyName="Width"
-                                                     TargetObject="{Binding ElementName=RightSideMenuGrid}"
-                                                     Value="0" />
+                            <ic:GoToStateAction StateName="MenuClose"
+                                                TargetObject="{Binding ElementName=This}"
+                                                UseTransitions="True" />
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </ToggleButton>
             </Border>
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid x:Name="ContentGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition x:Name="ContentGridColumn0" Width="380" />
+                <ColumnDefinition x:Name="ContentGridColumn1" Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!--  Page Content List  -->
+            <!--  Page Content for list  -->
             <Frame x:Name="ContentFrame2"
-                   MinWidth="380"
-                   MaxWidth="380"
                    Margin="{StaticResource SmokSmogContentMargin}"
                    Background="Red"
+                   Canvas.ZIndex="100"
                    GotFocus="ContentFrame1_GotFocus"
                    RequestedTheme="{Binding RequestedTheme,
                                             ElementName=This}" />
 
-            <!--  Page Content Main  -->
+            <!--  Page Content for main content  -->
             <Frame x:Name="ContentFrame1"
                    Grid.Column="1"
                    Background="Gray"
+                   Canvas.ZIndex="0"
                    GotFocus="ContentFrame1_GotFocus"
                    RequestedTheme="{Binding RequestedTheme,
                                             ElementName=This}" />
@@ -165,9 +165,9 @@
         <!--  Page right side menu  -->
         <Grid x:Name="RightSideMenuGrid"
               Grid.Row="1"
-              Width="50"
-              Background="{StaticResource SmokSmogChromeBrush}"
-              HorizontalAlignment="Left">
+              Width="0"
+              HorizontalAlignment="Left"
+              Background="{StaticResource SmokSmogChromeBrush}">
 
             <!--<i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="LostFocus">
@@ -187,12 +187,21 @@
 
             <ScrollViewer Grid.Column="0"
                           Margin="0,0,0,150"
+                          Canvas.ZIndex="999"
                           Padding="0"
                           VerticalScrollBarVisibility="Hidden">
                 <StackPanel VerticalAlignment="Top">
 
                     <!--  Home Station Button  -->
-                    <Button Style="{StaticResource SmokSmogButtonStyle}">
+                    <Button Click="HomeButtonClick" Style="{StaticResource SmokSmogButtonStyle}">
+                        <i:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Tapped">
+                                <ic:GoToStateAction StateName="MenuClose"
+                                                    TargetObject="{Binding ElementName=This}"
+                                                    UseTransitions="True" />
+                            </ic:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+
                         <StackPanel Orientation="Horizontal">
                             <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                       Height="{StaticResource SmokSmogMenuButtonHeight}"
@@ -209,10 +218,16 @@
                     </Button>
 
                     <!--  Favorites Button  -->
-                    <Button BorderThickness="0"
-                            Padding="0"
-                            Style="{StaticResource SmokSmogButtonStyle}">
+                    <Button Click="FavoritesButtonClick" Style="{StaticResource SmokSmogButtonStyle}">
                         <StackPanel Orientation="Horizontal">
+                            <i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="Tapped">
+                                    <ic:GoToStateAction StateName="MenuClose"
+                                                        TargetObject="{Binding ElementName=This}"
+                                                        UseTransitions="True" />
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+
                             <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                       Height="{StaticResource SmokSmogMenuButtonHeight}"
                                       FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
@@ -229,6 +244,14 @@
 
                     <!--  Search Button  -->
                     <Button Style="{StaticResource SmokSmogButtonStyle}">
+                        <i:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Tapped">
+                                <ic:GoToStateAction StateName="MenuClose"
+                                                    TargetObject="{Binding ElementName=This}"
+                                                    UseTransitions="True" />
+                            </ic:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+
                         <StackPanel Orientation="Horizontal">
                             <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                       Height="{StaticResource SmokSmogMenuButtonHeight}"
@@ -277,6 +300,14 @@
                         Padding="0"
                         Style="{StaticResource SmokSmogButtonStyle}">
                     <StackPanel Orientation="Horizontal">
+                        <i:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Tapped">
+                                <ic:GoToStateAction StateName="MenuClose"
+                                                    TargetObject="{Binding ElementName=This}"
+                                                    UseTransitions="True" />
+                            </ic:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+
                         <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                   Height="{StaticResource SmokSmogMenuButtonHeight}"
                                   FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
@@ -295,6 +326,14 @@
                         Padding="0"
                         Style="{StaticResource SmokSmogButtonStyle}">
                     <StackPanel Orientation="Horizontal">
+                        <i:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Tapped">
+                                <ic:GoToStateAction StateName="MenuClose"
+                                                    TargetObject="{Binding ElementName=This}"
+                                                    UseTransitions="True" />
+                            </ic:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+
                         <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                   Height="{StaticResource SmokSmogMenuButtonHeight}"
                                   FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
@@ -313,75 +352,119 @@
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="MenuVisualStateGroup">
+                <VisualState x:Name="MenuOpen">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="true" />
+                        </ObjectAnimationUsingKeyFrames>
 
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="300" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="MenuClose">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="LayoutVisualStateGroup">
                 <VisualState x:Name="Small">
                     <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
+                        </ObjectAnimationUsingKeyFrames>
+
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="MinWidth">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn0" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="*" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn1" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
+                        </ObjectAnimationUsingKeyFrames>
+
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="Margin">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="0,0,0,0" />
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="(UIElement.Visibility)">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Visibility>Collapsed</Visibility>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(Grid.Column)">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
 
                 <VisualState x:Name="Default">
                     <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
+                        </ObjectAnimationUsingKeyFrames>
+
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="MinWidth">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmokSmogMenuButtonWidth}" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn0" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="*" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn1" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="Margin">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmokSmogContentMargin}" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="(UIElement.Visibility)">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Visibility>Collapsed</Visibility>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(Grid.Column)">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmokSmogContentMargin}" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
 
                 <VisualState x:Name="Wide">
                     <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
+                        </ObjectAnimationUsingKeyFrames>
+
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RightSideMenuGrid" Storyboard.TargetProperty="MinWidth">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmokSmogMenuButtonWidth}" />
                         </ObjectAnimationUsingKeyFrames>
 
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn0" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="400" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn1" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="*" />
+                        </ObjectAnimationUsingKeyFrames>
+
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="Margin">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="0,0,0,0" />
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="(UIElement.Visibility)">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Visibility>Visible</Visibility>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
-
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuButtonHamburger" Storyboard.TargetProperty="IsChecked">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="false" />
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(Grid.Column)">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
@@ -390,25 +473,43 @@
             <VisualStateGroup x:Name="ContentFramesVisualStateGroup">
                 <VisualState x:Name="Frame1">
                     <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(Canvas.ZIndex)">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
+
+                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="(Canvas.ZIndex)">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
-                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>-->
                     </Storyboard>
                 </VisualState>
-                
+
                 <VisualState x:Name="Frame2">
                     <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(Canvas.ZIndex)">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
+
+                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="(Canvas.ZIndex)">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
-                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>-->
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>

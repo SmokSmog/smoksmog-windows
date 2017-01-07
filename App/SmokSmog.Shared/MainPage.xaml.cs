@@ -25,7 +25,7 @@ namespace SmokSmog
             this.Loaded += page_Loaded;
             this.Unloaded += page_Unloaded;
             ContentFrame.Navigated += ContentFrame_Navigated;
-            ContentFrame2.SourcePageType = typeof(Views.StationPage);
+            ContentFrame2.SourcePageType = typeof(Views.StationList);
         }
 
         public Frame ContentFrame => ContentFrame1;
@@ -45,6 +45,7 @@ namespace SmokSmog
             // hardware Back button by registering for the
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event. If you are using the
             // NavigationHelper provided by some templates, this event is handled for you.
+            SetMainState();
         }
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
@@ -140,6 +141,20 @@ namespace SmokSmog
         private void ContentFrame1_GotFocus(object sender, RoutedEventArgs e)
         {
             MenuButtonHamburger.IsChecked = false;
+        }
+
+        private void HomeButtonClick(object sender, RoutedEventArgs e)
+        {
+            Canvas.SetZIndex(ContentFrame1, 100);
+            Canvas.SetZIndex(ContentFrame2, 0);
+            VisualStateManager.GoToState(this, "Frame1", true);
+        }
+
+        private void FavoritesButtonClick(object sender, RoutedEventArgs e)
+        {
+            Canvas.SetZIndex(ContentFrame1, 0);
+            Canvas.SetZIndex(ContentFrame2, 100);
+            VisualStateManager.GoToState(this, "Frame2", true);
         }
     }
 }
