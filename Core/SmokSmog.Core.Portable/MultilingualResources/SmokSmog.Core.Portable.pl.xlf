@@ -26,10 +26,6 @@
           <source>province</source>
           <target state="translated">województwa</target>
         </trans-unit>
-        <trans-unit id="StringFavorite" translate="yes" xml:space="preserve">
-          <source>favorite</source>
-          <target state="translated">ulubione</target>
-        </trans-unit>
         <trans-unit id="StringFindStation" translate="yes" xml:space="preserve">
           <source>find station</source>
           <target state="translated">Znajdź stację</target>
@@ -67,7 +63,7 @@
           <target state="translated">Przypnij</target>
         </trans-unit>
         <trans-unit id="StringSetAsHomeStation" translate="yes" xml:space="preserve">
-          <source>Set as Home station</source>
+          <source>Set as home station</source>
           <target state="translated">Ustaw jako stację domową</target>
         </trans-unit>
         <trans-unit id="StringUnknown" translate="yes" xml:space="preserve">
@@ -77,6 +73,18 @@
         <trans-unit id="StringDeterminingLocation" translate="yes" xml:space="preserve">
           <source>Determining location</source>
           <target state="translated">Ustalanie lokalizacji</target>
+        </trans-unit>
+        <trans-unit id="StringStationList" translate="yes" xml:space="preserve">
+          <source>Station list</source>
+          <target state="translated">Lista stacji</target>
+        </trans-unit>
+        <trans-unit id="StringHomePage" translate="yes" xml:space="preserve">
+          <source>Home page</source>
+          <target state="translated">Strona domowa</target>
+        </trans-unit>
+        <trans-unit id="StringFavorites" translate="yes" xml:space="preserve">
+          <source>favorites</source>
+          <target state="translated">Ulubione</target>
         </trans-unit>
       </group>
     </body>

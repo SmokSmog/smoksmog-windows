@@ -11,10 +11,8 @@ namespace SmokSmog.Xaml.Interactivity
     /// types the Behavior can be attached to can be controlled by the generic parameter. Override
     /// OnAttached() and OnDetaching() methods to hook and unhook any necessary handlers from the AssociatedObject.
     /// </remarks>
-    public abstract class Behavior<T> : Behavior where T : DependencyObject
+    public abstract class Behavior<T> : Behavior where T : FrameworkElement
     {
-        #region Behavior() - CTOR
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Behavior&lt;T&gt;"/> class.
         /// </summary>
@@ -23,19 +21,37 @@ namespace SmokSmog.Xaml.Interactivity
             _associatedType = typeof(T);
         }
 
-        #endregion Behavior() - CTOR
-
-        #region AssociatedObject
-
         /// <summary>
         /// Gets the object to which this <see cref="Behavior&lt;T&gt;"/> is attached.
         /// </summary>
-        public new T AssociatedObject
+        public T Element => _associatedObject as T;
+
+        protected override void OnAttached()
         {
-            get { return (T)_associatedObject; }
-            internal set { _associatedObject = value; }
+            if (Element != null)
+            {
+                Element.Loaded += OnElementLoaded;
+                Element.Unloaded += OnElementUnLoaded;
+            }
+            base.OnAttached();
         }
 
-        #endregion AssociatedObject
+        protected override void OnDetaching()
+        {
+            if (Element != null)
+            {
+                Element.Loaded -= OnElementLoaded;
+                Element.Unloaded -= OnElementUnLoaded;
+            }
+            base.OnDetaching();
+        }
+
+        protected virtual void OnElementLoaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        protected virtual void OnElementUnLoaded(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

@@ -12,7 +12,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Background="Blue">
         
         <xtcontrols:RingSlice 
             StartAngle="-150" 

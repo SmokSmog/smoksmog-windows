@@ -135,8 +135,8 @@
   <data name="StringDeterminingLocation" xml:space="preserve">
     <value>Determining location</value>
   </data>
-  <data name="StringFavorite" xml:space="preserve">
-    <value>favorite</value>
+  <data name="StringFavorites" xml:space="preserve">
+    <value>favorites</value>
   </data>
   <data name="StringFindStation" xml:space="preserve">
     <value>find station</value>
@@ -146,6 +146,9 @@
   </data>
   <data name="StringGroupBy" xml:space="preserve">
     <value>group by</value>
+  </data>
+  <data name="StringHomePage" xml:space="preserve">
+    <value>Home page</value>
   </data>
   <data name="StringHomeStation" xml:space="preserve">
     <value>home station</value>
@@ -160,10 +163,13 @@
     <value>search</value>
   </data>
   <data name="StringSetAsHomeStation" xml:space="preserve">
-    <value>Set as Home station</value>
+    <value>Set as home station</value>
   </data>
   <data name="StringSettings" xml:space="preserve">
     <value>settings</value>
+  </data>
+  <data name="StringStationList" xml:space="preserve">
+    <value>Station list</value>
   </data>
   <data name="StringUnknown" xml:space="preserve">
     <value>Unknown</value>

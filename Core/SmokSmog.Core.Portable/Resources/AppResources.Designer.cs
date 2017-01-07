@@ -116,11 +116,11 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to favorite.
+        ///   Looks up a localized string similar to favorites.
         /// </summary>
-        public static string StringFavorite {
+        public static string StringFavorites {
             get {
-                return ResourceManager.GetString("StringFavorite", resourceCulture);
+                return ResourceManager.GetString("StringFavorites", resourceCulture);
             }
         }
         
@@ -148,6 +148,15 @@ namespace SmokSmog.Resources {
         public static string StringGroupBy {
             get {
                 return ResourceManager.GetString("StringGroupBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home page.
+        /// </summary>
+        public static string StringHomePage {
+            get {
+                return ResourceManager.GetString("StringHomePage", resourceCulture);
             }
         }
         
@@ -188,7 +197,7 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set as Home station.
+        ///   Looks up a localized string similar to Set as home station.
         /// </summary>
         public static string StringSetAsHomeStation {
             get {
@@ -202,6 +211,15 @@ namespace SmokSmog.Resources {
         public static string StringSettings {
             get {
                 return ResourceManager.GetString("StringSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Station list.
+        /// </summary>
+        public static string StringStationList {
+            get {
+                return ResourceManager.GetString("StringStationList", resourceCulture);
             }
         }
         

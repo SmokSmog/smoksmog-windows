@@ -1,10 +1,8 @@
-﻿using SmokSmog.Services.Search;
-using Windows.UI.ViewManagement;
+﻿using SmokSmog.Porperties;
+using SmokSmog.Services.Search;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
 namespace SmokSmog
 {
@@ -14,6 +12,8 @@ namespace SmokSmog
     public sealed partial class MainPage : Page
     {
         private ISearchable _searchable = null;
+
+        public string ApplicationVersion => AssemblyInfo.Version;
 
         public MainPage()
         {
@@ -25,9 +25,10 @@ namespace SmokSmog
             this.Loaded += page_Loaded;
             this.Unloaded += page_Unloaded;
             ContentFrame.Navigated += ContentFrame_Navigated;
+            ContentFrame2.SourcePageType = typeof(Views.StationList);
         }
 
-        public Frame ContentFrame => ContentFrameXaml;
+        public Frame ContentFrame => ContentFrame1;
 
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
@@ -44,6 +45,7 @@ namespace SmokSmog
             // hardware Back button by registering for the
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event. If you are using the
             // NavigationHelper provided by some templates, this event is handled for you.
+            SetMainState();
         }
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
@@ -52,7 +54,7 @@ namespace SmokSmog
             var page = ContentFrame.Content as Page;
             var viewModel = page?.DataContext;
             _searchable = viewModel as ISearchable;
-            SetSearchStatus();
+            SetSearchState();
         }
 
         private void ContentFrame_Navigating(object sender, NavigatingCancelEventArgs e)
@@ -61,18 +63,27 @@ namespace SmokSmog
             var contentString = content?.ToString();
         }
 
-        private string GetState(double width) => width <= 440 ? "Small" : "Default";
-
-        private void MainPage_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+        private void SetMainState()
         {
-            VisualStateManager.GoToState(this, GetState(e.NewSize.Width), true);
-            SetSearchStatus();
+            double width = ActualWidth;
+            string stateName = "Default";
+            if (width >= 900) stateName = "Wide";
+            if (width <= 440) stateName = "Small";
+
+            VisualStateManager.GoToState(this, stateName, true);
+        }
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            SetMainState();
+            SetSearchState();
         }
 
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
             SizeChanged += MainPage_SizeChanged;
-            VisualStateManager.GoToState(this, GetState(this.ActualWidth), true);
+            SetMainState();
+            SetSearchState();
         }
 
         private void page_Unloaded(object sender, RoutedEventArgs e)
@@ -82,15 +93,15 @@ namespace SmokSmog
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            SetSearchStatus(true);
+            SetSearchState(true);
         }
 
         private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            SetSearchStatus();
+            SetSearchState();
         }
 
-        private void SetSearchStatus(bool open = false)
+        private void SetSearchState(bool open = false)
         {
             var stateBefore = SearchVisualStateGroup.CurrentState?.Name;
 
@@ -124,14 +135,26 @@ namespace SmokSmog
 
         private void TitleRoot_GotFocus(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, GetState(this.ActualWidth), true);
             MenuButtonHamburger.IsChecked = false;
         }
 
-        private void ContentFrameXaml_GotFocus(object sender, RoutedEventArgs e)
+        private void ContentFrame1_GotFocus(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, GetState(this.ActualWidth), true);
             MenuButtonHamburger.IsChecked = false;
+        }
+
+        private void HomeButtonClick(object sender, RoutedEventArgs e)
+        {
+            Canvas.SetZIndex(ContentFrame1, 100);
+            Canvas.SetZIndex(ContentFrame2, 0);
+            VisualStateManager.GoToState(this, "Frame1", true);
+        }
+
+        private void FavoritesButtonClick(object sender, RoutedEventArgs e)
+        {
+            Canvas.SetZIndex(ContentFrame1, 0);
+            Canvas.SetZIndex(ContentFrame2, 100);
+            VisualStateManager.GoToState(this, "Frame2", true);
         }
     }
 }

@@ -2,6 +2,7 @@
 using SmokSmog.Xaml.Data.ValueConverters;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog.Views
@@ -9,11 +10,11 @@ namespace SmokSmog.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SationList : Page
+    public sealed partial class StationList : Page
     {
         private StationListViewModel _vm => DataContext as StationListViewModel;
 
-        public SationList()
+        public StationList()
         {
             this.InitializeComponent();
 
@@ -48,7 +49,9 @@ namespace SmokSmog.Views
 
         private void StackPanel_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            Windows.UI.Xaml.Controls.Primitives.FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+            var element = sender as FrameworkElement;
+            if (element != null)
+                ShowAttachedFlyout(element);
         }
 
         public void StationListSemanticZoomToggleActiveView()
@@ -58,9 +61,28 @@ namespace SmokSmog.Views
 #endif
         }
 
-        private void Grid_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+        private void StationListGrouppedListViewTemplate_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
         {
-            Windows.UI.Xaml.Controls.Primitives.FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+            var element = sender as FrameworkElement;
+            if (element != null)
+                ShowAttachedFlyout(element);
+        }
+
+        private void StationListGrouppedListViewTemplate_Holding(object sender, Windows.UI.Xaml.Input.HoldingRoutedEventArgs e)
+        {
+            var element = sender as FrameworkElement;
+            if (element != null)
+                ShowAttachedFlyout(element);
+        }
+
+        private void ShowAttachedFlyout(FrameworkElement element)
+        {
+            if (element != null)
+            {
+                var flyout = FlyoutBase.GetAttachedFlyout(element);
+                if (flyout != null)
+                    FlyoutBase.ShowAttachedFlyout(element);
+            }
         }
     }
 }

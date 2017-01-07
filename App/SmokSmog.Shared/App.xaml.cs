@@ -91,7 +91,7 @@ namespace SmokSmog
                 // When the navigation stack isn't restored navigate to the first page, configuring
                 // the new page by passing required information as a navigation parameter
 
-                if (!mainPage.ContentFrame.Navigate(typeof(Views.SationList), e.Arguments))
+                if (!mainPage.ContentFrame.Navigate(typeof(Views.StationPage), e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
