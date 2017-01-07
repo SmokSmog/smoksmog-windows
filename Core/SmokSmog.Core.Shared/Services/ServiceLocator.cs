@@ -58,6 +58,7 @@ namespace SmokSmog.Services
 
         public ServiceLocator()
         {
+            Initialize();
             _locator = ServiceLocation.ServiceLocator.Current;
         }
 

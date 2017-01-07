@@ -39,7 +39,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Design\" />
     <Folder Include="$(MSBuildThisFileDirectory)Xaml\Controls\" />
   </ItemGroup>
 </Project>

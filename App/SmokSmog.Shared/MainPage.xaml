@@ -76,7 +76,7 @@
                 <controls:SearchBox x:Name="SearchTextBox"
                                     Grid.Column="1"
                                     MinWidth="280"
-                                    MaxWidth="350"
+                                    MaxWidth="420"
                                     HorizontalAlignment="Stretch"
                                     LostFocus="SearchTextBox_LostFocus"
                                     TextChanged="SearchTextBox_TextChanged"
@@ -166,24 +166,9 @@
         <Grid x:Name="RightSideMenuGrid"
               Grid.Row="1"
               Width="0"
+              MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
               HorizontalAlignment="Left"
               Background="{StaticResource SmokSmogChromeBrush}">
-
-            <!--<i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="LostFocus">
-                        <ic:ChangePropertyAction PropertyName="IsChecked"
-                                                 TargetObject="{Binding ElementName=MenuButtonHamburger}"
-                                                 Value="False" />
-
-                <ic:ChangePropertyAction PropertyName="Width"
-                                                 TargetObject="{Binding ElementName=RightSideMenuGrid}"
-                                                 Value="0" />
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>-->
-
-            <!--<Border Grid.Column="0"
-                    Margin="0"
-                    Background="{StaticResource SmokSmogChromeBrush}" />-->
 
             <ScrollViewer Grid.Column="0"
                           Margin="0,0,0,150"
