@@ -30,7 +30,7 @@ namespace SmokSmog.Porperties
     internal static class AssemblyInfo
     {
         public const string Title = "SmokSmog";
-        public const string Version = "2.0.*";
-        public const string FileVersion = "2.0.0.0";
+        public const string Version = "2.0.0";
+        public const string FileVersion = "2.0.0";
     }
 }

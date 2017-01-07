@@ -27,9 +27,6 @@
   <data name="StationSortModeEnumProvince" xml:space="preserve">
     <value>województwa</value>
   </data>
-  <data name="StringFavorite" xml:space="preserve">
-    <value>ulubione</value>
-  </data>
   <data name="StringFindStation" xml:space="preserve">
     <value>Znajdź stację</value>
   </data>
@@ -65,5 +62,14 @@
   </data>
   <data name="StringDeterminingLocation" xml:space="preserve">
     <value>Ustalanie lokalizacji</value>
+  </data>
+  <data name="StringStationList" xml:space="preserve">
+    <value>Lista stacji</value>
+  </data>
+  <data name="StringHomePage" xml:space="preserve">
+    <value>Strona domowa</value>
+  </data>
+  <data name="StringFavorites" xml:space="preserve">
+    <value>Ulubione</value>
   </data>
 </root>
