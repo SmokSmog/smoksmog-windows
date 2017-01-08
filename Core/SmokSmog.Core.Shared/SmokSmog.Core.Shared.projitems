@@ -27,9 +27,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToUpper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToWordsCase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\ValueConverterGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\DataBindingHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\RangeDataTriggerBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\ShowAttachedFlyoutAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TextBlockHighlightBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TypeConverterHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\PropertyChangeEventSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\SvgData.cs" />
   </ItemGroup>
