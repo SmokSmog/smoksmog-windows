@@ -125,7 +125,7 @@ namespace SmokSmog
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ViewModelLocator.StationList.Querry = new SearchQuerry() { String = SearchTextBox.Text, };
+            ViewModelLocator.StationList.StationFilter = SearchTextBox.Text;
         }
 
         private void TitleRoot_GotFocus(object sender, RoutedEventArgs e)
