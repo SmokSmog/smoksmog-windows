@@ -76,11 +76,11 @@
                 <controls:SearchBox x:Name="SearchTextBox"
                                     Grid.Column="1"
                                     MinWidth="320"
-                                    Margin="0"
-                                    Padding="0"
-                                    FontSize="20"
+                                    Margin="5,0"
                                     HorizontalAlignment="Right"
+                                    FontSize="25"
                                     LostFocus="SearchTextBox_LostFocus"
+                                    Padding="0"
                                     TextChanged="SearchTextBox_TextChanged"
                                     Visibility="Visible" />
 

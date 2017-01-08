@@ -1,5 +1,4 @@
 ﻿using SmokSmog.Porperties;
-using SmokSmog.Services.Search;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;

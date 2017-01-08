@@ -110,11 +110,6 @@
     <EmbeddedResource Include="Properties\SmokSmog.Core.WindowsUniversal.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
-      <Name>Behaviors SDK %28XAML%29</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SmokSmog.Core.Portable\SmokSmog.Core.Portable.csproj">
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
       <Name>SmokSmog.Core.Portable</Name>
