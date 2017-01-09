@@ -127,16 +127,6 @@ namespace SmokSmog
             ViewModelLocator.StationList.StationFilter = SearchTextBox.Text;
         }
 
-        private void TitleRoot_GotFocus(object sender, RoutedEventArgs e)
-        {
-            MenuButtonHamburger.IsChecked = false;
-        }
-
-        private void ContentFrame1_GotFocus(object sender, RoutedEventArgs e)
-        {
-            MenuButtonHamburger.IsChecked = false;
-        }
-
         private void HomeButtonClick(object sender, RoutedEventArgs e)
         {
             Canvas.SetZIndex(ContentFrame1, 100);
