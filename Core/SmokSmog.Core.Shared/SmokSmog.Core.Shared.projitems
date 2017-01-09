@@ -6,7 +6,7 @@
     <SharedGUID>1a93cb76-ef97-4592-b0e5-eea5b3e040c6</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>SmokSmog.Core</Import_RootNamespace>
+    <Import_RootNamespace>SmokSmog</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Globalization\WinRTResourceManager.cs" />
@@ -27,9 +27,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToUpper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToWordsCase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\ValueConverterGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\DataBindingHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\RangeDataTriggerBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\ShowAttachedFlyoutAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TextBlockHighlightBehavior.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\Behavior.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\BehaviorOfT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TypeConverterHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\PropertyChangeEventSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\SvgData.cs" />
   </ItemGroup>
@@ -37,9 +39,5 @@
     <Page Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters.xaml">
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Design\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Xaml\Controls\" />
   </ItemGroup>
 </Project>

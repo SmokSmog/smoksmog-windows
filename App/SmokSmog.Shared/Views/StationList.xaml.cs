@@ -1,8 +1,6 @@
 ﻿using SmokSmog.ViewModel;
 using SmokSmog.Xaml.Data.ValueConverters;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog.Views
@@ -47,42 +45,11 @@ namespace SmokSmog.Views
         {
         }
 
-        private void StackPanel_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            var element = sender as FrameworkElement;
-            if (element != null)
-                ShowAttachedFlyout(element);
-        }
-
         public void StationListSemanticZoomToggleActiveView()
         {
 #if WINDOWS_APP
             StationListSemanticZoom.ToggleActiveView();
 #endif
-        }
-
-        private void StationListGrouppedListViewTemplate_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
-        {
-            var element = sender as FrameworkElement;
-            if (element != null)
-                ShowAttachedFlyout(element);
-        }
-
-        private void StationListGrouppedListViewTemplate_Holding(object sender, Windows.UI.Xaml.Input.HoldingRoutedEventArgs e)
-        {
-            var element = sender as FrameworkElement;
-            if (element != null)
-                ShowAttachedFlyout(element);
-        }
-
-        private void ShowAttachedFlyout(FrameworkElement element)
-        {
-            if (element != null)
-            {
-                var flyout = FlyoutBase.GetAttachedFlyout(element);
-                if (flyout != null)
-                    FlyoutBase.ShowAttachedFlyout(element);
-            }
         }
     }
 }

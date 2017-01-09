@@ -133,6 +133,8 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="..\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Microsoft\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.projitems" Label="Shared" />
+  <Import Project="..\..\Microsoft\Microsoft.Xaml.Interactions\Microsoft.Xaml.Interactions.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

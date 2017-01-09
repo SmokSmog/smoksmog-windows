@@ -26,45 +26,19 @@
                               IsSourceGrouped="True"
                               Source="{Binding Path=StationListGrouped}" />
 
-        <DataTemplate x:Key="StationGridViewGroupItemTemplate">
-            <Border MinWidth="82"
-                    MinHeight="82"
-                    Margin="0"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    BorderThickness="1">
-                <Grid>
-                    <TextBlock Margin="0"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontFamily="{StaticResource SmokSmogFontFamily}"
-                               FontSize="50"
-                               Foreground="Gray"
-                               Padding="0"
-                               Text="{Binding Path=Group.Key}"
-                               Visibility="{Binding Path=Group.IsEmpty,
-                                                    Converter={StaticResource BooleanToVisabilityValueConverter}}" />
-
-                    <TextBlock Margin="0"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontFamily="{StaticResource SmokSmogFontFamily}"
-                               FontSize="50"
-                               Padding="0"
-                               Text="{Binding Path=Group.Key}"
-                               Visibility="{Binding Path=Group.IsEmpty,
-                                                    Converter={StaticResource BooleanToVisabilityValueConverter},
-                                                    ConverterParameter='Reverse'}" />
-                </Grid>
-            </Border>
-        </DataTemplate>
-
         <DataTemplate x:Key="StationListGrouppedListViewTemplate">
 
             <!--  https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.uielement.righttapped  -->
-            <Grid Margin="0"
-                  Holding="StationListGrouppedListViewTemplate_Holding"
-                  RightTapped="StationListGrouppedListViewTemplate_RightTapped">
+            <Grid Margin="0">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="Holding">
+                        <is:ShowAttachedFlyoutAction />
+                    </ic:EventTriggerBehavior>
+                    <ic:EventTriggerBehavior EventName="RightTapped">
+                        <is:ShowAttachedFlyoutAction />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+
                 <FlyoutBase.AttachedFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Text="{Binding LocalizedResources.StringSetAsHomeStation, Source={StaticResource LocalizedStrings}}" />
@@ -118,150 +92,176 @@
     </Page.Resources>
 
     <Grid Background="{StaticResource SmokSmogBackgroundBrush}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <!--<RowDefinition Height="50" />-->
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <ListView IsHoldingEnabled="True"
+                  ItemContainerStyle="{StaticResource SmokSmogListViewItemStyle}"
+                  ItemTemplate="{StaticResource StationListGrouppedListViewTemplate}"
+                  ItemsSource="{Binding Path=StationListFiltered}"
+                  SelectedIndex="-1"
+                  SelectionMode="None"
+                  ShowsScrollingPlaceholders="True"
+                  Visibility="{Binding Path=IsStationFilterOn,
+                                       Converter={StaticResource BooleanToVisabilityValueConverter},
+                                       ConverterParameter='NonReverse'}" />
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <StackPanel Grid.Row="2"
-                        Margin="6"
-                        Orientation="Horizontal"
-                        Visibility="{Binding Path=IsStationFilterOn,
-                                             Converter={StaticResource BooleanToVisabilityValueConverter},
-                                             ConverterParameter='Reverse'}">
-
-                <TextBlock VerticalAlignment="Center"
-                           FontSize="16"
-                           Text="{Binding LocalizedResources.StringGroupBy,
-                                          Source={StaticResource LocalizedStrings}}" />
-
-                <TextBlock Margin="2,0,6,0"
-                           VerticalAlignment="Center"
-                           FontSize="16"
-                           Text=":" />
-
-                <TextBlock VerticalAlignment="Center"
-                           FontSize="16"
-                           Foreground="{StaticResource SmokSmogAccentBrush}"
-                           Tapped="StackPanel_Tapped"
-                           Text="{Binding Path=CurrentStationGroupingMode,
-                                          Converter={StaticResource StationGroupingModeEnumToString}}">
-
-                    <FlyoutBase.AttachedFlyout>
-                        <MenuFlyout x:Name="ChangeGrouppingModeFlyout" />
-                    </FlyoutBase.AttachedFlyout>
-                </TextBlock>
-            </StackPanel>
-
-            <ListView Grid.Row="3"
-                      IsHoldingEnabled="True"
-                      ItemContainerStyle="{StaticResource SmokSmogListViewItemStyle}"
-                      ItemTemplate="{StaticResource StationListGrouppedListViewTemplate}"
-                      ItemsSource="{Binding Path=StationListFiltered}"
-                      SelectedIndex="-1"
-                      SelectionMode="None"
-                      ShowsScrollingPlaceholders="True"
+        <SemanticZoom x:Name="StationListSemanticZoom"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
                       Visibility="{Binding Path=IsStationFilterOn,
                                            Converter={StaticResource BooleanToVisabilityValueConverter},
-                                           ConverterParameter='NonReverse'}" />
+                                           ConverterParameter='Reverse'}">
 
-            <SemanticZoom x:Name="StationListSemanticZoom"
-                          Grid.Row="3"
+            <SemanticZoom.ZoomedOutView>
+                <GridView Margin="0"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
-                          ScrollViewer.VerticalScrollBarVisibility="Visible"
-                          Visibility="{Binding Path=IsStationFilterOn,
-                                               Converter={StaticResource BooleanToVisabilityValueConverter},
-                                               ConverterParameter='Reverse'}">
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Top"
+                          Background="{StaticResource SmokSmogBackgroundBrush}"
+                          ItemsSource="{Binding Path=CollectionGroups,
+                                                Source={StaticResource StationsCollectionViewSource}}"
+                          Padding="0"
+                          Style="{StaticResource SmokSmogGridViewStyle}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid MinWidth="82"
+                                  MinHeight="82"
+                                  Margin="0"
+                                  Background="Transparent">
+                                <i:Interaction.Behaviors>
 
-                <SemanticZoom.ZoomedOutView>
-                    <GridView Margin="0"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch"
-                              HorizontalContentAlignment="Center"
-                              VerticalContentAlignment="Top"
-                              Background="{StaticResource SmokSmogBackgroundBrush}"
-                              ItemTemplate="{StaticResource StationGridViewGroupItemTemplate}"
-                              ItemsSource="{Binding Path=CollectionGroups,
-                                                    Source={StaticResource StationsCollectionViewSource}}"
-                              Padding="0"
-                              Style="{StaticResource SmokSmogGridViewStyle}" />
-                </SemanticZoom.ZoomedOutView>
+                                    <ic:DataTriggerBehavior Binding="{Binding Group.IsEmpty}"
+                                                            ComparisonCondition="Equal"
+                                                            Value="True">
+                                        <ic:ChangePropertyAction PropertyName="Foreground"
+                                                                 TargetObject="{Binding ElementName=GridViewItemTemplateTb}"
+                                                                 Value="Gray" />
+                                    </ic:DataTriggerBehavior>
 
-                <SemanticZoom.ZoomedInView>
-                    <ListView Margin="0"
-                              IsHoldingEnabled="True"
-                              ItemContainerStyle="{StaticResource SmokSmogListViewItemStyle}"
-                              ItemTemplate="{StaticResource StationListGrouppedListViewTemplate}"
-                              ItemsSource="{Binding Source={StaticResource StationsCollectionViewSource}}"
-                              Padding="0"
-                              SelectedIndex="-1"
-                              SelectionMode="None"
-                              ShowsScrollingPlaceholders="False"
-                              Style="{StaticResource SmokSmogListViewStyle}">
+                                    <ic:DataTriggerBehavior Binding="{Binding Group.IsEmpty}"
+                                                            ComparisonCondition="Equal"
+                                                            Value="False">
+                                        <ic:ChangePropertyAction PropertyName="Foreground"
+                                                                 TargetObject="{Binding ElementName=GridViewItemTemplateTb}"
+                                                                 Value="Black" />
+                                    </ic:DataTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                                <TextBlock x:Name="GridViewItemTemplateTb"
+                                           Margin="0"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{StaticResource SmokSmogFontFamily}"
+                                           FontSize="50"
+                                           Padding="0"
+                                           Text="{Binding Path=Group.Key}" />
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </SemanticZoom.ZoomedOutView>
 
-                        <ListView.GroupStyle>
-                            <GroupStyle HidesIfEmpty="True">
-                                <GroupStyle.HeaderContainerStyle>
-                                    <Style TargetType="ListViewHeaderItem">
-                                        <Setter Property="Margin" Value="0" />
-                                        <Setter Property="Padding" Value="0" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="ListViewHeaderItem">
-                                                    <Border Margin="0"
-                                                            Background="Transparent"
-                                                            Padding="0">
-                                                        <ContentPresenter Margin="0"
-                                                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                                          Content="{TemplateBinding Content}"
-                                                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                                          ContentTransitions="{TemplateBinding ContentTransitions}" />
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </GroupStyle.HeaderContainerStyle>
-                                <GroupStyle.HeaderTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <i:Interaction.Behaviors>
-                                                <ic:EventTriggerBehavior EventName="Tapped">
-                                                    <ic:CallMethodAction MethodName="StationListSemanticZoomToggleActiveView" TargetObject="{Binding ElementName=This}" />
-                                                </ic:EventTriggerBehavior>
-                                            </i:Interaction.Behaviors>
+            <SemanticZoom.ZoomedInView>
+                <ListView Margin="0"
+                          IsHoldingEnabled="True"
+                          ItemContainerStyle="{StaticResource SmokSmogListViewItemStyle}"
+                          ItemTemplate="{StaticResource StationListGrouppedListViewTemplate}"
+                          ItemsSource="{Binding Source={StaticResource StationsCollectionViewSource}}"
+                          Padding="0"
+                          SelectedIndex="-1"
+                          SelectionMode="None"
+                          ShowsScrollingPlaceholders="False"
+                          Style="{StaticResource SmokSmogListViewStyle}">
 
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8000" />
-                                            </Grid.ColumnDefinitions>
+                    <ListView.Header>
+                        <StackPanel Margin="6" Orientation="Horizontal">
 
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="48" />
-                                            </Grid.RowDefinitions>
+                            <TextBlock VerticalAlignment="Center"
+                                       FontSize="16"
+                                       Text="{Binding LocalizedResources.StringGroupBy,
+                                                      Source={StaticResource LocalizedStrings}}" />
 
-                                            <TextBlock Margin="9,0,0,0" FontSize="32" Text="{Binding Path=Key}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
-                            </GroupStyle>
-                        </ListView.GroupStyle>
-                    </ListView>
-                </SemanticZoom.ZoomedInView>
-            </SemanticZoom>
-        </Grid>
+                            <TextBlock Margin="2,0,6,0"
+                                       VerticalAlignment="Center"
+                                       FontSize="16"
+                                       Text=":" />
+
+                            <TextBlock VerticalAlignment="Center"
+                                       FontSize="16"
+                                       Foreground="{StaticResource SmokSmogAccentBrush}"
+                                       Text="{Binding Path=CurrentStationGroupingMode,
+                                                      Converter={StaticResource StationGroupingModeEnumToString}}">
+                                <i:Interaction.Behaviors>
+                                    <ic:EventTriggerBehavior EventName="Tapped">
+                                        <is:ShowAttachedFlyoutAction />
+                                    </ic:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                                <FlyoutBase.AttachedFlyout>
+                                    <MenuFlyout x:Name="ChangeGrouppingModeFlyout" />
+                                </FlyoutBase.AttachedFlyout>
+                            </TextBlock>
+                        </StackPanel>
+                    </ListView.Header>
+
+                    <ListView.GroupStyle>
+                        <GroupStyle HidesIfEmpty="True">
+                            <GroupStyle.HeaderContainerStyle>
+                                <Style TargetType="ListViewHeaderItem">
+                                    <Setter Property="Margin" Value="0" />
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewHeaderItem">
+                                                <Border Margin="0"
+                                                        Background="Transparent"
+                                                        Padding="0">
+                                                    <ContentPresenter Margin="0"
+                                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                      Content="{TemplateBinding Content}"
+                                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                      ContentTransitions="{TemplateBinding ContentTransitions}" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.HeaderContainerStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <i:Interaction.Behaviors>
+                                            <ic:EventTriggerBehavior EventName="Tapped">
+                                                <ic:CallMethodAction MethodName="StationListSemanticZoomToggleActiveView" TargetObject="{Binding ElementName=This}" />
+                                            </ic:EventTriggerBehavior>
+                                        </i:Interaction.Behaviors>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="8000" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="48" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Margin="9,0,0,0"
+                                                   FontSize="32"
+                                                   Text="{Binding Path=Key}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListView.GroupStyle>
+                </ListView>
+            </SemanticZoom.ZoomedInView>
+        </SemanticZoom>
     </Grid>
 </Page>

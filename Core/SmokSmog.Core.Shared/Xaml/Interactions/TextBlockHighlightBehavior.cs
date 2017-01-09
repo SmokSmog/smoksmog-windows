@@ -1,5 +1,5 @@
-﻿using SmokSmog.Extensions;
-using SmokSmog.Xaml.Interactivity;
+﻿using Microsoft.Xaml.Interactivity;
+using SmokSmog.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,6 +23,16 @@ namespace SmokSmog.Xaml.Interactions
     /// </summary>
     public class TextBlockHighlightBehavior : Behavior<TextBlock>
     {
+        private CancellationTokenSource _lastUpdateHighlightCts = null;
+
+        private ObservableCollection<Inline> _originalInlineList = new ObservableCollection<Inline>();
+
+        private string _originalText = string.Empty;
+
+        private List<PropertyChangeEventSource<string>> _runTextChangeEventSourceList = new List<PropertyChangeEventSource<string>>();
+
+        private PropertyChangeEventSource<string> _textChangeEventSource;
+
         public TextBlockHighlightBehavior()
         {
             if (DesignMode.DesignModeEnabled)
@@ -187,10 +197,30 @@ namespace SmokSmog.Xaml.Interactions
 
         #endregion Highlight
 
-        private PropertyChangeEventSource<string> _textChangeEventSource;
-        private string _originalText = string.Empty;
-        private ObservableCollection<Inline> _originalInlineList = new ObservableCollection<Inline>();
-        private List<PropertyChangeEventSource<string>> _runTextChangeEventSourceList = new List<PropertyChangeEventSource<string>>();
+        private TextBlock Element => AssociatedObject as TextBlock;
+
+        /// <summary>
+        /// Clears the highlight.
+        /// </summary>
+        public void ClearHighlight()
+        {
+            Element?.Inlines.Clear();
+            Element?.Inlines.Add(new Run() { Text = _originalText });
+        }
+
+        public void Update()
+        {
+            var cts = _lastUpdateHighlightCts;
+            if (cts != null)
+            {
+                if (!cts.IsCancellationRequested)
+                    cts.Cancel();
+            }
+            cts = new CancellationTokenSource();
+            _lastUpdateHighlightCts = cts;
+
+            UpdateHighlight(cts.Token);
+        }
 
         /// <summary>
         /// Called after the behavior is attached to an AssociatedObject.
@@ -237,15 +267,6 @@ namespace SmokSmog.Xaml.Interactions
             base.OnDetaching();
         }
 
-        private void TextChanged(object sender, string s)
-        {
-            _originalText = s;
-            if (string.IsNullOrWhiteSpace(_originalText))
-                ClearHighlight();
-            else
-                Update();
-        }
-
         private void InlineChanged(object sender, string s)
         {
             if (string.IsNullOrWhiteSpace(s))
@@ -270,21 +291,14 @@ namespace SmokSmog.Xaml.Interactions
             Update();
         }
 
-        public void Update()
+        private void TextChanged(object sender, string s)
         {
-            var cts = _lastUpdateHighlightCts;
-            if (cts != null)
-            {
-                if (!cts.IsCancellationRequested)
-                    cts.Cancel();
-            }
-            cts = new CancellationTokenSource();
-            _lastUpdateHighlightCts = cts;
-
-            UpdateHighlight(cts.Token);
+            _originalText = s;
+            if (string.IsNullOrWhiteSpace(_originalText))
+                ClearHighlight();
+            else
+                Update();
         }
-
-        private CancellationTokenSource _lastUpdateHighlightCts = null;
 
         /// <summary>
         /// Updates the highlight.
@@ -383,15 +397,6 @@ namespace SmokSmog.Xaml.Interactions
             Element.Inlines.Clear();
             foreach (var item in inlines)
                 Element.Inlines.Add(item);
-        }
-
-        /// <summary>
-        /// Clears the highlight.
-        /// </summary>
-        public void ClearHighlight()
-        {
-            Element?.Inlines.Clear();
-            Element?.Inlines.Add(new Run() { Text = _originalText });
         }
     }
 }

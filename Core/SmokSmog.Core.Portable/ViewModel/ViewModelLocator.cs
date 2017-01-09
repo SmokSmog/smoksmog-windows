@@ -23,12 +23,28 @@ namespace SmokSmog.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        private static bool _isInitialized = false;
+
+        public static void Initialize()
+        {
+            if (!_isInitialized)
+            {
+                SimpleIoc.Default.Register<StationListViewModel>();
+                _isInitialized = true;
+            }
+        }
+
+        static ViewModelLocator()
+        {
+            Initialize();
+        }
+
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
         {
-            SimpleIoc.Default.Register<StationListViewModel>();            
+            Initialize();
         }
 
         public StationListViewModel StationList

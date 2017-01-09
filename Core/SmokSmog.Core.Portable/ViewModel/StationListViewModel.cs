@@ -25,10 +25,8 @@ namespace SmokSmog.ViewModel
     /// <para>You can also use Blend to data bind with the tool's support.</para>
     /// <para>See http://www.galasoft.ch/mvvm</para>
     /// </summary>
-    public sealed class StationListViewModel : ViewModelBase, ISearchable
+    public sealed class StationListViewModel : ViewModelBase
     {
-        // TODO - implement IDispose !! unregister all events !!
-
         private IDataProvider _dataService;
         private IGeolocationService _geolocationService;
 
@@ -393,9 +391,7 @@ namespace SmokSmog.ViewModel
         #endregion Grouping Station List
 
         #region ISearchable
-
-        public SearchSettings Settings { get; } = new SearchSettings() { Geocoordinate = true };
-
+        
         private SearchQuerry _querry;
 
         public SearchQuerry Querry
@@ -409,10 +405,10 @@ namespace SmokSmog.ViewModel
             {
                 _querry = value;
 
-                if (_querry == null || string.IsNullOrWhiteSpace(_querry.String))
+                if (_querry == null || string.IsNullOrWhiteSpace(_querry.Text))
                     StationFilter = string.Empty;
                 else
-                    StationFilter = value.String;
+                    StationFilter = value.Text;
             }
         }
 

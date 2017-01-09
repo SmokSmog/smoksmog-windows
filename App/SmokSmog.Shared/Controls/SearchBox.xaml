@@ -7,6 +7,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="50"
              d:DesignWidth="400"
+             FontSize="15"
+             x:Name="This"
              mc:Ignorable="d">
 
     <Grid x:Name="SearchRoot"
@@ -14,37 +16,19 @@
           Background="White">
 
         <TextBox x:Name="SearchTextBox"
-                 Margin="10,0"
+                 Margin="0,0"
+                 FontSize="{Binding ElementName=This,Path=FontSize}"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Center"
                  Background="Transparent"
                  BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"
-                 Padding="7,3,40,0"
+                 Padding="7,3,40,3"
                  PlaceholderText="{Binding LocalizedResources.StringSearch,
                                            Source={StaticResource LocalizedStrings}}"
                  RequestedTheme="Light"
                  TextChanged="SearchTextBox_TextChanged" />
 
-        <StackPanel x:Name="IndicationPanel"
-                    Margin="0,5,0,0"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
-                    Orientation="Vertical"
-                    Visibility="Collapsed">
 
-            <TextBlock Margin="10,0,0,0"
-                       VerticalAlignment="Center"
-                       FontSize="16"
-                       Padding="0"
-                       Text="{Binding LocalizedResources.StringDeterminingLocation,
-                                      Source={StaticResource LocalizedStrings}}" />
-
-            <ProgressBar Margin="10,0" IsIndeterminate="True" />
-        </StackPanel>
-
-        <StackPanel Margin="0,0,10,0"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal">
 
             <Button x:Name="CancelationButton"
                     Width="32"
@@ -53,25 +37,16 @@
                     MinHeight="32"
                     MaxWidth="32"
                     MaxHeight="32"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    HorizontalAlignment="Right"
                     Click="CancelationButton_Click"
                     Content="&#x2715;"
                     FontFamily="Segoe UI"
                     FontSize="15"
                     FontWeight="Black"
                     Style="{StaticResource SmokSmogButtonStyle}"
-                    Visibility="Collapsed" />
+                    Visibility="Visible" />
 
-            <!--<Button Width="40"
-                                Height="40"
-                                MinWidth="40"
-                                MinHeight="40"
-                                MaxWidth="40"
-                                MaxHeight="40"
-                                BorderThickness="0"
-                                Content="&#xE1D2;"
-                                FontFamily="Segoe UI Symbol"
-                                FontSize="15"
-                                Style="{StaticResource SmokSmogButtonStyle}" />-->
-        </StackPanel>
     </Grid>
 </UserControl>

@@ -1,5 +1,4 @@
 ﻿using SmokSmog.Porperties;
-using SmokSmog.Services.Search;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -11,7 +10,7 @@ namespace SmokSmog
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private ISearchable _searchable = null;
+        private ViewModel.ViewModelLocator ViewModelLocator { get; } = new ViewModel.ViewModelLocator();
 
         public string ApplicationVersion => AssemblyInfo.Version;
 
@@ -50,10 +49,6 @@ namespace SmokSmog
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            // check if ViewModel is search-able
-            var page = ContentFrame.Content as Page;
-            var viewModel = page?.DataContext;
-            _searchable = viewModel as ISearchable;
             SetSearchState();
         }
 
@@ -105,12 +100,12 @@ namespace SmokSmog
         {
             var stateBefore = SearchVisualStateGroup.CurrentState?.Name;
 
-            if (_searchable == null)
-            {
-                SearchTextBox.Text = string.Empty;
-                VisualStateManager.GoToState(this, "DisableSearchState", true);
-                return;
-            }
+            //if (_searchable == null)
+            //{
+            //    SearchTextBox.Text = string.Empty;
+            //    VisualStateManager.GoToState(this, "DisableSearchState", true);
+            //    return;
+            //}
 
             if ((SearchTextBox.FocusState == FocusState.Unfocused && string.IsNullOrWhiteSpace(SearchTextBox.Text)) && !open)
             {
@@ -129,18 +124,7 @@ namespace SmokSmog
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (_searchable != null)
-                _searchable.Querry = new SearchQuerry() { String = SearchTextBox.Text, };
-        }
-
-        private void TitleRoot_GotFocus(object sender, RoutedEventArgs e)
-        {
-            MenuButtonHamburger.IsChecked = false;
-        }
-
-        private void ContentFrame1_GotFocus(object sender, RoutedEventArgs e)
-        {
-            MenuButtonHamburger.IsChecked = false;
+            ViewModelLocator.StationList.StationFilter = SearchTextBox.Text;
         }
 
         private void HomeButtonClick(object sender, RoutedEventArgs e)

@@ -4,15 +4,35 @@ namespace SmokSmog.Services.Search
 {
     public class SearchQuerry
     {
-        public string String;
-        public Geocoordinate Geocoordinate;
+        public enum Type
+        {
+            Text,
+            Geocoordinate,
+        }
+
+        public string Text { get; private set; } = null;
+        public Geocoordinate Geocoordinate { get; private set; } = null;
+
+        public Type QuerryType { get; }
+
+        public SearchQuerry(string text)
+        {
+            Text = text;
+            QuerryType = Type.Text;
+        }
+
+        public SearchQuerry(Geocoordinate geocoordinate)
+        {
+            Geocoordinate = geocoordinate;
+            QuerryType = Type.Geocoordinate;
+        }
 
         public override string ToString()
         {
             string result = null;
-            if (!string.IsNullOrWhiteSpace(String))
+            if (!string.IsNullOrWhiteSpace(Text))
             {
-                result = String;
+                result = Text;
             }
             else if (Geocoordinate != null)
             {
