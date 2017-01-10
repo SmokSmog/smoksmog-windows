@@ -30,6 +30,7 @@ namespace SmokSmog.ViewModel
             if (!_isInitialized)
             {
                 SimpleIoc.Default.Register<StationListViewModel>();
+                SimpleIoc.Default.Register<FavoritesViewModel>();
                 _isInitialized = true;
             }
         }
@@ -50,6 +51,11 @@ namespace SmokSmog.ViewModel
         public StationListViewModel StationList
         {
             get { return ServiceLocator.Current.GetInstance<StationListViewModel>(); }
+        }
+
+        public FavoritesViewModel FavoritesViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<FavoritesViewModel>(); }
         }
 
         public static void Cleanup()

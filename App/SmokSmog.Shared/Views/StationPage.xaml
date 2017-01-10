@@ -12,7 +12,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="Blue">
+    <Grid Background="Transparent">
         
         <xtcontrols:RingSlice 
             StartAngle="-150" 
@@ -21,6 +21,6 @@
             Radius="150"
             Fill="Red">
         </xtcontrols:RingSlice>
-        
+
     </Grid>
 </Page>

@@ -49,7 +49,7 @@
     <value>szukaj</value>
   </data>
   <data name="StringAddToFavorites" xml:space="preserve">
-    <value>Dodaj do Ulubionych</value>
+    <value>Dodaj do ulubionych</value>
   </data>
   <data name="StringPinToStart" xml:space="preserve">
     <value>Przypnij</value>
@@ -71,5 +71,8 @@
   </data>
   <data name="StringFavorites" xml:space="preserve">
     <value>Ulubione</value>
+  </data>
+  <data name="StringRemoveFromFavorites" xml:space="preserve">
+    <value>Usuń z ulubionych</value>
   </data>
 </root>

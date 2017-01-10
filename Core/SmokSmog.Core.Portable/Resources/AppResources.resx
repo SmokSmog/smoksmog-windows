@@ -130,7 +130,7 @@
     <value>province</value>
   </data>
   <data name="StringAddToFavorites" xml:space="preserve">
-    <value>Add to Favorites</value>
+    <value>Add to favorites</value>
   </data>
   <data name="StringDeterminingLocation" xml:space="preserve">
     <value>Determining location</value>
@@ -158,6 +158,9 @@
   </data>
   <data name="StringPinToStart" xml:space="preserve">
     <value>Pin to Start</value>
+  </data>
+  <data name="StringRemoveFromFavorites" xml:space="preserve">
+    <value>Remove from favorites</value>
   </data>
   <data name="StringSearch" xml:space="preserve">
     <value>search</value>

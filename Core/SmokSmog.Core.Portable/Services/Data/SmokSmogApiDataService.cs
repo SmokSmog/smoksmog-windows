@@ -13,9 +13,9 @@ namespace SmokSmog.Services.Data
 {
     public class SmokSmogApiDataProvider : RestDataProviderBase
     {
-        private readonly ISettingsService _settingsService;
+        private readonly IStorageService _settingsService;
 
-        public SmokSmogApiDataProvider(IHttpClient httpClient, ISettingsService settingsService)
+        public SmokSmogApiDataProvider(IHttpClient httpClient, IStorageService settingsService)
             : base(httpClient, "http://api.smoksmog.jkostrz.name")
         {
             if (settingsService == null)

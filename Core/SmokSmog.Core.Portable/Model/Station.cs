@@ -70,6 +70,7 @@ namespace SmokSmog.Model
 
         /// <summary>
         /// Station identifier example : 1
+        /// it must be unique
         /// </summary>
         [DataMember]
         public int Id

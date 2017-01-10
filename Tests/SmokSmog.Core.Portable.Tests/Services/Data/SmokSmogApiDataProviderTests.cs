@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SmokSmog.Net.Http;
 using SmokSmog.Services.Data;
 using SmokSmog.Services.Storage;
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
 
 namespace SmokSmog.Core.Portable.Tests.Services.Data
 {
@@ -19,7 +19,7 @@ namespace SmokSmog.Core.Portable.Tests.Services.Data
         private static IDataProvider _serviceOffline;
         private static IDataProvider _serviceOnline;
 
-        private static Mock<ISettingsService> _settingsMock;
+        private static Mock<IStorageService> _settingsMock;
 
         [ClassCleanup]
         public static void ClassCleanup()
@@ -27,7 +27,6 @@ namespace SmokSmog.Core.Portable.Tests.Services.Data
             //_serviceOnline = null;
             //_serviceOffline = null;
             //_settingsMock = null;
-
             //_httpClientOnline.Dispose();
             //_httpClientOffline.Dispose();
         }
@@ -35,7 +34,7 @@ namespace SmokSmog.Core.Portable.Tests.Services.Data
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
         {
-            _settingsMock = new Mock<ISettingsService>(MockBehavior.Default);
+            _settingsMock = new Mock<IStorageService>(MockBehavior.Default);
             _settingsMock.Setup(x => x.Language).Returns("Polish");
             _settingsMock.Setup(x => x.LanguageCode).Returns("pl-PL");
 
