@@ -8,7 +8,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="key">  </param>
         /// <param name="value"></param>
-        void SaveSetting<T>(string key, T value);
+        void SetSetting<T>(string key, T value);
 
         /// <summary>
         /// </summary>

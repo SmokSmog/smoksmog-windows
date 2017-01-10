@@ -55,8 +55,8 @@
           <target state="translated">szukaj</target>
         </trans-unit>
         <trans-unit id="StringAddToFavorites" translate="yes" xml:space="preserve">
-          <source>Add to Favorites</source>
-          <target state="translated">Dodaj do Ulubionych</target>
+          <source>Add to favorites</source>
+          <target state="translated">Dodaj do ulubionych</target>
         </trans-unit>
         <trans-unit id="StringPinToStart" translate="yes" xml:space="preserve">
           <source>Pin to Start</source>
@@ -85,6 +85,10 @@
         <trans-unit id="StringFavorites" translate="yes" xml:space="preserve">
           <source>favorites</source>
           <target state="translated">Ulubione</target>
+        </trans-unit>
+        <trans-unit id="StringRemoveFromFavorites" translate="yes" xml:space="preserve">
+          <source>Remove from favorites</source>
+          <target state="translated">Usuń z ulubionych</target>
         </trans-unit>
       </group>
     </body>

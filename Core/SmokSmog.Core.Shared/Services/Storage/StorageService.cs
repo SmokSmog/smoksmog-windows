@@ -1,4 +1,5 @@
-﻿using SmokSmog.Diagnostics;
+﻿using Newtonsoft.Json;
+using SmokSmog.Diagnostics;
 using System;
 using Windows.Storage;
 
@@ -15,9 +16,11 @@ namespace SmokSmog.Services.Storage
             object obj = null;
             if (ApplicationData.Current.LocalSettings.Values.TryGetValue(key, out obj))
             {
+                if (obj == null) return default(T);
+
                 try
                 {
-                    T value = (T)obj;
+                    T value = JsonConvert.DeserializeObject<T>(obj.ToString());
                     return value;
                 }
                 catch (Exception ex)
@@ -28,9 +31,10 @@ namespace SmokSmog.Services.Storage
             return default(T);
         }
 
-        public void SaveSetting<T>(string key, T value)
+        public void SetSetting<T>(string key, T value)
         {
-            ApplicationData.Current.LocalSettings.Values[key] = value;
+            string obj = JsonConvert.SerializeObject(value);
+            ApplicationData.Current.LocalSettings.Values[key] = obj;
         }
     }
 }

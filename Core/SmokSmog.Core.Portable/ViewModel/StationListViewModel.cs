@@ -4,10 +4,12 @@ using SmokSmog.Extensions;
 using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Search;
+using SmokSmog.Services.Storage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SmokSmog.ViewModel
@@ -36,7 +38,6 @@ namespace SmokSmog.ViewModel
         public StationListViewModel(IDataProvider dataService, IGeolocationService geolocationService)
         {
             //if (IsInDesignMode) { /* Code runs in Blend --> create design time data. */ }
-
             _geolocationService = geolocationService;
             if (_geolocationService.Status != GeolocationStatus.NotAvailable)
             {
@@ -64,7 +65,7 @@ namespace SmokSmog.ViewModel
 
         private ObservableCollection<Model.Station> _stationList = new ObservableCollection<Model.Station>();
 
-        private IList<Model.Station> baseStationsList = new List<Model.Station>();
+        private IList<Model.Station> _baseStationsList = new List<Model.Station>();
 
         public ObservableCollection<Model.Station> StationList
         {
@@ -72,13 +73,13 @@ namespace SmokSmog.ViewModel
             set { _stationList = value; RaisePropertyChanged("StationList"); }
         }
 
-        // base changable only by rest service
+        // base changeable only by rest service
         private IList<Model.Station> BaseStationsList
         {
-            get { return baseStationsList; }
+            get { return _baseStationsList; }
             set
             {
-                baseStationsList = value;
+                _baseStationsList = value;
                 // reseting filter automatically sets public station lists
                 StationFilter = string.Empty;
                 groupStationListHelper();
@@ -237,9 +238,9 @@ namespace SmokSmog.ViewModel
                 if (!string.IsNullOrWhiteSpace(_stationsFilter))
                 {
                     StationListFiltered.Clear();
-                    var expressions = _stationsFilter.Split(' ');
+                    var expressions = Regex.Replace(_stationsFilter, @"[\s\n]{1,}", " ").Split(' ');
 
-                    foreach (var station in (from station in baseStationsList
+                    foreach (var station in (from station in _baseStationsList
                                              where (station.Name + " " + station.City + " " + station.Address + " " + station.Province).ContainsAll(expressions, StringComparison.OrdinalIgnoreCase)
                                              orderby station.Name ascending
                                              select station))
@@ -250,7 +251,7 @@ namespace SmokSmog.ViewModel
                 else
                 {
                     StationListFiltered.Clear();
-                    foreach (var station in (from station in baseStationsList orderby station.Name ascending select station))
+                    foreach (var station in (from station in _baseStationsList orderby station.Name ascending select station))
                     {
                         StationListFiltered.Add(station);
                     }
@@ -391,7 +392,7 @@ namespace SmokSmog.ViewModel
         #endregion Grouping Station List
 
         #region ISearchable
-        
+
         private SearchQuerry _querry;
 
         public SearchQuerry Querry
@@ -413,5 +414,67 @@ namespace SmokSmog.ViewModel
         }
 
         #endregion ISearchable
+
+        private RelayCommand<Model.Station> _setHomeStationCommand;
+
+        /// <summary>
+        /// Gets the SetHomeStationCommand.
+        /// </summary>
+        public RelayCommand<Model.Station> SetHomeStationCommand
+        {
+            get
+            {
+                return _setHomeStationCommand
+                    ?? (_setHomeStationCommand = new RelayCommand<Model.Station>(
+                    p =>
+                    {
+                        if (p != null) SettingsHelper.HomeStationId = p.Id;
+                        _setHomeStationCommand.RaiseCanExecuteChanged();
+                    },
+                    p => p != null && SettingsHelper.HomeStationId != p.Id));
+            }
+        }
+
+        private RelayCommand<Model.Station> _addStationToFavoritesCommand;
+
+        /// <summary>
+        /// Gets the AddStationToFavorites.
+        /// </summary>
+        public RelayCommand<Model.Station> AddStationToFavoritesCommand
+        {
+            get
+            {
+                return _addStationToFavoritesCommand
+                    ?? (_addStationToFavoritesCommand = new RelayCommand<Model.Station>(
+                    p =>
+                    {
+                        if (p != null) SettingsHelper.FavoritesStationsList.Add(p.Id);
+                        _addStationToFavoritesCommand.RaiseCanExecuteChanged();
+                        _removeStationFromFavoritesCommand.RaiseCanExecuteChanged();
+                    },
+                    p => p != null && !SettingsHelper.FavoritesStationsList.Contains(p.Id)));
+            }
+        }
+
+        private RelayCommand<Model.Station> _removeStationFromFavoritesCommand;
+
+        /// <summary>
+        /// Gets the RemoveStationFromFavoritesCommand.
+        /// </summary>
+        public RelayCommand<Model.Station> RemoveStationFromFavoritesCommand
+        {
+            get
+            {
+                return _removeStationFromFavoritesCommand
+                    ?? (_removeStationFromFavoritesCommand = new RelayCommand<Model.Station>(
+                    p =>
+                    {
+                        if (p != null) SettingsHelper.FavoritesStationsList.Remove(p.Id);
+                        _addStationToFavoritesCommand.RaiseCanExecuteChanged();
+                        _removeStationFromFavoritesCommand.RaiseCanExecuteChanged();
+                    },
+                    p => p != null && SettingsHelper.FavoritesStationsList.Contains(p.Id)));
+            }
+        }
     }
 }

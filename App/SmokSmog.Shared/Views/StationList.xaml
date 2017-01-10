@@ -41,9 +41,35 @@
 
                 <FlyoutBase.AttachedFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="{Binding LocalizedResources.StringSetAsHomeStation, Source={StaticResource LocalizedStrings}}" />
-                        <MenuFlyoutItem Text="{Binding LocalizedResources.StringAddToFavorites, Source={StaticResource LocalizedStrings}}" />
-                        <MenuFlyoutItem Text="{Binding LocalizedResources.StringPinToStart, Source={StaticResource LocalizedStrings}}" />
+                        <MenuFlyoutItem Command="{Binding ElementName=This,
+                                                          Path=DataContext.SetHomeStationCommand}"
+                                        CommandParameter="{Binding}"
+                                        Text="{Binding LocalizedResources.StringSetAsHomeStation,
+                                                       Source={StaticResource LocalizedStrings}}"
+                                        Visibility="{Binding Path=IsEnabled,
+                                                             RelativeSource={RelativeSource Self},
+                                                             Converter={StaticResource BooleanToVisabilityValueConverter}}" />
+
+                        <MenuFlyoutItem Name="AddToFavorites"
+                                        Command="{Binding ElementName=This,
+                                                          Path=DataContext.AddStationToFavoritesCommand}"
+                                        CommandParameter="{Binding}"
+                                        Text="{Binding LocalizedResources.StringAddToFavorites,
+                                                       Source={StaticResource LocalizedStrings}}"
+                                        Visibility="{Binding Path=IsEnabled,
+                                                             RelativeSource={RelativeSource Self},
+                                                             Converter={StaticResource BooleanToVisabilityValueConverter}}" />
+
+                        <MenuFlyoutItem Command="{Binding ElementName=This,
+                                                          Path=DataContext.RemoveStationFromFavoritesCommand}"
+                                        CommandParameter="{Binding}"
+                                        Text="{Binding LocalizedResources.StringRemoveFromFavorites,
+                                                       Source={StaticResource LocalizedStrings}}"
+                                        Visibility="{Binding Path=IsEnabled,
+                                                             RelativeSource={RelativeSource Self},
+                                                             Converter={StaticResource BooleanToVisabilityValueConverter}}" />
+
+                        <!--<MenuFlyoutItem Text="{Binding LocalizedResources.StringPinToStart, Source={StaticResource LocalizedStrings}}" />-->
                     </MenuFlyout>
                 </FlyoutBase.AttachedFlyout>
 

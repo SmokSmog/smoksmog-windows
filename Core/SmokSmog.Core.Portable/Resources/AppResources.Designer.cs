@@ -98,7 +98,7 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to Favorites.
+        ///   Looks up a localized string similar to Add to favorites.
         /// </summary>
         public static string StringAddToFavorites {
             get {
@@ -184,6 +184,15 @@ namespace SmokSmog.Resources {
         public static string StringPinToStart {
             get {
                 return ResourceManager.GetString("StringPinToStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from favorites.
+        /// </summary>
+        public static string StringRemoveFromFavorites {
+            get {
+                return ResourceManager.GetString("StringRemoveFromFavorites", resourceCulture);
             }
         }
         
