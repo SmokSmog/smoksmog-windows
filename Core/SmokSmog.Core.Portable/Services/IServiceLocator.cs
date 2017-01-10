@@ -6,11 +6,9 @@ namespace SmokSmog.Services
 {
     public interface IServiceLocator
     {
-        IFileService FileService { get; }
-
         IGeolocationService GeolocationService { get; }
 
-        ISettingsService SettingService { get; }
+        IStorageService SettingService { get; }
 
         IDataProvider DataService { get; }
     }

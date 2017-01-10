@@ -44,8 +44,7 @@ namespace SmokSmog.Services
                     SimpleIoc.Default.Register<IGeolocationService, GeolocationService>();
                 }
 
-                SimpleIoc.Default.Register<IFileService, FileService>();
-                SimpleIoc.Default.Register<ISettingsService, SettingService>();
+                SimpleIoc.Default.Register<IStorageService, StorageService>();
 
                 _isInitialized = true;
             }
@@ -65,14 +64,11 @@ namespace SmokSmog.Services
         public IDataProvider DataService
             => _locator.GetInstance<IDataProvider>();
 
-        public IFileService FileService
-            => _locator.GetInstance<IFileService>();
-
         public IGeolocationService GeolocationService
             => _locator.GetInstance<IGeolocationService>();
 
-        public ISettingsService SettingService
-            => _locator.GetInstance<ISettingsService>();
+        public IStorageService SettingService
+            => _locator.GetInstance<IStorageService>();
 
         /// <summary>
         /// Cleans up all the resources.

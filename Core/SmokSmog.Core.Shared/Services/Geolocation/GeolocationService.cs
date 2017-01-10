@@ -74,8 +74,7 @@ namespace SmokSmog.Services.Geolocation
             if (_cts != null)
             {
                 IsCancellationRequested = true;
-                if (OnStatusChange != null)
-                    OnStatusChange(this, null);
+                OnStatusChange?.Invoke(this, null);
 
                 _cts.Cancel(true);
                 _cts = null;
@@ -92,15 +91,9 @@ namespace SmokSmog.Services.Geolocation
             return new Model.Geocoordinate()
             {
                 Accuracy = pos.Coordinate.Accuracy,
-#if WINRT
                 Altitude = pos.Coordinate.Point.Position.Altitude,
                 Latitude = pos.Coordinate.Point.Position.Latitude,
                 Longitude = pos.Coordinate.Point.Position.Longitude,
-#elif WINDOWS_PHONE
-                Altitude = pos.Coordinate.Altitude,
-                Latitude = pos.Coordinate.Latitude,
-                Longitude = pos.Coordinate.Longitude,
-#endif
                 Speed = pos.Coordinate.Speed
             };
         }
@@ -121,15 +114,9 @@ namespace SmokSmog.Services.Geolocation
                 return new Model.Geocoordinate()
                 {
                     Accuracy = pos.Coordinate.Accuracy,
-#if WINRT
                     Altitude = pos.Coordinate.Point.Position.Altitude,
                     Latitude = pos.Coordinate.Point.Position.Latitude,
                     Longitude = pos.Coordinate.Point.Position.Longitude,
-#elif WINDOWS_PHONE
-                    Altitude = pos.Coordinate.Altitude,
-                    Latitude = pos.Coordinate.Latitude,
-                    Longitude = pos.Coordinate.Longitude,
-#endif
                     Speed = pos.Coordinate.Speed
                 };
             }
@@ -137,19 +124,19 @@ namespace SmokSmog.Services.Geolocation
             {
                 throw;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // If there are no location sensors GetGeopositionAsync() will timeout -- that is acceptable.
                 //TODO - handle timeout
                 if (ex.HResult == unchecked((int)0x80070102)) // WAIT_TIMEOUT
                 {
-                    throw new System.Exception("Operation accessing location sensors timed out. Possibly there are no location sensors.");
+                    throw new Geolocation.GeolocationTimeOutException();
                 }
                 else if (ex.HResult == unchecked((int)0x80004004))
                 {
                     // the application does not have the right capability or the location master
                     // switch is off
-                    throw new System.Exception("Location  is disabled in phone settings.");
+                    throw new System.Exception("Location is disabled in phone settings.");
                 }
                 else if (ex.HResult == unchecked((int)0x80070005)) //E_ACCESSDENIED
                 {
@@ -161,9 +148,7 @@ namespace SmokSmog.Services.Geolocation
             finally
             {
                 _cts = null;
-
-                if (OnStatusChange != null)
-                    OnStatusChange(this, null);
+                OnStatusChange?.Invoke(this, null);
             }
         }
 
