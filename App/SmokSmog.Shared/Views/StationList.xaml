@@ -41,8 +41,8 @@
 
                 <FlyoutBase.AttachedFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Command="{Binding ElementName=This,
-                                                          Path=DataContext.SetHomeStationCommand}"
+                        <MenuFlyoutItem Command="{Binding Source={StaticResource ViewModelLocator},
+                                                          Path=FavoritesViewModel.SetHomeStationCommand}"
                                         CommandParameter="{Binding}"
                                         Text="{Binding LocalizedResources.StringSetAsHomeStation,
                                                        Source={StaticResource LocalizedStrings}}"
@@ -51,8 +51,8 @@
                                                              Converter={StaticResource BooleanToVisabilityValueConverter}}" />
 
                         <MenuFlyoutItem Name="AddToFavorites"
-                                        Command="{Binding ElementName=This,
-                                                          Path=DataContext.AddStationToFavoritesCommand}"
+                                        Command="{Binding Source={StaticResource ViewModelLocator},
+                                                          Path=FavoritesViewModel.AddStationToFavoritesCommand}"
                                         CommandParameter="{Binding}"
                                         Text="{Binding LocalizedResources.StringAddToFavorites,
                                                        Source={StaticResource LocalizedStrings}}"
@@ -60,8 +60,8 @@
                                                              RelativeSource={RelativeSource Self},
                                                              Converter={StaticResource BooleanToVisabilityValueConverter}}" />
 
-                        <MenuFlyoutItem Command="{Binding ElementName=This,
-                                                          Path=DataContext.RemoveStationFromFavoritesCommand}"
+                        <MenuFlyoutItem Command="{Binding Source={StaticResource ViewModelLocator},
+                                                          Path=FavoritesViewModel.RemoveStationFromFavoritesCommand}"
                                         CommandParameter="{Binding}"
                                         Text="{Binding LocalizedResources.StringRemoveFromFavorites,
                                                        Source={StaticResource LocalizedStrings}}"
