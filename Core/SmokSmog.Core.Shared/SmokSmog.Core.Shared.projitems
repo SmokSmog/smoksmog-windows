@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\DataBindingHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\RangeDataTriggerBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\ShowAttachedFlyoutAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\SwipeTriggerBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TextBlockHighlightBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TypeConverterHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\PropertyChangeEventSource.cs" />
