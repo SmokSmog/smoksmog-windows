@@ -485,11 +485,6 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SmokSmogListViewItemStyle" TargetType="ListViewItem">
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="Margin" Value="0"/>
-    </Style>
-
     <!--  SmokSmog style for Windows.UI.Xaml.Controls.GridView  -->
     <Style x:Key="SmokSmogGridViewStyle" TargetType="GridView">
         <Setter Property="Padding" Value="0,0,0,10" />

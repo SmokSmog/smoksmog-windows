@@ -23,6 +23,8 @@ namespace SmokSmog.Model
         {
         }
 
+        public static Station Empty { get; } = new Station() { Address = string.Empty, City = string.Empty, Name = string.Empty, Province = string.Empty, };
+
         /// <summary>
         /// Address - street name, building number etc...
         /// </summary>
@@ -69,8 +71,7 @@ namespace SmokSmog.Model
         }
 
         /// <summary>
-        /// Station identifier example : 1
-        /// it must be unique
+        /// Station identifier example : 1 it must be unique
         /// </summary>
         [DataMember]
         public int Id

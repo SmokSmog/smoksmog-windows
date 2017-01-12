@@ -10,7 +10,7 @@ namespace SmokSmog.Views
     /// </summary>
     public sealed partial class StationList : Page
     {
-        private StationListViewModel _vm => DataContext as StationListViewModel;
+        private GroupedViewModel _vm => DataContext as GroupedViewModel;
 
         public StationList()
         {

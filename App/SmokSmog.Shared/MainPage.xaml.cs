@@ -110,8 +110,13 @@ namespace SmokSmog
             if ((SearchTextBox.FocusState == FocusState.Unfocused && string.IsNullOrWhiteSpace(SearchTextBox.Text)) && !open)
             {
                 VisualStateManager.GoToState(this, "ClosedSearchState", true);
+                //if (!ContentFrame2.CurrentSourcePageType.Equals(typeof(Views.SearchPage)) && ContentFrame2.CanGoBack)
+                //    ContentFrame2.GoBack();
                 return;
             }
+
+            //if (!ContentFrame2.CurrentSourcePageType.Equals(typeof(Views.SearchPage)))
+            //    ContentFrame2.Navigate(typeof(Views.SearchPage));
 
             if (ActualWidth > 520)
                 VisualStateManager.GoToState(this, "WideSearchState", true);
@@ -124,7 +129,19 @@ namespace SmokSmog
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ViewModelLocator.StationList.StationFilter = SearchTextBox.Text;
+            var searchString = SearchTextBox.Text;
+            ViewModelLocator.SearchViewModel.SearchString = searchString;
+
+            if (string.IsNullOrWhiteSpace(searchString))
+            {
+                if (!ContentFrame2.CurrentSourcePageType.Equals(typeof(Views.SearchPage)) && ContentFrame2.CanGoBack)
+                    ContentFrame2.GoBack();
+            }
+            else
+            {
+                if (!ContentFrame2.CurrentSourcePageType.Equals(typeof(Views.SearchPage)))
+                    ContentFrame2.Navigate(typeof(Views.SearchPage));
+            }
         }
 
         private void HomeButtonClick(object sender, RoutedEventArgs e)

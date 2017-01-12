@@ -104,8 +104,11 @@
     <Compile Include="Services\IServiceLocator.cs" />
     <Compile Include="Services\Storage\IStorageService.cs" />
     <Compile Include="ViewModel\FavoritesViewModel.cs" />
-    <Compile Include="ViewModel\StationListViewModel.cs" />
+    <Compile Include="ViewModel\GeolocationViewModel.cs" />
+    <Compile Include="ViewModel\SearchViewModel.cs" />
+    <Compile Include="ViewModel\GroupedViewModel.cs" />
     <Compile Include="Services\Data\IDataProvider.cs" />
+    <Compile Include="ViewModel\StationsListBaseViewMode.cs" />
     <Compile Include="ViewModel\StationViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
   </ItemGroup>

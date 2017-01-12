@@ -1,4 +1,4 @@
-﻿<Page x:Class="SmokSmog.Views.FavoritesPage"
+﻿<Page x:Class="SmokSmog.Views.SearchPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:SSXDValueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
@@ -10,10 +10,10 @@
       xmlns:local="using:SmokSmog"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       x:Name="This"
-      d:DataContext="{Binding Path=FavoritesViewModel,
+      d:DataContext="{Binding Path=SearchViewModel,
                               Source={StaticResource ViewModelLocator}}"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-      DataContext="{Binding Path=FavoritesViewModel,
+      DataContext="{Binding Path=SearchViewModel,
                             Source={StaticResource ViewModelLocator}}"
       RequestedTheme="Light"
       mc:Ignorable="d">
@@ -46,7 +46,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <controls:StationListItem />
+                    <controls:StationListItem SearchString="{Binding Path=SearchViewModel.SearchString, Source={StaticResource ViewModelLocator}}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Resources;
 using Windows.ApplicationModel.Resources;
 
-namespace SmokSmog.Globalization
+namespace SmokSmog.Resources
 {
     public class WinRTResourceManager : ResourceManager
     {
