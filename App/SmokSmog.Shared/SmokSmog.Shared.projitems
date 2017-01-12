@@ -175,7 +175,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\StationList.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\StationListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -215,8 +215,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\StationList.xaml.cs">
-      <DependentUpon>StationList.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StationListPage.xaml.cs">
+      <DependentUpon>StationListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>

@@ -186,6 +186,7 @@
                                         <ic:GoToStateAction StateName="MenuClose"
                                                             TargetObject="{Binding ElementName=This}"
                                                             UseTransitions="True" />
+                                        <is:FrameNavigateToPageAction Frame="{Binding ElementName=ContentFrame2}" TargetPage="SmokSmog.Views.FavoritesPage" />
                                     </ic:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
 
@@ -203,13 +204,14 @@
                             </StackPanel>
                         </Button>
 
-                        <!--  Search Button  -->
+                        <!--  Station List Button  -->
                         <Button Style="{StaticResource SmokSmogButtonStyle}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
                                     <ic:GoToStateAction StateName="MenuClose"
                                                         TargetObject="{Binding ElementName=This}"
                                                         UseTransitions="True" />
+                                    <is:FrameNavigateToPageAction Frame="{Binding ElementName=ContentFrame2}" TargetPage="SmokSmog.Views.StationListPage" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 

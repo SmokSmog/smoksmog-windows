@@ -31,7 +31,7 @@
         </Grid.RowDefinitions>
 
         <ListView IsHoldingEnabled="True"
-                  ItemsSource="{Binding Path=StationListFiltered}"
+                  ItemsSource="{Binding Path=FavoritesList}"
                   SelectedIndex="-1"
                   SelectionMode="None"
                   ShowsScrollingPlaceholders="True">

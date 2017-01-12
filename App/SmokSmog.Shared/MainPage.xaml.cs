@@ -24,7 +24,7 @@ namespace SmokSmog
             this.Loaded += page_Loaded;
             this.Unloaded += page_Unloaded;
             ContentFrame.Navigated += ContentFrame_Navigated;
-            ContentFrame2.SourcePageType = typeof(Views.StationList);
+            ContentFrame2.SourcePageType = typeof(Views.StationListPage);
         }
 
         public Frame ContentFrame => ContentFrame1;
