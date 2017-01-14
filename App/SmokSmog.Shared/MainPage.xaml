@@ -88,8 +88,7 @@
                        FontFamily="Segoe UI"
                        FontSize="30"
                        Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
-                       Text="{Binding LocalizedResources.ApplicationTitle,
-                                      Source={StaticResource LocalizedStrings}}" />
+                       Text="{Binding Name, Source={StaticResource ApplicationInfo}}" />
 
             <controls:SearchBox x:Name="SearchTextBox"
                                 Grid.Column="1"
@@ -241,7 +240,9 @@
                                    HorizontalAlignment="Right"
                                    FontSize="14"
                                    FontWeight="Bold">
-                            <Run Text="{Binding LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" />
+                            
+                            
+                            <Run Text="{Binding Name, Source={StaticResource ApplicationInfo}}" />
                             <Run Text="{Binding LocalizedResources.StringFor, Source={StaticResource LocalizedStrings}}" />
                             <Run Text="Windows" />
                         </TextBlock>
@@ -250,7 +251,7 @@
                                    FontSize="11"
                                    FontWeight="Bold">
                             <Run Text="{Binding LocalizedResources.StringVersion, Source={StaticResource LocalizedStrings}}" />
-                            <Run Text="{Binding ElementName=This, Path=ApplicationVersion}" />
+                            <Run Text="{Binding Version, Source={StaticResource ApplicationInfo}}" />
                         </TextBlock>
                     </StackPanel>
 

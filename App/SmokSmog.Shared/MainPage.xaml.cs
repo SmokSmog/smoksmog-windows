@@ -1,5 +1,4 @@
-﻿using SmokSmog.Porperties;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -11,8 +10,6 @@ namespace SmokSmog
     public sealed partial class MainPage : Page
     {
         private ViewModel.ViewModelLocator ViewModelLocator { get; } = new ViewModel.ViewModelLocator();
-
-        public string ApplicationVersion => AssemblyInfo.Version;
 
         public MainPage()
         {

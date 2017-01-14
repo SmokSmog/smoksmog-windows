@@ -208,6 +208,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\ApplicationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\FavoritesPage.xaml.cs">
       <DependentUpon>FavoritesPage.xaml</DependentUpon>
