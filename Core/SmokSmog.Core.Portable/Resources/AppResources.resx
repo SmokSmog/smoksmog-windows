@@ -132,6 +132,9 @@
   <data name="StringAddToFavorites" xml:space="preserve">
     <value>Add to favorites</value>
   </data>
+  <data name="StringClickRMB" xml:space="preserve">
+    <value>click RMB</value>
+  </data>
   <data name="StringDeterminingLocation" xml:space="preserve">
     <value>Determining location</value>
   </data>
@@ -147,6 +150,9 @@
   <data name="StringGroupBy" xml:space="preserve">
     <value>group by</value>
   </data>
+  <data name="StringHold" xml:space="preserve">
+    <value>hold</value>
+  </data>
   <data name="StringHomePage" xml:space="preserve">
     <value>Home page</value>
   </data>
@@ -156,6 +162,9 @@
   <data name="StringInformation" xml:space="preserve">
     <value>information</value>
   </data>
+  <data name="StringOr" xml:space="preserve">
+    <value>or</value>
+  </data>
   <data name="StringPinToStart" xml:space="preserve">
     <value>Pin to Start</value>
   </data>
@@ -164,6 +173,12 @@
   </data>
   <data name="StringSearch" xml:space="preserve">
     <value>search</value>
+  </data>
+  <data name="StringSelect" xml:space="preserve">
+    <value>select</value>
+  </data>
+  <data name="StringSelectFromList" xml:space="preserve">
+    <value>select from list</value>
   </data>
   <data name="StringSetAsHomeStation" xml:space="preserve">
     <value>Set as home station</value>
@@ -179,5 +194,8 @@
   </data>
   <data name="StringVersion" xml:space="preserve">
     <value>version</value>
+  </data>
+  <data name="StringWantToAddYourFavoriteStation" xml:space="preserve">
+    <value>Want to add your favorite station?</value>
   </data>
 </root>

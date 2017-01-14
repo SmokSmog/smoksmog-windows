@@ -107,6 +107,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to click RMB.
+        /// </summary>
+        public static string StringClickRMB {
+            get {
+                return ResourceManager.GetString("StringClickRMB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Determining location.
         /// </summary>
         public static string StringDeterminingLocation {
@@ -152,6 +161,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to hold.
+        /// </summary>
+        public static string StringHold {
+            get {
+                return ResourceManager.GetString("StringHold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home page.
         /// </summary>
         public static string StringHomePage {
@@ -179,6 +197,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to or.
+        /// </summary>
+        public static string StringOr {
+            get {
+                return ResourceManager.GetString("StringOr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pin to Start.
         /// </summary>
         public static string StringPinToStart {
@@ -202,6 +229,24 @@ namespace SmokSmog.Resources {
         public static string StringSearch {
             get {
                 return ResourceManager.GetString("StringSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select.
+        /// </summary>
+        public static string StringSelect {
+            get {
+                return ResourceManager.GetString("StringSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select from list.
+        /// </summary>
+        public static string StringSelectFromList {
+            get {
+                return ResourceManager.GetString("StringSelectFromList", resourceCulture);
             }
         }
         
@@ -247,6 +292,15 @@ namespace SmokSmog.Resources {
         public static string StringVersion {
             get {
                 return ResourceManager.GetString("StringVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Want to add your favorite station?.
+        /// </summary>
+        public static string StringWantToAddYourFavoriteStation {
+            get {
+                return ResourceManager.GetString("StringWantToAddYourFavoriteStation", resourceCulture);
             }
         }
     }

@@ -28,7 +28,7 @@
     <value>województwa</value>
   </data>
   <data name="StringFindStation" xml:space="preserve">
-    <value>Znajdź stację</value>
+    <value>znajdź stację</value>
   </data>
   <data name="StringHomeStation" xml:space="preserve">
     <value>stacja domowa</value>
@@ -74,5 +74,23 @@
   </data>
   <data name="StringRemoveFromFavorites" xml:space="preserve">
     <value>Usuń z ulubionych</value>
+  </data>
+  <data name="StringClickRMB" xml:space="preserve">
+    <value>kliknij PPM</value>
+  </data>
+  <data name="StringHold" xml:space="preserve">
+    <value>przytrzymaj</value>
+  </data>
+  <data name="StringOr" xml:space="preserve">
+    <value>lub</value>
+  </data>
+  <data name="StringSelect" xml:space="preserve">
+    <value>wybierz</value>
+  </data>
+  <data name="StringSelectFromList" xml:space="preserve">
+    <value>wybierz z listy</value>
+  </data>
+  <data name="StringWantToAddYourFavoriteStation" xml:space="preserve">
+    <value>Chcesz dodać ulubioną stację?</value>
   </data>
 </root>

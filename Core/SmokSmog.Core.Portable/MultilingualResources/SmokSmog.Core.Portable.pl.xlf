@@ -28,7 +28,7 @@
         </trans-unit>
         <trans-unit id="StringFindStation" translate="yes" xml:space="preserve">
           <source>find station</source>
-          <target state="translated">Znajdź stację</target>
+          <target state="translated">znajdź stację</target>
         </trans-unit>
         <trans-unit id="StringHomeStation" translate="yes" xml:space="preserve">
           <source>home station</source>
@@ -89,6 +89,30 @@
         <trans-unit id="StringRemoveFromFavorites" translate="yes" xml:space="preserve">
           <source>Remove from favorites</source>
           <target state="translated">Usuń z ulubionych</target>
+        </trans-unit>
+        <trans-unit id="StringClickRMB" translate="yes" xml:space="preserve">
+          <source>click RMB</source>
+          <target state="translated">kliknij PPM</target>
+        </trans-unit>
+        <trans-unit id="StringHold" translate="yes" xml:space="preserve">
+          <source>hold</source>
+          <target state="translated">przytrzymaj</target>
+        </trans-unit>
+        <trans-unit id="StringOr" translate="yes" xml:space="preserve">
+          <source>or</source>
+          <target state="translated">lub</target>
+        </trans-unit>
+        <trans-unit id="StringSelect" translate="yes" xml:space="preserve">
+          <source>select</source>
+          <target state="translated">wybierz</target>
+        </trans-unit>
+        <trans-unit id="StringSelectFromList" translate="yes" xml:space="preserve">
+          <source>select from list</source>
+          <target state="translated">wybierz z listy</target>
+        </trans-unit>
+        <trans-unit id="StringWantToAddYourFavoriteStation" translate="yes" xml:space="preserve">
+          <source>Want to add your favorite station?</source>
+          <target state="translated">Chcesz dodać ulubioną stację?</target>
         </trans-unit>
       </group>
     </body>
