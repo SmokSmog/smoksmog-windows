@@ -12,29 +12,32 @@
              d:DesignWidth="400"
              mc:Ignorable="d">
 
-    <!--  https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.uielement.righttapped  -->
-    <Grid Margin="0">
-        <i:Interaction.Behaviors>
-            <ic:EventTriggerBehavior EventName="Holding">
-                <is:ShowAttachedFlyoutAction />
-            </ic:EventTriggerBehavior>
-            <ic:EventTriggerBehavior EventName="RightTapped">
-                <is:ShowAttachedFlyoutAction />
-            </ic:EventTriggerBehavior>
-        </i:Interaction.Behaviors>
+    <Border Margin="0" Padding="{Binding Padding, ElementName=This}" BorderThickness="0">
+        <!--  https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.uielement.righttapped  -->
+        <Grid Margin="0" Background="{Binding Background, ElementName=This}">
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="Holding">
+                    <is:ShowAttachedFlyoutAction />
+                </ic:EventTriggerBehavior>
+                <ic:EventTriggerBehavior EventName="RightTapped">
+                    <is:ShowAttachedFlyoutAction />
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
 
-        <FlyoutBase.AttachedFlyout>
-            <MenuFlyout>
-                <MenuFlyoutItem Command="{Binding Source={StaticResource ViewModelLocator},
+            <FlyoutBase.AttachedFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem Command="{Binding Source={StaticResource ViewModelLocator},
                                                   Path=FavoritesViewModel.SetHomeStationCommand}"
                                 CommandParameter="{Binding}"
+                                    Tag=""
                                 Text="{Binding LocalizedResources.StringSetAsHomeStation,
                                                Source={StaticResource LocalizedStrings}}"
                                 Visibility="{Binding Path=IsEnabled,
                                                      RelativeSource={RelativeSource Self},
                                                      Converter={StaticResource BooleanToVisabilityValueConverter}}" />
 
-                <MenuFlyoutItem Name="AddToFavorites"
+   
+                    <MenuFlyoutItem Name="AddToFavorites" Tag="Copy"
                                 Command="{Binding Source={StaticResource ViewModelLocator},
                                                   Path=FavoritesViewModel.AddStationToFavoritesCommand}"
                                 CommandParameter="{Binding}"
@@ -44,7 +47,7 @@
                                                      RelativeSource={RelativeSource Self},
                                                      Converter={StaticResource BooleanToVisabilityValueConverter}}" />
 
-                <MenuFlyoutItem Command="{Binding Source={StaticResource ViewModelLocator},
+                    <MenuFlyoutItem Command="{Binding Source={StaticResource ViewModelLocator},
                                                   Path=FavoritesViewModel.RemoveStationFromFavoritesCommand}"
                                 CommandParameter="{Binding}"
                                 Text="{Binding LocalizedResources.StringRemoveFromFavorites,
@@ -53,30 +56,30 @@
                                                      RelativeSource={RelativeSource Self},
                                                      Converter={StaticResource BooleanToVisabilityValueConverter}}" />
 
-                <!--<MenuFlyoutItem Text="{Binding LocalizedResources.StringPinToStart, Source={StaticResource LocalizedStrings}}" />-->
-            </MenuFlyout>
-        </FlyoutBase.AttachedFlyout>
+                    <!--<MenuFlyoutItem Text="{Binding LocalizedResources.StringPinToStart, Source={StaticResource LocalizedStrings}}" />-->
+                </MenuFlyout>
+            </FlyoutBase.AttachedFlyout>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <!--<Grid.ColumnDefinitions>
+            <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>-->
 
-        <!--  Some trick for touch  -->
+            <!--  Some trick for touch  -->
 
-        <!--<Rectangle Grid.RowSpan="2"
+            <!--<Rectangle Grid.RowSpan="2"
                            Grid.ColumnSpan="4"
                            Width="6000"
                            Fill="#00000001" />-->
 
-        <TextBlock Grid.Column="1"
+            <TextBlock Grid.Column="1"
                    Margin="10,0,0,0"
                    FontSize="18"
                    FontWeight="Bold"
@@ -85,9 +88,9 @@
             <i:Interaction.Behaviors>
                 <is:TextBlockHighlightBehavior Highlight="{StaticResource SmokSmogAccentBrush}" SearchString="{Binding SearchString, ElementName=This}" />
             </i:Interaction.Behaviors>
-        </TextBlock>
+            </TextBlock>
 
-        <TextBlock Grid.Row="1"
+            <TextBlock Grid.Row="1"
                    Grid.Column="1"
                    Margin="10,0,0,0"
                    FontSize="12"
@@ -96,6 +99,7 @@
             <i:Interaction.Behaviors>
                 <is:TextBlockHighlightBehavior Highlight="{StaticResource SmokSmogAccentBrush}" SearchString="{Binding SearchString, ElementName=This}" />
             </i:Interaction.Behaviors>
-        </TextBlock>
-    </Grid>
+            </TextBlock>
+        </Grid>
+    </Border>
 </UserControl>

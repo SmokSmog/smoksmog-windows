@@ -18,23 +18,136 @@
       RequestedTheme="Light"
       mc:Ignorable="d">
 
-    <Page.Resources />
-
     <Grid Background="{StaticResource SmokSmogBackgroundBrush}">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden"
+                      HorizontalAlignment="Center"
+                      Visibility="{Binding Path=IsFavoritesListEmpty,
+                                           Converter={StaticResource BooleanToVisabilityValueConverter}}">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+            <StackPanel MinWidth="300"
+                        MaxWidth="400"
+                        VerticalAlignment="Center">
+
+                <TextBlock FontSize="25"
+                           Text="Chcesz dodać ulubioną stację?"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+
+                <Grid Margin="0,30,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <FontIcon Grid.Row="0"
+                              Grid.Column="0"
+                              HorizontalAlignment="Right"
+                              FontFamily="Segoe MDL2 Assets"
+                              FontSize="25"
+                              Glyph="&#xE14C;" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Margin="10,0,0,0"
+                               HorizontalAlignment="Left"
+                               FontSize="25"
+                               Text="wybierz z listy"
+                               TextAlignment="Center" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.ColumnSpan="2"
+                               FontSize="20"
+                               Foreground="Gray"
+                               Text="lub"
+                               TextAlignment="Center" />
+
+                    <FontIcon Grid.Row="2"
+                              Grid.Column="0"
+                              HorizontalAlignment="Right"
+                              FontFamily="Segoe MDL2 Assets"
+                              FontSize="25"
+                              Glyph="&#xE11A;" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Margin="10,0,0,0"
+                               HorizontalAlignment="Left"
+                               FontSize="25"
+                               Text="wyszukaj stację"
+                               TextAlignment="Center" />
+                </Grid>
+
+                <Border Margin="0,30,0,0"
+                        Background="LightGray"
+                        Padding="0,5">
+                    <controls:StationListItem DataContext="{Binding SampleStation}" />
+                </Border>
+
+                <StackPanel Margin="0,-30,0,20" Orientation="Vertical">
+                    <FontIcon HorizontalAlignment="Center"
+                              FontFamily="Segoe MDL2 Assets"
+                              FontSize="42"
+                              Glyph="&#xE815;" />
+                    <TextBlock HorizontalAlignment="Center"
+                               FontSize="25"
+                               Text="przytrzymaj" />
+                    <TextBlock HorizontalAlignment="Center"
+                               FontSize="15"
+                               Text="(lub kliknij PPM)" />
+                </StackPanel>
+
+                <Border Grid.RowSpan="2"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Background="#f2f2f2"
+                        BorderBrush="Gray"
+                        BorderThickness="1">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="1"
+                                   Margin="8,10,8,8"
+                                   HorizontalAlignment="Left"
+                                   FontSize="16"
+                                   Text="{Binding LocalizedResources.StringSetAsHomeStation,
+                                                  Source={StaticResource LocalizedStrings}}" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="1"
+                                   Margin="8,8,10,10"
+                                   HorizontalAlignment="Left"
+                                   FontSize="16"
+                                   Text="{Binding LocalizedResources.StringAddToFavorites,
+                                                  Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Margin="0,-20,0,0" Orientation="Vertical">
+                    <FontIcon HorizontalAlignment="Center"
+                              FontFamily="Segoe MDL2 Assets"
+                              FontSize="42"
+                              Glyph="&#xE815;" />
+                    <TextBlock HorizontalAlignment="Center"
+                               FontSize="25"
+                               Text="stuknij" />
+                    <TextBlock HorizontalAlignment="Center"
+                               FontSize="15"
+                               Text="(lub kliknij LPM)" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
 
         <ListView IsHoldingEnabled="True"
                   ItemsSource="{Binding Path=FavoritesList}"
                   SelectedIndex="-1"
                   SelectionMode="None"
-                  ShowsScrollingPlaceholders="True">
+                  ShowsScrollingPlaceholders="True"
+                  Visibility="{Binding Path=IsFavoritesListEmpty,
+                                       Converter={StaticResource BooleanToVisabilityValueConverter},
+                                       ConverterParameter='Reverse'}">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

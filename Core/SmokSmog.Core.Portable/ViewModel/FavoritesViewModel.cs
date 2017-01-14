@@ -16,6 +16,10 @@ namespace SmokSmog.ViewModel
         {
         }
 
+        public Model.Station SampleStation => Model.Station.Sample;
+
+        public bool IsFavoritesListEmpty { get; private set; } = true;
+
         /// <summary>
         /// Gets the AddStationToFavoritesCommand.
         /// </summary>
@@ -36,9 +40,18 @@ namespace SmokSmog.ViewModel
             }
         }
 
-        public List<Model.Station> FavoritesList => (from s in StationsList
-                                                     where SettingsHelper.FavoritesStationsList.Contains(s.Id)
-                                                     select s).ToList();
+        public List<Model.Station> FavoritesList
+        {
+            get
+            {
+                var list = (from s in StationsList
+                            where SettingsHelper.FavoritesStationsList.Contains(s.Id)
+                            select s).ToList();
+                IsFavoritesListEmpty = list.Count == 0;
+                RaisePropertyChanged(nameof(IsFavoritesListEmpty));
+                return list;
+            }
+        }
 
         /// <summary>
         /// Gets the RemoveStationFromFavoritesCommand.

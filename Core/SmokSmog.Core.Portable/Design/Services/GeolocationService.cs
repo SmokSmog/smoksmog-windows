@@ -27,14 +27,14 @@ namespace SmokSmog.Design.Services
 
         public SmokSmog.Model.Geocoordinate GetGeocoordinate()
         {
-            return new SmokSmog.Model.Geocoordinate(19.91, 49.99, 500);
+            return new SmokSmog.Model.Geocoordinate(49.99, 19.91, 500);
         }
 
 #pragma warning disable 1998
 
         public async Task<SmokSmog.Model.Geocoordinate> GetGeocoordinateAsync()
         {
-            return new SmokSmog.Model.Geocoordinate(19.91, 49.99, 500);
+            return new SmokSmog.Model.Geocoordinate(49.99, 19.91, 500);
         }
     }
 }

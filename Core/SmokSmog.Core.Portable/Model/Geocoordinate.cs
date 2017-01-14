@@ -22,10 +22,10 @@ namespace SmokSmog.Model
         {
         }
 
-        public Geocoordinate(double longitude, double latitude, double accuracy = 0d)
+        public Geocoordinate(double latitude, double longitude, double accuracy = 0d)
         {
-            _longitude = longitude;
             _latitude = latitude;
+            _longitude = longitude;
             _accuracy = accuracy;
         }
 
