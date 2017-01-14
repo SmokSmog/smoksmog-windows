@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="9d0031e3-9659-42c0-81fb-6c0fbb333196" Publisher="CN=dkras" Version="1.0.0.0" />
+  <Identity Name="9d0031e3-9659-42c0-81fb-6c0fbb333196" Publisher="CN=dkras" Version="2.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="9d0031e3-9659-42c0-81fb-6c0fbb333196" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>SmokSmog</DisplayName>
