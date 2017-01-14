@@ -5,22 +5,29 @@
     xmlns:local="using:SmokSmog.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    
+
     xmlns:xtcontrols="using:WinRTXamlToolkit.Controls"
     xmlns:xtcommon="using:WinRTXamlToolkit.Common"
-    
+
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="Transparent">
-        
-        <xtcontrols:RingSlice 
-            StartAngle="-150" 
+
+        <StackPanel VerticalAlignment="Center">
+
+            <xtcontrols:RingSlice
+            StartAngle="-150"
             EndAngle="20"
             InnerRadius="100"
             Radius="150"
             Fill="Red">
-        </xtcontrols:RingSlice>
+            </xtcontrols:RingSlice>
 
+            <TextBlock Text=";(" FontSize="50" TextAlignment="Center" />
+
+            <TextBlock Text="Not Implemented Yet!" FontSize="32" TextAlignment="Center" TextWrapping="Wrap" />
+            <TextBlock Text="Jeszcze nie zaimplementowane!" FontSize="32" TextAlignment="Center" TextWrapping="Wrap" />
+        </StackPanel>
     </Grid>
 </Page>

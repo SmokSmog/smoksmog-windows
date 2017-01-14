@@ -323,7 +323,7 @@
             <!--  Page Content for list  -->
             <Frame x:Name="ContentFrame2"
                    Margin="{StaticResource SmokSmogContentMargin}"
-                   Background="Red"
+                   Background="LightGray"
                    Canvas.ZIndex="100"
                    RequestedTheme="{Binding RequestedTheme,
                                             ElementName=This}" />
@@ -335,6 +335,22 @@
                    Canvas.ZIndex="0"
                    RequestedTheme="{Binding RequestedTheme,
                                             ElementName=This}" />
+
+            <!--  Page Content for list  --><!--
+            <Frame x:Name="ContentFrame2"
+                   Margin="{StaticResource SmokSmogContentMargin}"
+                   Background="Red"
+                   Canvas.ZIndex="100"
+                   RequestedTheme="{Binding RequestedTheme,
+                                            ElementName=This}" />
+
+            --><!--  Page Content for main content  --><!--
+            <Frame x:Name="ContentFrame1"
+                   Grid.Column="1"
+                   Background="Gray"
+                   Canvas.ZIndex="0"
+                   RequestedTheme="{Binding RequestedTheme,
+                                            ElementName=This}" />-->
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
