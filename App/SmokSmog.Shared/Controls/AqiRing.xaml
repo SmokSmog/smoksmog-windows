@@ -7,12 +7,14 @@
              xmlns:xtcommon="using:WinRTXamlToolkit.Common"
              xmlns:xtcontrols="using:WinRTXamlToolkit.Controls"
              x:Name="This"
+             MinHeight="250"
+             MinWidth="250"
              RequestedTheme="Light"
-             d:DesignHeight="300"
-             d:DesignWidth="400"
+             d:DesignHeight="250"
+             d:DesignWidth="250"
              mc:Ignorable="d">
 
-    <Grid Background="White">
+    <Grid MinWidth="250" MinHeight="250">
         <xtcontrols:RingSlice EndAngle="150"
                               Fill="Gray"
                               InnerRadius="100"

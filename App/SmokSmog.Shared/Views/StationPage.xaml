@@ -26,22 +26,104 @@
                 <TextBlock FontSize="18" Text="{Binding Station.Province}" />
             </StackPanel>
 
-            <Grid x:Name="AQIRoot"
-                  Margin="0,30,0,0"
-                  HorizontalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+            <Viewbox MaxWidth="600">
 
-                <TextBlock Margin="0,10"
-                           FontSize="15"
+                <Grid x:Name="AQIRoot"
+                  Margin="10,30"
+                  HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Margin="0,0,0,10" Grid.ColumnSpan="2"
+                           HorizontalAlignment="Center"
+                           FontSize="20"
                            Text="{Binding LocalizedResources.StringAirQualityIndex,
                                           Source={StaticResource LocalizedStrings}}" />
 
-                <controls:AqiRing AQI="{Binding AirQualityIndex}" />
-            </Grid>
+                    <controls:AqiRing Grid.Row="1" AQI="{Binding AirQualityIndex}" />
 
+                    <StackPanel Grid.Row="2"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Orientation="Vertical">
+                        <TextBlock Margin="0,0,0,10"
+                               VerticalAlignment="Center"
+                               Text="Index Components"
+                               TextWrapping="Wrap" />
+
+                        <StackPanel Margin="0,2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                            <TextBlock FontSize="18" Text="C6H6" />
+                            <Border Margin="10,0,0,0" Background="#FF92D050">
+                                <TextBlock FontSize="18" Text="5,3" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Margin="0,2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                            <TextBlock FontSize="18" Text="SO2" />
+                            <Border Margin="10,0,0,0" Background="#FF00b050">
+                                <TextBlock FontSize="18" Text="5,3" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Margin="0,2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                            <TextBlock FontSize="18" Text="NO2" />
+                            <Border Margin="10,0,0,0" Background="#FFFFFF00">
+                                <TextBlock FontSize="18" Text="5,3" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Margin="0,2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                            <TextBlock FontSize="18" Text="CO" />
+                            <Border Margin="10,0,0,0" Background="#FFFFC000">
+                                <TextBlock FontSize="18" Text="5,3" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Margin="0,2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                            <TextBlock FontSize="18" Text="O3" />
+                            <Border Margin="10,0,0,0" Background="#FFFF0000">
+                                <TextBlock FontSize="18" Text="5,3" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Margin="0,2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                            <TextBlock FontSize="18" Text="PM10" />
+                            <Border Margin="10,0,0,0" Background="#FFC00000">
+                                <TextBlock FontSize="18" Text="5,3" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Margin="0,2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                            <TextBlock FontSize="18" Text="PM2.5" />
+                            <Border Margin="10,0,0,0" Background="Red">
+                                <TextBlock FontSize="18" Text="5,3" />
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Viewbox>
             <TextBlock FontSize="50"
                        Text=";("
                        TextAlignment="Center" />
