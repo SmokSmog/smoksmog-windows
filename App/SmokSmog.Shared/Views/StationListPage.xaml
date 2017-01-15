@@ -38,17 +38,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--<ListView IsHoldingEnabled="True"
-                  ItemContainerStyle="{StaticResource SmokSmogListViewItemStyle}"
-                  ItemTemplate="{StaticResource StationListGrouppedListViewTemplate}"
-                  ItemsSource="{Binding Path=StationListFiltered}"
-                  SelectedIndex="-1"
-                  SelectionMode="None"
-                  ShowsScrollingPlaceholders="True"
-                  Visibility="{Binding Path=IsStationFilterOn,
-                                       Converter={StaticResource BooleanToVisabilityValueConverter},
-                                       ConverterParameter='NonReverse'}" />-->
-
         <SemanticZoom x:Name="StationListSemanticZoom"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
@@ -108,13 +97,22 @@
 
             <SemanticZoom.ZoomedInView>
                 <ListView Margin="0"
+                          x:Name="StationListView"
                           IsHoldingEnabled="True"
                           ItemsSource="{Binding Source={StaticResource StationsCollectionViewSource}}"
                           Padding="0"
+                          SelectionMode="Single"
                           SelectedIndex="-1"
-                          SelectionMode="None"
+                          SelectedItem="{x:Null}"
                           ShowsScrollingPlaceholders="False"
+                          IsSynchronizedWithCurrentItem="False"
                           Style="{StaticResource SmokSmogListViewStyle}">
+
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="SelectionChanged">
+                            <ic:InvokeCommandAction Command="{Binding SelectStationCommand}" CommandParameter="{Binding Path=SelectedItem, ElementName=StationListView}" />
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
 
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -202,7 +200,7 @@
                                             <RowDefinition Height="48" />
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Margin="9,0,0,0"
+                                        <TextBlock Margin="8,0,0,0"
                                                    FontSize="32"
                                                    Text="{Binding Path=Key}" />
                                     </Grid>

@@ -59,7 +59,7 @@ namespace SmokSmog
         {
             double width = ActualWidth;
             string stateName = "Default";
-            if (width >= 900) stateName = "Wide";
+            if (width >= 840) stateName = "Wide";
             if (width <= 440) stateName = "Small";
 
             VisualStateManager.GoToState(this, stateName, true);
@@ -153,6 +153,13 @@ namespace SmokSmog
             Canvas.SetZIndex(ContentFrame1, 0);
             Canvas.SetZIndex(ContentFrame2, 100);
             VisualStateManager.GoToState(this, "Frame2", true);
+        }
+
+        public void MenuCloseHelper(object sender, object parameters)
+        {
+#if (WINDOWS_APP)
+            MenuClose.Storyboard?.Begin();
+#endif
         }
     }
 }

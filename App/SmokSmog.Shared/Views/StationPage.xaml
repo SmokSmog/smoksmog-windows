@@ -11,9 +11,10 @@
       DataContext="{Binding Path=StationViewModel,
                             Source={StaticResource ViewModelLocator}}"
       RequestedTheme="Light"
+      Foreground="#FF444444"
       mc:Ignorable="d">
 
-    <Grid Background="White">
+    <Grid Background="LightGray">
 
         <StackPanel VerticalAlignment="Center">
 

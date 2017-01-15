@@ -69,6 +69,7 @@
     <Compile Include="Extensions\GenericExtensions.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Globalization\LocalizedStrings.cs" />
+    <Compile Include="Messenger\StationChangeMessage.cs" />
     <Compile Include="Model\AirQualityIndex.cs" />
     <Compile Include="Model\StationState.cs" />
     <Compile Include="Net\Http\HttpClientProxy.cs" />

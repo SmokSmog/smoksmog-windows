@@ -1,4 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using SmokSmog.Messenger;
 using SmokSmog.Services.Data;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +40,25 @@ namespace SmokSmog.ViewModel
             //TODO make catch and retry 3 times then when it fails return message
             var result = await _dataService.GetStationsAsync();
             StationsList = result?.ToList() ?? new List<Model.Station>();
+        }
+
+        private RelayCommand<Model.Station> _selectStationCommand;
+
+        /// <summary>
+        /// Gets the SelectStationCommand.
+        /// </summary>
+        public RelayCommand<Model.Station> SelectStationCommand
+        {
+            get
+            {
+                return _selectStationCommand
+                    ?? (_selectStationCommand = new RelayCommand<Model.Station>(
+                    station =>
+                    {
+                        if (station != null)
+                            GalaSoft.MvvmLight.Messaging.Messenger.Default.Send<StationChangeMessage>(new StationChangeMessage(station));
+                    }));
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using SmokSmog.Model;
+using SmokSmog.Services.Data;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using SmokSmog.Model;
-using SmokSmog.Services.Data;
 
 namespace SmokSmog.Design.Services
 {
@@ -13,19 +13,19 @@ namespace SmokSmog.Design.Services
 
         public override string Name => "Design Time Data Provider";
 
-        public override Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken)
+        public override Task<List<Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Parameter> parameters, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<IEnumerable<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
+        public override Task<List<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
 #pragma warning disable 1998
 
-        public override async Task<IEnumerable<Station>> GetStationsAsync(CancellationToken cancellationToken)
+        public override async Task<List<Station>> GetStationsAsync(CancellationToken cancellationToken)
         {
             var result = new List<Station>()
             {

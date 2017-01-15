@@ -1,9 +1,9 @@
-﻿using System;
+﻿using SmokSmog.Model;
+using SmokSmog.Threading;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using SmokSmog.Model;
-using SmokSmog.Threading;
 
 namespace SmokSmog.Services.Data
 {
@@ -13,22 +13,22 @@ namespace SmokSmog.Services.Data
 
         public abstract string Name { get; }
 
-        public IEnumerable<Measurement> GetMeasurements(int stationId)
-            => GetMeasurementsAsync(stationId).Result;
+        public List<Measurement> GetMeasurements(int stationId, IEnumerable<Parameter> parameters)
+            => GetMeasurementsAsync(stationId, parameters).Result;
 
-        public Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId)
-            => GetMeasurementsAsync(stationId, new CancellationToken());
+        public Task<List<Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Parameter> parameters)
+            => GetMeasurementsAsync(stationId, parameters, new CancellationToken());
 
-        public abstract Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken);
+        public abstract Task<List<Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Parameter> parameters, CancellationToken cancellationToken);
 
-        public IEnumerable<Parameter> GetParameters(int stationId)
+        public List<Parameter> GetParameters(int stationId)
         {
             try
             {
-                IEnumerable<Parameter> result = null;
+                List<Parameter> result = null;
                 using (var A = AsyncHelper.Wait)
                 {
-                    A.Run<IEnumerable<Parameter>>(GetParametersAsync(stationId), res => result = res);
+                    A.Run<List<Parameter>>(GetParametersAsync(stationId), res => result = res);
                 }
                 return result;
             }
@@ -39,20 +39,19 @@ namespace SmokSmog.Services.Data
             }
         }
 
-        public Task<IEnumerable<Parameter>> GetParametersAsync(int stationId)
+        public Task<List<Parameter>> GetParametersAsync(int stationId)
             => GetParametersAsync(stationId, new CancellationToken());
 
-        public abstract Task<IEnumerable<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken);
+        public abstract Task<List<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken);
 
-        //public IEnumerable<Station> GetStations() => GetStationsAsync().Result;
-        public IEnumerable<Station> GetStations()
+        public List<Station> GetStations()
         {
             try
             {
-                IEnumerable<Station> result = null;
+                List<Station> result = null;
                 using (var A = AsyncHelper.Wait)
                 {
-                    A.Run<IEnumerable<Station>>(GetStationsAsync(), res => result = res);
+                    A.Run<List<Station>>(GetStationsAsync(), res => result = res);
                 }
                 return result;
             }
@@ -63,8 +62,8 @@ namespace SmokSmog.Services.Data
             }
         }
 
-        public Task<IEnumerable<Station>> GetStationsAsync() => GetStationsAsync(new CancellationToken());
+        public Task<List<Station>> GetStationsAsync() => GetStationsAsync(new CancellationToken());
 
-        public abstract Task<IEnumerable<Station>> GetStationsAsync(CancellationToken cancellationToken);
+        public abstract Task<List<Station>> GetStationsAsync(CancellationToken cancellationToken);
     }
 }

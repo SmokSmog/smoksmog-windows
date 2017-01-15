@@ -14,7 +14,7 @@
 
     <Border Margin="0" Padding="{Binding Padding, ElementName=This}" BorderThickness="0">
         <!--  https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.uielement.righttapped  -->
-        <Grid Margin="0" Background="{Binding Background, ElementName=This}">
+        <Grid Margin="10,5" Background="{Binding Background, ElementName=This}">
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="Holding">
                     <is:ShowAttachedFlyoutAction />
@@ -36,7 +36,6 @@
                                                      RelativeSource={RelativeSource Self},
                                                      Converter={StaticResource BooleanToVisabilityValueConverter}}" />
 
-   
                     <MenuFlyoutItem Name="AddToFavorites" Tag="Copy"
                                 Command="{Binding Source={StaticResource ViewModelLocator},
                                                   Path=FavoritesViewModel.AddStationToFavoritesCommand}"
@@ -80,7 +79,6 @@
                            Fill="#00000001" />-->
 
             <TextBlock Grid.Column="1"
-                   Margin="10,0,0,0"
                    FontSize="18"
                    FontWeight="Bold"
                    Style="{ThemeResource BaseTextBlockStyle}"
@@ -92,7 +90,6 @@
 
             <TextBlock Grid.Row="1"
                    Grid.Column="1"
-                   Margin="10,0,0,0"
                    FontSize="12"
                    Style="{ThemeResource BaseTextBlockStyle}"
                    Text="{Binding Province}">
