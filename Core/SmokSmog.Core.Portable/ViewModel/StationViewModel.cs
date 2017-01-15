@@ -1,20 +1,24 @@
-﻿
-namespace SmokSmog.ViewModel
+﻿namespace SmokSmog.ViewModel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using GalaSoft.MvvmLight;
-    using GalaSoft.MvvmLight.Command;
+    using Model;
 
-    public  class StationViewModel : ViewModelBase
+    public class StationViewModel : ViewModelBase
     {
+        private Model.Station _station = null;
+        public bool IsValidStation => Station.Id != -1;
+
+        public AirQualityIndex AirQualityIndex { get; private set; } = AirQualityIndex.Unavaible;
 
         public Model.Station Station
         {
-            get { return _station; }
+            get
+            {
+                if (IsInDesignModeStatic)
+                    return Model.Station.Sample;
+
+                return _station ?? Model.Station.Empty;
+            }
             set
             {
                 if (_station == value) return;
@@ -22,28 +26,5 @@ namespace SmokSmog.ViewModel
                 RaisePropertyChanged(nameof(Station));
             }
         }
-
-        private Model.Station _station = null;
-
-
-        private RelayCommand _saveAsHomeStation;
-
-        /// <summary>
-        /// Gets the SaveAsHome.
-        /// </summary>
-        public RelayCommand SaveAsHome
-        {
-            get
-            {
-                return _saveAsHomeStation
-                    ?? (_saveAsHomeStation = new RelayCommand(
-                    () =>
-                    {
-
-                    },
-                    () => true));
-            }
-        }
-
     }
 }

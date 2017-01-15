@@ -105,8 +105,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="..\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems" Label="Shared" />
-  <Import Project="..\..\Microsoft\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.projitems" Label="Shared" />
-  <Import Project="..\..\Microsoft\Microsoft.Xaml.Interactions\Microsoft.Xaml.Interactions.projitems" Label="Shared" />
+  <Import Project="..\..\Microsoft\Microsoft.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

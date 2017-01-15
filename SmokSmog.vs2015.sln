@@ -44,25 +44,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.Core.win81", "Core
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microsoft", "Microsoft", "{B715D4F7-0D62-42D2-9209-8016ED2F6BD6}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microsoft.Xaml.Interactions", "Microsoft\Microsoft.Xaml.Interactions\Microsoft.Xaml.Interactions.shproj", "{349B2A06-86B2-438D-9C95-AB8B738CDFC9}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microsoft.Xaml.Interactivity", "Microsoft\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.shproj", "{7DE3D0EF-68E6-4323-ACDB-BA3BE5D1E11E}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microsoft", "Microsoft\Microsoft.shproj", "{7DE3D0EF-68E6-4323-ACDB-BA3BE5D1E11E}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{11d343da-9019-41f5-8ae8-7c5797c900b4}*SharedItemsImports = 13
 		Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems*{1a93cb76-ef97-4592-b0e5-eea5b3e040c6}*SharedItemsImports = 13
-		Microsoft\Microsoft.Xaml.Interactions\Microsoft.Xaml.Interactions.projitems*{349b2a06-86b2-438d-9c95-ab8b738cdfc9}*SharedItemsImports = 13
-		Microsoft\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.projitems*{7de3d0ef-68e6-4323-acdb-ba3be5d1e11e}*SharedItemsImports = 13
+		Microsoft\Microsoft.projitems*{7de3d0ef-68e6-4323-acdb-ba3be5d1e11e}*SharedItemsImports = 13
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{9389ea2d-bee5-45a4-8624-2d2ce8a2ec99}*SharedItemsImports = 4
 		Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems*{a7dba75f-ce85-47a2-957f-54ee2dc02e4d}*SharedItemsImports = 4
-		Microsoft\Microsoft.Xaml.Interactions\Microsoft.Xaml.Interactions.projitems*{a7dba75f-ce85-47a2-957f-54ee2dc02e4d}*SharedItemsImports = 4
-		Microsoft\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.projitems*{a7dba75f-ce85-47a2-957f-54ee2dc02e4d}*SharedItemsImports = 4
+		Microsoft\Microsoft.projitems*{a7dba75f-ce85-47a2-957f-54ee2dc02e4d}*SharedItemsImports = 4
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{c011b579-ac19-4d54-ba90-f288a7556530}*SharedItemsImports = 4
 		Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems*{c214b8bf-f613-4b97-a94e-c8d3cc9513ee}*SharedItemsImports = 4
 		Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems*{d71ffd62-786f-45a7-b8e5-185598533d98}*SharedItemsImports = 4
-		Microsoft\Microsoft.Xaml.Interactions\Microsoft.Xaml.Interactions.projitems*{d71ffd62-786f-45a7-b8e5-185598533d98}*SharedItemsImports = 4
-		Microsoft\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.projitems*{d71ffd62-786f-45a7-b8e5-185598533d98}*SharedItemsImports = 4
+		Microsoft\Microsoft.projitems*{d71ffd62-786f-45a7-b8e5-185598533d98}*SharedItemsImports = 4
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{e0a6623e-dd65-43a9-9967-63f1cea9a872}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -264,7 +259,6 @@ Global
 		{C214B8BF-F613-4B97-A94E-C8D3CC9513EE} = {80403CA5-C5B8-4A9A-9690-ABBB47B919D2}
 		{D71FFD62-786F-45A7-B8E5-185598533D98} = {80403CA5-C5B8-4A9A-9690-ABBB47B919D2}
 		{A7DBA75F-CE85-47A2-957F-54EE2DC02E4D} = {80403CA5-C5B8-4A9A-9690-ABBB47B919D2}
-		{349B2A06-86B2-438D-9C95-AB8B738CDFC9} = {B715D4F7-0D62-42D2-9209-8016ED2F6BD6}
 		{7DE3D0EF-68E6-4323-ACDB-BA3BE5D1E11E} = {B715D4F7-0D62-42D2-9209-8016ED2F6BD6}
 	EndGlobalSection
 EndGlobal

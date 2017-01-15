@@ -25,7 +25,7 @@ namespace SmokSmog.Model
 
         public static Station Empty { get; } = new Station() { Address = string.Empty, City = string.Empty, Name = string.Empty, Province = string.Empty, };
 
-        public static Station Sample { get; } = new Station() { Address = "ul. Bulwarowa", City = "Kraków", Name = "Kraków-Kurdwanów", Province = "Małopolskie", Geocoordinate = new Geocoordinate(50.069308, 20, 053492), };
+        public static Station Sample { get; } = new Station() { Id = 1, Address = "ul. Bulwarowa", City = "Kraków", Name = "Kraków-Kurdwanów", Province = "Małopolskie", Geocoordinate = new Geocoordinate(50.069308, 20, 053492), };
 
         /// <summary>
         /// Address - street name, building number etc...

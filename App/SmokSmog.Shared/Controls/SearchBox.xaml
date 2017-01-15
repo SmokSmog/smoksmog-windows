@@ -46,7 +46,7 @@
                     FontSize="15"
                     FontWeight="Black"
                     Style="{StaticResource SmokSmogButtonStyle}"
-                    Visibility="Visible" />
+                    Visibility="Collapsed" />
 
     </Grid>
 </UserControl>

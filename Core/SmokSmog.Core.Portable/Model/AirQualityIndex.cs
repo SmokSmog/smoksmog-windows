@@ -13,26 +13,46 @@
 
     public class AirQualityIndex
     {
-        private double? Value { get; } = null;
-
-        private AirQualityLevel Level { get; } = AirQualityLevel.Unavaible;
-
         private AirQualityIndex()
         {
         }
 
         private AirQualityIndex(double? value)
         {
-            Value = value;
+            if (value.HasValue)
+                Value = string.Format("{0:0.0}", value.Value);
 
-            if (!Value.HasValue) Level = AirQualityLevel.Unavaible;
-            else if (Value <= 1) Level = AirQualityLevel.VeryGood;
-            else if (Value <= 3) Level = AirQualityLevel.Good;
-            else if (Value <= 5) Level = AirQualityLevel.Moderate;
-            else if (Value <= 7) Level = AirQualityLevel.Sufficient;
-            else if (Value <= 10) Level = AirQualityLevel.Bad;
-            else if (Value > 10) Level = AirQualityLevel.VeryBad;
+            if (!value.HasValue) Level = AirQualityLevel.Unavaible;
+            else if (value <= 1) Level = AirQualityLevel.VeryGood;
+            else if (value <= 3) Level = AirQualityLevel.Good;
+            else if (value <= 5) Level = AirQualityLevel.Moderate;
+            else if (value <= 7) Level = AirQualityLevel.Sufficient;
+            else if (value <= 10) Level = AirQualityLevel.Bad;
+            else if (value > 10) Level = AirQualityLevel.VeryBad;
         }
+
+        public static AirQualityIndex Unavaible => new AirQualityIndex();
+
+        public string Color
+        {
+            get
+            {
+                switch (Level)
+                {
+                    case AirQualityLevel.VeryGood: return "#FF92D050";
+                    case AirQualityLevel.Good: return "#FF00b050";
+                    case AirQualityLevel.Moderate: return "#FFFFFF00";
+                    case AirQualityLevel.Sufficient: return "#FFFFC000";
+                    case AirQualityLevel.Bad: return "#FFFF0000";
+                    case AirQualityLevel.VeryBad: return "#FFC00000";
+                    default: return "Gray";
+                }
+            }
+        }
+
+        public AirQualityLevel Level { get; } = AirQualityLevel.Unavaible;
+
+        public string Value { get; } = "N/A";
 
         public static AirQualityIndex CalculateAirQualityIndex(ParameterType parameterType, double? parameterValue)
         {
