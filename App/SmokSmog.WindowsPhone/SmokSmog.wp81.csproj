@@ -140,7 +140,31 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\Tiles\Large\" />
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Badge\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\Badge\BadgeLogo.scale-140.png" />
+    <Content Include="Assets\Badge\BadgeLogo.scale-240.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-140.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-240.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenVertical.scale-100.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenVertical.scale-140.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenVertical.scale-240.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-100.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-140.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-240.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-140.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-240.png" />
+    <Content Include="Assets\Tiles\Small\Square71x71Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Small\Square71x71Logo.scale-140.png" />
+    <Content Include="Assets\Tiles\Small\Square71x71Logo.scale-240.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-140.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-240.png" />
   </ItemGroup>
   <Import Project="..\SmokSmog.Shared\SmokSmog.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">

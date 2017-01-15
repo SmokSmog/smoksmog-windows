@@ -100,6 +100,46 @@
     <None Include="SmokSmog.App.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Badge\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\Badge\BadgeLogo.scale-125.png" />
+    <Content Include="Assets\Badge\BadgeLogo.scale-150.png" />
+    <Content Include="Assets\Badge\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\Badge\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-100.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-125.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-150.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-200.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-400.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-100.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-125.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-150.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-200.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Tiles\Large\Square310x310Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Large\Square310x310Logo.scale-125.png" />
+    <Content Include="Assets\Tiles\Large\Square310x310Logo.scale-150.png" />
+    <Content Include="Assets\Tiles\Large\Square310x310Logo.scale-200.png" />
+    <Content Include="Assets\Tiles\Large\Square310x310Logo.scale-400.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Tiles\Small\Square71x71Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Small\Square71x71Logo.scale-125.png" />
+    <Content Include="Assets\Tiles\Small\Square71x71Logo.scale-150.png" />
+    <Content Include="Assets\Tiles\Small\Square71x71Logo.scale-200.png" />
+    <Content Include="Assets\Tiles\Small\Square71x71Logo.scale-400.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-400.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>

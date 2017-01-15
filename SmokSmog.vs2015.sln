@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".other", ".other", "{1C6D79
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
+		AssetsRestore.ps1 = AssetsRestore.ps1
 		codecov.ps1 = codecov.ps1
 		LICENSE = LICENSE
 		README.md = README.md
