@@ -173,6 +173,10 @@
     <Content Include="Assets\Icon\Square30x30Logo.scale-140.png" />
     <Content Include="Assets\Icon\Square30x30Logo.scale-180.png" />
     <Content Include="Assets\Icon\Square30x30Logo.scale-80.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.targetsize-16.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.targetsize-256.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.targetsize-32.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.targetsize-48.png" />
     <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-100.png" />
     <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-140.png" />
     <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-180.png" />

@@ -10,18 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\SEGMDL2.TTF" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.targetsize-16.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.targetsize-256.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.targetsize-32.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square30x30Logo.targetsize-48.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.targetsize-16.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.targetsize-16_altform-unplated.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.targetsize-24.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.targetsize-256.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.targetsize-256_altform-unplated.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.targetsize-48.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Icon\Square44x44Logo.targetsize-48_altform-unplated.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Controls\SearchBox.xaml">
