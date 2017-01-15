@@ -164,6 +164,44 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Badge\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\Badge\BadgeLogo.scale-140.png" />
+    <Content Include="Assets\Badge\BadgeLogo.scale-180.png" />
+    <Content Include="Assets\Badge\BadgeLogo.scale-80.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.scale-100.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.scale-140.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.scale-180.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.scale-80.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.targetsize-16.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.targetsize-256.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.targetsize-32.png" />
+    <Content Include="Assets\Icon\Square30x30Logo.targetsize-48.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-100.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-140.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-180.png" />
+    <Content Include="Assets\SplashScreen\SplashScreenHorizontal.scale-80.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-100.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-140.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-180.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-80.png" />
+    <Content Include="Assets\Tiles\Large\Square310x310Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Large\Square310x310Logo.scale-140.png" />
+    <Content Include="Assets\Tiles\Large\Square310x310Logo.scale-180.png" />
+    <Content Include="Assets\Tiles\Large\Square310x310Logo.scale-80.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-140.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-180.png" />
+    <Content Include="Assets\Tiles\Medium\Square150x150Logo.scale-80.png" />
+    <Content Include="Assets\Tiles\Small\Square70x70Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Small\Square70x70Logo.scale-140.png" />
+    <Content Include="Assets\Tiles\Small\Square70x70Logo.scale-180.png" />
+    <Content Include="Assets\Tiles\Small\Square70x70Logo.scale-80.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-140.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-180.png" />
+    <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-80.png" />
+  </ItemGroup>
   <Import Project="..\SmokSmog.Shared\SmokSmog.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

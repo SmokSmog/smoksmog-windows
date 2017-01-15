@@ -3,7 +3,7 @@
 #---------------------------------#
 
 # version format
-version: 1.0.{build}.{branch}
+version: 2.0.{build}.{branch}
 
 #---------------------------------#
 #    environment configuration    #
@@ -48,11 +48,11 @@ build:
 
 before_build:
 - ps: >-
-    C:\projects\smoksmog-windows\.nuget\NuGet.exe update -self
+    C:\projects\smoksmog-windows\.nuget\NuGet.exe update -self > $null 2> $null
 
-    C:\projects\smoksmog-windows\.nuget\NuGet.exe restore 
+    C:\projects\smoksmog-windows\.nuget\NuGet.exe restore > $null 2> $null
 
-# > $null 2> $null
+    C:\projects\smoksmog-windows\AssetsRestore.ps1 > $null 2> $null
 
 #---------------------------------#
 #       tests configuration       #
