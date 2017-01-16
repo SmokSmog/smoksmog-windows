@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>7de3d0ef-68e6-4323-acdb-ba3be5d1e11e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Microsoft</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\Behavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\BehaviorOfT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\ITrigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\ResourceHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\Trigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\TriggerOfT.cs" />
+  </ItemGroup>
+</Project>

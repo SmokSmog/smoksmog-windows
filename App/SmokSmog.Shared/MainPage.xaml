@@ -88,7 +88,8 @@
                        FontFamily="Segoe UI"
                        FontSize="30"
                        Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
-                       Text="{Binding Name, Source={StaticResource ApplicationInfo}}" />
+                       Text="{Binding Name,
+                                      Source={StaticResource ApplicationInfo}}" />
 
             <controls:SearchBox x:Name="SearchTextBox"
                                 Grid.Column="1"
@@ -136,6 +137,7 @@
                         <ic:GoToStateAction StateName="MenuClose"
                                             TargetObject="{Binding ElementName=This}"
                                             UseTransitions="True" />
+                        <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </Border>
@@ -159,6 +161,7 @@
                                     <ic:GoToStateAction StateName="MenuClose"
                                                         TargetObject="{Binding ElementName=This}"
                                                         UseTransitions="True" />
+                                    <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 
@@ -185,6 +188,7 @@
                                         <ic:GoToStateAction StateName="MenuClose"
                                                             TargetObject="{Binding ElementName=This}"
                                                             UseTransitions="True" />
+                                        <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
                                         <is:FrameNavigateToPageAction Frame="{Binding ElementName=ContentFrame2}" TargetPage="SmokSmog.Views.FavoritesPage" />
                                     </ic:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
@@ -210,6 +214,7 @@
                                     <ic:GoToStateAction StateName="MenuClose"
                                                         TargetObject="{Binding ElementName=This}"
                                                         UseTransitions="True" />
+                                    <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
                                     <is:FrameNavigateToPageAction Frame="{Binding ElementName=ContentFrame2}" TargetPage="SmokSmog.Views.StationListPage" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
@@ -240,8 +245,7 @@
                                    HorizontalAlignment="Right"
                                    FontSize="14"
                                    FontWeight="Bold">
-                            
-                            
+
                             <Run Text="{Binding Name, Source={StaticResource ApplicationInfo}}" />
                             <Run Text="{Binding LocalizedResources.StringFor, Source={StaticResource LocalizedStrings}}" />
                             <Run Text="Windows" />
@@ -268,6 +272,7 @@
                                     <ic:GoToStateAction StateName="MenuClose"
                                                         TargetObject="{Binding ElementName=This}"
                                                         UseTransitions="True" />
+                                    <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 
@@ -294,6 +299,7 @@
                                     <ic:GoToStateAction StateName="MenuClose"
                                                         TargetObject="{Binding ElementName=This}"
                                                         UseTransitions="True" />
+                                    <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 
@@ -337,7 +343,8 @@
                    RequestedTheme="{Binding RequestedTheme,
                                             ElementName=This}" />
 
-            <!--  Page Content for list  --><!--
+            <!--  Page Content for list  -->
+            <!--
             <Frame x:Name="ContentFrame2"
                    Margin="{StaticResource SmokSmogContentMargin}"
                    Background="Red"
@@ -345,7 +352,9 @@
                    RequestedTheme="{Binding RequestedTheme,
                                             ElementName=This}" />
 
-            --><!--  Page Content for main content  --><!--
+            -->
+            <!--  Page Content for main content  -->
+            <!--
             <Frame x:Name="ContentFrame1"
                    Grid.Column="1"
                    Background="Gray"

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SmokSmog.Model;
 using SmokSmog.Net.Http;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmokSmog.Services.Data
 {
@@ -20,17 +20,17 @@ namespace SmokSmog.Services.Data
 
         public override string Name => "GIOS REST API";
 
-        public override Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken)
+        public override Task<List<Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Parameter> parameters, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<IEnumerable<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
+        public override Task<List<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public override async Task<IEnumerable<Station>> GetStationsAsync(CancellationToken cancellationToken)
+        public override async Task<List<Station>> GetStationsAsync(CancellationToken cancellationToken)
         {
             string responseText = await GetStringAsync("station/findAll");
 

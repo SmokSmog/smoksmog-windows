@@ -114,6 +114,10 @@
           <source>Want to add your favorite station?</source>
           <target state="translated">Chcesz dodać ulubioną stację?</target>
         </trans-unit>
+        <trans-unit id="StringAirQualityIndex" translate="yes" xml:space="preserve">
+          <source>Air Quality Index</source>
+          <target state="translated">Indeks Jakości Powietrza</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -33,7 +33,8 @@ namespace SmokSmog.ViewModel
                 SimpleIoc.Default.Register<GeolocationViewModel>();
                 SimpleIoc.Default.Register<GroupedViewModel>();
                 SimpleIoc.Default.Register<SearchViewModel>();
-
+                SimpleIoc.Default.Register<StationViewModel>();
+                
                 _isInitialized = true;
             }
         }
@@ -69,6 +70,10 @@ namespace SmokSmog.ViewModel
         public SearchViewModel SearchViewModel
         {
             get { return ServiceLocator.Current.GetInstance<SearchViewModel>(); }
+        }
+        public StationViewModel StationViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<StationViewModel>(); }
         }
 
         public static void Cleanup()

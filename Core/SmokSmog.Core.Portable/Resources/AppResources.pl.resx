@@ -93,4 +93,7 @@
   <data name="StringWantToAddYourFavoriteStation" xml:space="preserve">
     <value>Chcesz dodać ulubioną stację?</value>
   </data>
+  <data name="StringAirQualityIndex" xml:space="preserve">
+    <value>Indeks Jakości Powietrza</value>
+  </data>
 </root>

@@ -107,6 +107,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Air Quality Index.
+        /// </summary>
+        public static string StringAirQualityIndex {
+            get {
+                return ResourceManager.GetString("StringAirQualityIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to click RMB.
         /// </summary>
         public static string StringClickRMB {

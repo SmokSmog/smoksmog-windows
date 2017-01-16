@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using SmokSmog.Extensions;
 using SmokSmog.Model;
 using SmokSmog.Net.Http;
 using SmokSmog.Services.Storage;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmokSmog.Services.Data
 {
@@ -31,7 +31,7 @@ namespace SmokSmog.Services.Data
         private string language
             => (_settingsService.LanguageCode?.ToLowerInvariant()?.Substring(0, 2) ?? "en").Equals("pl") ? "pl" : "en";
 
-        public override async Task<IEnumerable<Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken)
+        public override async Task<List<Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Parameter> parameters, CancellationToken cancellationToken)
         {
             try
             {
@@ -45,6 +45,9 @@ namespace SmokSmog.Services.Data
                 {
                     var id = item["id"].Value<int?>();
                     if (!id.HasValue) continue;
+
+                    if (!parameters.Any(p => p.Id == id))
+                        continue;
 
                     var parameter = new Measurement(stationId, id.Value)
                     {
@@ -68,10 +71,10 @@ namespace SmokSmog.Services.Data
         /// <summary>
         /// </summary>
         /// <see cref="http://api.smoksmog.jkostrz.name/en/stations/4"/>
-        /// <param name="stationId"></param>
+        /// <param name="stationId">        </param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public override async Task<IEnumerable<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
+        public override async Task<List<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
         {
             try
             {
@@ -106,7 +109,7 @@ namespace SmokSmog.Services.Data
             }
         }
 
-        public override async Task<IEnumerable<Station>> GetStationsAsync(CancellationToken cancellationToken)
+        public override async Task<List<Station>> GetStationsAsync(CancellationToken cancellationToken)
         {
             var stations = new List<Station>();
 

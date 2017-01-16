@@ -132,6 +132,9 @@
   <data name="StringAddToFavorites" xml:space="preserve">
     <value>Add to favorites</value>
   </data>
+  <data name="StringAirQualityIndex" xml:space="preserve">
+    <value>Air Quality Index</value>
+  </data>
   <data name="StringClickRMB" xml:space="preserve">
     <value>click RMB</value>
   </data>

@@ -14,23 +14,23 @@ namespace SmokSmog.Services.Data
 
         string Name { get; }
 
-        IEnumerable<Model.Measurement> GetMeasurements(int stationId);
+        List<Model.Measurement> GetMeasurements(int stationId, IEnumerable<Model.Parameter> parameters);
 
-        Task<IEnumerable<Model.Measurement>> GetMeasurementsAsync(int stationId);
+        Task<List<Model.Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Model.Parameter> parameters);
 
-        Task<IEnumerable<Model.Measurement>> GetMeasurementsAsync(int stationId, CancellationToken cancellationToken);
+        Task<List<Model.Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Model.Parameter> parameters, CancellationToken cancellationToken);
 
-        IEnumerable<Model.Parameter> GetParameters(int stationId);
+        List<Model.Parameter> GetParameters(int stationId);
 
-        Task<IEnumerable<Model.Parameter>> GetParametersAsync(int stationId);
+        Task<List<Model.Parameter>> GetParametersAsync(int stationId);
 
-        Task<IEnumerable<Model.Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken);
+        Task<List<Model.Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken);
 
-        IEnumerable<Model.Station> GetStations();
+        List<Model.Station> GetStations();
 
-        Task<IEnumerable<Model.Station>> GetStationsAsync();
+        Task<List<Model.Station>> GetStationsAsync();
 
-        Task<IEnumerable<Model.Station>> GetStationsAsync(CancellationToken cancellationToken);
+        Task<List<Model.Station>> GetStationsAsync(CancellationToken cancellationToken);
 
         //Model.StationState GetStationInfo(int stationId);
         //List<Model.StationState> GetStationInfo(IEnumerable<int> stationIds);
