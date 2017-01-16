@@ -19,8 +19,7 @@
 
         private AirQualityIndex(double? value)
         {
-            if (value.HasValue)
-                Value = string.Format("{0:0.0}", value.Value);
+            Value = value;
 
             if (!value.HasValue) Level = AirQualityLevel.Unavaible;
             else if (value <= 1) Level = AirQualityLevel.VeryGood;
@@ -52,7 +51,9 @@
 
         public AirQualityLevel Level { get; } = AirQualityLevel.Unavaible;
 
-        public string Value { get; } = "N/A";
+        public double? Value { get; } = null;
+
+        public string ValueString => Value.HasValue ? string.Format("{0:0.0}", Value.Value) : "N/A";
 
         public static AirQualityIndex CalculateAirQualityIndex(ParameterType parameterType, double? parameterValue)
         {

@@ -14,17 +14,17 @@ namespace SmokSmog.Services.Data
 
         string Name { get; }
 
-        List<Model.Measurement> GetMeasurements(int stationId, IEnumerable<Model.Parameter> parameters);
+        List<Model.Measurement> GetMeasurements(Model.Station station, IEnumerable<Model.Parameter> parameters);
 
-        Task<List<Model.Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Model.Parameter> parameters);
+        Task<List<Model.Measurement>> GetMeasurementsAsync(Model.Station station, IEnumerable<Model.Parameter> parameters);
 
-        Task<List<Model.Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Model.Parameter> parameters, CancellationToken cancellationToken);
+        Task<List<Model.Measurement>> GetMeasurementsAsync(Model.Station station, IEnumerable<Model.Parameter> parameters, CancellationToken cancellationToken);
 
-        List<Model.Parameter> GetParameters(int stationId);
+        List<Model.Parameter> GetParameters(Model.Station station);
 
-        Task<List<Model.Parameter>> GetParametersAsync(int stationId);
+        Task<List<Model.Parameter>> GetParametersAsync(Model.Station station);
 
-        Task<List<Model.Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken);
+        Task<List<Model.Parameter>> GetParametersAsync(Model.Station station, CancellationToken cancellationToken);
 
         List<Model.Station> GetStations();
 

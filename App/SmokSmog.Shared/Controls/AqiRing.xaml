@@ -31,6 +31,6 @@
                    VerticalAlignment="Center"
                    FontSize="64"
                    Foreground="Gray"
-                   Text="{Binding AQI.Value, ElementName=This}" />
+                   Text="{Binding AQI.ValueString, ElementName=This}" />
     </Grid>
 </UserControl>

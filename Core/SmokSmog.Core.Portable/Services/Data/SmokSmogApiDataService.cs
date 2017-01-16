@@ -31,11 +31,14 @@ namespace SmokSmog.Services.Data
         private string language
             => (_settingsService.LanguageCode?.ToLowerInvariant()?.Substring(0, 2) ?? "en").Equals("pl") ? "pl" : "en";
 
-        public override async Task<List<Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Parameter> parameters, CancellationToken cancellationToken)
+        public override async Task<List<Measurement>> GetMeasurementsAsync(Model.Station station, IEnumerable<Parameter> parameters, CancellationToken cancellationToken)
         {
             try
             {
-                Task<string> task = GetStringAsync($"{language}/stations/{stationId}", cancellationToken);
+                if (station == null)
+                    throw new ArgumentNullException(nameof(station));
+
+                Task<string> task = GetStringAsync($"{language}/stations/{station.Id}", cancellationToken);
                 string response = await task;
                 var token = JToken.Parse(response);
                 var particulates = token["particulates"];
@@ -49,7 +52,7 @@ namespace SmokSmog.Services.Data
                     if (!parameters.Any(p => p.Id == id))
                         continue;
 
-                    var parameter = new Measurement(stationId, id.Value)
+                    var parameter = new Measurement(station.Id, id.Value)
                     {
                         Value = item["value"].Value<double?>(),
                     };
@@ -74,11 +77,14 @@ namespace SmokSmog.Services.Data
         /// <param name="stationId">        </param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public override async Task<List<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
+        public override async Task<List<Parameter>> GetParametersAsync(Model.Station station, CancellationToken cancellationToken)
         {
             try
             {
-                Task<string> task = GetStringAsync($"{language}/stations/{stationId}", cancellationToken);
+                if (station == null)
+                    throw new ArgumentNullException(nameof(station));
+
+                Task<string> task = GetStringAsync($"{language}/stations/{station.Id}", cancellationToken);
                 string response = await task;
                 var token = JToken.Parse(response);
                 var particulates = token["particulates"];

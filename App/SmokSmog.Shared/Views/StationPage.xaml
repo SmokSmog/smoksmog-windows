@@ -54,74 +54,28 @@
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             Orientation="Vertical">
+
                         <TextBlock Margin="0,0,0,10"
                                VerticalAlignment="Center"
                                Text="Index Components"
                                TextWrapping="Wrap" />
 
-                        <StackPanel Margin="0,2"
+                        <ListView ItemsSource="{Binding AQIComponentsList}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,2"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal">
-                            <TextBlock FontSize="18" Text="C6H6" />
-                            <Border Margin="10,0,0,0" Background="#FF92D050">
-                                <TextBlock FontSize="18" Text="5,3" />
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="0,2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                            <TextBlock FontSize="18" Text="SO2" />
-                            <Border Margin="10,0,0,0" Background="#FF00b050">
-                                <TextBlock FontSize="18" Text="5,3" />
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="0,2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                            <TextBlock FontSize="18" Text="NO2" />
-                            <Border Margin="10,0,0,0" Background="#FFFFFF00">
-                                <TextBlock FontSize="18" Text="5,3" />
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="0,2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                            <TextBlock FontSize="18" Text="CO" />
-                            <Border Margin="10,0,0,0" Background="#FFFFC000">
-                                <TextBlock FontSize="18" Text="5,3" />
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="0,2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                            <TextBlock FontSize="18" Text="O3" />
-                            <Border Margin="10,0,0,0" Background="#FFFF0000">
-                                <TextBlock FontSize="18" Text="5,3" />
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="0,2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                            <TextBlock FontSize="18" Text="PM10" />
-                            <Border Margin="10,0,0,0" Background="#FFC00000">
-                                <TextBlock FontSize="18" Text="5,3" />
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="0,2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                            <TextBlock FontSize="18" Text="PM2.5" />
-                            <Border Margin="10,0,0,0" Background="Red">
-                                <TextBlock FontSize="18" Text="5,3" />
-                            </Border>
-                        </StackPanel>
+                                        <TextBlock FontSize="18" Text="{Binding Parameter.ShortName}" />
+                                        <Border Margin="10,0,0,0" Background="{Binding LastMeasurement.Aqi.Color}">
+                                            <TextBlock FontSize="18" Text="{Binding LastMeasurement.Aqi.ValueString}" />
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        
                     </StackPanel>
                 </Grid>
             </Viewbox>

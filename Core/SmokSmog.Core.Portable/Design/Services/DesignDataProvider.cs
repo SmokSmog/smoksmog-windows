@@ -13,12 +13,12 @@ namespace SmokSmog.Design.Services
 
         public override string Name => "Design Time Data Provider";
 
-        public override Task<List<Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Parameter> parameters, CancellationToken cancellationToken)
+        public override Task<List<Measurement>> GetMeasurementsAsync(Model.Station station, IEnumerable<Parameter> parameters, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<List<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken)
+        public override Task<List<Parameter>> GetParametersAsync(Model.Station station, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

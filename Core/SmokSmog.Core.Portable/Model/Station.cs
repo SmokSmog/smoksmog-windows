@@ -8,24 +8,25 @@ namespace SmokSmog.Model
     public partial class Station : ObservableObject, IComparable<int>
     {
         private string _address = Resources.AppResources.StringUnknown;
-
         private string _city = Resources.AppResources.StringUnknown;
-
         private Geocoordinate _geocoordinate = new Geocoordinate();
-
         private int _id = -1;
-
         private string _name = Resources.AppResources.StringUnknown;
-
         private string _province = Resources.AppResources.StringUnknown;
 
         public Station()
         {
         }
 
-        public static Station Empty { get; } = new Station() { Address = string.Empty, City = string.Empty, Name = string.Empty, Province = string.Empty, };
-
-        public static Station Sample { get; } = new Station() { Id = 1, Address = "ul. Bulwarowa", City = "Kraków", Name = "Kraków-Kurdwanów", Province = "Małopolskie", Geocoordinate = new Geocoordinate(50.069308, 20, 053492), };
+        public static Station Sample { get; } = new Station()
+        {
+            Id = 1,
+            Address = "ul. Bulwarowa",
+            City = "Kraków",
+            Name = "Kraków-Kurdwanów",
+            Province = "Małopolskie",
+            Geocoordinate = new Geocoordinate(50.069308, 20, 053492),
+        };
 
         /// <summary>
         /// Address - street name, building number etc...
@@ -117,6 +118,14 @@ namespace SmokSmog.Model
             }
         }
 
+        internal static Station Empty { get; } = new Station()
+        {
+            Address = string.Empty,
+            City = string.Empty,
+            Name = string.Empty,
+            Province = string.Empty,
+        };
+
         public int CompareTo(int integer)
         {
             return integer.CompareTo(this.Id);
@@ -139,6 +148,6 @@ namespace SmokSmog.Model
             => new { Id, Name, Province, Geocoordinate }.GetHashCode();
 
         public override string ToString()
-            => $"Station Id:{Id} Name:{Name} Province:{Province}";
+            => $"{nameof(Station)} Id:{Id} Name:{Name} Province:{Province}";
     }
 }

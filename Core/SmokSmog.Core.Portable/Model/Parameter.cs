@@ -1,6 +1,6 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Runtime.Serialization;
-using GalaSoft.MvvmLight;
 
 namespace SmokSmog.Model
 {
@@ -180,6 +180,6 @@ namespace SmokSmog.Model
             => new { Id, Name, ShortName, Unit }.GetHashCode();
 
         public override string ToString()
-            => $"Particulate Id:{Id} Name:{Name} ShortName:{ShortName} Unit:{Unit} NormType:{NormType} Norm:{NormValue}";
+            => $"{nameof(Parameter)} Id:{Id} Name:{Name} ShortName:{ShortName} Unit:{Unit} NormType:{NormType} Norm:{NormValue}";
     }
 }
