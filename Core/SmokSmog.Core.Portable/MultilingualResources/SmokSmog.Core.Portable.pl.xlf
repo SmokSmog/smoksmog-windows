@@ -120,7 +120,15 @@
         </trans-unit>
         <trans-unit id="StringIndexComponents" translate="yes" xml:space="preserve">
           <source>Index Components</source>
-          <target state="new">Index Components</target>
+          <target state="translated">Składniki Indeksu</target>
+        </trans-unit>
+        <trans-unit id="StringMeasure" translate="yes" xml:space="preserve">
+          <source>Measure</source>
+          <target state="translated">Pomiar</target>
+        </trans-unit>
+        <trans-unit id="StringNorm" translate="yes" xml:space="preserve">
+          <source>Norm</source>
+          <target state="translated">Norma</target>
         </trans-unit>
       </group>
     </body>

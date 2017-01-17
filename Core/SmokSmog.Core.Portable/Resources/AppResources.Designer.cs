@@ -215,6 +215,24 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Measure.
+        /// </summary>
+        public static string StringMeasure {
+            get {
+                return ResourceManager.GetString("StringMeasure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Norm.
+        /// </summary>
+        public static string StringNorm {
+            get {
+                return ResourceManager.GetString("StringNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to or.
         /// </summary>
         public static string StringOr {

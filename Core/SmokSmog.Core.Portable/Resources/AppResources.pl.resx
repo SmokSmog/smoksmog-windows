@@ -96,4 +96,13 @@
   <data name="StringAirQualityIndex" xml:space="preserve">
     <value>Indeks Jakości Powietrza</value>
   </data>
+  <data name="StringIndexComponents" xml:space="preserve">
+    <value>Składniki Indeksu</value>
+  </data>
+  <data name="StringMeasure" xml:space="preserve">
+    <value>Pomiar</value>
+  </data>
+  <data name="StringNorm" xml:space="preserve">
+    <value>Norma</value>
+  </data>
 </root>
