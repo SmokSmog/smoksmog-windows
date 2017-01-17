@@ -197,11 +197,38 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Index Components.
+        /// </summary>
+        public static string StringIndexComponents {
+            get {
+                return ResourceManager.GetString("StringIndexComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to information.
         /// </summary>
         public static string StringInformation {
             get {
                 return ResourceManager.GetString("StringInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Measure.
+        /// </summary>
+        public static string StringMeasure {
+            get {
+                return ResourceManager.GetString("StringMeasure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Norm.
+        /// </summary>
+        public static string StringNorm {
+            get {
+                return ResourceManager.GetString("StringNorm", resourceCulture);
             }
         }
         

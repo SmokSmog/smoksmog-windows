@@ -13,22 +13,22 @@ namespace SmokSmog.Services.Data
 
         public abstract string Name { get; }
 
-        public List<Measurement> GetMeasurements(int stationId, IEnumerable<Parameter> parameters)
-            => GetMeasurementsAsync(stationId, parameters).Result;
+        public List<Measurement> GetMeasurements(Model.Station station, IEnumerable<Parameter> parameters)
+            => GetMeasurementsAsync(station, parameters).Result;
 
-        public Task<List<Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Parameter> parameters)
-            => GetMeasurementsAsync(stationId, parameters, new CancellationToken());
+        public Task<List<Measurement>> GetMeasurementsAsync(Model.Station station, IEnumerable<Parameter> parameters)
+            => GetMeasurementsAsync(station, parameters, new CancellationToken());
 
-        public abstract Task<List<Measurement>> GetMeasurementsAsync(int stationId, IEnumerable<Parameter> parameters, CancellationToken cancellationToken);
+        public abstract Task<List<Measurement>> GetMeasurementsAsync(Model.Station station, IEnumerable<Parameter> parameters, CancellationToken cancellationToken);
 
-        public List<Parameter> GetParameters(int stationId)
+        public List<Parameter> GetParameters(Model.Station station)
         {
             try
             {
                 List<Parameter> result = null;
                 using (var A = AsyncHelper.Wait)
                 {
-                    A.Run<List<Parameter>>(GetParametersAsync(stationId), res => result = res);
+                    A.Run<List<Parameter>>(GetParametersAsync(station), res => result = res);
                 }
                 return result;
             }
@@ -39,10 +39,10 @@ namespace SmokSmog.Services.Data
             }
         }
 
-        public Task<List<Parameter>> GetParametersAsync(int stationId)
-            => GetParametersAsync(stationId, new CancellationToken());
+        public Task<List<Parameter>> GetParametersAsync(Model.Station station)
+            => GetParametersAsync(station, new CancellationToken());
 
-        public abstract Task<List<Parameter>> GetParametersAsync(int stationId, CancellationToken cancellationToken);
+        public abstract Task<List<Parameter>> GetParametersAsync(Model.Station station, CancellationToken cancellationToken);
 
         public List<Station> GetStations()
         {

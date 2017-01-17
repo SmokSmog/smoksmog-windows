@@ -21,6 +21,11 @@ namespace SmokSmog.ViewModel
     /// </summary>
     public sealed class GroupedViewModel : StationsListBaseViewMode
     {
+        // default sort by Name of station
+        private StationGroupingModeEnum _currentStationGroupingMode = StationGroupingModeEnum.Name;
+
+        private IList<SmokSmog.Linq.GroupingStation> _stationListGrouped = new List<SmokSmog.Linq.GroupingStation>();
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -29,19 +34,6 @@ namespace SmokSmog.ViewModel
         {
             //if (IsInDesignMode) { /* Code runs in Blend --> create design time data. */ }
         }
-
-        protected override void OnStationListChanged()
-        {
-            base.OnStationListChanged();
-            groupStationListHelper();
-        }
-
-        #region Grouping Station List
-
-        // default sort by Name of station
-        private StationGroupingModeEnum _currentStationGroupingMode = StationGroupingModeEnum.Name;
-
-        private IList<SmokSmog.Linq.GroupingStation> _stationListGrouped = new List<SmokSmog.Linq.GroupingStation>();
 
         public StationGroupingModeEnum CurrentStationGroupingMode
         {
@@ -64,6 +56,12 @@ namespace SmokSmog.ViewModel
         {
             get { return _stationListGrouped; }
             private set { _stationListGrouped = value; RaisePropertyChanged("StationListGrouped"); }
+        }
+
+        protected override void OnStationListChanged()
+        {
+            base.OnStationListChanged();
+            groupStationListHelper();
         }
 
         private async void groupStationListHelper()
@@ -153,7 +151,5 @@ namespace SmokSmog.ViewModel
             await Task.Delay(TimeSpan.FromMilliseconds(280));
             StationListGrouped = result;
         }
-
-        #endregion Grouping Station List
     }
 }

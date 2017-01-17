@@ -162,8 +162,17 @@
   <data name="StringHomeStation" xml:space="preserve">
     <value>home station</value>
   </data>
+  <data name="StringIndexComponents" xml:space="preserve">
+    <value>Index Components</value>
+  </data>
   <data name="StringInformation" xml:space="preserve">
     <value>information</value>
+  </data>
+  <data name="StringMeasure" xml:space="preserve">
+    <value>Measure</value>
+  </data>
+  <data name="StringNorm" xml:space="preserve">
+    <value>Norm</value>
   </data>
   <data name="StringOr" xml:space="preserve">
     <value>or</value>

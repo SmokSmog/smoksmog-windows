@@ -4,33 +4,86 @@
     using GalaSoft.MvvmLight.Messaging;
     using Messenger;
     using Model;
+    using MoreLinq;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    public class ParameterWithMeasurements
+    {
+        public ParameterWithMeasurements(Parameter parameter, IEnumerable<Measurement> measurements)
+        {
+            if (parameter == null)
+                throw new ArgumentException(nameof(parameter));
+
+            Parameter = parameter;
+            Measurements = measurements?.ToList() ?? new List<Measurement>();
+        }
+
+        public Measurement LastMeasurement => Measurements.MaxBy(o => o.DateUTC);
+        public List<Measurement> Measurements { get; }
+        public Parameter Parameter { get; }
+    }
+
     public class StationViewModel : ViewModelBase
     {
+        private AirQualityIndex _airQualityIndex = AirQualityIndex.Unavaible;
         private Model.Station _station = null;
 
         public StationViewModel()
         {
             Messenger.Default.Register<StationChangeMessage>(this, HandleStationChangeMessage);
             PropertyChanged += OnPropertyChanged;
-        }
 
-        private void HandleStationChangeMessage(StationChangeMessage message)
-        {
-            if (message != null && message.Content != null)
+            if (IsInDesignMode)
             {
-                Station = message.Content;
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                LoadData(Station);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             }
         }
 
-        public AirQualityIndex AirQualityIndex { get; private set; } = AirQualityIndex.Unavaible;
+        public AirQualityIndex AirQualityIndex
+        {
+            get { return _airQualityIndex; }
+            private set
+            {
+                if (_airQualityIndex == value) return;
+                _airQualityIndex = value;
+                RaisePropertyChanged(nameof(AirQualityIndex));
+            }
+        }
+
+        public List<ParameterWithMeasurements> AQIComponentsList
+        {
+            get
+            {
+                if (ParameterWithMeasurements.Any())
+                {
+                    var list = from p in ParameterWithMeasurements
+                               where p.Measurements.MaxBy(m => m.DateUTC).DateUTC - DateTime.UtcNow < TimeSpan.FromMinutes(80)
+                               select p;
+
+                    if (list.Any())
+                    {
+                        var max = list.Max(p => p.LastMeasurement.DateUTC);
+                        var lastMeasurements = from pwm in list where pwm.LastMeasurement.DateUTC - max < TimeSpan.FromMinutes(10) select pwm;
+                        if (lastMeasurements.Any())
+                        {
+                            AirQualityIndex = lastMeasurements.MaxBy(o => o.LastMeasurement.Aqi.Level).LastMeasurement.Aqi;
+                            return lastMeasurements.ToList();
+                        }
+                    }
+                }
+
+                AirQualityIndex = AirQualityIndex.Unavaible;
+                return new List<ViewModel.ParameterWithMeasurements>();
+            }
+        }
 
         public bool IsValidStation => Station.Id != -1;
-
-        public List<Model.Parameter> Parameters { get; }
+        public List<ParameterWithMeasurements> ParameterWithMeasurements { get; private set; } = new List<ViewModel.ParameterWithMeasurements>();
 
         public Model.Station Station
         {
@@ -49,22 +102,43 @@
             }
         }
 
-        public async Task LoadData(int stationId)
+        public async Task LoadData(Model.Station station)
         {
             var dataService = Services.ServiceLocator.Instance.DataService;
 
-            var parameters = (await dataService.GetParametersAsync(stationId)).ToList();
-            var measurement = (await dataService.GetMeasurementsAsync(stationId, parameters)).ToList();
+            var parameters = (await dataService.GetParametersAsync(station)).ToList();
+            var measurements = (await dataService.GetMeasurementsAsync(station, parameters)).ToList();
 
-            //measurement.First().
-            //parameters
+            ParameterWithMeasurements.Clear();
+
+            if (measurements.Any())
+            {
+                foreach (var param in parameters)
+                {
+                    if (param != null)
+                        ParameterWithMeasurements.Add(
+                            new ParameterWithMeasurements(param,
+                                (from m in measurements where m.ParameterId == param.Id orderby m.DateUTC select m).ToList()));
+                }
+            }
+
+            RaisePropertyChanged(nameof(AQIComponentsList));
+            RaisePropertyChanged(nameof(ParameterWithMeasurements));
+        }
+
+        private void HandleStationChangeMessage(StationChangeMessage message)
+        {
+            if (message != null && message.Content != null)
+            {
+                Station = message.Content;
+            }
         }
 
         private async void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Station))
             {
-                await LoadData(Station.Id);
+                await LoadData(Station);
             }
         }
     }

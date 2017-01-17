@@ -17,20 +17,21 @@
     <Grid MinWidth="250" MinHeight="250">
         <xtcontrols:RingSlice EndAngle="150"
                               Fill="Gray"
-                              InnerRadius="100"
+                              InnerRadius="95"
                               Radius="120"
                               StartAngle="-150" />
 
         <xtcontrols:RingSlice EndAngle="{Binding EndAngle, ElementName=This}"
                               Fill="{Binding AQI.Color, ElementName=This}"
-                              InnerRadius="100"
+                              InnerRadius="95"
                               Radius="120"
                               StartAngle="-150" />
 
         <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   FontSize="64"
+                   Margin="0,-2,0,0"
+                   FontSize="80"
                    Foreground="Gray"
-                   Text="{Binding AQI.Value, ElementName=This}" />
+                   Text="{Binding AQI.ValueString, ElementName=This}" />
     </Grid>
 </UserControl>
