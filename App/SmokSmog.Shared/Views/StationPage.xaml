@@ -5,26 +5,38 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:SmokSmog.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:valueconverters="using:SmokSmog.Xaml.Data.ValueConverters"
+      xmlns:xtcommon="using:WinRTXamlToolkit.Common"
+      xmlns:xtcontrols="using:WinRTXamlToolkit.Controls"
       d:DataContext="{Binding Path=StationViewModel,
                               Source={StaticResource ViewModelLocator}}"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       DataContext="{Binding Path=StationViewModel,
                             Source={StaticResource ViewModelLocator}}"
       Foreground="#FF444444"
       RequestedTheme="Light"
       mc:Ignorable="d">
 
-    <Grid Background="LightGray">
+    <Page.Resources>
+        <valueconverters:StringFormatConverter x:Key="StringFormatConverter" />
+    </Page.Resources>
 
-        <StackPanel VerticalAlignment="Center">
+    <ScrollViewer Background="LightGray">
 
-            <TextBlock HorizontalAlignment="Center"
-                       FontSize="25"
-                       Text="{Binding Station.Name}" />
+        <StackPanel VerticalAlignment="Top">
+
+            <Viewbox MaxWidth="330" Margin="10,20,10,0">
+                <TextBlock HorizontalAlignment="Center"
+                           FontSize="30"
+                           Text="{Binding Station.Name}" />
+            </Viewbox>
+
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <TextBlock FontSize="18" Text="{Binding Station.City}" />
-                <TextBlock FontSize="18" Text=",&#160;" />
-                <TextBlock FontSize="18" Text="{Binding Station.Province}" />
+                <TextBlock FontSize="18">
+                    <!--<Run  Text="{Binding Station.City}" />
+                <Run  Text=",&#160;" />-->
+
+                    <Run Text="{Binding Station.Province}" />
+                </TextBlock>
             </StackPanel>
 
             <Viewbox MaxWidth="600">
@@ -45,7 +57,7 @@
                     <TextBlock Grid.ColumnSpan="2"
                                Margin="0,0,0,10"
                                HorizontalAlignment="Center"
-                               FontSize="20"
+                               FontSize="25"
                                Text="{Binding LocalizedResources.StringAirQualityIndex,
                                               Source={StaticResource LocalizedStrings}}" />
 
@@ -56,52 +68,134 @@
                                 VerticalAlignment="Center"
                                 Orientation="Vertical">
 
-                        <TextBlock Margin="0,0,0,10"
+                        <TextBlock Margin="0,0,0,5"
                                    VerticalAlignment="Center"
-                                   Text="Index Components"
+                                   Text="{Binding LocalizedResources.StringIndexComponents,
+                                                  Source={StaticResource LocalizedStrings}}"
                                    TextWrapping="Wrap" />
+                        <Viewbox Width="100">
+                            <ListView Background="Transparent"
+                                      IsSynchronizedWithCurrentItem="False"
+                                      ItemsSource="{Binding AQIComponentsList}"
+                                      SelectedIndex="-1"
+                                      SelectionMode="None">
 
-                        <ListView ItemsSource="{Binding AQIComponentsList}"
-                                  SelectionMode="None"
-                                  ShowsScrollingPlaceholders="False"
-                                  Style="{StaticResource SmokSmogListViewStyle}">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="Padding" Value="0" />
-                                    <Setter Property="Margin" Value="0" />
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                </Style>
-                            </ListView.ItemContainerStyle>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Padding" Value="0" />
+                                        <Setter Property="Margin" Value="0" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
 
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="0"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Center"
-                                                Orientation="Horizontal">
-                                        <TextBlock FontSize="18" Text="{Binding Parameter.ShortName}" />
-                                        <Border Margin="10,0,0,0" Background="{Binding LastMeasurement.Aqi.Color}">
-                                            <TextBlock FontSize="18" Text="{Binding LastMeasurement.Aqi.ValueString}" />
-                                        </Border>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="3" HorizontalAlignment="Right">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0"
+                                                       Margin="0"
+                                                       FontSize="50"
+                                                       Padding="0"
+                                                       Text="{Binding Parameter.ShortName}" />
+                                            <Border Grid.Column="1"
+                                                    Width="90"
+                                                    Margin="10,0,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Background="{Binding LastMeasurement.Aqi.Color}"
+                                                    BorderThickness="0"
+                                                    Padding="5">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           FontSize="50"
+                                                           Text="{Binding LastMeasurement.Aqi.ValueString}" />
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Viewbox>
                     </StackPanel>
                 </Grid>
             </Viewbox>
-            <TextBlock FontSize="50"
-                       Text=";("
-                       TextAlignment="Center" />
 
-            <TextBlock FontSize="32"
-                       Text="Not Implemented Yet!"
-                       TextAlignment="Center"
-                       TextWrapping="Wrap" />
-            <TextBlock FontSize="32"
-                       Text="Jeszcze nie zaimplementowane!"
-                       TextAlignment="Center"
-                       TextWrapping="Wrap" />
+            <GridView x:Name="myGridView"
+                      HorizontalAlignment="Center"
+                      IsItemClickEnabled="True"
+                      ItemsSource="{Binding AQIComponentsList}">
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid MaximumRowsOrColumns="5" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </GridView.ItemContainerStyle>
+
+                <GridView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Grid MinWidth="350"
+                              MinHeight="100"
+                              MaxWidth="500"
+                              Margin="15,10"
+                              HorizontalAlignment="Center">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="38"
+                                       Text="{Binding Parameter.ShortName}" />
+
+                            <TextBlock Grid.ColumnSpan="3"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Bottom"
+                                       FontSize="15"
+                                       Text="{Binding Parameter.Name}" />
+
+                            <Viewbox Grid.Column="1" Height="100">
+                                <controls:AqiRing AQI="{Binding LastMeasurement.Aqi}" />
+                            </Viewbox>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock TextAlignment="Right">
+                                    <Run Text="Pomiar" />
+                                    <Run Text="{Binding LastMeasurement.Value}" />
+                                    <Run Text="{Binding Parameter.Unit}" />
+                                </TextBlock>
+                                <TextBlock TextAlignment="Right">
+                                    <Run Text="Norma" />
+                                    <Run Text="{Binding Parameter.NormValue}" />
+                                    <Run Text="{Binding Parameter.Unit}" />
+                                </TextBlock>
+                                <TextBlock TextAlignment="Right">
+                                    <Run 
+                                        Text="{Binding LastMeasurement.Date.Day, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:00]'}" />-<Run Text="{Binding LastMeasurement.Date.Month, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:00]'}" />-<Run Text="{Binding LastMeasurement.Date.Year}" />
+                                </TextBlock>
+                                <TextBlock FontFamily="30"
+                                           FontWeight="Bold"
+                                           TextAlignment="Right">
+                                    <Run Text="{Binding LastMeasurement.Date.Hour, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:00]'}" /><Run>:</Run><Run Text="{Binding LastMeasurement.Date.Minute, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:00]'}" />
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Page>

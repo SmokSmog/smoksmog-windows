@@ -118,6 +118,10 @@
           <source>Air Quality Index</source>
           <target state="translated">Indeks Jakości Powietrza</target>
         </trans-unit>
+        <trans-unit id="StringIndexComponents" translate="yes" xml:space="preserve">
+          <source>Index Components</source>
+          <target state="new">Index Components</target>
+        </trans-unit>
       </group>
     </body>
   </file>

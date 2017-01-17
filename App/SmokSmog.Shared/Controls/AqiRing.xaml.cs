@@ -45,7 +45,6 @@ namespace SmokSmog.Controls
 
                 if (aqi.Value.HasValue)
                 {
-                    double val = 0.0;
                     if (aqi.Value > 0 && aqi.Value < 10)
                     {
                         ring.EndAngle = aqi.Value.Value / 10d * 300 - 150;

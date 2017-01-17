@@ -56,8 +56,11 @@ namespace SmokSmog.Services.Data
                     {
                         Value = item["value"].Value<double?>(),
                     };
-                    if (item["date"].HasValues)
-                        parameter.Date = DateTime.Parse(item["date"].Value<string>());
+
+                    var date = item["date"]?.Value<string>();
+
+                    if (date != null)
+                        parameter.Date = DateTime.Parse(date.ToString());
 
                     measurement.Add(parameter);
                 }

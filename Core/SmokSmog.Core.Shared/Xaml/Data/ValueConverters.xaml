@@ -3,19 +3,19 @@
                     xmlns:local="using:SmokSmog.Xaml.Data.ValueConverters"
                     xmlns:valueconverters="using:SmokSmog.Xaml.Data.ValueConverters">
 
-  <valueconverters:AqiIntToBrush x:Key="AqiIntToBrushValueConverter" />
+    <valueconverters:AqiIntToBrush x:Key="AqiIntToBrushValueConverter" />
 
-  <valueconverters:BooleanToVisability x:Key="BooleanToVisabilityValueConverter" />
+    <valueconverters:BooleanToVisability x:Key="BooleanToVisabilityValueConverter" />
 
-  <valueconverters:StringGetFirstChar x:Key="StringGetFirstCharValueConverter" />
-  <valueconverters:StringToFirstCharCase x:Key="StringToFirstCharCaseValueConverter" />
-  <valueconverters:StringToLower x:Key="StringToLowerValueConverter" />
-  <valueconverters:StringToSentenceCase x:Key="StringToSentenceCaseValueConverter" />
-  <valueconverters:StringToUpper x:Key="StringToUpperValueConverter" />
-  <valueconverters:StringToWordsCase x:Key="StringToWordsCaseValueConverter" />
+    <valueconverters:StringGetFirstChar x:Key="StringGetFirstCharValueConverter" />
+    <valueconverters:StringToFirstCharCase x:Key="StringToFirstCharCaseValueConverter" />
+    <valueconverters:StringToLower x:Key="StringToLowerValueConverter" />
+    <valueconverters:StringToSentenceCase x:Key="StringToSentenceCaseValueConverter" />
+    <valueconverters:StringToUpper x:Key="StringToUpperValueConverter" />
+    <valueconverters:StringToWordsCase x:Key="StringToWordsCaseValueConverter" />
 
-  <valueconverters:ValueConverterGroup x:Key="StringGetFirstCharAndToLowerValueConverter">
-    <valueconverters:StringGetFirstChar />
-    <valueconverters:StringToLower />
-  </valueconverters:ValueConverterGroup>
+    <valueconverters:ValueConverterGroup x:Key="StringGetFirstCharAndToLowerValueConverter">
+        <valueconverters:StringGetFirstChar />
+        <valueconverters:StringToLower />
+    </valueconverters:ValueConverterGroup>
 </ResourceDictionary>

@@ -21,10 +21,9 @@
             Measurements = measurements?.ToList() ?? new List<Measurement>();
         }
 
+        public Measurement LastMeasurement => Measurements.MaxBy(o => o.DateUTC);
         public List<Measurement> Measurements { get; }
         public Parameter Parameter { get; }
-
-        public Measurement LastMeasurement => Measurements.MaxBy(o => o.DateUTC);
     }
 
     public class StationViewModel : ViewModelBase
@@ -36,6 +35,13 @@
         {
             Messenger.Default.Register<StationChangeMessage>(this, HandleStationChangeMessage);
             PropertyChanged += OnPropertyChanged;
+
+            if (IsInDesignMode)
+            {
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                LoadData(Station);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            }
         }
 
         public AirQualityIndex AirQualityIndex
@@ -53,31 +59,6 @@
         {
             get
             {
-                if (IsInDesignMode)
-                {
-                    return new List<ParameterWithMeasurements>()
-                    {
-                        new ParameterWithMeasurements(
-                            new Parameter(1) { Name = "SO2", ShortName="SO2" },
-                            new []  {
-                                new Measurement(1,1)
-                                {
-                                    Date = DateTime.Now,
-                                    Value = 5.3
-                                }
-                            }),
-                        new ParameterWithMeasurements(
-                            new Parameter(1) { Name = "C6H6", ShortName="C6H6" },
-                            new []  {
-                                new Measurement(1,1)
-                                {
-                                    Date = DateTime.Now,
-                                    Value = 1.3
-                                }
-                            })
-                    };
-                }
-
                 if (ParameterWithMeasurements.Any())
                 {
                     var list = from p in ParameterWithMeasurements
@@ -101,9 +82,8 @@
             }
         }
 
-        public List<ParameterWithMeasurements> ParameterWithMeasurements { get; private set; } = new List<ViewModel.ParameterWithMeasurements>();
-
         public bool IsValidStation => Station.Id != -1;
+        public List<ParameterWithMeasurements> ParameterWithMeasurements { get; private set; } = new List<ViewModel.ParameterWithMeasurements>();
 
         public Model.Station Station
         {

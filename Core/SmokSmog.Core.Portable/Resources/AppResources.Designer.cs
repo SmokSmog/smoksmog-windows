@@ -197,6 +197,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Index Components.
+        /// </summary>
+        public static string StringIndexComponents {
+            get {
+                return ResourceManager.GetString("StringIndexComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to information.
         /// </summary>
         public static string StringInformation {

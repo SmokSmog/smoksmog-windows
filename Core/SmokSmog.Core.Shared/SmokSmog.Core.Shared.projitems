@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiIntToBrush.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\BooleanToVisability.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StationGroupingModeEnumToString.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringFormatConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringGetFirstChar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToFirstCharCase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToLower.cs" />
