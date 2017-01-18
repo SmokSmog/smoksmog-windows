@@ -70,7 +70,7 @@
 
         public double? Value { get; } = null;
 
-        public string ValueString => Value.HasValue ? string.Format("{0:0.0}", Value.Value) : "N/A";
+        public string ValueString => Value.HasValue ? string.Format("{0:0.0}", Value.Value) : Resources.AppResources.StringNA;
 
         public static AirQualityIndex CalculateAirQualityIndex(ParameterType parameterType, double? parameterValue)
         {

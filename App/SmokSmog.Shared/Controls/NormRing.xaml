@@ -23,20 +23,24 @@
 
         <xtcontrols:RingSlice EndAngle="{Binding EndAngle,
                                                  ElementName=This}"
-                              Fill="{Binding AQI.Color,
+                              Fill="{Binding Color,
                                              ElementName=This}"
                               InnerRadius="95"
                               Radius="120"
-                              StartAngle="-150" />
+                              StartAngle="-179.99" />
 
-        <TextBlock Margin="0,-2,0,0"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
+
+        <!--<Rectangle Fill="Red" Width="180" Height="180"/>-->
+
+        <Viewbox MaxWidth="180" HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+            <TextBlock                    
                    FontSize="80"
                    FontWeight="Bold"
-                   Foreground="{Binding AQI.Color,
+                   Foreground="{Binding Color,
                                         ElementName=This}"
-                   Text="{Binding AQI.ValueString,
+                   Text="{Binding Percent,
                                   ElementName=This}" />
+        </Viewbox>
     </Grid>
 </UserControl>

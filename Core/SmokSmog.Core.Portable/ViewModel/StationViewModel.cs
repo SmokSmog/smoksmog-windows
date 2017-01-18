@@ -72,7 +72,7 @@
                         if (lastMeasurements.Any())
                         {
                             AirQualityIndex = lastMeasurements.MaxBy(o => o.LastMeasurement.Aqi.Level).LastMeasurement.Aqi;
-                            return lastMeasurements.OrderByDescending(o=> o.LastMeasurement.Aqi.Value).ToList();
+                            return lastMeasurements.OrderByDescending(o => o.LastMeasurement.Aqi.Value).ToList();
                         }
                     }
                 }
@@ -98,6 +98,7 @@
             {
                 if (_station == value) return;
                 _station = value;
+                RaisePropertyChanged(nameof(IsValidStation));
                 RaisePropertyChanged(nameof(Station));
             }
         }

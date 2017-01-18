@@ -23,7 +23,10 @@
 
     <Grid x:Name="LayoutRoot">
 
-        <ScrollViewer Background="LightGray" Padding="12,12">
+        <ScrollViewer Background="LightGray"
+                      Padding="12,12"
+                      Visibility="{Binding IsValidStation,
+                                           Converter={StaticResource BooleanToVisabilityValueConverter}}">
 
             <StackPanel VerticalAlignment="Top">
 
@@ -229,7 +232,8 @@
                                         <Viewbox Grid.Column="1"
                                                  Width="100"
                                                  Margin="0,10,0,10">
-                                            <controls:AqiRing AQI="{Binding LastMeasurement.Aqi}" />
+                                            <!--<controls:AqiRing AQI="{Binding LastMeasurement.Aqi}" />-->
+                                            <controls:NormRing ParameterWithMeasurements="{Binding}"/>
                                         </Viewbox>
 
                                         <Grid Grid.Column="2" Margin="12,8,8,8">

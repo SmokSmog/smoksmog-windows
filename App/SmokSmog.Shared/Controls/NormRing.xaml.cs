@@ -1,4 +1,5 @@
-﻿using SmokSmog.Model;
+﻿using SmokSmog.Globalization;
+using SmokSmog.ViewModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -11,6 +12,19 @@ namespace SmokSmog.Controls
             this.InitializeComponent();
         }
 
+
+
+        public string Color
+        {
+            get { return (string)GetValue(ColorProperty); }
+            set { SetValue(ColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Color. This enables animation,
+        // styling, binding, etc...
+        public static readonly DependencyProperty ColorProperty =
+            DependencyProperty.Register("Color", typeof(string), typeof(NormRing), new PropertyMetadata(""));
+
         public double EndAngle
         {
             get { return (double)GetValue(EndAngleProperty); }
@@ -18,47 +32,78 @@ namespace SmokSmog.Controls
         }
 
         public static readonly DependencyProperty EndAngleProperty =
-            DependencyProperty.Register("EndAngle", typeof(double), typeof(AqiRing), new PropertyMetadata(-150));
+            DependencyProperty.Register("EndAngle", typeof(double), typeof(AqiRing), new PropertyMetadata(-180));
 
-        public AirQualityIndex AQI
-
+        public string Percent
         {
-            get { return (AirQualityIndex)GetValue(AQIProperty); }
-            set { SetValue(AQIProperty, value ?? AirQualityIndex.Unavaible); }
+            get { return (string)GetValue(PercentProperty); }
+            set { SetValue(PercentProperty, value); }
         }
 
-        public static readonly DependencyProperty AQIProperty =
-            DependencyProperty.Register("AQI", typeof(AirQualityIndex), typeof(AqiRing), new PropertyMetadata(AirQualityIndex.Unavaible, AQIChanged));
+        // Using a DependencyProperty as the backing store for Percent.
+        public static readonly DependencyProperty PercentProperty =
+            DependencyProperty.Register("Percent", typeof(string), typeof(NormRing), new PropertyMetadata("0%"));
 
-        private static void AQIChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public ParameterWithMeasurements ParameterWithMeasurements
         {
-            var ring = d as AqiRing;
+            get { return (ParameterWithMeasurements)GetValue(ParameterWithMeasurementsProperty); }
+            set { SetValue(ParameterWithMeasurementsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ParameterWithMeasurements
+        public static readonly DependencyProperty ParameterWithMeasurementsProperty =
+            DependencyProperty.Register("ParameterWithMeasurements", typeof(ParameterWithMeasurements), typeof(NormRing), new PropertyMetadata(null, ParameterWithMeasurementsChanged));
+
+        private static void ParameterWithMeasurementsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ring = d as NormRing;
             if (ring != null)
             {
                 if (e.NewValue == null)
                 {
-                    ring.AQI = AirQualityIndex.Unavaible;
+                    LocalizedStrings LocalizedStrings = new LocalizedStrings();
+                    ring.Percent = string.Format(LocalizedStrings.LocalizedString("StringNA"));
+                    ring.EndAngle = -180;
                     return;
                 }
 
-                var aqi = ring.AQI;
-
-                if (aqi.Value.HasValue)
+                var pwm = ring.ParameterWithMeasurements;
+                if (pwm != null)
                 {
-                    if (aqi.Value > 0 && aqi.Value < 10)
+                    var norm = pwm?.Parameter?.NormValue;
+                    var avg = pwm.LastMeasurement?.Average.Value;
+
+                    if (norm.HasValue && avg.HasValue)
                     {
-                        ring.EndAngle = aqi.Value.Value / 10d * 300 - 150;
+                        double ratio = avg.Value / norm.Value;
+                        string format = "{0:0.#}%";
+
+                        if (ratio > 0 && ratio < 1)
+                        {
+                            ring.EndAngle = ratio * 360 - 180;
+                            ring.Color = "#5ae1d7";
+                            if (ratio < 0.1d)
+                                format = "{0:0.##}%";
+                        }
+                        else if (ratio >= 1)
+                        {
+                            ring.EndAngle = 180;
+                            ring.Color = "#FFf2a21b";
+                            if (ratio >= 10)
+                                format = "{0:0.}%";
+                        }
+                        else
+                        {
+                            ring.EndAngle = -180;
+                            ring.Color = "#5ae1d7";
+                        }
+
+                        ring.Percent = string.Format(format, ratio * 100d);
                     }
-                    else if (aqi.Value >= 10)
-                    {
-                        ring.EndAngle = 150;
-                    }
-                    else
-                        ring.EndAngle = -150;
                 }
                 else
                 {
-                    ring.EndAngle = -150;
+                    ring.EndAngle = -180;
                 }
             }
         }
