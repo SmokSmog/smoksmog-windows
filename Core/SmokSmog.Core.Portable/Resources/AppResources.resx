@@ -132,11 +132,23 @@
   <data name="StringAddToFavorites" xml:space="preserve">
     <value>Add to favorites</value>
   </data>
+  <data name="StringAirQuality" xml:space="preserve">
+    <value>air quality</value>
+  </data>
   <data name="StringAirQualityIndex" xml:space="preserve">
     <value>Air Quality Index</value>
   </data>
+  <data name="StringAverage" xml:space="preserve">
+    <value>Average</value>
+  </data>
+  <data name="StringBad" xml:space="preserve">
+    <value>Bad</value>
+  </data>
   <data name="StringClickRMB" xml:space="preserve">
     <value>click RMB</value>
+  </data>
+  <data name="StringComponents" xml:space="preserve">
+    <value>Components</value>
   </data>
   <data name="StringDeterminingLocation" xml:space="preserve">
     <value>Determining location</value>
@@ -150,6 +162,9 @@
   <data name="StringFor" xml:space="preserve">
     <value>for</value>
   </data>
+  <data name="StringGood" xml:space="preserve">
+    <value>Good</value>
+  </data>
   <data name="StringGroupBy" xml:space="preserve">
     <value>group by</value>
   </data>
@@ -162,17 +177,23 @@
   <data name="StringHomeStation" xml:space="preserve">
     <value>home station</value>
   </data>
-  <data name="StringIndexComponents" xml:space="preserve">
-    <value>Index Components</value>
-  </data>
   <data name="StringInformation" xml:space="preserve">
     <value>information</value>
   </data>
   <data name="StringMeasure" xml:space="preserve">
     <value>Measure</value>
   </data>
+  <data name="StringModerate" xml:space="preserve">
+    <value>Moderate</value>
+  </data>
+  <data name="StringNA" xml:space="preserve">
+    <value>N/A</value>
+  </data>
   <data name="StringNorm" xml:space="preserve">
     <value>Norm</value>
+  </data>
+  <data name="StringNotAvailable" xml:space="preserve">
+    <value>Not Available</value>
   </data>
   <data name="StringOr" xml:space="preserve">
     <value>or</value>
@@ -201,11 +222,20 @@
   <data name="StringStationList" xml:space="preserve">
     <value>Station list</value>
   </data>
+  <data name="StringSufficient" xml:space="preserve">
+    <value>Sufficient</value>
+  </data>
   <data name="StringUnknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
   <data name="StringVersion" xml:space="preserve">
     <value>version</value>
+  </data>
+  <data name="StringVeryBad" xml:space="preserve">
+    <value>Very Bad</value>
+  </data>
+  <data name="StringVeryGood" xml:space="preserve">
+    <value>Very Good</value>
   </data>
   <data name="StringWantToAddYourFavoriteStation" xml:space="preserve">
     <value>Want to add your favorite station?</value>

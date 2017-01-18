@@ -41,7 +41,7 @@
                         <ToggleButton.Content>
                             <FontIcon x:Name="Hamburger"
                                       Margin="0"
-                                      FontFamily="Segoe MDL2 Assets"
+                                      FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                       FontSize="26"
                                       Glyph="&#xE700;" />
                         </ToggleButton.Content>
@@ -68,7 +68,7 @@
                     <ToggleButton.Content>
                         <FontIcon x:Name="Search"
                                   Margin="0,3,0,0"
-                                  FontFamily="Segoe MDL2 Assets"
+                                  FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                   FontSize="26"
                                   Glyph="&#xE094;" />
                     </ToggleButton.Content>
@@ -96,7 +96,7 @@
                         VerticalAlignment="Bottom"
                         BorderThickness="0">
                     <StackPanel Width="250" Orientation="Horizontal">
-                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                        <FontIcon FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                   FontSize="22"
                                   FontWeight="SemiBold"
                                   Glyph="&#xE10F;" />
@@ -112,7 +112,7 @@
                         VerticalAlignment="Bottom"
                         BorderThickness="0">
                     <StackPanel Width="250" Orientation="Horizontal">
-                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                        <FontIcon FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                   FontSize="22"
                                   FontWeight="Bold"
                                   Glyph="&#xE728;" />
@@ -128,7 +128,7 @@
                         VerticalAlignment="Bottom"
                         BorderThickness="0">
                     <StackPanel Width="250" Orientation="Horizontal">
-                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                        <FontIcon FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                   FontSize="21"
                                   FontWeight="SemiBold"
                                   Glyph="&#xE170;" />
@@ -151,7 +151,7 @@
                             BorderThickness="0">
                         <StackPanel Width="250" Orientation="Horizontal">
                             <FontIcon Margin="1,0,0,0"
-                                      FontFamily="Segoe MDL2 Assets"
+                                      FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                       FontSize="22"
                                       FontWeight="SemiBold"
                                       Glyph="&#xEA1F;" />
@@ -167,7 +167,7 @@
                             VerticalAlignment="Bottom"
                             BorderThickness="0">
                         <StackPanel Width="250" Orientation="Horizontal">
-                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                            <FontIcon FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                       FontSize="22"
                                       Glyph="&#xE115;" />
                             <TextBlock Margin="10,0"

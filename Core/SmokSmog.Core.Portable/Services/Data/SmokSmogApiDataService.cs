@@ -16,7 +16,11 @@ namespace SmokSmog.Services.Data
         private readonly IStorageService _settingsService;
 
         public SmokSmogApiDataProvider(IHttpClient httpClient, IStorageService settingsService)
+#if DEBUG
+            : base(httpClient, "http://beta-api.smoksmog.jkostrz.name")
+#else
             : base(httpClient, "http://api.smoksmog.jkostrz.name")
+#endif
         {
             if (settingsService == null)
                 throw new ArgumentNullException(nameof(settingsService));
@@ -43,7 +47,7 @@ namespace SmokSmog.Services.Data
                 var token = JToken.Parse(response);
                 var particulates = token["particulates"];
 
-                List<Measurement> measurement = new List<Measurement>();
+                List<Measurement> measurements = new List<Measurement>();
                 foreach (var item in particulates)
                 {
                     var id = item["id"].Value<int?>();
@@ -52,20 +56,23 @@ namespace SmokSmog.Services.Data
                     if (!parameters.Any(p => p.Id == id))
                         continue;
 
-                    var parameter = new Measurement(station.Id, id.Value)
+                    var measurement = new Measurement(station.Id, id.Value)
                     {
                         Value = item["value"].Value<double?>(),
                     };
 
                     var date = item["date"]?.Value<string>();
-
                     if (date != null)
-                        parameter.Date = DateTime.Parse(date.ToString());
+                        measurement.Date = DateTime.Parse(date.ToString());
 
-                    measurement.Add(parameter);
+                    var avg = item["avg"]?.Value<double?>();
+                    if (avg.HasValue)
+                        measurement.Average = new Average(AggregationType.Avg1Day, avg.Value);
+
+                    measurements.Add(measurement);
                 }
 
-                return measurement;
+                return measurements;
             }
             catch (Exception ex)
             {

@@ -118,10 +118,6 @@
           <source>Air Quality Index</source>
           <target state="translated">Indeks Jakości Powietrza</target>
         </trans-unit>
-        <trans-unit id="StringIndexComponents" translate="yes" xml:space="preserve">
-          <source>Index Components</source>
-          <target state="translated">Składniki Indeksu</target>
-        </trans-unit>
         <trans-unit id="StringMeasure" translate="yes" xml:space="preserve">
           <source>Measure</source>
           <target state="translated">Pomiar</target>
@@ -129,6 +125,50 @@
         <trans-unit id="StringNorm" translate="yes" xml:space="preserve">
           <source>Norm</source>
           <target state="translated">Norma</target>
+        </trans-unit>
+        <trans-unit id="StringComponents" translate="yes" xml:space="preserve">
+          <source>Components</source>
+          <target state="translated">Składniki</target>
+        </trans-unit>
+        <trans-unit id="StringAverage" translate="yes" xml:space="preserve">
+          <source>Average</source>
+          <target state="translated">Średnia</target>
+        </trans-unit>
+        <trans-unit id="StringAirQuality" translate="yes" xml:space="preserve">
+          <source>air quality</source>
+          <target state="translated">jakość powietrza</target>
+        </trans-unit>
+        <trans-unit id="StringBad" translate="yes" xml:space="preserve">
+          <source>Bad</source>
+          <target state="translated">Zła</target>
+        </trans-unit>
+        <trans-unit id="StringGood" translate="yes" xml:space="preserve">
+          <source>Good</source>
+          <target state="translated">Dobra</target>
+        </trans-unit>
+        <trans-unit id="StringModerate" translate="yes" xml:space="preserve">
+          <source>Moderate</source>
+          <target state="translated">Umiarkowana</target>
+        </trans-unit>
+        <trans-unit id="StringNA" translate="yes" xml:space="preserve">
+          <source>N/A</source>
+          <target state="translated">N/D</target>
+        </trans-unit>
+        <trans-unit id="StringNotAvailable" translate="yes" xml:space="preserve">
+          <source>Not Available</source>
+          <target state="translated">Nie Dostępna</target>
+        </trans-unit>
+        <trans-unit id="StringSufficient" translate="yes" xml:space="preserve">
+          <source>Sufficient</source>
+          <target state="translated">Dostateczna</target>
+        </trans-unit>
+        <trans-unit id="StringVeryBad" translate="yes" xml:space="preserve">
+          <source>Very Bad</source>
+          <target state="translated">Bardzo Zła</target>
+        </trans-unit>
+        <trans-unit id="StringVeryGood" translate="yes" xml:space="preserve">
+          <source>Very Good</source>
+          <target state="translated">Bardzo Dobra</target>
         </trans-unit>
       </group>
     </body>
