@@ -83,7 +83,7 @@
                                     <Ellipse Width="28"
                                              Height="28"
                                              Fill="#77FFFFFF" />
-                                    <FontIcon FontFamily="Segoe MDL2 Assets"
+                                    <FontIcon FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                               FontSize="15"
                                               FontWeight="Bold"
                                               Glyph="&#xE11B;" />
@@ -212,7 +212,9 @@
                                                        FontSize="20"
                                                        FontWeight="Medium"
                                                        Foreground="Black"
-                                                       Text="{Binding LastMeasurement.Value, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:0.##]'}"
+                                                       Text="{Binding LastMeasurement.Value,
+                                                                      Converter={StaticResource StringFormatConverter},
+                                                                      ConverterParameter='[0:0.##]'}"
                                                        TextAlignment="Center" />
                                             <TextBlock FontSize="10"
                                                        Text="{Binding Parameter.Unit}"
@@ -244,7 +246,9 @@
                                                 <TextBlock TextAlignment="Center">
                                                     <Run FontWeight="Medium"
                                                          Foreground="Black"
-                                                         Text="{Binding Parameter.NormValue, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:0.##]'}" />
+                                                         Text="{Binding Parameter.NormValue,
+                                                                        Converter={StaticResource StringFormatConverter},
+                                                                        ConverterParameter='[0:0.##]'}" />
                                                     <Run Text="{Binding Parameter.Unit}" />
                                                 </TextBlock>
                                             </StackPanel>
@@ -257,7 +261,9 @@
                                                 <TextBlock TextAlignment="Center">
                                                     <Run FontWeight="Medium"
                                                          Foreground="Black"
-                                                         Text="{Binding Parameter.NormValue, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:0.##]'}" />
+                                                         Text="{Binding LastMeasurement.Average.Value,
+                                                                        Converter={StaticResource StringFormatConverter},
+                                                                        ConverterParameter='[0:0.##]'}" />
                                                     <Run Text="{Binding Parameter.Unit}" />
                                                 </TextBlock>
                                             </StackPanel>
@@ -282,110 +288,6 @@
                             </Border>
                         </DataTemplate>
 
-                        <!--<DataTemplate>
-
-                            <Viewbox MaxWidth="400">
-
-                                <Grid MinHeight="120"
-                                      HorizontalAlignment="Center"
-                                      Background="#77FFFFFF">
-
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto" MinWidth="100" />
-                                        <ColumnDefinition Width="auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                        <TextBlock FontSize="38" Margin="5,0,0,20" VerticalAlignment="Bottom" Text="{Binding Parameter.ShortName}" />
-
-                                        <Viewbox Grid.Column="1"
-                                             Width="100"
-                                             Margin="0,0,0,10">
-                                            <controls:AqiRing AQI="{Binding LastMeasurement.Aqi}" />
-                                        </Viewbox>
-
-                                    <TextBlock Margin="6,0,0,5" Grid.ColumnSpan="2" VerticalAlignment="Bottom"
-                                                   FontSize="15"
-                                                   Text="{Binding Parameter.Name}" />
-
-                                    <Grid Grid.Column="2" Margin="8">
-
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="auto" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Grid.Row="0"
-                                                   Grid.Column="0"
-                                                   Text="{Binding LocalizedResources.StringMeasure,
-                                                                  Source={StaticResource LocalizedStrings}}"
-                                                   TextAlignment="Right" />
-                                        <TextBlock Grid.Row="0"
-                                                   Grid.Column="1"
-                                                   Margin="5,0"
-                                                   FontWeight="Medium"
-                                                   Foreground="Black"
-                                                   Text="{Binding LastMeasurement.Value}"
-                                                   TextAlignment="Right" />
-                                        <TextBlock Grid.Row="0"
-                                                   Grid.Column="2"
-                                                   Text="{Binding Parameter.Unit}" />
-
-                                        <TextBlock Grid.Row="1"
-                                                   Grid.Column="0"
-                                                   Text="{Binding LocalizedResources.StringNorm,
-                                                                  Source={StaticResource LocalizedStrings}}"
-                                                   TextAlignment="Right" />
-                                        <TextBlock Grid.Row="1"
-                                                   Grid.Column="1"
-                                                   Margin="5,0"
-                                                   FontWeight="Medium"
-                                                   Foreground="Black"
-                                                   Text="{Binding Parameter.NormValue}"
-                                                   TextAlignment="Right" />
-                                        <TextBlock Grid.Row="1"
-                                                   Grid.Column="2"
-                                                   Text="{Binding Parameter.Unit}" />
-
-                                        <StackPanel Grid.Row="2"
-                                                    Grid.ColumnSpan="3"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Bottom"
-                                                    Orientation="Horizontal">
-                                            <TextBlock Text="{Binding LastMeasurement.Date.Day, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:00]-'}" />
-                                            <TextBlock Text="{Binding LastMeasurement.Date.Month, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:00]-'}" />
-                                            <TextBlock Text="{Binding LastMeasurement.Date.Year, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:0000]'}" />
-                                        </StackPanel>
-
-                                        <StackPanel Grid.Row="3"
-                                                    Grid.ColumnSpan="3"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Bottom"
-                                                    Orientation="Horizontal">
-                                            <TextBlock FontFamily="30"
-                                                       FontWeight="Bold"
-                                                       Text="{Binding LastMeasurement.Date.Hour,
-                                                                      Converter={StaticResource StringFormatConverter},
-                                                                      ConverterParameter='[0:00]:'}" />
-
-                                            <TextBlock FontFamily="30"
-                                                       FontWeight="Bold"
-                                                       Text="{Binding LastMeasurement.Date.Minute,
-                                                                      Converter={StaticResource StringFormatConverter},
-                                                                      ConverterParameter='[0:00]'}" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Grid>
-                            </Viewbox>
-                        </DataTemplate>-->
                     </GridView.ItemTemplate>
                 </GridView>
             </StackPanel>

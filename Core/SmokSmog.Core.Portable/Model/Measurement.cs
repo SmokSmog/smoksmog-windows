@@ -1,11 +1,12 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Runtime.Serialization;
-using GalaSoft.MvvmLight;
 
 namespace SmokSmog.Model
 {
-    public enum MeasurementAggregationType
+    public enum AggregationType
     {
+        Unavailable = 0,
         Avg1Hour = 1,
         Avg8Hour = 8,
         Avg12Hour = 12,
@@ -14,9 +15,22 @@ namespace SmokSmog.Model
         Avg1Year = 8760,
     }
 
+    public struct Average
+    {
+        public Average(AggregationType aggregationType, double value)
+        {
+            Value = value;
+            AggregationType = aggregationType;
+        }
+
+        public double? Value { get; }
+        public AggregationType AggregationType { get; }
+    }
+
     [DataContract(Namespace = "SmokSmog.Model")]
     public partial class Measurement : ObservableObject
     {
+        private Average _average;
         private DateTime _date = DateTime.MinValue;
 
         private int _parameterId = -1;
@@ -37,6 +51,16 @@ namespace SmokSmog.Model
         /// Air Quality Index value
         /// </summary>
         public AirQualityIndex Aqi => AirQualityIndex.CalculateAirQualityIndex((ParameterType)_parameterId, Value);
+
+        public Average Average
+        {
+            get { return _average; }
+            set
+            {
+                _average = value;
+                RaisePropertyChanged(nameof(Average));
+            }
+        }
 
         /// <summary>
         /// Date and time of Measurement

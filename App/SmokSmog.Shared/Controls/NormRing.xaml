@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="SmokSmog.Controls.NormRing"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:SmokSmog.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:xtcommon="using:WinRTXamlToolkit.Common"
+             xmlns:xtcontrols="using:WinRTXamlToolkit.Controls"
+             x:Name="This"
+             MinWidth="250"
+             MinHeight="250"
+             d:DesignHeight="250"
+             d:DesignWidth="250"
+             RequestedTheme="Light"
+             mc:Ignorable="d">
+
+    <Grid MinWidth="250" MinHeight="250">
+        <xtcontrols:RingSlice EndAngle="180"
+                              Fill="Gray"
+                              InnerRadius="95"
+                              Radius="120"
+                              StartAngle="-179.99" />
+
+        <xtcontrols:RingSlice EndAngle="{Binding EndAngle,
+                                                 ElementName=This}"
+                              Fill="{Binding AQI.Color,
+                                             ElementName=This}"
+                              InnerRadius="95"
+                              Radius="120"
+                              StartAngle="-150" />
+
+        <TextBlock Margin="0,-2,0,0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="80"
+                   FontWeight="Bold"
+                   Foreground="{Binding AQI.Color,
+                                        ElementName=This}"
+                   Text="{Binding AQI.ValueString,
+                                  ElementName=This}" />
+    </Grid>
+</UserControl>

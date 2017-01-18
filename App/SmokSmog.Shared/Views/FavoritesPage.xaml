@@ -49,7 +49,7 @@
                     <FontIcon Grid.Row="0"
                               Grid.Column="0"
                               HorizontalAlignment="Right"
-                              FontFamily="Segoe MDL2 Assets"
+                              FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                               FontSize="25"
                               Glyph="&#xE14C;" />
                     <TextBlock Grid.Row="0"
@@ -70,7 +70,7 @@
                     <FontIcon Grid.Row="2"
                               Grid.Column="0"
                               HorizontalAlignment="Right"
-                              FontFamily="Segoe MDL2 Assets"
+                              FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                               FontSize="25"
                               Glyph="&#xE11A;" />
                     <TextBlock Grid.Row="2"
@@ -90,7 +90,7 @@
 
                 <StackPanel Margin="0,-30,0,20" Orientation="Vertical">
                     <FontIcon HorizontalAlignment="Center"
-                              FontFamily="Segoe MDL2 Assets"
+                              FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                               FontSize="42"
                               Glyph="&#xE815;" />
                     <TextBlock HorizontalAlignment="Center"
@@ -150,7 +150,7 @@
 
                 <StackPanel Margin="0,-50,0,0" Orientation="Vertical">
                     <FontIcon HorizontalAlignment="Center"
-                              FontFamily="Segoe MDL2 Assets"
+                              FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                               FontSize="42"
                               Glyph="&#xE815;" />
                     <TextBlock HorizontalAlignment="Center"
