@@ -96,13 +96,43 @@
   <data name="StringAirQualityIndex" xml:space="preserve">
     <value>Indeks Jakości Powietrza</value>
   </data>
-  <data name="StringIndexComponents" xml:space="preserve">
-    <value>Składniki Indeksu</value>
-  </data>
   <data name="StringMeasure" xml:space="preserve">
     <value>Pomiar</value>
   </data>
   <data name="StringNorm" xml:space="preserve">
     <value>Norma</value>
+  </data>
+  <data name="StringComponents" xml:space="preserve">
+    <value>Składniki</value>
+  </data>
+  <data name="StringAverage" xml:space="preserve">
+    <value>Średnia</value>
+  </data>
+  <data name="StringAirQuality" xml:space="preserve">
+    <value>jakość powietrza</value>
+  </data>
+  <data name="StringBad" xml:space="preserve">
+    <value>Zła</value>
+  </data>
+  <data name="StringGood" xml:space="preserve">
+    <value>Dobra</value>
+  </data>
+  <data name="StringModerate" xml:space="preserve">
+    <value>Umiarkowana</value>
+  </data>
+  <data name="StringNA" xml:space="preserve">
+    <value>N/D</value>
+  </data>
+  <data name="StringNotAvailable" xml:space="preserve">
+    <value>Nie Dostępna</value>
+  </data>
+  <data name="StringSufficient" xml:space="preserve">
+    <value>Dostateczna</value>
+  </data>
+  <data name="StringVeryBad" xml:space="preserve">
+    <value>Bardzo Zła</value>
+  </data>
+  <data name="StringVeryGood" xml:space="preserve">
+    <value>Bardzo Dobra</value>
   </data>
 </root>

@@ -51,6 +51,23 @@
 
         public AirQualityLevel Level { get; } = AirQualityLevel.Unavaible;
 
+        public string LevelString
+        {
+            get
+            {
+                switch (Level)
+                {
+                    case AirQualityLevel.VeryGood: return Resources.AppResources.StringVeryGood;
+                    case AirQualityLevel.Good: return Resources.AppResources.StringGood;
+                    case AirQualityLevel.Moderate: return Resources.AppResources.StringModerate;
+                    case AirQualityLevel.Sufficient: return Resources.AppResources.StringSufficient;
+                    case AirQualityLevel.Bad: return Resources.AppResources.StringBad;
+                    case AirQualityLevel.VeryBad: return Resources.AppResources.StringVeryBad;
+                    default: return Resources.AppResources.StringNotAvailable;
+                }
+            }
+        }
+
         public double? Value { get; } = null;
 
         public string ValueString => Value.HasValue ? string.Format("{0:0.0}", Value.Value) : "N/A";

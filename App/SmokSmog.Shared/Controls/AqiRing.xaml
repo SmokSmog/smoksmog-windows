@@ -31,7 +31,8 @@
                    VerticalAlignment="Center"
                    Margin="0,-2,0,0"
                    FontSize="80"
-                   Foreground="Gray"
+                   FontWeight="Bold"
+                   Foreground="{Binding AQI.Color, ElementName=This}"
                    Text="{Binding AQI.ValueString, ElementName=This}" />
     </Grid>
 </UserControl>

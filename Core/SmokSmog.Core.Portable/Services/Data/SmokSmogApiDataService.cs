@@ -16,7 +16,11 @@ namespace SmokSmog.Services.Data
         private readonly IStorageService _settingsService;
 
         public SmokSmogApiDataProvider(IHttpClient httpClient, IStorageService settingsService)
+#if DEBUG
+            : base(httpClient, "http://beta-api.smoksmog.jkostrz.name")
+#else
             : base(httpClient, "http://api.smoksmog.jkostrz.name")
+#endif
         {
             if (settingsService == null)
                 throw new ArgumentNullException(nameof(settingsService));

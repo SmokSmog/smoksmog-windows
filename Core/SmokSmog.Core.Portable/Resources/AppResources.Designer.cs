@@ -107,6 +107,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to air quality.
+        /// </summary>
+        public static string StringAirQuality {
+            get {
+                return ResourceManager.GetString("StringAirQuality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Air Quality Index.
         /// </summary>
         public static string StringAirQualityIndex {
@@ -116,11 +125,38 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Average.
+        /// </summary>
+        public static string StringAverage {
+            get {
+                return ResourceManager.GetString("StringAverage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bad.
+        /// </summary>
+        public static string StringBad {
+            get {
+                return ResourceManager.GetString("StringBad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to click RMB.
         /// </summary>
         public static string StringClickRMB {
             get {
                 return ResourceManager.GetString("StringClickRMB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Components.
+        /// </summary>
+        public static string StringComponents {
+            get {
+                return ResourceManager.GetString("StringComponents", resourceCulture);
             }
         }
         
@@ -161,6 +197,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Good.
+        /// </summary>
+        public static string StringGood {
+            get {
+                return ResourceManager.GetString("StringGood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to group by.
         /// </summary>
         public static string StringGroupBy {
@@ -197,15 +242,6 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Index Components.
-        /// </summary>
-        public static string StringIndexComponents {
-            get {
-                return ResourceManager.GetString("StringIndexComponents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to information.
         /// </summary>
         public static string StringInformation {
@@ -224,11 +260,38 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Moderate.
+        /// </summary>
+        public static string StringModerate {
+            get {
+                return ResourceManager.GetString("StringModerate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string StringNA {
+            get {
+                return ResourceManager.GetString("StringNA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Norm.
         /// </summary>
         public static string StringNorm {
             get {
                 return ResourceManager.GetString("StringNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Available.
+        /// </summary>
+        public static string StringNotAvailable {
+            get {
+                return ResourceManager.GetString("StringNotAvailable", resourceCulture);
             }
         }
         
@@ -314,6 +377,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sufficient.
+        /// </summary>
+        public static string StringSufficient {
+            get {
+                return ResourceManager.GetString("StringSufficient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown.
         /// </summary>
         public static string StringUnknown {
@@ -328,6 +400,24 @@ namespace SmokSmog.Resources {
         public static string StringVersion {
             get {
                 return ResourceManager.GetString("StringVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Very Bad.
+        /// </summary>
+        public static string StringVeryBad {
+            get {
+                return ResourceManager.GetString("StringVeryBad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Very Good.
+        /// </summary>
+        public static string StringVeryGood {
+            get {
+                return ResourceManager.GetString("StringVeryGood", resourceCulture);
             }
         }
         
