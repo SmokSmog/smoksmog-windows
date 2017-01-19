@@ -20,19 +20,19 @@
     </UserControl.Resources>
 
     <Grid MinWidth="250" MinHeight="250">
-        <xtcontrols:RingSlice EndAngle="150"
+        <xtcontrols:RingSlice EndAngle="150.0"
                               Fill="Gray"
-                              InnerRadius="95"
+                              InnerRadius="95.0"
                               Radius="120"
-                              StartAngle="-150" />
+                              StartAngle="-150.0" />
 
         <xtcontrols:RingSlice EndAngle="{Binding EndAngle,
                                                  ElementName=This}"
                               Fill="{Binding AQI.Info.Color,
                                              ElementName=This}"
                               InnerRadius="95"
-                              Radius="120"
-                              StartAngle="-150" />
+                              Radius="120.0"
+                              StartAngle="-150.0" />
 
         <TextBlock Margin="0,-2,0,0"
                    HorizontalAlignment="Center"

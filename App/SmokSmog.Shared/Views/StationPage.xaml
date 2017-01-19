@@ -3,6 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:SmokSmog.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:is="using:SmokSmog.Xaml.Interactions"
       xmlns:local="using:SmokSmog.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:valueconverters="using:SmokSmog.Xaml.Data.ValueConverters"
@@ -44,7 +47,7 @@
                     </TextBlock>
                 </StackPanel>
 
-                <Viewbox MaxWidth="400">
+                <Viewbox MaxWidth="400" VerticalAlignment="Center">
 
                     <Grid x:Name="AQIRoot"
                           Margin="10,30"
@@ -82,6 +85,66 @@
                                     <SolidColorBrush x:Key="ButtonPressedBackgroundThemeBrush" Color="Transparent" />
                                     <SolidColorBrush x:Key="ButtonPressedForegroundThemeBrush" Color="Gray" />
                                 </Button.Resources>
+
+                                <i:Interaction.Behaviors>
+                                    <ic:EventTriggerBehavior EventName="Tapped">
+                                        <is:ShowAttachedFlyoutAction />
+                                    </ic:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
+
+                                <FlyoutBase.AttachedFlyout>
+                                    <Flyout>
+                                        <ListView Grid.Column="1"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Center"
+                                                  d:DataContext="{Binding Path=AqiInformationViewModel,
+                                                                          Source={StaticResource ViewModelLocator}}"
+                                                  DataContext="{Binding Path=AqiInformationViewModel,
+                                                                        Source={StaticResource ViewModelLocator}}"
+                                                  ItemsSource="{Binding AirQualityInfos}"
+                                                  SelectionMode="None">
+
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="Margin" Value="0" />
+                                                    <Setter Property="Padding" Value="0" />
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition MinWidth="120" />
+                                                            <ColumnDefinition MinWidth="200" />
+                                                            <ColumnDefinition MinWidth="40" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock VerticalAlignment="Center"
+                                                                   FontSize="30"
+                                                                   TextAlignment="Center">
+                                                            <Run Text="{Binding Minimum, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:0.]'}" />
+                                                            -<Run Text="{Binding Maximum, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:0.]'}" />
+                                                        </TextBlock>
+
+                                                        <TextBlock Grid.Column="1"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="30"
+                                                                   Text="{Binding Text}" />
+
+                                                        <Rectangle Grid.Column="2"
+                                                                   Width="40"
+                                                                   Height="40"
+                                                                   HorizontalAlignment="Left"
+                                                                   Fill="{Binding Color}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Flyout>
+                                </FlyoutBase.AttachedFlyout>
+
                                 <Grid>
                                     <Ellipse Width="28"
                                              Height="28"
@@ -292,7 +355,6 @@
                                 </Viewbox>
                             </Border>
                         </DataTemplate>
-
                     </GridView.ItemTemplate>
                 </GridView>
             </StackPanel>

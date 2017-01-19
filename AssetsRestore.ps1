@@ -83,4 +83,6 @@ foreach ($project in $projects) {
 
 If (Test-Path "C:/Windows/Fonts/SEGMDL2.TTF"){
 	Copy-Item "C:/Windows/Fonts/SEGMDL2.TTF" "./App/SmokSmog.Shared/Assets/Fonts/SEGMDL2.TTF" -force
+} Else {
+	Copy-Item "./README.md" "./App/SmokSmog.Shared/Assets/Fonts/SEGMDL2.TTF" -force
 }
