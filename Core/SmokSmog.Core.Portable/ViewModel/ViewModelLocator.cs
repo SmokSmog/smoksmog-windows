@@ -29,12 +29,13 @@ namespace SmokSmog.ViewModel
         {
             if (!_isInitialized)
             {
+                SimpleIoc.Default.Register<AqiInformationViewModel>();
                 SimpleIoc.Default.Register<FavoritesViewModel>();
                 SimpleIoc.Default.Register<GeolocationViewModel>();
                 SimpleIoc.Default.Register<GroupedViewModel>();
                 SimpleIoc.Default.Register<SearchViewModel>();
                 SimpleIoc.Default.Register<StationViewModel>();
-                
+
                 _isInitialized = true;
             }
         }
@@ -71,9 +72,15 @@ namespace SmokSmog.ViewModel
         {
             get { return ServiceLocator.Current.GetInstance<SearchViewModel>(); }
         }
+
         public StationViewModel StationViewModel
         {
             get { return ServiceLocator.Current.GetInstance<StationViewModel>(); }
+        }
+
+        public AqiInformationViewModel AqiInformationViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<AqiInformationViewModel>(); }
         }
 
         public static void Cleanup()

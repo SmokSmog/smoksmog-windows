@@ -18,7 +18,7 @@
       mc:Ignorable="d">
 
     <Page.Resources>
-        <valueconverters:StringFormatConverter x:Key="StringFormatConverter" />
+        <valueconverters:StringDigitFormatConverter x:Key="StringDigitFormatConverter" />
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -143,12 +143,14 @@
                                                         Margin="10,0,0,0"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        Background="{Binding LastMeasurement.Aqi.Color}"
+                                                        Background="{Binding LastMeasurement.Aqi.Info.Color}"
                                                         BorderThickness="0"
                                                         Padding="5">
                                                     <TextBlock HorizontalAlignment="Center"
                                                                FontSize="50"
-                                                               Text="{Binding LastMeasurement.Aqi.ValueString}" />
+                                                               Text="{Binding LastMeasurement.Aqi.Value,
+                                                                              Converter={StaticResource StringDigitFormatConverter},
+                                                                              ConverterParameter='[0:0.0]'}" />
                                                 </Border>
                                             </Grid>
                                         </DataTemplate>
@@ -162,7 +164,7 @@
                                                       Source={StaticResource LocalizedStrings}}"
                                        TextAlignment="Center" />
                             <TextBlock FontSize="40"
-                                       Text="{Binding AirQualityIndex.LevelString}"
+                                       Text="{Binding AirQualityIndex.Info.Text}"
                                        TextAlignment="Center" />
                         </StackPanel>
                     </Grid>
@@ -216,7 +218,7 @@
                                                        FontWeight="Medium"
                                                        Foreground="Black"
                                                        Text="{Binding LastMeasurement.Value,
-                                                                      Converter={StaticResource StringFormatConverter},
+                                                                      Converter={StaticResource StringDigitFormatConverter},
                                                                       ConverterParameter='[0:0.##]'}"
                                                        TextAlignment="Center" />
                                             <TextBlock FontSize="10"
@@ -232,8 +234,7 @@
                                         <Viewbox Grid.Column="1"
                                                  Width="100"
                                                  Margin="0,10,0,10">
-                                            <!--<controls:AqiRing AQI="{Binding LastMeasurement.Aqi}" />-->
-                                            <controls:NormRing ParameterWithMeasurements="{Binding}"/>
+                                            <controls:NormRing ParameterWithMeasurements="{Binding}" />
                                         </Viewbox>
 
                                         <Grid Grid.Column="2" Margin="12,8,8,8">
@@ -251,7 +252,7 @@
                                                     <Run FontWeight="Medium"
                                                          Foreground="Black"
                                                          Text="{Binding Parameter.NormValue,
-                                                                        Converter={StaticResource StringFormatConverter},
+                                                                        Converter={StaticResource StringDigitFormatConverter},
                                                                         ConverterParameter='[0:0.##]'}" />
                                                     <Run Text="{Binding Parameter.Unit}" />
                                                 </TextBlock>
@@ -266,7 +267,7 @@
                                                     <Run FontWeight="Medium"
                                                          Foreground="Black"
                                                          Text="{Binding LastMeasurement.Average.Value,
-                                                                        Converter={StaticResource StringFormatConverter},
+                                                                        Converter={StaticResource StringDigitFormatConverter},
                                                                         ConverterParameter='[0:0.##]'}" />
                                                     <Run Text="{Binding Parameter.Unit}" />
                                                 </TextBlock>
@@ -277,13 +278,13 @@
                                                         VerticalAlignment="Bottom"
                                                         Orientation="Vertical">
                                                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                                    <TextBlock FontWeight="Bold" Text="{Binding LastMeasurement.Date.Hour, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:00]:'}" />
-                                                    <TextBlock FontWeight="Bold" Text="{Binding LastMeasurement.Date.Minute, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:00]'}" />
+                                                    <TextBlock FontWeight="Bold" Text="{Binding LastMeasurement.Date.Hour, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]:'}" />
+                                                    <TextBlock FontWeight="Bold" Text="{Binding LastMeasurement.Date.Minute, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]'}" />
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock FontSize="10" Text="{Binding LastMeasurement.Date.Day, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:00]-'}" />
-                                                    <TextBlock FontSize="10" Text="{Binding LastMeasurement.Date.Month, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:00]-'}" />
-                                                    <TextBlock FontSize="10" Text="{Binding LastMeasurement.Date.Year, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:0000]  '}" />
+                                                    <TextBlock FontSize="10" Text="{Binding LastMeasurement.Date.Day, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]-'}" />
+                                                    <TextBlock FontSize="10" Text="{Binding LastMeasurement.Date.Month, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]-'}" />
+                                                    <TextBlock FontSize="10" Text="{Binding LastMeasurement.Date.Year, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:0000]  '}" />
                                                 </StackPanel>
                                             </StackPanel>
                                         </Grid>

@@ -71,6 +71,7 @@
     <Compile Include="Globalization\LocalizedStrings.cs" />
     <Compile Include="Messenger\StationChangeMessage.cs" />
     <Compile Include="Model\AirQualityIndex.cs" />
+    <Compile Include="Model\AirQualityInfo.cs" />
     <Compile Include="Model\StationState.cs" />
     <Compile Include="Net\Http\HttpClientProxy.cs" />
     <Compile Include="Net\Http\IHttpClient.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Services\Geolocation\IGeolocationService.cs" />
     <Compile Include="Services\IServiceLocator.cs" />
     <Compile Include="Services\Storage\IStorageService.cs" />
+    <Compile Include="ViewModel\AqiInformationViewModel.cs" />
     <Compile Include="ViewModel\FavoritesViewModel.cs" />
     <Compile Include="ViewModel\GeolocationViewModel.cs" />
     <Compile Include="ViewModel\SearchViewModel.cs" />

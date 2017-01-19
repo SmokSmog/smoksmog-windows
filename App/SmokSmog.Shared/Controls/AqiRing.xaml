@@ -4,15 +4,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="using:SmokSmog.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:valueconverters="using:SmokSmog.Xaml.Data.ValueConverters"
              xmlns:xtcommon="using:WinRTXamlToolkit.Common"
              xmlns:xtcontrols="using:WinRTXamlToolkit.Controls"
              x:Name="This"
-             MinHeight="250"
              MinWidth="250"
-             RequestedTheme="Light"
+             MinHeight="250"
              d:DesignHeight="250"
              d:DesignWidth="250"
+             RequestedTheme="Light"
              mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <valueconverters:StringDigitFormatConverter x:Key="StringDigitFormatConverter" />
+    </UserControl.Resources>
 
     <Grid MinWidth="250" MinHeight="250">
         <xtcontrols:RingSlice EndAngle="150"
@@ -21,18 +26,24 @@
                               Radius="120"
                               StartAngle="-150" />
 
-        <xtcontrols:RingSlice EndAngle="{Binding EndAngle, ElementName=This}"
-                              Fill="{Binding AQI.Color, ElementName=This}"
+        <xtcontrols:RingSlice EndAngle="{Binding EndAngle,
+                                                 ElementName=This}"
+                              Fill="{Binding AQI.Info.Color,
+                                             ElementName=This}"
                               InnerRadius="95"
                               Radius="120"
                               StartAngle="-150" />
 
-        <TextBlock HorizontalAlignment="Center"
+        <TextBlock Margin="0,-2,0,0"
+                   HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Margin="0,-2,0,0"
                    FontSize="80"
                    FontWeight="Bold"
-                   Foreground="{Binding AQI.Color, ElementName=This}"
-                   Text="{Binding AQI.ValueString, ElementName=This}" />
+                   Foreground="{Binding AQI.Info.Color,
+                                        ElementName=This}"
+                   Text="{Binding AQI.Value,
+                                  ElementName=This,
+                                  Converter={StaticResource StringDigitFormatConverter},
+                                  ConverterParameter='[0:0.0]'}" />
     </Grid>
 </UserControl>

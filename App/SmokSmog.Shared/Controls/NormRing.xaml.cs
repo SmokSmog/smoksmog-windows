@@ -12,8 +12,6 @@ namespace SmokSmog.Controls
             this.InitializeComponent();
         }
 
-
-
         public string Color
         {
             get { return (string)GetValue(ColorProperty); }
@@ -76,14 +74,14 @@ namespace SmokSmog.Controls
                     if (norm.HasValue && avg.HasValue)
                     {
                         double ratio = avg.Value / norm.Value;
-                        string format = "{0:0.#}%";
+                        string format = "{0:0.0}%";
 
                         if (ratio > 0 && ratio < 1)
                         {
                             ring.EndAngle = ratio * 360 - 180;
                             ring.Color = "#5ae1d7";
                             if (ratio < 0.1d)
-                                format = "{0:0.##}%";
+                                format = "{0:0.00}%";
                         }
                         else if (ratio >= 1)
                         {

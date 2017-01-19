@@ -1,8 +1,10 @@
-﻿namespace SmokSmog.Model
+﻿using System;
+
+namespace SmokSmog.Model
 {
     public enum AirQualityLevel : int
     {
-        Unavaible = -1,
+        NotAvailable = -1,
         VeryGood = 0,
         Good = 1,
         Moderate = 2,
@@ -15,62 +17,38 @@
     {
         private AirQualityIndex()
         {
+            Info = AirQualityInfo.Factory(AirQualityLevel.NotAvailable);
         }
 
         private AirQualityIndex(double? value)
         {
             Value = value;
 
-            if (!value.HasValue) Level = AirQualityLevel.Unavaible;
-            else if (value <= 1) Level = AirQualityLevel.VeryGood;
-            else if (value <= 3) Level = AirQualityLevel.Good;
-            else if (value <= 5) Level = AirQualityLevel.Moderate;
-            else if (value <= 7) Level = AirQualityLevel.Sufficient;
-            else if (value <= 10) Level = AirQualityLevel.Bad;
-            else if (value > 10) Level = AirQualityLevel.VeryBad;
+            if (!value.HasValue) Info = AirQualityInfo.Factory(AirQualityLevel.NotAvailable);
+
+            foreach (AirQualityLevel item in Enum.GetValues(typeof(AirQualityLevel)))
+            {
+                var info = AirQualityInfo.Factory(item);
+                if (info.Minimum < Value.Value && Value <= info.Maximum)
+                {
+                    Info = info;
+                    break;
+                }
+            }
+
+            //else if (value <= 1) Info = new AirQualityInfo(AirQualityLevel.VeryGood);
+            //else if (value <= 3) Info = new AirQualityInfo(AirQualityLevel.Good);
+            //else if (value <= 5) Info = new AirQualityInfo(AirQualityLevel.Moderate);
+            //else if (value <= 7) Info = new AirQualityInfo(AirQualityLevel.Sufficient);
+            //else if (value <= 10) Info = new AirQualityInfo(AirQualityLevel.Bad);
+            //else if (value > 10) Info = new AirQualityInfo(AirQualityLevel.VeryBad);
         }
+
+        public AirQualityInfo Info { get; }
 
         public static AirQualityIndex Unavaible => new AirQualityIndex();
 
-        public string Color
-        {
-            get
-            {
-                switch (Level)
-                {
-                    case AirQualityLevel.VeryGood: return "#FF00b050";
-                    case AirQualityLevel.Good: return "#FF92D050";
-                    case AirQualityLevel.Moderate: return "#FFFFFF00";
-                    case AirQualityLevel.Sufficient: return "#FFFFC000";
-                    case AirQualityLevel.Bad: return "#FFFF0000";
-                    case AirQualityLevel.VeryBad: return "#FFC00000";
-                    default: return "Gray";
-                }
-            }
-        }
-
-        public AirQualityLevel Level { get; } = AirQualityLevel.Unavaible;
-
-        public string LevelString
-        {
-            get
-            {
-                switch (Level)
-                {
-                    case AirQualityLevel.VeryGood: return Resources.AppResources.StringVeryGood;
-                    case AirQualityLevel.Good: return Resources.AppResources.StringGood;
-                    case AirQualityLevel.Moderate: return Resources.AppResources.StringModerate;
-                    case AirQualityLevel.Sufficient: return Resources.AppResources.StringSufficient;
-                    case AirQualityLevel.Bad: return Resources.AppResources.StringBad;
-                    case AirQualityLevel.VeryBad: return Resources.AppResources.StringVeryBad;
-                    default: return Resources.AppResources.StringNotAvailable;
-                }
-            }
-        }
-
         public double? Value { get; } = null;
-
-        public string ValueString => Value.HasValue ? string.Format("{0:0.0}", Value.Value) : Resources.AppResources.StringNA;
 
         public static AirQualityIndex CalculateAirQualityIndex(ParameterType parameterType, double? parameterValue)
         {
