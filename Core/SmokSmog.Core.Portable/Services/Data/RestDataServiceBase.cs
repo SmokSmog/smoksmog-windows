@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SmokSmog.Net.Http;
+using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using SmokSmog.Net.Http;
 
 namespace SmokSmog.Services.Data
 {
@@ -18,6 +18,7 @@ namespace SmokSmog.Services.Data
         {
             if (httpClient == null)
                 throw new ArgumentNullException(nameof(httpClient));
+
             HttpClient = httpClient;
 
             if (baseUri == null)
