@@ -7,6 +7,7 @@
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:is="using:SmokSmog.Xaml.Interactions"
+      xmlns:nav="using:SmokSmog.Navigation"
       xmlns:local="using:SmokSmog"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       x:Name="This"
@@ -189,7 +190,7 @@
                                                             TargetObject="{Binding ElementName=This}"
                                                             UseTransitions="True" />
                                         <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
-                                        <is:FrameNavigateToPageAction Frame="{Binding ElementName=ContentFrame2}" TargetPage="SmokSmog.Views.FavoritesPage" />
+                                        <nav:NavigateAction TargetPage="FavoritesPage" />
                                     </ic:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
 
@@ -215,7 +216,7 @@
                                                         TargetObject="{Binding ElementName=This}"
                                                         UseTransitions="True" />
                                     <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
-                                    <is:FrameNavigateToPageAction Frame="{Binding ElementName=ContentFrame2}" TargetPage="SmokSmog.Views.StationListPage" />
+                                    <nav:NavigateAction TargetPage="StationListPage" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 
@@ -328,7 +329,8 @@
             </Grid.ColumnDefinitions>
 
             <!--  Page Content for list  -->
-            <Frame x:Name="ContentFrame2"
+            <Frame x:Name="SecondFrame"
+                   x:FieldModifier="public"
                    Margin="{StaticResource SmokSmogContentMargin}"
                    Background="LightGray"
                    Canvas.ZIndex="100"
@@ -336,31 +338,13 @@
                                             ElementName=This}" />
 
             <!--  Page Content for main content  -->
-            <Frame x:Name="ContentFrame1"
+            <Frame x:Name="MainFrame"
+                   x:FieldModifier="public"
                    Grid.Column="1"
                    Background="Gray"
                    Canvas.ZIndex="0"
                    RequestedTheme="{Binding RequestedTheme,
                                             ElementName=This}" />
-
-            <!--  Page Content for list  -->
-            <!--
-            <Frame x:Name="ContentFrame2"
-                   Margin="{StaticResource SmokSmogContentMargin}"
-                   Background="Red"
-                   Canvas.ZIndex="100"
-                   RequestedTheme="{Binding RequestedTheme,
-                                            ElementName=This}" />
-
-            -->
-            <!--  Page Content for main content  -->
-            <!--
-            <Frame x:Name="ContentFrame1"
-                   Grid.Column="1"
-                   Background="Gray"
-                   Canvas.ZIndex="0"
-                   RequestedTheme="{Binding RequestedTheme,
-                                            ElementName=This}" />-->
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
@@ -413,15 +397,15 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="Margin">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainFrame" Storyboard.TargetProperty="Margin">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(Grid.Column)">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainFrame" Storyboard.TargetProperty="(Grid.Column)">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="Margin">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SecondFrame" Storyboard.TargetProperty="Margin">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
@@ -441,15 +425,15 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="Margin">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainFrame" Storyboard.TargetProperty="Margin">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmokSmogContentMargin}" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(Grid.Column)">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainFrame" Storyboard.TargetProperty="(Grid.Column)">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame2" Storyboard.TargetProperty="Margin">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SecondFrame" Storyboard.TargetProperty="Margin">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmokSmogContentMargin}" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
@@ -468,11 +452,11 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="*" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="Margin">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainFrame" Storyboard.TargetProperty="Margin">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(Grid.Column)">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainFrame" Storyboard.TargetProperty="(Grid.Column)">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
@@ -480,7 +464,7 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="ContentFramesVisualStateGroup">
-                <VisualState x:Name="Frame1">
+                <VisualState x:Name="SecondFrameActive">
                     <Storyboard>
 
                         <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(UIElement.Visibility)">
@@ -501,7 +485,7 @@
                     </Storyboard>
                 </VisualState>
 
-                <VisualState x:Name="Frame2">
+                <VisualState x:Name="MainFrameActive">
                     <Storyboard>
 
                         <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentFrame1" Storyboard.TargetProperty="(UIElement.Visibility)">

@@ -20,11 +20,15 @@ namespace SmokSmog
 
             this.Loaded += page_Loaded;
             this.Unloaded += page_Unloaded;
-            ContentFrame.Navigated += ContentFrame_Navigated;
-            ContentFrame2.SourcePageType = typeof(Views.StationListPage);
-        }
 
-        public Frame ContentFrame => ContentFrame1;
+            SecondFrame.SourcePageType = typeof(Views.StationListPage);
+
+            var groups = VisualStateManager.GetVisualStateGroups(this);
+            foreach (var group in groups)
+            {
+                //group.
+            }
+        }
 
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
@@ -41,25 +45,20 @@ namespace SmokSmog
             // hardware Back button by registering for the
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event. If you are using the
             // NavigationHelper provided by some templates, this event is handled for you.
-            SetMainState();
+            SetLayoutVisualState();
         }
 
-        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
-        {
-            SetSearchState();
-        }
+        //private void ContentFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        //{
+        //    var content = ContentFrame.Content;
+        //    var contentString = content?.ToString();
+        //}
 
-        private void ContentFrame_Navigating(object sender, NavigatingCancelEventArgs e)
-        {
-            var content = ContentFrame.Content;
-            var contentString = content?.ToString();
-        }
-
-        private void SetMainState()
+        private void SetLayoutVisualState()
         {
             double width = ActualWidth;
             string stateName = "Default";
-            if (width >= 840) stateName = "Wide";
+            if (width >= 850) stateName = "Wide";
             if (width <= 440) stateName = "Small";
 
             VisualStateManager.GoToState(this, stateName, true);
@@ -67,14 +66,14 @@ namespace SmokSmog
 
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            SetMainState();
+            SetLayoutVisualState();
             SetSearchState();
         }
 
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
             SizeChanged += MainPage_SizeChanged;
-            SetMainState();
+            SetLayoutVisualState();
             SetSearchState();
         }
 
@@ -131,27 +130,27 @@ namespace SmokSmog
 
             if (string.IsNullOrWhiteSpace(searchString))
             {
-                if (!ContentFrame2.CurrentSourcePageType.Equals(typeof(Views.SearchPage)) && ContentFrame2.CanGoBack)
-                    ContentFrame2.GoBack();
+                if (!SecondFrame.CurrentSourcePageType.Equals(typeof(Views.SearchPage)) && SecondFrame.CanGoBack)
+                    SecondFrame.GoBack();
             }
             else
             {
-                if (!ContentFrame2.CurrentSourcePageType.Equals(typeof(Views.SearchPage)))
-                    ContentFrame2.Navigate(typeof(Views.SearchPage));
+                if (!SecondFrame.CurrentSourcePageType.Equals(typeof(Views.SearchPage)))
+                    SecondFrame.Navigate(typeof(Views.SearchPage));
             }
         }
 
         private void HomeButtonClick(object sender, RoutedEventArgs e)
         {
-            Canvas.SetZIndex(ContentFrame1, 100);
-            Canvas.SetZIndex(ContentFrame2, 0);
+            Canvas.SetZIndex(MainFrame, 100);
+            Canvas.SetZIndex(SecondFrame, 0);
             VisualStateManager.GoToState(this, "Frame1", true);
         }
 
         private void FavoritesButtonClick(object sender, RoutedEventArgs e)
         {
-            Canvas.SetZIndex(ContentFrame1, 0);
-            Canvas.SetZIndex(ContentFrame2, 100);
+            Canvas.SetZIndex(MainFrame, 0);
+            Canvas.SetZIndex(SecondFrame, 100);
             VisualStateManager.GoToState(this, "Frame2", true);
         }
 

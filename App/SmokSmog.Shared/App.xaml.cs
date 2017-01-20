@@ -1,10 +1,9 @@
-﻿using SmokSmog.Resources;
+﻿using SmokSmog.Navigation;
+using SmokSmog.Resources;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog
@@ -12,9 +11,9 @@ namespace SmokSmog
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App : Application, INavigationProvider
     {
-        private TransitionCollection _transitions;
+        //private TransitionCollection _transitions;
 
         /// <summary>
         /// Initializes the singleton application object. This is the first line of authored code
@@ -29,6 +28,16 @@ namespace SmokSmog
 
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+        }
+
+        public SmokSmog.Navigation.INavigationService NavigationService
+        {
+            get
+            {
+                object obj = null;
+                Resources.TryGetValue("NavigationService", out obj);
+                return obj as SmokSmog.Navigation.NavigationService;
+            }
         }
 
         /// <summary>
@@ -61,7 +70,7 @@ namespace SmokSmog
                 mainPage = new MainPage();
 
                 // TODO: change this value to a cache size that is appropriate for your application
-                mainPage.ContentFrame.CacheSize = 1;
+                //mainPage.ContentFrame.CacheSize = 1;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -72,33 +81,33 @@ namespace SmokSmog
                 Window.Current.Content = mainPage;
             }
 
-            if (mainPage.ContentFrame.Content == null)
-            {
-                // Removes the turnstile navigation for startup.
-                if (mainPage.ContentFrame.ContentTransitions != null)
-                {
-                    this._transitions = new TransitionCollection();
-                    foreach (var c in mainPage.ContentFrame.ContentTransitions)
-                    {
-                        this._transitions.Add(c);
-                    }
-                }
+            //if (mainPage.ContentFrame.Content == null)
+            //{
+            //    // Removes the turnstile navigation for startup.
+            //    if (mainPage.ContentFrame.ContentTransitions != null)
+            //    {
+            //        this._transitions = new TransitionCollection();
+            //        foreach (var c in mainPage.ContentFrame.ContentTransitions)
+            //        {
+            //            this._transitions.Add(c);
+            //        }
+            //    }
 
-                mainPage.ContentFrame.ContentTransitions = null;
-                mainPage.ContentFrame.Navigated += this.RootFrame_FirstNavigated;
-                mainPage.ContentFrame.NavigationFailed += OnNavigationFailed;
+            // mainPage.ContentFrame.ContentTransitions = null; mainPage.ContentFrame.Navigated +=
+            // this.RootFrame_FirstNavigated; mainPage.ContentFrame.NavigationFailed += OnNavigationFailed;
 
-                // When the navigation stack isn't restored navigate to the first page, configuring
-                // the new page by passing required information as a navigation parameter
+            // // When the navigation stack isn't restored navigate to the first page, configuring //
+            // the new page by passing required information as a navigation parameter
 
-                if (!mainPage.ContentFrame.Navigate(typeof(Views.StationPage), e.Arguments))
-                {
-                    throw new Exception("Failed to create initial page");
-                }
-            }
+            //    if (!mainPage.ContentFrame.Navigate(typeof(Views.StationPage), e.Arguments))
+            //    {
+            //        throw new Exception("Failed to create initial page");
+            //    }
+            //}
 
             // Ensure the current window is active
             Window.Current.Activate();
+
 #if WINDOWS_PHONE
 
                 var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
@@ -145,23 +154,24 @@ namespace SmokSmog
             deferral.Complete();
         }
 
-        /// <summary>
-        /// Restores the content transitions after the app has launched.
-        /// </summary>
-        /// <param name="sender">The object where the handler is attached.</param>
-        /// <param name="e">     Details about the navigation event.</param>
-        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
-        {
-            var rootFrame = sender as Frame;
+        // ///
+        // <summary>
+        // /// Restores the content transitions after the app has launched. ///
+        // </summary>
+        // ///
+        // <param name="sender">The object where the handler is attached.</param>
+        // ///
+        // <param name="e">     Details about the navigation event.</param>
+        // private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e) { var
+        // rootFrame = sender as Frame;
 
-            rootFrame.ContentTransitions = this._transitions ?? new TransitionCollection()
-            {
-#if WINDOWS_UWP || WINDOWS_PHONE
-                new NavigationThemeTransition(),
-#endif
-            };
+        //            rootFrame.ContentTransitions = this._transitions ?? new TransitionCollection()
+        //            {
+        //#if WINDOWS_UWP || WINDOWS_PHONE
+        //                new NavigationThemeTransition(),
+        //#endif
+        //            };
 
-            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
-        }
+        // rootFrame.Navigated -= this.RootFrame_FirstNavigated; }
     }
 }

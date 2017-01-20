@@ -1,20 +1,13 @@
 ﻿using Microsoft.Xaml.Interactivity;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Markup;
 
-namespace SmokSmog.Xaml.Interactions
+namespace SmokSmog.Navigation
 {
     /// <summary>
     /// An action that switches the current visual to the specified <see cref="Windows.UI.Xaml.Controls.Page"/>.
     /// </summary>
-    internal sealed class FrameNavigateToPageAction : DependencyObject, IAction
+    public class NavigateAction : DependencyObject, IAction
     {
-        // Using a DependencyProperty as the backing store for Frame. This enables animation,
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public static readonly DependencyProperty FrameProperty =
-            DependencyProperty.Register("Frame", typeof(Frame), typeof(FrameNavigateToPageAction), new PropertyMetadata(null));
-
         /// <summary>
         /// Identifies the <seealso cref="Parameter"/> dependency property.
         /// </summary>
@@ -22,7 +15,7 @@ namespace SmokSmog.Xaml.Interactions
         public static readonly DependencyProperty ParameterProperty = DependencyProperty.Register(
             "Parameter",
             typeof(object),
-            typeof(FrameNavigateToPageAction),
+            typeof(NavigateAction),
             new PropertyMetadata(null));
 
         /// <summary>
@@ -32,19 +25,13 @@ namespace SmokSmog.Xaml.Interactions
         public static readonly DependencyProperty TargetPageProperty = DependencyProperty.Register(
             "TargetPage",
             typeof(string),
-            typeof(FrameNavigateToPageAction),
+            typeof(NavigateAction),
             new PropertyMetadata(null));
 
         /// <summary> Initializes a new instance of the NavigateToPageAction class. </summary>
         /// IVisualTreeHelper implementation to use when searching the tree for an INavigate target. </param>
-        public FrameNavigateToPageAction()
+        public NavigateAction()
         {
-        }
-
-        public Frame Frame
-        {
-            get { return (Frame)GetValue(FrameProperty); }
-            set { SetValue(FrameProperty, value); }
         }
 
         /// <summary>
@@ -53,8 +40,8 @@ namespace SmokSmog.Xaml.Interactions
         /// </summary>
         public object Parameter
         {
-            get { return (object)this.GetValue(FrameNavigateToPageAction.ParameterProperty); }
-            set { this.SetValue(FrameNavigateToPageAction.ParameterProperty, value); }
+            get { return (object)this.GetValue(NavigateAction.ParameterProperty); }
+            set { this.SetValue(NavigateAction.ParameterProperty, value); }
         }
 
         /// <summary>
@@ -63,8 +50,8 @@ namespace SmokSmog.Xaml.Interactions
         /// </summary>
         public string TargetPage
         {
-            get { return (string)this.GetValue(FrameNavigateToPageAction.TargetPageProperty); }
-            set { this.SetValue(FrameNavigateToPageAction.TargetPageProperty, value); }
+            get { return (string)this.GetValue(NavigateAction.TargetPageProperty); }
+            set { this.SetValue(NavigateAction.TargetPageProperty, value); }
         }
 
         /// <summary>
@@ -77,34 +64,10 @@ namespace SmokSmog.Xaml.Interactions
         /// </param>
         /// <param name="parameter">The value of this parameter is determined by the caller.</param>
         /// <returns>True if the navigation to the specified page is successful; else false.</returns>
-        public object Execute(object sender, object parameter)
+        public virtual object Execute(object sender, object parameter)
         {
-            if (string.IsNullOrEmpty(this.TargetPage))
-            {
-                return false;
-            }
-
-            IXamlMetadataProvider metadataProvider = Application.Current as IXamlMetadataProvider;
-            if (metadataProvider == null)
-            {
-                // This will happen if there are no XAML files in the project other than App.xaml.
-                // The markup compiler doesn't bother implementing IXamlMetadataProvider on the app
-                // in that case.
-                return false;
-            }
-
-            IXamlType xamlType = metadataProvider.GetXamlType(this.TargetPage);
-            if (xamlType == null)
-            {
-                return false;
-            }
-
-            if (Frame != null)
-            {
-                if (Frame.Content != xamlType.UnderlyingType)
-                    return Frame.Navigate(xamlType.UnderlyingType, this.Parameter ?? parameter);
-            }
-
+            var navProvider = Application.Current as INavigationProvider;
+            navProvider?.NavigationService?.NavigateTo(TargetPage, Parameter);
             return false;
         }
     }
