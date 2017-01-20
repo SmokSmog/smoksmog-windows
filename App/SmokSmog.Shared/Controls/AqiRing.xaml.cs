@@ -18,7 +18,7 @@ namespace SmokSmog.Controls
         }
 
         public static readonly DependencyProperty EndAngleProperty =
-            DependencyProperty.Register("EndAngle", typeof(double), typeof(AqiRing), new PropertyMetadata(-150));
+            DependencyProperty.Register("EndAngle", typeof(double), typeof(AqiRing), new PropertyMetadata(-150d));
 
         public AirQualityIndex AQI
 
@@ -38,6 +38,7 @@ namespace SmokSmog.Controls
                 if (e.NewValue == null)
                 {
                     ring.AQI = AirQualityIndex.Unavaible;
+                    ring.EndAngle = -150d;
                     return;
                 }
 
@@ -47,18 +48,18 @@ namespace SmokSmog.Controls
                 {
                     if (aqi.Value > 0 && aqi.Value < 10)
                     {
-                        ring.EndAngle = aqi.Value.Value / 10d * 300 - 150;
+                        ring.EndAngle = aqi.Value.Value / 10d * 300d - 150d;
                     }
                     else if (aqi.Value >= 10)
                     {
-                        ring.EndAngle = 150;
+                        ring.EndAngle = 150d;
                     }
                     else
                         ring.EndAngle = -150;
                 }
                 else
                 {
-                    ring.EndAngle = -150;
+                    ring.EndAngle = -150d;
                 }
             }
         }

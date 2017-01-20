@@ -12,8 +12,6 @@ namespace SmokSmog.Controls
             this.InitializeComponent();
         }
 
-
-
         public string Color
         {
             get { return (string)GetValue(ColorProperty); }
@@ -32,7 +30,7 @@ namespace SmokSmog.Controls
         }
 
         public static readonly DependencyProperty EndAngleProperty =
-            DependencyProperty.Register("EndAngle", typeof(double), typeof(AqiRing), new PropertyMetadata(-180));
+            DependencyProperty.Register("EndAngle", typeof(double), typeof(NormRing), new PropertyMetadata(-180d));
 
         public string Percent
         {
@@ -63,7 +61,7 @@ namespace SmokSmog.Controls
                 {
                     LocalizedStrings LocalizedStrings = new LocalizedStrings();
                     ring.Percent = string.Format(LocalizedStrings.LocalizedString("StringNA"));
-                    ring.EndAngle = -180;
+                    ring.EndAngle = -180d;
                     return;
                 }
 
@@ -76,25 +74,25 @@ namespace SmokSmog.Controls
                     if (norm.HasValue && avg.HasValue)
                     {
                         double ratio = avg.Value / norm.Value;
-                        string format = "{0:0.#}%";
+                        string format = "{0:0.0}%";
 
                         if (ratio > 0 && ratio < 1)
                         {
-                            ring.EndAngle = ratio * 360 - 180;
+                            ring.EndAngle = ratio * 360d - 180d;
                             ring.Color = "#5ae1d7";
                             if (ratio < 0.1d)
-                                format = "{0:0.##}%";
+                                format = "{0:0.00}%";
                         }
                         else if (ratio >= 1)
                         {
-                            ring.EndAngle = 180;
+                            ring.EndAngle = 180d;
                             ring.Color = "#FFf2a21b";
                             if (ratio >= 10)
                                 format = "{0:0.}%";
                         }
                         else
                         {
-                            ring.EndAngle = -180;
+                            ring.EndAngle = -180d;
                             ring.Color = "#5ae1d7";
                         }
 
@@ -103,7 +101,7 @@ namespace SmokSmog.Controls
                 }
                 else
                 {
-                    ring.EndAngle = -180;
+                    ring.EndAngle = -180d;
                 }
             }
         }

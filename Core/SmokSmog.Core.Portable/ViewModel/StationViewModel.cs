@@ -71,7 +71,7 @@
                         var lastMeasurements = from pwm in list where pwm.LastMeasurement.DateUTC - max < TimeSpan.FromMinutes(10) select pwm;
                         if (lastMeasurements.Any())
                         {
-                            AirQualityIndex = lastMeasurements.MaxBy(o => o.LastMeasurement.Aqi.Level).LastMeasurement.Aqi;
+                            AirQualityIndex = lastMeasurements.MaxBy(o => o.LastMeasurement.Aqi.Info).LastMeasurement.Aqi;
                             return lastMeasurements.OrderByDescending(o => o.LastMeasurement.Aqi.Value).ToList();
                         }
                     }
@@ -105,22 +105,29 @@
 
         public async Task LoadData(Model.Station station)
         {
-            var dataService = Services.ServiceLocator.Instance.DataService;
-
-            var parameters = (await dataService.GetParametersAsync(station)).ToList();
-            var measurements = (await dataService.GetMeasurementsAsync(station, parameters)).ToList();
-
             ParameterWithMeasurements.Clear();
 
-            if (measurements.Any())
+            try
             {
-                foreach (var param in parameters)
+                var dataService = Services.ServiceLocator.Instance.DataService;
+                var parameters = (await dataService.GetParametersAsync(station)).ToList();
+                var measurements = (await dataService.GetMeasurementsAsync(station, parameters)).ToList();
+
+                if (measurements.Any())
                 {
-                    if (param != null)
-                        ParameterWithMeasurements.Add(
-                            new ParameterWithMeasurements(param,
-                                (from m in measurements where m.ParameterId == param.Id orderby m.DateUTC select m).ToList()));
+                    foreach (var param in parameters)
+                    {
+                        if (param != null)
+                            ParameterWithMeasurements.Add(
+                                new ParameterWithMeasurements(param,
+                                    (from m in measurements where m.ParameterId == param.Id orderby m.DateUTC select m).ToList()));
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Diagnostics.Logger.Log(ex);
+                //throw;
             }
 
             RaisePropertyChanged(nameof(AQIComponentsList));

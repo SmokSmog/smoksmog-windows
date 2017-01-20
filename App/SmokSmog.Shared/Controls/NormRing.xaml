@@ -29,18 +29,15 @@
                               Radius="120"
                               StartAngle="-179.99" />
 
-
-        <!--<Rectangle Fill="Red" Width="180" Height="180"/>-->
-
-        <Viewbox MaxWidth="180" HorizontalAlignment="Center"
-                   VerticalAlignment="Center">
-            <TextBlock                    
-                   FontSize="80"
-                   FontWeight="Bold"
-                   Foreground="{Binding Color,
-                                        ElementName=This}"
-                   Text="{Binding Percent,
-                                  ElementName=This}" />
+        <Viewbox MaxWidth="180"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center">
+            <TextBlock FontSize="80"
+                       FontWeight="Bold"
+                       Foreground="{Binding Color,
+                                            ElementName=This}"
+                       Text="{Binding Percent,
+                                      ElementName=This}" />
         </Viewbox>
     </Grid>
 </UserControl>

@@ -66,7 +66,7 @@ foreach ($project in $projects) {
 		foreach ($target in $project.Target){
 			$assetTargetSrcPath = "$assetName.targetsize-$target.png"
 			$assetTargetAltPath = "$assetName.targetsize-$($target)_altform-unplated.png"
-			
+
 			#Square44x44Logo.targetsize-256_altform-unplated
 
 			If (Test-Path "$sharedPath/$assetTargetSrcPath"){
@@ -79,4 +79,10 @@ foreach ($project in $projects) {
 			}
 		}
 	}
+}
+
+If (Test-Path "C:/Windows/Fonts/SEGMDL2.TTF"){
+	Copy-Item "C:/Windows/Fonts/SEGMDL2.TTF" "./App/SmokSmog.Shared/Assets/Fonts/SEGMDL2.TTF" -force
+} Else {
+	Copy-Item "./README.md" "./App/SmokSmog.Shared/Assets/Fonts/SEGMDL2.TTF" -force
 }

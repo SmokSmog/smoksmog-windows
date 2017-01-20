@@ -34,7 +34,7 @@ namespace SmokSmog.Globalization
             }
         }
 
-        public string LocalizedString(string resourceKey)
+        public static string LocalizedString(string resourceKey)
         {
             try
             {

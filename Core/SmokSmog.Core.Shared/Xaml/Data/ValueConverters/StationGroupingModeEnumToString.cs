@@ -11,18 +11,11 @@ WPF .net45            - WINDOWS_DESKTOP
 
 #if !PORTABLE
 
-using SmokSmog.Resources;
 using System;
-using System.Resources;
-using System.Reflection;
-using System.Reflection.Emit;
 
 #if WINDOWS_UWP || WINDOWS_APP || WINDOWS_PHONE_APP || WINRT
 
-using Windows.UI;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
 
 #endif
 
@@ -48,18 +41,16 @@ namespace SmokSmog.Xaml.Data.ValueConverters
         {
             if (value is ViewModel.StationGroupingModeEnum)
             {
-                var localizedStrings = new Globalization.LocalizedStrings();
-
                 switch ((ViewModel.StationGroupingModeEnum)value)
                 {
                     case ViewModel.StationGroupingModeEnum.Name:
-                        return localizedStrings.LocalizedString("StationSortModeEnumName");
+                        return Globalization.LocalizedStrings.LocalizedString("StationSortModeEnumName");
 
                     //case ViewModel.StationGroupingModeEnum.City:
-                    //    return localizedStrings.LocalizedString("StationSortModeEnumCity");
+                    //    return Globalization.LocalizedStrings("StationSortModeEnumCity");
 
                     case ViewModel.StationGroupingModeEnum.Province:
-                        return localizedStrings.LocalizedString("StationSortModeEnumProvince");
+                        return Globalization.LocalizedStrings.LocalizedString("StationSortModeEnumProvince");
                 }
             }
             return "String not found";
