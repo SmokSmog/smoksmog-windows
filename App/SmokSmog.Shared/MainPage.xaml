@@ -335,7 +335,13 @@
                    Background="LightGray"
                    Canvas.ZIndex="100"
                    RequestedTheme="{Binding RequestedTheme,
-                                            ElementName=This}" />
+                                            ElementName=This}">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <PaneThemeTransition Edge="Left" />
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
 
             <!--  Page Content for main content  -->
             <Frame x:Name="MainFrame"
@@ -344,7 +350,13 @@
                    Background="Gray"
                    Canvas.ZIndex="0"
                    RequestedTheme="{Binding RequestedTheme,
-                                            ElementName=This}" />
+                                            ElementName=This}">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <PaneThemeTransition Edge="Left" />
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

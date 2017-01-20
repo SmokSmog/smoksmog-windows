@@ -1,13 +1,12 @@
-﻿using SmokSmog.ViewModel;
+﻿using SmokSmog.Navigation;
+using SmokSmog.ViewModel;
 using SmokSmog.Xaml.Data.ValueConverters;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+    [Navigation(ContentType = ContentType.Second)]
     public sealed partial class StationListPage : Page
     {
         private GroupedViewModel _vm => DataContext as GroupedViewModel;

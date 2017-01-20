@@ -4,9 +4,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         private ViewModel.ViewModelLocator ViewModelLocator { get; } = new ViewModel.ViewModelLocator();
@@ -16,18 +13,12 @@ namespace SmokSmog
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            //ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
-
             this.Loaded += page_Loaded;
             this.Unloaded += page_Unloaded;
 
             SecondFrame.SourcePageType = typeof(Views.StationListPage);
+            MainFrame.SourcePageType = typeof(Views.StationPage);
 
-            var groups = VisualStateManager.GetVisualStateGroups(this);
-            foreach (var group in groups)
-            {
-                //group.
-            }
         }
 
         /// <summary>

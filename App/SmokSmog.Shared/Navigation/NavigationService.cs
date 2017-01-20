@@ -18,8 +18,6 @@ namespace SmokSmog.Navigation
 
         public string CurrentSecondPageKey { get; }
 
-        //public void Configure(string key, Type pageType);
-
         public void GoBack()
         {
         }
@@ -74,7 +72,7 @@ namespace SmokSmog.Navigation
 
             if (targetFrame != null)
             {
-                if (targetFrame.Content != xamlType.UnderlyingType)
+                if (targetFrame.CurrentSourcePageType != xamlType.UnderlyingType)
                     targetFrame.Navigate(xamlType.UnderlyingType, parameter);
             }
         }
