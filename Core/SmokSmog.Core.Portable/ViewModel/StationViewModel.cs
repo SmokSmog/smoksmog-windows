@@ -106,6 +106,7 @@
         public async Task LoadData(Model.Station station)
         {
             ParameterWithMeasurements.Clear();
+            RaisePropertyChanged(nameof(ParameterWithMeasurements));
 
             try
             {

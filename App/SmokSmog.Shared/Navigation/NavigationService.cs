@@ -60,10 +60,12 @@ namespace SmokSmog.Navigation
             {
                 case ContentType.Main:
                     targetFrame = mainPage.MainFrame;
+                    VisualStateManager.GoToState(mainPage, "MainFrameActive", true);
                     break;
 
                 case ContentType.Second:
                     targetFrame = mainPage.SecondFrame;
+                    VisualStateManager.GoToState(mainPage, "SecondFrameActive", true);
                     break;
 
                 default:

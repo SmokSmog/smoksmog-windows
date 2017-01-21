@@ -16,9 +16,8 @@ namespace SmokSmog
             this.Loaded += page_Loaded;
             this.Unloaded += page_Unloaded;
 
-            SecondFrame.SourcePageType = typeof(Views.StationListPage);
             MainFrame.SourcePageType = typeof(Views.StationPage);
-
+            SecondFrame.SourcePageType = typeof(Views.StationListPage);
         }
 
         /// <summary>
@@ -38,12 +37,6 @@ namespace SmokSmog
             // NavigationHelper provided by some templates, this event is handled for you.
             SetLayoutVisualState();
         }
-
-        //private void ContentFrame_Navigating(object sender, NavigatingCancelEventArgs e)
-        //{
-        //    var content = ContentFrame.Content;
-        //    var contentString = content?.ToString();
-        //}
 
         private void SetLayoutVisualState()
         {
@@ -129,20 +122,6 @@ namespace SmokSmog
                 if (!SecondFrame.CurrentSourcePageType.Equals(typeof(Views.SearchPage)))
                     SecondFrame.Navigate(typeof(Views.SearchPage));
             }
-        }
-
-        private void HomeButtonClick(object sender, RoutedEventArgs e)
-        {
-            Canvas.SetZIndex(MainFrame, 100);
-            Canvas.SetZIndex(SecondFrame, 0);
-            VisualStateManager.GoToState(this, "Frame1", true);
-        }
-
-        private void FavoritesButtonClick(object sender, RoutedEventArgs e)
-        {
-            Canvas.SetZIndex(MainFrame, 0);
-            Canvas.SetZIndex(SecondFrame, 100);
-            VisualStateManager.GoToState(this, "Frame2", true);
         }
 
         public void MenuCloseHelper(object sender, object parameters)
