@@ -125,6 +125,12 @@ namespace SmokSmog.Services.Data
             }
         }
 
+        public override async Task<Station> GetStationAsync(int id, CancellationToken token)
+        {
+            var list = await GetStationsAsync(token);
+            return list?.Where(o => o.Id == id)?.FirstOrDefault();
+        }
+
         public override async Task<List<Station>> GetStationsAsync(CancellationToken cancellationToken)
         {
             var stations = new List<Station>();

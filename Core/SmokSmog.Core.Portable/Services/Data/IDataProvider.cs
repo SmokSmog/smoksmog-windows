@@ -18,19 +18,25 @@ namespace SmokSmog.Services.Data
 
         Task<List<Model.Measurement>> GetMeasurementsAsync(Model.Station station, IEnumerable<Model.Parameter> parameters);
 
-        Task<List<Model.Measurement>> GetMeasurementsAsync(Model.Station station, IEnumerable<Model.Parameter> parameters, CancellationToken cancellationToken);
+        Task<List<Model.Measurement>> GetMeasurementsAsync(Model.Station station, IEnumerable<Model.Parameter> parameters, CancellationToken token);
 
         List<Model.Parameter> GetParameters(Model.Station station);
 
         Task<List<Model.Parameter>> GetParametersAsync(Model.Station station);
 
-        Task<List<Model.Parameter>> GetParametersAsync(Model.Station station, CancellationToken cancellationToken);
+        Task<List<Model.Parameter>> GetParametersAsync(Model.Station station, CancellationToken token);
+
+        Model.Station GetStation(int id);
+
+        Task<Model.Station> GetStationAsync(int id);
+
+        Task<Model.Station> GetStationAsync(int id, CancellationToken token);
 
         List<Model.Station> GetStations();
 
         Task<List<Model.Station>> GetStationsAsync();
 
-        Task<List<Model.Station>> GetStationsAsync(CancellationToken cancellationToken);
+        Task<List<Model.Station>> GetStationsAsync(CancellationToken token);
 
         //Model.StationState GetStationInfo(int stationId);
         //List<Model.StationState> GetStationInfo(IEnumerable<int> stationIds);

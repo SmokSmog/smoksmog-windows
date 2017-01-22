@@ -31,12 +31,12 @@ namespace SmokSmog.ViewModel
                     ?? (_addStationToFavoritesCommand = new RelayCommand<Model.Station>(
                     p =>
                     {
-                        if (p != null) SettingsHelper.FavoritesStationsList.Add(p.Id);
+                        if (p != null) Settings.FavoritesStationsList.Add(p.Id);
                         _addStationToFavoritesCommand.RaiseCanExecuteChanged();
                         _removeStationFromFavoritesCommand.RaiseCanExecuteChanged();
                         RaisePropertyChanged(nameof(FavoritesList));
                     },
-                    p => p != null && !SettingsHelper.FavoritesStationsList.Contains(p.Id)));
+                    p => p != null && !Settings.FavoritesStationsList.Contains(p.Id)));
             }
         }
 
@@ -45,7 +45,7 @@ namespace SmokSmog.ViewModel
             get
             {
                 var list = (from s in StationsList
-                            where SettingsHelper.FavoritesStationsList.Contains(s.Id)
+                            where Settings.FavoritesStationsList.Contains(s.Id)
                             select s).ToList();
                 IsFavoritesListEmpty = list.Count == 0;
                 RaisePropertyChanged(nameof(IsFavoritesListEmpty));
@@ -64,12 +64,12 @@ namespace SmokSmog.ViewModel
                     ?? (_removeStationFromFavoritesCommand = new RelayCommand<Model.Station>(
                     p =>
                     {
-                        if (p != null) SettingsHelper.FavoritesStationsList.Remove(p.Id);
+                        if (p != null) Settings.FavoritesStationsList.Remove(p.Id);
                         _addStationToFavoritesCommand.RaiseCanExecuteChanged();
                         _removeStationFromFavoritesCommand.RaiseCanExecuteChanged();
                         RaisePropertyChanged(nameof(FavoritesList));
                     },
-                    p => p != null && SettingsHelper.FavoritesStationsList.Contains(p.Id)));
+                    p => p != null && Settings.FavoritesStationsList.Contains(p.Id)));
             }
         }
 
@@ -84,10 +84,10 @@ namespace SmokSmog.ViewModel
                     ?? (_setHomeStationCommand = new RelayCommand<Model.Station>(
                     p =>
                     {
-                        if (p != null) SettingsHelper.HomeStationId = p.Id;
+                        if (p != null) Settings.HomeStationId = p.Id;
                         _setHomeStationCommand.RaiseCanExecuteChanged();
                     },
-                    p => p != null && SettingsHelper.HomeStationId != p.Id));
+                    p => p != null && Settings.HomeStationId != p.Id));
             }
         }
 

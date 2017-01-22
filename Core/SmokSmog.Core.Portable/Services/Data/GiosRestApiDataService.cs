@@ -30,6 +30,11 @@ namespace SmokSmog.Services.Data
             throw new NotImplementedException();
         }
 
+        public override Task<Station> GetStationAsync(int id, CancellationToken token)
+        {
+            throw new NotImplementedException();
+        }
+
         public override async Task<List<Station>> GetStationsAsync(CancellationToken cancellationToken)
         {
             string responseText = await GetStringAsync("station/findAll");

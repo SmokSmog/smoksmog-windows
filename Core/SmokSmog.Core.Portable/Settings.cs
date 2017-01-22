@@ -1,22 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using SmokSmog.Services;
+using SmokSmog.Services.Storage;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace SmokSmog.Services.Storage
+namespace SmokSmog
 {
-    public static class SettingsHelper
+    public static class Settings
     {
-        private static IStorageService Storage => ServiceLocator.Instance.SettingService;
-
-        public const string HomeStationIdKey = "HomeStationId";
-
-        public static int? HomeStationId
-        {
-            get { return Storage.GetSetting<int?>(HomeStationIdKey); }
-            set { Storage.SetSetting<int?>(HomeStationIdKey, value); }
-        }
-
         public const string FavoritesStationsListKey = "FavoritesStationsList";
+        public const string HomeStationIdKey = "HomeStationId";
+        public const string LastMainViewKey = "LastMainView";
 
         private static ObservableCollection<int> _favoritesStationsList = null;
 
@@ -38,6 +32,20 @@ namespace SmokSmog.Services.Storage
                 return _favoritesStationsList;
             }
         }
+
+        public static int? HomeStationId
+        {
+            get { return Storage.GetSetting<int?>(HomeStationIdKey); }
+            set { Storage.SetSetting<int?>(HomeStationIdKey, value); }
+        }
+
+        public static string LastMainView
+        {
+            get { return Storage.GetSetting<string>(LastMainViewKey); }
+            set { Storage.SetSetting<string>(LastMainViewKey, value); }
+        }
+
+        private static IStorageService Storage => ServiceLocator.Instance.SettingService;
 
         private static void _favoritesStationsList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {

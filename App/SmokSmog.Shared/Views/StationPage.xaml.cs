@@ -1,4 +1,5 @@
 ﻿using SmokSmog.Navigation;
+using SmokSmog.ViewModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -12,6 +13,8 @@ namespace SmokSmog.Views
             this.InitializeComponent();
         }
 
+        public StationViewModel StationViewModel => DataContext as StationViewModel;
+
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// </summary>
@@ -19,8 +22,13 @@ namespace SmokSmog.Views
         /// Event data that describes how this page was reached. This parameter is typically used to
         /// configure the page.
         /// </param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            int? id = e.Parameter as int?;
+            if (id.HasValue)
+            {
+                await StationViewModel.SetStationAsync(id.Value);
+            }
         }
     }
 }

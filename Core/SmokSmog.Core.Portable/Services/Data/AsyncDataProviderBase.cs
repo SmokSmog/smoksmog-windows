@@ -28,7 +28,7 @@ namespace SmokSmog.Services.Data
                 List<Parameter> result = null;
                 using (var A = AsyncHelper.Wait)
                 {
-                    A.Run<List<Parameter>>(GetParametersAsync(station), res => result = res);
+                    A.Run(GetParametersAsync(station), res => result = res);
                 }
                 return result;
             }
@@ -44,6 +44,29 @@ namespace SmokSmog.Services.Data
 
         public abstract Task<List<Parameter>> GetParametersAsync(Model.Station station, CancellationToken cancellationToken);
 
+        public Station GetStation(int id)
+        {
+            try
+            {
+                Station result = null;
+                using (var A = AsyncHelper.Wait)
+                {
+                    A.Run(GetStationAsync(id), res => result = res);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Diagnostics.Logger.Log(ex);
+                throw ex.InnerException;
+            }
+        }
+
+        public Task<Station> GetStationAsync(int id)
+            => GetStationAsync(id, new CancellationToken());
+
+        public abstract Task<Station> GetStationAsync(int id, CancellationToken token);
+
         public List<Station> GetStations()
         {
             try
@@ -51,7 +74,7 @@ namespace SmokSmog.Services.Data
                 List<Station> result = null;
                 using (var A = AsyncHelper.Wait)
                 {
-                    A.Run<List<Station>>(GetStationsAsync(), res => result = res);
+                    A.Run(GetStationsAsync(), res => result = res);
                 }
                 return result;
             }

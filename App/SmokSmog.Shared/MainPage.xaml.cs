@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using SmokSmog.Navigation;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -6,64 +7,43 @@ namespace SmokSmog
 {
     public sealed partial class MainPage : Page
     {
-        private ViewModel.ViewModelLocator ViewModelLocator { get; } = new ViewModel.ViewModelLocator();
-
         public MainPage()
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            this.Loaded += page_Loaded;
-            this.Unloaded += page_Unloaded;
-
-            MainFrame.SourcePageType = typeof(Views.StationPage);
-            SecondFrame.SourcePageType = typeof(Views.StationListPage);
+            this.Loaded += MainPageLoaded;
+            this.Unloaded += MainPageUnloaded;
         }
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">
-        /// Event data that describes how this page was reached. This parameter is typically used to
-        /// configure the page.
-        /// </param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            // TODO: Prepare page for display here.
+        private ViewModel.ViewModelLocator ViewModelLocator { get; } = new ViewModel.ViewModelLocator();
 
-            // TODO: If your application contains multiple pages, ensure that you are handling the
-            // hardware Back button by registering for the
-            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event. If you are using the
-            // NavigationHelper provided by some templates, this event is handled for you.
+        public void MenuCloseHelper(object sender, object parameters)
+        {
+#if (WINDOWS_APP)
+            MenuClose.Storyboard?.Begin();
+#endif
+        }
+
+        private void MainPageLoaded(object sender, RoutedEventArgs e)
+        {
+            SizeChanged += MainPageSizeChanged;
             SetLayoutVisualState();
+            SetSearchState();
+
+            var navProvider = App.Current as INavigationProvider;
+            navProvider?.NavigationService?.NavigateTo("StationPage", 4);
         }
 
-        private void SetLayoutVisualState()
-        {
-            double width = ActualWidth;
-            string stateName = "Default";
-            if (width >= 850) stateName = "Wide";
-            if (width <= 440) stateName = "Small";
-
-            VisualStateManager.GoToState(this, stateName, true);
-        }
-
-        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void MainPageSizeChanged(object sender, SizeChangedEventArgs e)
         {
             SetLayoutVisualState();
             SetSearchState();
         }
 
-        private void page_Loaded(object sender, RoutedEventArgs e)
+        private void MainPageUnloaded(object sender, RoutedEventArgs e)
         {
-            SizeChanged += MainPage_SizeChanged;
-            SetLayoutVisualState();
-            SetSearchState();
-        }
-
-        private void page_Unloaded(object sender, RoutedEventArgs e)
-        {
-            SizeChanged -= MainPage_SizeChanged;
+            SizeChanged -= MainPageSizeChanged;
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -74,6 +54,33 @@ namespace SmokSmog
         private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             SetSearchState();
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchString = SearchTextBox.Text;
+            ViewModelLocator.SearchViewModel.SearchString = searchString;
+
+            if (string.IsNullOrWhiteSpace(searchString))
+            {
+                if (!SecondFrame.CurrentSourcePageType.Equals(typeof(Views.SearchPage)) && SecondFrame.CanGoBack)
+                    SecondFrame.GoBack();
+            }
+            else
+            {
+                if (!SecondFrame.CurrentSourcePageType.Equals(typeof(Views.SearchPage)))
+                    SecondFrame.Navigate(typeof(Views.SearchPage));
+            }
+        }
+
+        private void SetLayoutVisualState()
+        {
+            double width = ActualWidth;
+            string stateName = "Default";
+            if (width >= 850) stateName = "Wide";
+            if (width <= 440) stateName = "Small";
+
+            VisualStateManager.GoToState(this, stateName, true);
         }
 
         private void SetSearchState(bool open = false)
@@ -105,30 +112,6 @@ namespace SmokSmog
 
             if (stateBefore != "WideSearchState" && stateBefore != "NarrowSearchState")
                 SearchTextBox.Focus(FocusState.Keyboard);
-        }
-
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var searchString = SearchTextBox.Text;
-            ViewModelLocator.SearchViewModel.SearchString = searchString;
-
-            if (string.IsNullOrWhiteSpace(searchString))
-            {
-                if (!SecondFrame.CurrentSourcePageType.Equals(typeof(Views.SearchPage)) && SecondFrame.CanGoBack)
-                    SecondFrame.GoBack();
-            }
-            else
-            {
-                if (!SecondFrame.CurrentSourcePageType.Equals(typeof(Views.SearchPage)))
-                    SecondFrame.Navigate(typeof(Views.SearchPage));
-            }
-        }
-
-        public void MenuCloseHelper(object sender, object parameters)
-        {
-#if (WINDOWS_APP)
-            MenuClose.Storyboard?.Begin();
-#endif
         }
     }
 }
