@@ -1,22 +1,22 @@
-﻿<Page x:Class="SmokSmog.Views.SearchPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:SSXDValueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
-      xmlns:controls="using:SmokSmog.Controls"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:is="using:SmokSmog.Xaml.Interactions"
-      xmlns:local="using:SmokSmog"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      x:Name="This"
-      d:DataContext="{Binding Path=SearchViewModel,
-                              Source={StaticResource ViewModelLocator}}"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-      DataContext="{Binding Path=SearchViewModel,
-                            Source={StaticResource ViewModelLocator}}"
-      RequestedTheme="Light"
-      mc:Ignorable="d">
+﻿<Page
+    x:Class="SmokSmog.Views.SearchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:SSXDValueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
+    xmlns:controls="using:SmokSmog.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:is="using:SmokSmog.Xaml.Interactions"
+    xmlns:local="using:SmokSmog"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nav="using:SmokSmog.Navigation"
+    x:Name="This"
+    d:DataContext="{Binding Path=SearchViewModel, Source={StaticResource ViewModelLocator}}"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding Path=SearchViewModel, Source={StaticResource ViewModelLocator}}"
+    RequestedTheme="Light"
+    mc:Ignorable="d">
 
     <Page.Resources />
 
@@ -30,11 +30,12 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ListView IsHoldingEnabled="True"
-                  ItemsSource="{Binding Path=StationListFiltered}"
-                  SelectedIndex="-1"
-                  SelectionMode="None"
-                  ShowsScrollingPlaceholders="True">
+        <ListView
+            IsHoldingEnabled="True"
+            ItemsSource="{Binding Path=StationListFiltered}"
+            SelectedIndex="-1"
+            SelectionMode="None"
+            ShowsScrollingPlaceholders="True">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -46,7 +47,14 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <controls:StationListItem SearchString="{Binding Path=SearchViewModel.SearchString, Source={StaticResource ViewModelLocator}}" />
+                    <controls:StationListItem SearchString="{Binding Path=SearchViewModel.SearchString, Source={StaticResource ViewModelLocator}}">
+                        <i:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Tapped">
+                                <ic:InvokeCommandAction Command="{Binding GroupedViewModel.SelectStationCommand, Source={StaticResource ViewModelLocator}}" CommandParameter="{Binding}" />
+                                <nav:NavigateAction TargetPage="StationPage" />
+                            </ic:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </controls:StationListItem>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

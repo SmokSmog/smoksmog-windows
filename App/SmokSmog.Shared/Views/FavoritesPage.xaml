@@ -1,39 +1,41 @@
-﻿<Page x:Class="SmokSmog.Views.FavoritesPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:SSXDValueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
-      xmlns:controls="using:SmokSmog.Controls"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:is="using:SmokSmog.Xaml.Interactions"
-      xmlns:local="using:SmokSmog"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      x:Name="This"
-      d:DataContext="{Binding Path=FavoritesViewModel,
-                              Source={StaticResource ViewModelLocator}}"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-      DataContext="{Binding Path=FavoritesViewModel,
-                            Source={StaticResource ViewModelLocator}}"
-      RequestedTheme="Light"
-      mc:Ignorable="d">
+﻿<Page
+    x:Class="SmokSmog.Views.FavoritesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:SSXDValueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
+    xmlns:controls="using:SmokSmog.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:is="using:SmokSmog.Xaml.Interactions"
+    xmlns:local="using:SmokSmog"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nav="using:SmokSmog.Navigation"
+    x:Name="This"
+    d:DataContext="{Binding Path=FavoritesViewModel, Source={StaticResource ViewModelLocator}}"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding Path=FavoritesViewModel, Source={StaticResource ViewModelLocator}}"
+    RequestedTheme="Light"
+    mc:Ignorable="d">
 
     <Grid Background="{StaticResource SmokSmogBackgroundBrush}">
 
-        <ScrollViewer HorizontalAlignment="Center"
-                      HorizontalScrollBarVisibility="Hidden"
-                      VerticalScrollBarVisibility="Hidden"
-                      Visibility="{Binding Path=IsFavoritesListEmpty,
-                                           Converter={StaticResource BooleanToVisabilityValueConverter}}">
+        <ScrollViewer
+            HorizontalAlignment="Center"
+            HorizontalScrollBarVisibility="Hidden"
+            VerticalScrollBarVisibility="Hidden"
+            Visibility="{Binding Path=IsFavoritesListEmpty, Converter={StaticResource BooleanToVisabilityValueConverter}}">
 
-            <StackPanel MinWidth="300"
-                        MaxWidth="400"
-                        VerticalAlignment="Center">
+            <StackPanel
+                MinWidth="300"
+                MaxWidth="400"
+                VerticalAlignment="Center">
 
-                <TextBlock FontSize="25"
-                           Text="{Binding LocalizedResources.StringWantToAddYourFavoriteStation, Source={StaticResource LocalizedStrings}}"
-                           TextAlignment="Center"
-                           TextWrapping="Wrap" />
+                <TextBlock
+                    FontSize="25"
+                    Text="{Binding LocalizedResources.StringWantToAddYourFavoriteStation, Source={StaticResource LocalizedStrings}}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
 
                 <Grid Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
@@ -46,57 +48,64 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <FontIcon Grid.Row="0"
-                              Grid.Column="0"
-                              HorizontalAlignment="Right"
-                              FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                              FontSize="25"
-                              Glyph="&#xE14C;" />
-                    <TextBlock Grid.Row="0"
-                               Grid.Column="1"
-                               Margin="10,0,0,0"
-                               HorizontalAlignment="Left"
-                               FontSize="25"
-                               Text="{Binding LocalizedResources.StringSelectFromList, Source={StaticResource LocalizedStrings}}"
-                               TextAlignment="Center" />
+                    <FontIcon
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                        FontSize="25"
+                        Glyph="&#xE14C;" />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Left"
+                        FontSize="25"
+                        Text="{Binding LocalizedResources.StringSelectFromList, Source={StaticResource LocalizedStrings}}"
+                        TextAlignment="Center" />
 
-                    <TextBlock Grid.Row="1"
-                               Grid.ColumnSpan="2"
-                               FontSize="20"
-                               Foreground="Gray"
-                               Text="{Binding LocalizedResources.StringOr, Source={StaticResource LocalizedStrings}}"
-                               TextAlignment="Center" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        FontSize="20"
+                        Foreground="Gray"
+                        Text="{Binding LocalizedResources.StringOr, Source={StaticResource LocalizedStrings}}"
+                        TextAlignment="Center" />
 
-                    <FontIcon Grid.Row="2"
-                              Grid.Column="0"
-                              HorizontalAlignment="Right"
-                              FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                              FontSize="25"
-                              Glyph="&#xE11A;" />
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="1"
-                               Margin="10,0,0,0"
-                               HorizontalAlignment="Left"
-                               FontSize="25"
-                               Text="{Binding LocalizedResources.StringFindStation, Source={StaticResource LocalizedStrings}}"
-                               TextAlignment="Center" />
+                    <FontIcon
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                        FontSize="25"
+                        Glyph="&#xE11A;" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Left"
+                        FontSize="25"
+                        Text="{Binding LocalizedResources.StringFindStation, Source={StaticResource LocalizedStrings}}"
+                        TextAlignment="Center" />
                 </Grid>
 
-                <Border Margin="0,30,0,0"
-                        Background="LightGray"
-                        Padding="0,5">
+                <Border
+                    Margin="0,30,0,0"
+                    Padding="0,5"
+                    Background="LightGray">
                     <controls:StationListItem DataContext="{Binding SampleStation}" />
                 </Border>
 
                 <StackPanel Margin="0,-30,0,20" Orientation="Vertical">
-                    <FontIcon HorizontalAlignment="Center"
-                              FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                              FontSize="42"
-                              Glyph="&#xE815;" />
-                    <TextBlock HorizontalAlignment="Center"
-                               FontSize="25"
-                               Text="{Binding LocalizedResources.StringHold,
-                                              Source={StaticResource LocalizedStrings}}" />
+                    <FontIcon
+                        HorizontalAlignment="Center"
+                        FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                        FontSize="42"
+                        Glyph="&#xE815;" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontSize="25"
+                        Text="{Binding LocalizedResources.StringHold, Source={StaticResource LocalizedStrings}}" />
                     <TextBlock HorizontalAlignment="Center" FontSize="15">
                         <Run Text="(" />
                         <Run Text="{Binding LocalizedResources.StringOr, Source={StaticResource LocalizedStrings}}" />
@@ -106,30 +115,32 @@
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
-                    <Border Background="#f2f2f2"
-                            BorderBrush="Gray"
-                            BorderThickness="1,1,1,0">
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="1"
-                                   HorizontalAlignment="Stretch"
-                                   FontSize="16"
-                                   Padding="8,8"
-                                   Text="{Binding LocalizedResources.StringSetAsHomeStation,
-                                                  Source={StaticResource LocalizedStrings}}"
-                                   TextAlignment="Left" />
+                    <Border
+                        Background="#f2f2f2"
+                        BorderBrush="Gray"
+                        BorderThickness="1,1,1,0">
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Padding="8,8"
+                            HorizontalAlignment="Stretch"
+                            FontSize="16"
+                            Text="{Binding LocalizedResources.StringSetAsHomeStation, Source={StaticResource LocalizedStrings}}"
+                            TextAlignment="Left" />
                     </Border>
-                    <Border Background="LightGray"
-                            BorderBrush="Gray"
-                            BorderThickness="1,0,1,0">
+                    <Border
+                        Background="LightGray"
+                        BorderBrush="Gray"
+                        BorderThickness="1,0,1,0">
 
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="1"
-                                   HorizontalAlignment="Stretch"
-                                   FontSize="16"
-                                   Padding="8,8"
-                                   Text="{Binding LocalizedResources.StringAddToFavorites,
-                                                  Source={StaticResource LocalizedStrings}}"
-                                   TextAlignment="Left" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Padding="8,8"
+                            HorizontalAlignment="Stretch"
+                            FontSize="16"
+                            Text="{Binding LocalizedResources.StringAddToFavorites, Source={StaticResource LocalizedStrings}}"
+                            TextAlignment="Left" />
                     </Border>
 
                     <Border Height="30" BorderThickness="1,0,1,0">
@@ -149,26 +160,26 @@
                 </StackPanel>
 
                 <StackPanel Margin="0,-50,0,0" Orientation="Vertical">
-                    <FontIcon HorizontalAlignment="Center"
-                              FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                              FontSize="42"
-                              Glyph="&#xE815;" />
-                    <TextBlock HorizontalAlignment="Center"
-                               FontSize="25"
-                               Text="{Binding LocalizedResources.StringSelect,
-                                              Source={StaticResource LocalizedStrings}}" />
+                    <FontIcon
+                        HorizontalAlignment="Center"
+                        FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                        FontSize="42"
+                        Glyph="&#xE815;" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontSize="25"
+                        Text="{Binding LocalizedResources.StringSelect, Source={StaticResource LocalizedStrings}}" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
 
-        <ListView IsHoldingEnabled="True"
-                  ItemsSource="{Binding Path=FavoritesList}"
-                  SelectedIndex="-1"
-                  SelectionMode="None"
-                  ShowsScrollingPlaceholders="True"
-                  Visibility="{Binding Path=IsFavoritesListEmpty,
-                                       Converter={StaticResource BooleanToVisabilityValueConverter},
-                                       ConverterParameter='Reverse'}">
+        <ListView
+            IsHoldingEnabled="True"
+            ItemsSource="{Binding Path=FavoritesList}"
+            SelectedIndex="-1"
+            SelectionMode="None"
+            ShowsScrollingPlaceholders="True"
+            Visibility="{Binding Path=IsFavoritesListEmpty, Converter={StaticResource BooleanToVisabilityValueConverter}, ConverterParameter='Reverse'}">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -180,7 +191,14 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <controls:StationListItem />
+                    <controls:StationListItem>
+                        <i:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Tapped">
+                                <ic:InvokeCommandAction Command="{Binding GroupedViewModel.SelectStationCommand, Source={StaticResource ViewModelLocator}}" CommandParameter="{Binding}" />
+                                <nav:NavigateAction TargetPage="StationPage" />
+                            </ic:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </controls:StationListItem>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

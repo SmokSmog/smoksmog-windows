@@ -45,6 +45,13 @@ namespace SmokSmog.Design.Services
 
 #pragma warning disable 1998
 
+        public override async Task<Station> GetStationAsync(int id, CancellationToken token)
+        {
+            return Station.Sample;
+        }
+
+#pragma warning disable 1998
+
         public override async Task<List<Station>> GetStationsAsync(CancellationToken cancellationToken)
         {
             var result = new List<Station>()

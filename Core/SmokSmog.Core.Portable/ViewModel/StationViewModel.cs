@@ -103,9 +103,34 @@
             }
         }
 
-        public async Task LoadData(Model.Station station)
+        public async Task SetStationAsync(int id)
+        {
+            Station = null;
+            try
+            {
+                var dataService = Services.ServiceLocator.Instance.DataService;
+                var station = await dataService.GetStationAsync(id);
+                Station = station;
+            }
+            catch (Exception ex)
+            {
+                Diagnostics.Logger.Log(ex);
+                throw;
+            }
+        }
+
+        private void HandleStationChangeMessage(StationChangeMessage message)
+        {
+            if (message != null && message.Content != null)
+            {
+                Station = message.Content;
+            }
+        }
+
+        private async Task LoadData(Model.Station station)
         {
             ParameterWithMeasurements.Clear();
+            RaisePropertyChanged(nameof(ParameterWithMeasurements));
 
             try
             {
@@ -132,14 +157,6 @@
 
             RaisePropertyChanged(nameof(AQIComponentsList));
             RaisePropertyChanged(nameof(ParameterWithMeasurements));
-        }
-
-        private void HandleStationChangeMessage(StationChangeMessage message)
-        {
-            if (message != null && message.Content != null)
-            {
-                Station = message.Content;
-            }
         }
 
         private async void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

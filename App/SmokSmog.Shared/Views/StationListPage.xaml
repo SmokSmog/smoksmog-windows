@@ -9,6 +9,7 @@
       xmlns:is="using:SmokSmog.Xaml.Interactions"
       xmlns:local="using:SmokSmog"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:nav="using:SmokSmog.Navigation"
       x:Name="This"
       d:DataContext="{Binding Path=GroupedViewModel,
                               Source={StaticResource ViewModelLocator}}"
@@ -96,23 +97,23 @@
             </SemanticZoom.ZoomedOutView>
 
             <SemanticZoom.ZoomedInView>
-                <ListView Margin="0"
-                          x:Name="StationListView"
+                <ListView x:Name="StationListView"
+                          Margin="0"
                           IsHoldingEnabled="True"
+                          IsSynchronizedWithCurrentItem="False"
                           ItemsSource="{Binding Source={StaticResource StationsCollectionViewSource}}"
                           Padding="0"
-                          SelectionMode="Single"
                           SelectedIndex="-1"
                           SelectedItem="{x:Null}"
+                          SelectionMode="None"
                           ShowsScrollingPlaceholders="False"
-                          IsSynchronizedWithCurrentItem="False"
                           Style="{StaticResource SmokSmogListViewStyle}">
 
-                    <i:Interaction.Behaviors>
+                    <!--<i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
                             <ic:InvokeCommandAction Command="{Binding SelectStationCommand}" CommandParameter="{Binding Path=SelectedItem, ElementName=StationListView}" />
                         </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
+                    </i:Interaction.Behaviors>-->
 
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -124,7 +125,14 @@
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <controls:StationListItem />
+                            <controls:StationListItem>
+                                <i:Interaction.Behaviors>
+                                    <ic:EventTriggerBehavior EventName="Tapped">
+                                        <ic:InvokeCommandAction Command="{Binding GroupedViewModel.SelectStationCommand, Source={StaticResource ViewModelLocator}}" CommandParameter="{Binding}" />
+                                        <nav:NavigateAction TargetPage="StationPage" />
+                                    </ic:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                            </controls:StationListItem>
                         </DataTemplate>
                     </ListView.ItemTemplate>
 

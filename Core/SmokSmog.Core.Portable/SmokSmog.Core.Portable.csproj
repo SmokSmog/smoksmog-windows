@@ -91,7 +91,7 @@
     <Compile Include="Services\Geolocation\GeolocationTimeOutException.cs" />
     <Compile Include="Services\Search\SearchQuerry.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
-    <Compile Include="Services\Storage\SettingsHelper.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Threading\AsyncBridge.cs" />
     <Compile Include="Linq\Grouping.cs" />
     <Compile Include="Linq\GroupingStation.cs" />
@@ -111,6 +111,7 @@
     <Compile Include="ViewModel\SearchViewModel.cs" />
     <Compile Include="ViewModel\GroupedViewModel.cs" />
     <Compile Include="Services\Data\IDataProvider.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\StationsListBaseViewMode.cs" />
     <Compile Include="ViewModel\StationViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
