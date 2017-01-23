@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace SmokSmog.ViewModel
 {
-    public class StartViewSetting
-    {
-        string Name;
-        string ViewKey;
-        public StartViewSetting(string viewKey)
-        {
+    //public class StartViewSetting
+    //{
+    //    string Name;
+    //    string ViewKey;
+    //    public StartViewSetting(string viewKey)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
     public class SettingsViewModel : ViewModelBase
     {

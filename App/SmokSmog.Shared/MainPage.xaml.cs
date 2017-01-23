@@ -18,10 +18,30 @@ namespace SmokSmog
 
         private ViewModel.ViewModelLocator ViewModelLocator { get; } = new ViewModel.ViewModelLocator();
 
-        public void MenuCloseHelper(object sender, object parameters)
+        public bool IsMenuOpen
+            => MenuVisualStateGroup.CurrentState == MenuOpen;
+
+        public void ToggleMenu()
         {
+            if (IsMenuOpen) CloseMenu(); else OpenMenu();
+        }
+
+        public void OpenMenu()
+        {
+            if (!IsMenuOpen)
+                VisualStateManager.GoToState(this, nameof(MenuOpen), true);
 #if (WINDOWS_APP)
-            MenuClose.Storyboard?.Begin();
+                        MenuOpen.Storyboard?.Begin();
+#endif
+        }
+
+        public void CloseMenu()
+        {
+            if (IsMenuOpen)
+                VisualStateManager.GoToState(this, nameof(MenuClose), true);
+
+#if (WINDOWS_APP)
+                        MenuClose.Storyboard?.Begin();
 #endif
         }
 
@@ -31,7 +51,7 @@ namespace SmokSmog
             SetLayoutVisualState();
             SetSearchState();
 
-            var navProvider = App.Current as INavigationProvider;
+            var navProvider = Application.Current as INavigationProvider;
             navProvider?.NavigationService?.NavigateTo("StationPage", 4);
         }
 
@@ -60,16 +80,15 @@ namespace SmokSmog
         {
             var searchString = SearchTextBox.Text;
             ViewModelLocator.SearchViewModel.SearchString = searchString;
+            var navProvider = Application.Current as INavigationProvider;
 
             if (string.IsNullOrWhiteSpace(searchString))
             {
-                if (!SecondFrame.CurrentSourcePageType.Equals(typeof(Views.SearchPage)) && SecondFrame.CanGoBack)
-                    SecondFrame.GoBack();
+                navProvider?.NavigationService?.GoBack();
             }
             else
             {
-                if (!SecondFrame.CurrentSourcePageType.Equals(typeof(Views.SearchPage)))
-                    SecondFrame.Navigate(typeof(Views.SearchPage));
+                navProvider?.NavigationService?.NavigateTo("SearchPage");
             }
         }
 
