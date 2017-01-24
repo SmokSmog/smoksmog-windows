@@ -13,7 +13,7 @@ namespace SmokSmog.Navigation
         public const string RootPageKey = "-- ROOT --";
         public const string UnknownPageKey = "-- UNKNOWN --";
 
-        private readonly NavigationStack _navigationStack = new NavigationStack(5);
+        private readonly NavigationStack _navigationStack = new NavigationStack(8);
 
         public NavigationService()
         {
@@ -33,11 +33,13 @@ namespace SmokSmog.Navigation
 #endif
         }
 
-        public bool CanGoBack => _navigationStack.Count > 2;
+        public bool CanGoBack => _navigationStack.Count > 1;
 
         public string CurrentPageKey { get; private set; }
 
         public string CurrentSecondPageKey { get; private set; }
+
+        public string LastSecondPageKey { get; private set; }
 
         public MainPage MainPage => Window.Current.Content as MainPage;
 
@@ -50,6 +52,12 @@ namespace SmokSmog.Navigation
             if (MainPage.IsMenuOpen)
             {
                 MainPage.CloseMenu();
+                return true;
+            }
+
+            if (MainPage.IsSearchOpen)
+            {
+                MainPage.CloseSearch();
                 return true;
             }
 
@@ -100,6 +108,11 @@ namespace SmokSmog.Navigation
             if (string.IsNullOrEmpty(pageKey))
                 return;
 
+            if (MainPage.IsSearchOpen)
+            {
+                MainPage.CloseSearch();
+            }
+
             var type = GetPageTypeByKey(pageKey);
             var attr = type?.GetTypeInfo().GetCustomAttribute<NavigationAttribute>();
             if (attr == null) return;
@@ -113,17 +126,19 @@ namespace SmokSmog.Navigation
                     VisualStateManager.GoToState(MainPage, "MainFrameActive", true);
                     if (navigated = MainPage.MainFrame?.Navigate(type, parameter) == true)
                         CurrentPageKey = pageKey;
+                    if (pushToStack && navigated)
+                        _navigationStack.Push(new NavigationStack.Item(pageKey, parameter));
                     break;
 
                 case ContentType.Second:
                     VisualStateManager.GoToState(MainPage, "SecondFrameActive", true);
                     if (navigated = MainPage.SecondFrame?.Navigate(type, parameter) == true)
+                    {
+                        LastSecondPageKey = CurrentSecondPageKey;
                         CurrentSecondPageKey = pageKey;
+                    }
                     break;
             }
-
-            if (pushToStack && navigated)
-                _navigationStack.Push(new NavigationStack.Item(pageKey, parameter));
 
             RefreshBackButton();
         }

@@ -3,5 +3,7 @@
     public interface INavigationService : GalaSoft.MvvmLight.Views.INavigationService
     {
         string CurrentSecondPageKey { get; }
+
+        string LastSecondPageKey { get; }
     }
 }

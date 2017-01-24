@@ -47,11 +47,10 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <controls:StationListItem SearchString="{Binding Path=SearchViewModel.SearchString, Source={StaticResource ViewModelLocator}}">
+                    <controls:StationListItem DataContext="{Binding}" SearchString="{Binding Path=SearchViewModel.SearchString, Source={StaticResource ViewModelLocator}}">
                         <i:Interaction.Behaviors>
                             <ic:EventTriggerBehavior EventName="Tapped">
-                                <ic:InvokeCommandAction Command="{Binding GroupedViewModel.SelectStationCommand, Source={StaticResource ViewModelLocator}}" CommandParameter="{Binding}" />
-                                <nav:NavigateAction TargetPage="StationPage" />
+                                <nav:NavigateAction TargetPage="StationPage" Parameter="{Binding}" />
                             </ic:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </controls:StationListItem>

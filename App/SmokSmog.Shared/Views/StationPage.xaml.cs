@@ -1,4 +1,5 @@
-﻿using SmokSmog.Navigation;
+﻿using SmokSmog.Model;
+using SmokSmog.Navigation;
 using SmokSmog.ViewModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -28,6 +29,21 @@ namespace SmokSmog.Views
             if (id.HasValue)
             {
                 await StationViewModel.SetStationAsync(id.Value);
+                return;
+            }
+
+            Station station = e.Parameter as Station;
+            if (station != null && station.Id > 0)
+            {
+                StationViewModel.Station = station;
+                return;
+            }
+
+            if (e?.Parameter?.ToString() == "Home")
+            {
+                if (Settings.HomeStationId.HasValue)
+                    await StationViewModel.SetStationAsync(Settings.HomeStationId.Value);
+                return;
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿<Page x:Class="SmokSmog.MainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:SSXDValueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
       xmlns:controls="using:SmokSmog.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
@@ -94,6 +93,7 @@
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
                                     <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction Parameter="Home" TargetPage="StationPage" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 
@@ -267,10 +267,12 @@
                                 Margin="5,0"
                                 HorizontalAlignment="Right"
                                 FontSize="25"
-                                LostFocus="SearchTextBox_LostFocus"
                                 Padding="0"
-                                TextChanged="SearchTextBox_TextChanged"
-                                Visibility="Visible" />
+                                SearchString="{Binding Path=SearchViewModel.SearchString,
+                                               Source={StaticResource ViewModelLocator}, Mode=TwoWay}"
+                                LostFocus="SearchTextBox_OnLostFocus"
+                                GotFocus="SearchTextBox_OnGotFocus"
+                                Visibility="Collapsed" />
 
             <Button x:Name="SearchButton"
                     Grid.Column="1"
@@ -282,9 +284,16 @@
                     MaxHeight="{StaticResource SmokSmogMenuButtonHeight}"
                     HorizontalAlignment="Right"
                     BorderThickness="0"
-                    Click="SearchButton_Click"
                     Style="{StaticResource SmokSmogButtonStyle}"
-                    Visibility="Collapsed">
+                    Visibility="{Binding IsSearchOpen,
+                                         ElementName=This,
+                                         Converter={StaticResource BooleanToVisabilityValueConverter},
+                                         ConverterParameter='Reverse'}">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="Tapped">
+                        <ic:CallMethodAction MethodName="OpenSearch" TargetObject="{Binding ElementName=This}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
 
                 <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                           Height="{StaticResource SmokSmogMenuButtonHeight}"

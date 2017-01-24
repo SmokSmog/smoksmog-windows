@@ -161,7 +161,7 @@
 
         private async void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Station))
+            if (e.PropertyName == nameof(Station) && Station.Id > 0)
             {
                 await LoadData(Station);
             }
