@@ -7,8 +7,8 @@ namespace SmokSmog.Diagnostics
     {
         public static void Log(Exception ex)
         {
-            if (Debugger.IsAttached)
-                Debugger.Break();
+            //if (Debugger.IsAttached) Debugger.Break();
+            Debug.WriteLine(ex);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace SmokSmog.ViewModel
 
         private List<Model.Station> _stationListFiltered = new List<Station>();
 
-        private Dictionary<string, string> characterMapping = new Dictionary<string, string>()
+        private readonly Dictionary<string, string> _characterMapping = new Dictionary<string, string>()
         {
             {"ó","o"},
             {"ę","e"},
@@ -77,7 +77,7 @@ namespace SmokSmog.ViewModel
             if (!string.IsNullOrWhiteSpace(SearchString))
             {
                 var querry = SearchString;
-                foreach (var mapping in characterMapping)
+                foreach (var mapping in _characterMapping)
                 {
                     querry = querry.Replace(mapping.Key, mapping.Value);
 
@@ -125,7 +125,7 @@ namespace SmokSmog.ViewModel
             foreach (var station in list)
             {
                 var hash = $"{station.Name} {station.City} {station.Address} {station.Province}";
-                foreach (var mapping in characterMapping)
+                foreach (var mapping in _characterMapping)
                 {
                     hash = hash.Replace(mapping.Key, mapping.Value);
                 }

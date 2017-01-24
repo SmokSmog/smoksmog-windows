@@ -83,6 +83,7 @@ namespace SmokSmog
             SetRootLayout();
 
             var navProvider = Application.Current as INavigationProvider;
+
             navProvider?.NavigationService?.NavigateTo(nameof(FavoritesPage));
             navProvider?.NavigationService?.NavigateTo(nameof(StationPage), 4);
         }

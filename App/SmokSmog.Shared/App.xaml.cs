@@ -1,4 +1,5 @@
-﻿using SmokSmog.Navigation;
+﻿using SmokSmog.Diagnostics;
+using SmokSmog.Navigation;
 using SmokSmog.Resources;
 using System;
 using Windows.ApplicationModel;
@@ -48,7 +49,7 @@ namespace SmokSmog
         /// <param name="e">Details about the launch request and process.</param>
 #if WINDOWS_PHONE || WINDOWS_UWP
 
-        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
 #else
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
@@ -108,24 +109,18 @@ namespace SmokSmog
             // Ensure the current window is active
             Window.Current.Activate();
 
-#if WINDOWS_PHONE
-
-                var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-                await statusBar.HideAsync();
-#endif
-
-#if WINDOWS_UWP
+#if WINDOWS_UWP || WINDOWS_PHONE
 
             // http://stackoverflow.com/questions/31594625/windows-10-mobile-cannot-hide-status-bar-statusbar-doesnt-exist-in-context
-            var isStatusBarPresent = Windows
-                .Foundation
-                .Metadata
-                .ApiInformation
-                .IsTypePresent(typeof(Windows.UI.ViewManagement.StatusBar).ToString());
-            if (isStatusBarPresent)
+            try
             {
                 var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-                await statusBar.HideAsync();
+                if (statusBar != null)
+                    await statusBar.HideAsync();
+            }
+            catch (Exception exception)
+            {
+                Logger.Log(exception);
             }
 #endif
         }
@@ -153,25 +148,5 @@ namespace SmokSmog
             // TODO: Save application state and stop any background activity
             deferral.Complete();
         }
-
-        // ///
-        // <summary>
-        // /// Restores the content transitions after the app has launched. ///
-        // </summary>
-        // ///
-        // <param name="sender">The object where the handler is attached.</param>
-        // ///
-        // <param name="e">     Details about the navigation event.</param>
-        // private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e) { var
-        // rootFrame = sender as Frame;
-
-        //            rootFrame.ContentTransitions = this._transitions ?? new TransitionCollection()
-        //            {
-        //#if WINDOWS_UWP || WINDOWS_PHONE
-        //                new NavigationThemeTransition(),
-        //#endif
-        //            };
-
-        // rootFrame.Navigated -= this.RootFrame_FirstNavigated; }
     }
 }

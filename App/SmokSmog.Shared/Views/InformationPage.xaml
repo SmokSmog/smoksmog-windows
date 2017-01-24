@@ -1,0 +1,60 @@
+﻿<Page x:Class="SmokSmog.Views.InformationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:SmokSmog.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  HorizontalScrollMode="Disabled"
+                  IsVerticalRailEnabled="True"
+                  VerticalScrollBarVisibility="Hidden"
+                  VerticalScrollMode="Auto">
+        <StackPanel Margin="12">
+            <TextBlock FontSize="50">WERSJA BETA</TextBlock>
+
+            <TextBlock FontSize="20" TextWrapping="Wrap">
+                Oto z radością przedstawiamy wersję BETA aplikacji SmokSmog dla Windows
+                <LineBreak />
+                <LineBreak />
+
+                <Bold Foreground="DarkRed">Uwaga:</Bold>
+                wersja beta aplikacji SmokSmog może być niestabilna i zawierać różne błędy, które mogą powodować drobne problemy.
+                <LineBreak />
+                Pamiętaj, że możesz zgłaszać je naszemu zespołowi.
+                <LineBreak />
+                <LineBreak />
+
+                <Bold Foreground="DarkRed">Note:</Bold>
+                The beta version of the SmokSmog app might be unstable and have a few minor problems, known as bugs.
+                <LineBreak />
+                Let us know about any bugs by sharing your feedback.
+                <LineBreak />
+                <LineBreak />
+
+                <Hyperlink NavigateUri="mailto:damian@smoksmog.malopolska.pl">damian@smoksmog.malopolska.pl</Hyperlink>
+                <LineBreak />
+                <LineBreak />
+                <LineBreak />
+            </TextBlock>
+
+            <TextBlock FontSize="20" TextWrapping="Wrap">
+                Cześć, to my, osoby, które tworzyły i tworzą projekt SmokSmog.
+                Chcemy Ci podziękować za korzystanie z naszej aplikacji, jest to dla nas najlepszy sygnał,
+                że problem stanu czystości powietrza jest ważny dla ludzi w naszym kraju,
+                a dotychczasowe sposoby informowania o zanieczyszczeniu nie są wystarczające.
+                <LineBreak />
+                <LineBreak />
+                Oficjalną stronę projektu SmokSmog znajdziesz pod poniższym linkiem
+                <LineBreak />
+                <Hyperlink NavigateUri="http://smoksmog.malopolska.pl/">http://smoksmog.malopolska.pl/</Hyperlink>
+                <LineBreak />
+                <LineBreak />
+                SmokSmog dla Windows jest projektem Open Source, czyli kod źródłowy jest jawny i dostępny dla wszystkich, którzy chcieliby zweryfikować naszą pracę lub współtworzyć nasz projekt
+                <LineBreak />
+                <Hyperlink NavigateUri="https://github.com/SmokSmog/smoksmog-windows">https://github.com/SmokSmog/smoksmog-windows</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

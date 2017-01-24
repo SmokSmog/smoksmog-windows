@@ -196,6 +196,7 @@
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
                                     <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction TargetPage="InformationPage" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 
@@ -220,6 +221,7 @@
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
                                     <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction TargetPage="SettingsPage" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 

@@ -42,10 +42,7 @@
         <SemanticZoom x:Name="StationListSemanticZoom"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
-                      ScrollViewer.VerticalScrollBarVisibility="Visible"
-                      Visibility="{Binding Path=IsStationFilterOn,
-                                           Converter={StaticResource BooleanToVisabilityValueConverter},
-                                           ConverterParameter='Reverse'}">
+                      ScrollViewer.VerticalScrollBarVisibility="Visible">
 
             <SemanticZoom.ZoomedOutView>
                 <GridView Margin="0"
@@ -108,12 +105,6 @@
                           SelectionMode="None"
                           ShowsScrollingPlaceholders="False"
                           Style="{StaticResource SmokSmogListViewStyle}">
-
-                    <!--<i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="SelectionChanged">
-                            <ic:InvokeCommandAction Command="{Binding SelectStationCommand}" CommandParameter="{Binding Path=SelectedItem, ElementName=StationListView}" />
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>-->
 
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
