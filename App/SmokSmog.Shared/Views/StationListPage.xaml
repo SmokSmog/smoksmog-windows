@@ -13,7 +13,6 @@
       x:Name="This"
       d:DataContext="{Binding Path=GroupedViewModel,
                               Source={StaticResource ViewModelLocator}}"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       DataContext="{Binding Path=GroupedViewModel,
                             Source={StaticResource ViewModelLocator}}"
       RequestedTheme="Light"
@@ -29,7 +28,7 @@
                               Source="{Binding Path=StationListGrouped}" />
     </Page.Resources>
 
-    <Grid Background="{StaticResource SmokSmogBackgroundBrush}">
+    <Grid Background="{StaticResource SmokSmogPageBackgroundBrush}">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -119,7 +118,7 @@
                             <controls:StationListItem>
                                 <i:Interaction.Behaviors>
                                     <ic:EventTriggerBehavior EventName="Tapped">
-                                        <nav:NavigateAction TargetPage="StationPage" Parameter="{Binding}" />
+                                        <nav:NavigateAction Parameter="{Binding}" TargetPage="StationPage" />
                                     </ic:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
                             </controls:StationListItem>

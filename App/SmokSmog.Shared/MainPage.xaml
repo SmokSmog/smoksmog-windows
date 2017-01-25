@@ -17,8 +17,8 @@
     <Page.Resources>
         <x:Double x:Key="SmokSmogMenuButtonWidth">48</x:Double>
         <x:Double x:Key="SmokSmogMenuButtonHeight">48</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonIconFontSize">22</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonTextFontSize">20</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonIconFontSize">18</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonTextFontSize">16</x:Double>
         <x:Double x:Key="SmokSmogMenuButtonTextBlockWidth">250</x:Double>
 
         <Thickness x:Key="SmokSmogContentMargin">48,0,0,0</Thickness>
@@ -44,7 +44,7 @@
                           MinHeight="{StaticResource SmokSmogMenuButtonHeight}"
                           MaxWidth="{StaticResource SmokSmogMenuButtonWidth}"
                           MaxHeight="{StaticResource SmokSmogMenuButtonHeight}"
-                          Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
+                          Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
                           IsChecked="{Binding IsMenuOpen,
                                               ElementName=This}"
                           Style="{StaticResource SmokSmogToggleButtonStyle}">
@@ -89,7 +89,7 @@
                     <StackPanel VerticalAlignment="Top">
 
                         <!--  Home Station Button  -->
-                        <Button Style="{StaticResource SmokSmogButtonStyle}">
+                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
                                     <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
@@ -113,7 +113,7 @@
                         </Button>
 
                         <!--  Favorites Button  -->
-                        <Button Style="{StaticResource SmokSmogButtonStyle}">
+                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}">
                             <StackPanel Orientation="Horizontal">
                                 <i:Interaction.Behaviors>
                                     <ic:EventTriggerBehavior EventName="Tapped">
@@ -137,7 +137,7 @@
                         </Button>
 
                         <!--  Station List Button  -->
-                        <Button Style="{StaticResource SmokSmogButtonStyle}">
+                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
                                     <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
@@ -170,7 +170,8 @@
                         <TextBlock Margin="0,0,10,0"
                                    HorizontalAlignment="Right"
                                    FontSize="14"
-                                   FontWeight="Bold">
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource SmokSmogMenuForegroundBrush}">
 
                             <Run Text="{Binding Name, Source={StaticResource ApplicationInfo}}" />
                             <Run Text="{Binding LocalizedResources.StringFor, Source={StaticResource LocalizedStrings}}" />
@@ -179,17 +180,19 @@
                         <TextBlock Margin="0,0,10,0"
                                    HorizontalAlignment="Right"
                                    FontSize="11"
-                                   FontWeight="Bold">
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource SmokSmogMenuForegroundBrush}">
                             <Run Text="{Binding LocalizedResources.StringVersion, Source={StaticResource LocalizedStrings}}" />
                             <Run Text="{Binding Version, Source={StaticResource ApplicationInfo}}" />
                         </TextBlock>
                     </StackPanel>
 
                     <Border VerticalAlignment="Bottom"
-                            BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
+                            BorderBrush="{StaticResource SmokSmogMenuForegroundBrush}"
                             BorderThickness="0,4,0,0" />
 
                     <Button BorderThickness="0"
+                            Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
                             Padding="0"
                             Style="{StaticResource SmokSmogButtonStyle}">
                         <StackPanel Orientation="Horizontal">
@@ -215,6 +218,7 @@
                     </Button>
 
                     <Button BorderThickness="0"
+                            Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
                             Padding="0"
                             Style="{StaticResource SmokSmogButtonStyle}">
                         <StackPanel Orientation="Horizontal">
@@ -269,11 +273,12 @@
                                 Margin="5,0"
                                 HorizontalAlignment="Right"
                                 FontSize="25"
+                                GotFocus="SearchTextBox_OnGotFocus"
+                                LostFocus="SearchTextBox_OnLostFocus"
                                 Padding="0"
                                 SearchString="{Binding Path=SearchViewModel.SearchString,
-                                               Source={StaticResource ViewModelLocator}, Mode=TwoWay}"
-                                LostFocus="SearchTextBox_OnLostFocus"
-                                GotFocus="SearchTextBox_OnGotFocus"
+                                                       Source={StaticResource ViewModelLocator},
+                                                       Mode=TwoWay}"
                                 Visibility="Collapsed" />
 
             <Button x:Name="SearchButton"
@@ -309,6 +314,7 @@
         <Grid x:Name="ContentGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="ContentGridColumn0" Width="380" />
+                <ColumnDefinition x:Name="ContentGridSeparator" Width="5" />
                 <ColumnDefinition x:Name="ContentGridColumn1" Width="*" />
             </Grid.ColumnDefinitions>
 
@@ -316,7 +322,7 @@
             <Frame x:Name="SecondFrame"
                    Margin="{StaticResource SmokSmogContentMargin}"
                    x:FieldModifier="public"
-                   Background="LightGray"
+                   Background="#dddddd"
                    Canvas.ZIndex="0"
                    RequestedTheme="{Binding RequestedTheme,
                                             ElementName=This}">
@@ -327,11 +333,13 @@
                 </Frame.ContentTransitions>
             </Frame>
 
+            <Grid Background="DarkGray" Grid.Column="1"></Grid>
+            
             <!--  Page Content for main content  -->
             <Frame x:Name="MainFrame"
-                   Grid.Column="1"
+                   Grid.Column="2"
                    x:FieldModifier="public"
-                   Background="Gray"
+                   Background="#dddddd"
                    Canvas.ZIndex="100"
                    RequestedTheme="{Binding RequestedTheme,
                                             ElementName=This}">
@@ -389,6 +397,10 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="*" />
                         </ObjectAnimationUsingKeyFrames>
 
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridSeparator" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
+                        </ObjectAnimationUsingKeyFrames>
+
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn1" Storyboard.TargetProperty="Width">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
@@ -415,6 +427,10 @@
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn0" Storyboard.TargetProperty="Width">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="*" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridSeparator" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                         </ObjectAnimationUsingKeyFrames>
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn1" Storyboard.TargetProperty="Width">
@@ -444,6 +460,11 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn0" Storyboard.TargetProperty="Width">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="400" />
                         </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridSeparator" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="5" />
+                        </ObjectAnimationUsingKeyFrames>
+
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGridColumn1" Storyboard.TargetProperty="Width">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="*" />
                         </ObjectAnimationUsingKeyFrames>
@@ -453,7 +474,7 @@
                         </ObjectAnimationUsingKeyFrames>
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainFrame" Storyboard.TargetProperty="(Grid.Column)">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="2" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>

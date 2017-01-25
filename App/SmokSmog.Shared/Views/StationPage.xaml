@@ -24,12 +24,9 @@
         <valueconverters:StringDigitFormatConverter x:Key="StringDigitFormatConverter" />
     </Page.Resources>
 
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource SmokSmogPageBackgroundBrush}">
 
-        <ScrollViewer Background="LightGray"
-                      Padding="12,12"
-                      Visibility="{Binding IsValidStation,
-                                           Converter={StaticResource BooleanToVisabilityValueConverter}}">
+        <ScrollViewer Padding="12,12" Visibility="{Binding IsValidStation, Converter={StaticResource BooleanToVisabilityValueConverter}}">
 
             <StackPanel VerticalAlignment="Top">
 

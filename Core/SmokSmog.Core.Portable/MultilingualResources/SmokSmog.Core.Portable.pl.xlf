@@ -170,6 +170,10 @@
           <source>Very Good</source>
           <target state="translated">Bardzo Dobra</target>
         </trans-unit>
+        <trans-unit id="StringNote" translate="yes" xml:space="preserve">
+          <source>Note</source>
+          <target state="new">Note</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -6,13 +6,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{StaticResource SmokSmogPageBackgroundBrush}">
         <TextBlock FontSize="48">Settings Page</TextBlock>
         <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   TextAlignment="Center"
-                   FontSize="30">
-            Settings are not fully implemented yet <LineBreak/> this is Beta Version
+                   FontSize="30"
+                   TextAlignment="Center">
+            Settings are not fully implemented yet
+            <LineBreak />
+            this is Beta Version
         </TextBlock>
     </Grid>
 </Page>

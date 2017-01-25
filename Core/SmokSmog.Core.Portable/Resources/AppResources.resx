@@ -195,6 +195,9 @@
   <data name="StringNotAvailable" xml:space="preserve">
     <value>Not Available</value>
   </data>
+  <data name="StringNote" xml:space="preserve">
+    <value>Note</value>
+  </data>
   <data name="StringOr" xml:space="preserve">
     <value>or</value>
   </data>

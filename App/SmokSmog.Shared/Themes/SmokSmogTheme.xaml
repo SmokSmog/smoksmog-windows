@@ -34,7 +34,7 @@
     <Color x:Key="SmokSmogBackgroundColor">#FFFFFFFF</Color>
     <Color x:Key="SmokSmogDisabledColor">#66000000</Color>
     <Color x:Key="SmokSmogForegroundColor">#FF000000</Color>
-    <Color x:Key="SmokSmogPageBackgroundColor">#FFFFFFFF</Color>
+    <Color x:Key="SmokSmogPageBackgroundColor">#FFDDDDDD</Color>
     <Color x:Key="SmokSmogTextHighColor">#DE000000</Color>
     <Color x:Key="SmokSmogTextMidColor">#73000000</Color>
     <Color x:Key="SmokSmogTextLowColor">#40000000</Color>
@@ -47,7 +47,7 @@
     <Color x:Key="SmokSmogBaseLowColor">#40000000</Color>
     <Color x:Key="SmokSmogBaseLowSolidColor">#FFBFBFBF</Color>
     <Color x:Key="SmokSmogImagePlaceholderColor">#FFCCCCCC</Color>
-    <Color x:Key="SmokSmogChromeColor">#FFDDDDDD</Color>
+    <Color x:Key="SmokSmogChromeColor">#FF444444</Color>
     <Color x:Key="SmokSmogControlBackgroundColor">Transparent</Color>
     <Color x:Key="SmokSmogControlDisabledColor">#66000000</Color>
     <Color x:Key="SmokSmogControlForegroundColor">#FF000000</Color>
@@ -59,6 +59,8 @@
     <!--#endregion Colors-->
 
     <!--#region Brushes-->
+    <SolidColorBrush x:Key="SmokSmogPageBackgroundBrush" Color="{StaticResource SmokSmogPageBackgroundColor}" />
+    <SolidColorBrush x:Key="SmokSmogMenuForegroundBrush" Color="{StaticResource SmokSmogBackgroundColor}" />
     <SolidColorBrush x:Key="SmokSmogAccentBrush" Color="{StaticResource SmokSmogAccentColor}" />
     <SolidColorBrush x:Key="SmokSmogChromeBrush" Color="{StaticResource SmokSmogChromeColor}" />
     <SolidColorBrush x:Key="SmokSmogForegroundBrush" Color="{StaticResource SmokSmogForegroundColor}" />

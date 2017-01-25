@@ -6,43 +6,57 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    <ScrollViewer Background="{StaticResource SmokSmogPageBackgroundBrush}"
                   HorizontalScrollMode="Disabled"
                   IsVerticalRailEnabled="True"
                   VerticalScrollBarVisibility="Hidden"
                   VerticalScrollMode="Auto">
-        <StackPanel Margin="12">
-            <TextBlock FontSize="50">WERSJA BETA</TextBlock>
+        <StackPanel Margin="25">
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <TextBlock FontSize="20" TextWrapping="Wrap">
-                Oto z radością przedstawiamy wersję BETA aplikacji SmokSmog dla Windows
-                <LineBreak />
-                <LineBreak />
+                <Viewbox Width="80"
+                         Margin="10"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Top">
+                    <Path Width="800"
+                          Height="800"
+                          Data="{ThemeResource SmokSmogLogoPathData}"
+                          Fill="Black" />
+                </Viewbox>
 
-                <Bold Foreground="DarkRed">Uwaga:</Bold>
-                wersja beta aplikacji SmokSmog może być niestabilna i zawierać różne błędy, które mogą powodować drobne problemy.
-                <LineBreak />
-                Pamiętaj, że możesz zgłaszać je naszemu zespołowi.
-                <LineBreak />
-                <LineBreak />
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center"
+                               FontSize="42"
+                               TextAlignment="Center"
+                               TextWrapping="WrapWholeWords">
+                        <Run Text="{Binding Name, Source={StaticResource ApplicationInfo}}" />
+                        <Run Text="{Binding LocalizedResources.StringFor, Source={StaticResource LocalizedStrings}}" />
+                        <Run Text="Windows" />
+                    </TextBlock>
 
-                <Bold Foreground="DarkRed">Note:</Bold>
-                The beta version of the SmokSmog app might be unstable and have a few minor problems, known as bugs.
-                <LineBreak />
-                Let us know about any bugs by sharing your feedback.
-                <LineBreak />
-                <LineBreak />
+                    <TextBlock HorizontalAlignment="Center"
+                               FontSize="22"
+                               TextAlignment="Center">
+                        <Run Text="{Binding LocalizedResources.StringVersion, Source={StaticResource LocalizedStrings}}" />
+                        <Run Text="{Binding Path=Version, Source={StaticResource ApplicationInfo}}" />
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
 
-                <Hyperlink NavigateUri="mailto:damian@smoksmog.malopolska.pl">damian@smoksmog.malopolska.pl</Hyperlink>
-                <LineBreak />
-                <LineBreak />
-                <LineBreak />
-            </TextBlock>
-
-            <TextBlock FontSize="20" TextWrapping="Wrap">
+            <TextBlock Margin="0,25,0,0"
+                       FontSize="20"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap">
                 Cześć, to my, osoby, które tworzyły i tworzą projekt SmokSmog.
+                <LineBreak />
                 Chcemy Ci podziękować za korzystanie z naszej aplikacji, jest to dla nas najlepszy sygnał,
+                <LineBreak />
                 że problem stanu czystości powietrza jest ważny dla ludzi w naszym kraju,
+                <LineBreak />
                 a dotychczasowe sposoby informowania o zanieczyszczeniu nie są wystarczające.
                 <LineBreak />
                 <LineBreak />
@@ -51,9 +65,39 @@
                 <Hyperlink NavigateUri="http://smoksmog.malopolska.pl/">http://smoksmog.malopolska.pl/</Hyperlink>
                 <LineBreak />
                 <LineBreak />
-                SmokSmog dla Windows jest projektem Open Source, czyli kod źródłowy jest jawny i dostępny dla wszystkich, którzy chcieliby zweryfikować naszą pracę lub współtworzyć nasz projekt
+                SmokSmog dla Windows jest projektem Open Source, czyli kod źródłowy jest jawny i dostępny dla wszystkich,
+                <LineBreak />
+                którzy chcieliby zweryfikować naszą pracę lub współtworzyć nasz projekt
                 <LineBreak />
                 <Hyperlink NavigateUri="https://github.com/SmokSmog/smoksmog-windows">https://github.com/SmokSmog/smoksmog-windows</Hyperlink>
+            </TextBlock>
+
+            <TextBlock Margin="0,25,0,0"
+                       FontSize="20"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap">
+                Oto z radością przedstawiamy wersję BETA aplikacji SmokSmog dla Windows
+                <LineBreak />
+                <Hyperlink NavigateUri="mailto:damian@smoksmog.malopolska.pl">damian@smoksmog.malopolska.pl</Hyperlink>
+
+                <LineBreak />
+                <LineBreak />
+
+                <Bold Foreground="DarkRed">Uwaga</Bold>
+                <LineBreak />
+                wersja beta aplikacji SmokSmog może być niestabilna i zawierać różne błędy, które mogą powodować drobne problemy.
+                <LineBreak />
+                Pamiętaj, że możesz zgłaszać je naszemu zespołowi.
+                <LineBreak />
+                <LineBreak />
+
+                <Bold Foreground="DarkRed">Note</Bold>
+                <LineBreak />
+                The beta version of the SmokSmog app might be unstable and have a few minor problems, known as bugs.
+                <LineBreak />
+                Let us know about any bugs by sharing your feedback.
+                <LineBreak />
+                <LineBreak />
             </TextBlock>
         </StackPanel>
     </ScrollViewer>
