@@ -218,6 +218,7 @@
                     </Button>
 
                     <Button BorderThickness="0"
+                            Visibility="Collapsed"
                             Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
                             Padding="0"
                             Style="{StaticResource SmokSmogButtonStyle}">
@@ -334,7 +335,7 @@
             </Frame>
 
             <Grid Background="DarkGray" Grid.Column="1"></Grid>
-            
+
             <!--  Page Content for main content  -->
             <Frame x:Name="MainFrame"
                    Grid.Column="2"

@@ -141,9 +141,9 @@
                                                 </ListView.ItemTemplate>
                                             </ListView>
 
-                                            <TextBlock MaxWidth="400"
+                                            <TextBlock MaxWidth="380"
                                                        Margin="0,25,0,0"
-                                                       HorizontalAlignment="Left"
+                                                       HorizontalAlignment="Center"
                                                        FontSize="20"
                                                        TextWrapping="Wrap">
                                                 Indeks jakości powietrza jest wskaźnikiem mającym w przystępny sposób zaprezentować poziom zanieczyszczenia powietrza dla kilku substancji jednocześnie.
@@ -153,7 +153,7 @@
                                                 Obliczany jest na podstawie najnowszych pomiarów, pochodzących z ostatniej godziny.
                                                 <LineBreak />
                                                 <LineBreak />
-                                                <Hyperlink NavigateUri="http://monitoring.krakow.pios.gov.pl/indeks-jakosci-powietrza">Więcej na temat indeksu jakości powietrza</Hyperlink>
+                                                <Hyperlink NavigateUri="http://monitoring.krakow.pios.gov.pl/indeks-jakosci-powietrza">Więcej na temat indeksu</Hyperlink>
                                             </TextBlock>
                                         </StackPanel>
                                     </Flyout>
