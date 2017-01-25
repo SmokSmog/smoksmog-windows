@@ -1,200 +1,114 @@
-﻿<Page
-    x:Class="SmokSmog.MainPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:SSXDValueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
-    xmlns:controls="using:SmokSmog.Controls"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:is="using:SmokSmog.Xaml.Interactions"
-    xmlns:local="using:SmokSmog"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:nav="using:SmokSmog.Navigation"
-    x:Name="This"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    RequestedTheme="Light"
-    mc:Ignorable="d">
-
-    <!--<Page.BottomAppBar>
-        <CommandBar CompositeMode="MinBlend" IsOpen="False" IsSticky="False" />
-    </Page.BottomAppBar>-->
+﻿<Page x:Class="SmokSmog.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:SmokSmog.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:is="using:SmokSmog.Xaml.Interactions"
+      xmlns:local="using:SmokSmog"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:nav="using:SmokSmog.Navigation"
+      x:Name="This"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      RequestedTheme="Light"
+      mc:Ignorable="d">
 
     <Page.Resources>
-        <x:Double x:Key="SmokSmogMenuButtonWidth">50</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonHeight">50</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonWidth">48</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonHeight">48</x:Double>
         <x:Double x:Key="SmokSmogMenuButtonIconFontSize">22</x:Double>
         <x:Double x:Key="SmokSmogMenuButtonTextFontSize">20</x:Double>
         <x:Double x:Key="SmokSmogMenuButtonTextBlockWidth">250</x:Double>
 
-        <Thickness x:Key="SmokSmogContentMargin">50,0,0,0</Thickness>
-        <GridLength x:Key="SmokSmogMenuButtonWidthGl">50</GridLength>
+        <Thickness x:Key="SmokSmogContentMargin">48,0,0,0</Thickness>
     </Page.Resources>
 
-    <Grid
-        x:Name="LayoutRoot"
-        Background="{StaticResource SmokSmogBackgroundBrush}"
-        RequestedTheme="Light">
+    <Grid x:Name="LayoutRoot"
+          Background="{StaticResource SmokSmogBackgroundBrush}"
+          RequestedTheme="Light">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!--  Menu Button  -->
-        <Border
-            Margin="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Background="{StaticResource SmokSmogChromeBrush}"
-            Canvas.ZIndex="1000">
+        <Border Margin="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="{StaticResource SmokSmogChromeBrush}"
+                Canvas.ZIndex="1000">
 
-            <ToggleButton
-                x:Name="MenuButtonHamburger"
-                MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
-                MinHeight="{StaticResource SmokSmogMenuButtonHeight}"
-                MaxWidth="{StaticResource SmokSmogMenuButtonWidth}"
-                MaxHeight="{StaticResource SmokSmogMenuButtonHeight}"
-                Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
-                Style="{StaticResource SmokSmogToggleButtonStyle}">
+            <ToggleButton x:Name="MenuButtonHamburger"
+                          MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
+                          MinHeight="{StaticResource SmokSmogMenuButtonHeight}"
+                          MaxWidth="{StaticResource SmokSmogMenuButtonWidth}"
+                          MaxHeight="{StaticResource SmokSmogMenuButtonHeight}"
+                          Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
+                          IsChecked="{Binding IsMenuOpen,
+                                              ElementName=This}"
+                          Style="{StaticResource SmokSmogToggleButtonStyle}">
 
-                <FontIcon
-                    FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                    FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
-                    Glyph="&#xE700;" />
+                <FontIcon FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                          FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                          Glyph="&#xE700;" />
 
                 <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="Checked">
-                        <ic:GoToStateAction
-                            StateName="MenuOpen"
-                            TargetObject="{Binding ElementName=This}"
-                            UseTransitions="True" />
-                    </ic:EventTriggerBehavior>
-                    <ic:EventTriggerBehavior EventName="Unchecked">
-                        <ic:GoToStateAction
-                            StateName="MenuClose"
-                            TargetObject="{Binding ElementName=This}"
-                            UseTransitions="True" />
+                    <ic:EventTriggerBehavior EventName="Tapped">
+                        <ic:CallMethodAction MethodName="ToggleMenu" TargetObject="{Binding ElementName=This}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ToggleButton>
         </Border>
 
-        <!--  Page Header  -->
-        <Grid
-            x:Name="TitleRoot"
-            Height="{StaticResource SmokSmogMenuButtonHeight}"
-            Margin="{StaticResource SmokSmogContentMargin}">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock
-                x:Name="ApplicationTitle"
-                Margin="15,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                FontFamily="Segoe UI"
-                FontSize="30"
-                Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
-                Text="{Binding Name, Source={StaticResource ApplicationInfo}}" />
-
-            <controls:SearchBox
-                x:Name="SearchTextBox"
-                Grid.Column="1"
-                MinWidth="320"
-                Margin="5,0"
-                Padding="0"
-                HorizontalAlignment="Right"
-                FontSize="25"
-                LostFocus="SearchTextBox_LostFocus"
-                TextChanged="SearchTextBox_TextChanged"
-                Visibility="Visible" />
-
-            <Button
-                x:Name="SearchButton"
-                Grid.Column="1"
-                Width="{StaticResource SmokSmogMenuButtonWidth}"
-                Height="{StaticResource SmokSmogMenuButtonHeight}"
-                MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
-                MinHeight="{StaticResource SmokSmogMenuButtonHeight}"
-                MaxWidth="{StaticResource SmokSmogMenuButtonWidth}"
-                MaxHeight="{StaticResource SmokSmogMenuButtonHeight}"
-                HorizontalAlignment="Right"
-                BorderThickness="0"
-                Click="SearchButton_Click"
-                Style="{StaticResource SmokSmogButtonStyle}"
-                Visibility="Collapsed">
-
-                <FontIcon
-                    Width="{StaticResource SmokSmogMenuButtonWidth}"
-                    Height="{StaticResource SmokSmogMenuButtonHeight}"
-                    FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                    FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
-                    Glyph="&#xE11A;" />
-            </Button>
-        </Grid>
-
         <!--  Page right side menu  -->
-        <Grid
-            Grid.RowSpan="2"
-            Margin="0"
-            Canvas.ZIndex="999">
+        <Grid Grid.RowSpan="2"
+              Margin="0"
+              Canvas.ZIndex="999">
 
-            <Border
-                x:Name="RightSideMenuHelper"
-                Background="Transparent"
-                Visibility="Collapsed">
+            <Border x:Name="RightSideMenuHelper"
+                    Background="Transparent"
+                    Visibility="Collapsed">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="Tapped">
-                        <ic:GoToStateAction
-                            StateName="MenuClose"
-                            TargetObject="{Binding ElementName=This}"
-                            UseTransitions="True" />
-                        <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
+                        <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </Border>
 
-            <Grid
-                x:Name="RightSideMenuGrid"
-                Width="0"
-                MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
-                Margin="0,50,0,0"
-                HorizontalAlignment="Left"
-                Background="{StaticResource SmokSmogChromeBrush}">
-                <ScrollViewer
-                    Grid.Column="0"
-                    Margin="0,0,0,150"
-                    Padding="0"
-                    VerticalScrollBarVisibility="Hidden">
+            <Grid x:Name="RightSideMenuGrid"
+                  Width="0"
+                  MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
+                  Margin="0,48,0,0"
+                  HorizontalAlignment="Left"
+                  Background="{StaticResource SmokSmogChromeBrush}">
+                <ScrollViewer Grid.Column="0"
+                              Margin="0,0,0,150"
+                              Padding="0"
+                              VerticalScrollBarVisibility="Hidden">
                     <StackPanel VerticalAlignment="Top">
 
                         <!--  Home Station Button  -->
                         <Button Style="{StaticResource SmokSmogButtonStyle}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
-                                    <ic:GoToStateAction
-                                        StateName="MenuClose"
-                                        TargetObject="{Binding ElementName=This}"
-                                        UseTransitions="True" />
-                                    <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
+                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction Parameter="Home" TargetPage="StationPage" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 
                             <StackPanel Orientation="Horizontal">
-                                <FontIcon
-                                    Width="{StaticResource SmokSmogMenuButtonWidth}"
-                                    Height="{StaticResource SmokSmogMenuButtonHeight}"
-                                    FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                                    FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
-                                    Glyph="&#xE10F;" />
-                                <TextBlock
-                                    Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
-                                    VerticalAlignment="Center"
-                                    FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
-                                    Text="{Binding Path=LocalizedResources.StringHomePage, Source={StaticResource LocalizedStrings}, Converter={StaticResource StringToSentenceCaseValueConverter}}" />
+                                <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
+                                          Height="{StaticResource SmokSmogMenuButtonHeight}"
+                                          FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                                          FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                                          Glyph="&#xE10F;" />
+                                <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
+                                           VerticalAlignment="Center"
+                                           FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
+                                           Text="{Binding Path=LocalizedResources.StringHomePage,
+                                                          Source={StaticResource LocalizedStrings},
+                                                          Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                             </StackPanel>
                         </Button>
 
@@ -203,26 +117,22 @@
                             <StackPanel Orientation="Horizontal">
                                 <i:Interaction.Behaviors>
                                     <ic:EventTriggerBehavior EventName="Tapped">
-                                        <ic:GoToStateAction
-                                            StateName="MenuClose"
-                                            TargetObject="{Binding ElementName=This}"
-                                            UseTransitions="True" />
-                                        <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
+                                        <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
                                         <nav:NavigateAction TargetPage="FavoritesPage" />
                                     </ic:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
 
-                                <FontIcon
-                                    Width="{StaticResource SmokSmogMenuButtonWidth}"
-                                    Height="{StaticResource SmokSmogMenuButtonHeight}"
-                                    FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                                    FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
-                                    Glyph="&#xE728;" />
-                                <TextBlock
-                                    Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
-                                    VerticalAlignment="Center"
-                                    FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
-                                    Text="{Binding LocalizedResources.StringFavorites, Source={StaticResource LocalizedStrings}, Converter={StaticResource StringToSentenceCaseValueConverter}}" />
+                                <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
+                                          Height="{StaticResource SmokSmogMenuButtonHeight}"
+                                          FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                                          FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                                          Glyph="&#xE728;" />
+                                <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
+                                           VerticalAlignment="Center"
+                                           FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
+                                           Text="{Binding LocalizedResources.StringFavorites,
+                                                          Source={StaticResource LocalizedStrings},
+                                                          Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                             </StackPanel>
                         </Button>
 
@@ -230,122 +140,169 @@
                         <Button Style="{StaticResource SmokSmogButtonStyle}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
-                                    <ic:GoToStateAction
-                                        StateName="MenuClose"
-                                        TargetObject="{Binding ElementName=This}"
-                                        UseTransitions="True" />
-                                    <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
+                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
                                     <nav:NavigateAction TargetPage="StationListPage" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 
                             <StackPanel Orientation="Horizontal">
-                                <FontIcon
-                                    Width="{StaticResource SmokSmogMenuButtonWidth}"
-                                    Height="{StaticResource SmokSmogMenuButtonHeight}"
-                                    FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                                    FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
-                                    Glyph="&#xE14C;" />
-                                <TextBlock
-                                    Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
-                                    VerticalAlignment="Center"
-                                    FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
-                                    Text="{Binding LocalizedResources.StringStationList, Source={StaticResource LocalizedStrings}, Converter={StaticResource StringToSentenceCaseValueConverter}}" />
+                                <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
+                                          Height="{StaticResource SmokSmogMenuButtonHeight}"
+                                          FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                                          FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                                          Glyph="&#xE14C;" />
+                                <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
+                                           VerticalAlignment="Center"
+                                           FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
+                                           Text="{Binding LocalizedResources.StringStationList,
+                                                          Source={StaticResource LocalizedStrings},
+                                                          Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
                 </ScrollViewer>
-                <StackPanel
-                    Grid.Column="0"
-                    Margin="0"
-                    VerticalAlignment="Bottom">
+                <StackPanel Grid.Column="0"
+                            Margin="0"
+                            VerticalAlignment="Bottom">
 
                     <!--  SmokSmog Version Credit  -->
                     <StackPanel Margin="50,0,0,0">
-                        <TextBlock
-                            Margin="0,0,10,0"
-                            HorizontalAlignment="Right"
-                            FontSize="14"
-                            FontWeight="Bold">
+                        <TextBlock Margin="0,0,10,0"
+                                   HorizontalAlignment="Right"
+                                   FontSize="14"
+                                   FontWeight="Bold">
 
                             <Run Text="{Binding Name, Source={StaticResource ApplicationInfo}}" />
                             <Run Text="{Binding LocalizedResources.StringFor, Source={StaticResource LocalizedStrings}}" />
                             <Run Text="Windows" />
                         </TextBlock>
-                        <TextBlock
-                            Margin="0,0,10,0"
-                            HorizontalAlignment="Right"
-                            FontSize="11"
-                            FontWeight="Bold">
+                        <TextBlock Margin="0,0,10,0"
+                                   HorizontalAlignment="Right"
+                                   FontSize="11"
+                                   FontWeight="Bold">
                             <Run Text="{Binding LocalizedResources.StringVersion, Source={StaticResource LocalizedStrings}}" />
                             <Run Text="{Binding Version, Source={StaticResource ApplicationInfo}}" />
                         </TextBlock>
                     </StackPanel>
 
-                    <Border
-                        VerticalAlignment="Bottom"
-                        BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
-                        BorderThickness="0,4,0,0" />
+                    <Border VerticalAlignment="Bottom"
+                            BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
+                            BorderThickness="0,4,0,0" />
 
-                    <Button
-                        Padding="0"
-                        BorderThickness="0"
-                        Style="{StaticResource SmokSmogButtonStyle}">
+                    <Button BorderThickness="0"
+                            Padding="0"
+                            Style="{StaticResource SmokSmogButtonStyle}">
                         <StackPanel Orientation="Horizontal">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
-                                    <ic:GoToStateAction
-                                        StateName="MenuClose"
-                                        TargetObject="{Binding ElementName=This}"
-                                        UseTransitions="True" />
-                                    <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
+                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction TargetPage="InformationPage" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 
-                            <FontIcon
-                                Width="{StaticResource SmokSmogMenuButtonWidth}"
-                                Height="{StaticResource SmokSmogMenuButtonHeight}"
-                                FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                                FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
-                                Glyph="&#xEA1F;" />
-                            <TextBlock
-                                Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
-                                VerticalAlignment="Center"
-                                FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
-                                Text="{Binding LocalizedResources.StringInformation, Source={StaticResource LocalizedStrings}, Converter={StaticResource StringToSentenceCaseValueConverter}}" />
+                            <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
+                                      Height="{StaticResource SmokSmogMenuButtonHeight}"
+                                      FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                                      FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                                      Glyph="&#xEA1F;" />
+                            <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
+                                       VerticalAlignment="Center"
+                                       FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
+                                       Text="{Binding LocalizedResources.StringInformation,
+                                                      Source={StaticResource LocalizedStrings},
+                                                      Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                         </StackPanel>
                     </Button>
 
-                    <Button
-                        Padding="0"
-                        BorderThickness="0"
-                        Style="{StaticResource SmokSmogButtonStyle}">
+                    <Button BorderThickness="0"
+                            Padding="0"
+                            Style="{StaticResource SmokSmogButtonStyle}">
                         <StackPanel Orientation="Horizontal">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
-                                    <ic:GoToStateAction
-                                        StateName="MenuClose"
-                                        TargetObject="{Binding ElementName=This}"
-                                        UseTransitions="True" />
-                                    <ic:CallMethodAction MethodName="MenuCloseHelper" TargetObject="{Binding ElementName=This}" />
+                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction TargetPage="SettingsPage" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
 
-                            <FontIcon
-                                Width="{StaticResource SmokSmogMenuButtonWidth}"
-                                Height="{StaticResource SmokSmogMenuButtonHeight}"
-                                FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                                FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
-                                Glyph="&#xE115;" />
-                            <TextBlock
-                                Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
-                                VerticalAlignment="Center"
-                                FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
-                                Text="{Binding LocalizedResources.StringSettings, Source={StaticResource LocalizedStrings}, Converter={StaticResource StringToSentenceCaseValueConverter}}" />
+                            <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
+                                      Height="{StaticResource SmokSmogMenuButtonHeight}"
+                                      FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                                      FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                                      Glyph="&#xE115;" />
+                            <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
+                                       VerticalAlignment="Center"
+                                       FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
+                                       Text="{Binding LocalizedResources.StringSettings,
+                                                      Source={StaticResource LocalizedStrings},
+                                                      Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                         </StackPanel>
                     </Button>
                 </StackPanel>
             </Grid>
+        </Grid>
+
+        <!--  Page Header  -->
+        <Grid x:Name="TitleRoot"
+              Grid.Row="0"
+              Height="{StaticResource SmokSmogMenuButtonHeight}"
+              Margin="{StaticResource SmokSmogContentMargin}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="ApplicationTitle"
+                       Margin="15,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontFamily="Segoe UI"
+                       FontSize="30"
+                       Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
+                       Text="{Binding Name,
+                                      Source={StaticResource ApplicationInfo}}" />
+
+            <controls:SearchBox x:Name="SearchTextBox"
+                                Grid.Column="1"
+                                MinWidth="320"
+                                Margin="5,0"
+                                HorizontalAlignment="Right"
+                                FontSize="25"
+                                Padding="0"
+                                SearchString="{Binding Path=SearchViewModel.SearchString,
+                                               Source={StaticResource ViewModelLocator}, Mode=TwoWay}"
+                                LostFocus="SearchTextBox_OnLostFocus"
+                                GotFocus="SearchTextBox_OnGotFocus"
+                                Visibility="Collapsed" />
+
+            <Button x:Name="SearchButton"
+                    Grid.Column="1"
+                    Width="{StaticResource SmokSmogMenuButtonWidth}"
+                    Height="{StaticResource SmokSmogMenuButtonHeight}"
+                    MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
+                    MinHeight="{StaticResource SmokSmogMenuButtonHeight}"
+                    MaxWidth="{StaticResource SmokSmogMenuButtonWidth}"
+                    MaxHeight="{StaticResource SmokSmogMenuButtonHeight}"
+                    HorizontalAlignment="Right"
+                    BorderThickness="0"
+                    Style="{StaticResource SmokSmogButtonStyle}"
+                    Visibility="{Binding IsSearchOpen,
+                                         ElementName=This,
+                                         Converter={StaticResource BooleanToVisabilityValueConverter},
+                                         ConverterParameter='Reverse'}">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="Tapped">
+                        <ic:CallMethodAction MethodName="OpenSearch" TargetObject="{Binding ElementName=This}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+
+                <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
+                          Height="{StaticResource SmokSmogMenuButtonHeight}"
+                          FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                          FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                          Glyph="&#xE11A;" />
+            </Button>
         </Grid>
 
         <!--  Content space  -->
@@ -356,13 +313,13 @@
             </Grid.ColumnDefinitions>
 
             <!--  Page Content for list  -->
-            <Frame
-                x:Name="SecondFrame"
-                Margin="{StaticResource SmokSmogContentMargin}"
-                x:FieldModifier="public"
-                Background="LightGray"
-                Canvas.ZIndex="0"
-                RequestedTheme="{Binding RequestedTheme, ElementName=This}">
+            <Frame x:Name="SecondFrame"
+                   Margin="{StaticResource SmokSmogContentMargin}"
+                   x:FieldModifier="public"
+                   Background="LightGray"
+                   Canvas.ZIndex="0"
+                   RequestedTheme="{Binding RequestedTheme,
+                                            ElementName=This}">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition Edge="Left" />
@@ -371,13 +328,13 @@
             </Frame>
 
             <!--  Page Content for main content  -->
-            <Frame
-                x:Name="MainFrame"
-                Grid.Column="1"
-                x:FieldModifier="public"
-                Background="Gray"
-                Canvas.ZIndex="100"
-                RequestedTheme="{Binding RequestedTheme, ElementName=This}">
+            <Frame x:Name="MainFrame"
+                   Grid.Column="1"
+                   x:FieldModifier="public"
+                   Background="Gray"
+                   Canvas.ZIndex="100"
+                   RequestedTheme="{Binding RequestedTheme,
+                                            ElementName=This}">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition Edge="Left" />

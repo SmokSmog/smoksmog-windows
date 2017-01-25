@@ -42,10 +42,7 @@
         <SemanticZoom x:Name="StationListSemanticZoom"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
-                      ScrollViewer.VerticalScrollBarVisibility="Visible"
-                      Visibility="{Binding Path=IsStationFilterOn,
-                                           Converter={StaticResource BooleanToVisabilityValueConverter},
-                                           ConverterParameter='Reverse'}">
+                      ScrollViewer.VerticalScrollBarVisibility="Visible">
 
             <SemanticZoom.ZoomedOutView>
                 <GridView Margin="0"
@@ -109,12 +106,6 @@
                           ShowsScrollingPlaceholders="False"
                           Style="{StaticResource SmokSmogListViewStyle}">
 
-                    <!--<i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="SelectionChanged">
-                            <ic:InvokeCommandAction Command="{Binding SelectStationCommand}" CommandParameter="{Binding Path=SelectedItem, ElementName=StationListView}" />
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>-->
-
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="Padding" Value="0" />
@@ -128,8 +119,7 @@
                             <controls:StationListItem>
                                 <i:Interaction.Behaviors>
                                     <ic:EventTriggerBehavior EventName="Tapped">
-                                        <ic:InvokeCommandAction Command="{Binding GroupedViewModel.SelectStationCommand, Source={StaticResource ViewModelLocator}}" CommandParameter="{Binding}" />
-                                        <nav:NavigateAction TargetPage="StationPage" />
+                                        <nav:NavigateAction TargetPage="StationPage" Parameter="{Binding}" />
                                     </ic:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
                             </controls:StationListItem>

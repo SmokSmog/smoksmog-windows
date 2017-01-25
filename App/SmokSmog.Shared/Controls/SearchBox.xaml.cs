@@ -10,25 +10,28 @@ namespace SmokSmog.Controls
             this.InitializeComponent();
         }
 
-        public string Text
+        public string SearchString
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get { return (string)GetValue(SearchStringProperty); }
+            set { SetValue(SearchStringProperty, value); }
         }
 
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(SearchBox), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty SearchStringProperty =
+            DependencyProperty.Register("SearchString", typeof(string), typeof(SearchBox), new PropertyMetadata(string.Empty, TextPropertyChangedCallback));
 
-        public event TextChangedEventHandler TextChanged
+        private static void TextPropertyChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            add { SearchTextBox.TextChanged += value; }
-            remove { SearchTextBox.TextChanged -= value; }
+            var sb = sender as SearchBox;
+            if (sb != null)
+                sb.SearchTextBox.Text = args.NewValue.ToString();
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            SearchString = SearchTextBox.Text;
+
 #if WINDOWS_PHONE
-            if (!string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(SearchString))
             {
                 CancelationButton.Visibility = Visibility.Visible;
             }
@@ -37,12 +40,11 @@ namespace SmokSmog.Controls
                 CancelationButton.Visibility = Visibility.Collapsed;
             }
 #endif
-            Text = SearchTextBox.Text ?? string.Empty;
         }
 
         private void CancelationButton_Click(object sender, RoutedEventArgs e)
         {
-            SearchTextBox.Text = string.Empty;
+            SearchString = string.Empty;
         }
     }
 }

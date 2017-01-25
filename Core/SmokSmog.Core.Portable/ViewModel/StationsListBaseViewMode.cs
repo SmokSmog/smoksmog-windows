@@ -41,24 +41,5 @@ namespace SmokSmog.ViewModel
             var result = await _dataService.GetStationsAsync();
             StationsList = result?.ToList() ?? new List<Model.Station>();
         }
-
-        private RelayCommand<Model.Station> _selectStationCommand;
-
-        /// <summary>
-        /// Gets the SelectStationCommand.
-        /// </summary>
-        public RelayCommand<Model.Station> SelectStationCommand
-        {
-            get
-            {
-                return _selectStationCommand
-                    ?? (_selectStationCommand = new RelayCommand<Model.Station>(
-                    station =>
-                    {
-                        if (station != null)
-                            GalaSoft.MvvmLight.Messaging.Messenger.Default.Send<StationChangeMessage>(new StationChangeMessage(station));
-                    }));
-            }
-        }
     }
 }

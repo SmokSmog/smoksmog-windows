@@ -194,8 +194,7 @@
                     <controls:StationListItem>
                         <i:Interaction.Behaviors>
                             <ic:EventTriggerBehavior EventName="Tapped">
-                                <ic:InvokeCommandAction Command="{Binding GroupedViewModel.SelectStationCommand, Source={StaticResource ViewModelLocator}}" CommandParameter="{Binding}" />
-                                <nav:NavigateAction TargetPage="StationPage" />
+                                <nav:NavigateAction TargetPage="StationPage" Parameter="{Binding}" />
                             </ic:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </controls:StationListItem>

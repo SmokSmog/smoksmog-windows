@@ -59,7 +59,6 @@ namespace SmokSmog.Controls
             {
                 if (e.NewValue == null)
                 {
-                    LocalizedStrings LocalizedStrings = new LocalizedStrings();
                     ring.Percent = string.Format(LocalizedStrings.LocalizedString("StringNA"));
                     ring.EndAngle = -180d;
                     return;
