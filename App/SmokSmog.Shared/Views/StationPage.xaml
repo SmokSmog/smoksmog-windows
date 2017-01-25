@@ -16,7 +16,7 @@
                               Source={StaticResource ViewModelLocator}}"
       DataContext="{Binding Path=StationViewModel,
                             Source={StaticResource ViewModelLocator}}"
-      Foreground="#FF444444"
+      Foreground="#FF333333"
       RequestedTheme="Light"
       mc:Ignorable="d">
 
@@ -92,8 +92,8 @@
                                 <FlyoutBase.AttachedFlyout>
                                     <Flyout>
                                         <StackPanel>
-                                            <ListView Grid.Column="1"
-                                                      HorizontalAlignment="Left"
+                                            <TextBlock FontSize="25" Text="{Binding LocalizedResources.StringLegend, Source={StaticResource LocalizedStrings}}" />
+                                            <ListView HorizontalAlignment="Left"
                                                       VerticalAlignment="Center"
                                                       d:DataContext="{Binding Path=AqiInformationViewModel,
                                                                               Source={StaticResource ViewModelLocator}}"
@@ -120,7 +120,7 @@
                                                             </Grid.ColumnDefinitions>
 
                                                             <TextBlock VerticalAlignment="Center"
-                                                                       FontSize="30"
+                                                                       FontSize="25"
                                                                        TextAlignment="Center">
                                                                 <Run Text="{Binding Minimum, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:0.]'}" />
                                                                 -<Run Text="{Binding Maximum, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:0.]'}" />
@@ -128,7 +128,7 @@
 
                                                             <TextBlock Grid.Column="1"
                                                                        VerticalAlignment="Center"
-                                                                       FontSize="30"
+                                                                       FontSize="25"
                                                                        Text="{Binding Text}" />
 
                                                             <Rectangle Grid.Column="2"
@@ -144,6 +144,7 @@
                                             <TextBlock MaxWidth="400"
                                                        Margin="0,25,0,0"
                                                        HorizontalAlignment="Left"
+                                                       FontSize="20"
                                                        TextWrapping="Wrap">
                                                 Indeks jakości powietrza jest wskaźnikiem mającym w przystępny sposób zaprezentować poziom zanieczyszczenia powietrza dla kilku substancji jednocześnie.
                                                 Przyjmuje on wartość najbardziej niekorzystnego w danym momencie stężenia ze wszystkich mierzonych substancji.

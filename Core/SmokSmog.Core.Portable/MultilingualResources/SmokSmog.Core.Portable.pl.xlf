@@ -172,7 +172,21 @@
         </trans-unit>
         <trans-unit id="StringNote" translate="yes" xml:space="preserve">
           <source>Note</source>
-          <target state="new">Note</target>
+          <target state="translated">Uwaga</target>
+        </trans-unit>
+        <trans-unit id="StringLegend" translate="yes" xml:space="preserve">
+          <source>legend</source>
+          <target state="translated">legenda</target>
+        </trans-unit>
+        <trans-unit id="StringClose" translate="yes" xml:space="preserve">
+          <source>Close</source>
+          <target state="translated">Zamknij</target>
+        </trans-unit>
+        <trans-unit id="StringNoApiConnection" translate="yes" xml:space="preserve">
+          <source>No API connection has been found.
+Please check your internet connection and try again later.</source>
+          <target state="translated">Nie znaleziono połączenia z API.
+Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</target>
         </trans-unit>
       </group>
     </body>

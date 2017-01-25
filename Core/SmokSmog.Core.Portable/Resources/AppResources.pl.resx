@@ -135,4 +135,17 @@
   <data name="StringVeryGood" xml:space="preserve">
     <value>Bardzo Dobra</value>
   </data>
+  <data name="StringNote" xml:space="preserve">
+    <value>Uwaga</value>
+  </data>
+  <data name="StringLegend" xml:space="preserve">
+    <value>legenda</value>
+  </data>
+  <data name="StringClose" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
+  <data name="StringNoApiConnection" xml:space="preserve">
+    <value>Nie znaleziono połączenia z API.
+Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</value>
+  </data>
 </root>

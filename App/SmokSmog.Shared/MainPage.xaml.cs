@@ -83,9 +83,8 @@ namespace SmokSmog
             SetRootLayout();
 
             var navProvider = Application.Current as INavigationProvider;
-
-            navProvider?.NavigationService?.NavigateTo(nameof(FavoritesPage));
-            navProvider?.NavigationService?.NavigateTo(nameof(StationPage), 4);
+            navProvider?.NavigationService?.NavigateTo(nameof(StationListPage));
+            navProvider?.NavigationService?.NavigateTo(nameof(InformationPage));
         }
 
         private void MainPageSizeChanged(object sender, SizeChangedEventArgs e)

@@ -127,6 +127,7 @@ namespace SmokSmog.Services.Data
 
         public override async Task<Station> GetStationAsync(int id, CancellationToken token)
         {
+            if (id <= 0) return null;
             var list = await GetStationsAsync(token);
             return list?.Where(o => o.Id == id)?.FirstOrDefault();
         }
@@ -145,9 +146,12 @@ namespace SmokSmog.Services.Data
                 // manual parse stations
                 foreach (var item in stationsJArray)
                 {
+                    int? id = item["id"].Value<int?>();
+                    if (!id.HasValue || id <= 0) continue;
+
                     var station = new Station()
                     {
-                        Id = item["id"].Value<int?>() ?? 0,
+                        Id = id.Value,
                         Name = (item["name"].Value<string>() ?? "").RemoveWhiteSpaces().Trim(),
                         Geocoordinate = new Geocoordinate()
                         {

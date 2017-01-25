@@ -152,6 +152,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string StringClose {
+            get {
+                return ResourceManager.GetString("StringClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Components.
         /// </summary>
         public static string StringComponents {
@@ -251,6 +260,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to legend.
+        /// </summary>
+        public static string StringLegend {
+            get {
+                return ResourceManager.GetString("StringLegend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Measure.
         /// </summary>
         public static string StringMeasure {
@@ -274,6 +292,16 @@ namespace SmokSmog.Resources {
         public static string StringNA {
             get {
                 return ResourceManager.GetString("StringNA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No API connection has been found.
+        ///Please check your internet connection and try again later..
+        /// </summary>
+        public static string StringNoApiConnection {
+            get {
+                return ResourceManager.GetString("StringNoApiConnection", resourceCulture);
             }
         }
         

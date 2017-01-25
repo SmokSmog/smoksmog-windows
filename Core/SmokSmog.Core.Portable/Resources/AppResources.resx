@@ -147,6 +147,9 @@
   <data name="StringClickRMB" xml:space="preserve">
     <value>click RMB</value>
   </data>
+  <data name="StringClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="StringComponents" xml:space="preserve">
     <value>Components</value>
   </data>
@@ -180,6 +183,9 @@
   <data name="StringInformation" xml:space="preserve">
     <value>information</value>
   </data>
+  <data name="StringLegend" xml:space="preserve">
+    <value>legend</value>
+  </data>
   <data name="StringMeasure" xml:space="preserve">
     <value>Measure</value>
   </data>
@@ -188,6 +194,10 @@
   </data>
   <data name="StringNA" xml:space="preserve">
     <value>N/A</value>
+  </data>
+  <data name="StringNoApiConnection" xml:space="preserve">
+    <value>No API connection has been found.
+Please check your internet connection and try again later.</value>
   </data>
   <data name="StringNorm" xml:space="preserve">
     <value>Norm</value>

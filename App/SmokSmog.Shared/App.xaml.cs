@@ -1,9 +1,12 @@
 ﻿using SmokSmog.Diagnostics;
+using SmokSmog.Globalization;
 using SmokSmog.Navigation;
 using SmokSmog.Resources;
 using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
@@ -47,13 +50,7 @@ namespace SmokSmog
         /// results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-#if WINDOWS_PHONE || WINDOWS_UWP
-
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
-#else
-
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
-#endif
         {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -61,6 +58,9 @@ namespace SmokSmog
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+
+            await CheckInternetConnection();
+
             var mainPage = Window.Current.Content as MainPage;
 
             // Do not repeat app initialization when the Window already has content, just ensure that
@@ -123,6 +123,35 @@ namespace SmokSmog
                 Logger.Log(exception);
             }
 #endif
+        }
+
+        private async Task CheckInternetConnection()
+        {
+            try
+            {
+                var locator = Resources["ServiceLocator"] as SmokSmog.Services.IServiceLocator;
+                var stations = await locator.DataService.GetStationsAsync();
+            }
+            catch (Exception e)
+            {
+                // Create the message dialog and set its content
+                var messageDialog = new MessageDialog(LocalizedStrings.LocalizedString("StringNoApiConnection"));
+
+                // Add commands and set their callbacks; both buttons use the same callback function
+                // instead of inline event handlers
+                messageDialog.Commands.Add(new UICommand(
+                    LocalizedStrings.LocalizedString("StringClose"),
+                    new UICommandInvokedHandler(command => { Exit(); })));
+
+                // Set the command that will be invoked by default
+                messageDialog.DefaultCommandIndex = 0;
+
+                // Set the command to be invoked when escape is pressed
+                messageDialog.CancelCommandIndex = 1;
+
+                // Show the message dialog
+                await messageDialog.ShowAsync();
+            }
         }
 
         /// <summary>
