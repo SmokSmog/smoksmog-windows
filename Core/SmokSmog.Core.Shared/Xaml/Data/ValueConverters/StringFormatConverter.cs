@@ -1,12 +1,12 @@
 ﻿using SmokSmog.Globalization;
 using System;
-using Windows.UI.Xaml.Data;
+using System.Globalization;
 
 namespace SmokSmog.Xaml.Data.ValueConverters
 {
-    public class StringDigitFormatConverter : IValueConverter
+    public class StringDigitFormatConverter : ValueConverterBase
     {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo cultureOrlanguage)
         {
             if (value == null)
             {
@@ -22,7 +22,7 @@ namespace SmokSmog.Xaml.Data.ValueConverters
             return string.Format(((parameter as string) ?? "{0}").Replace('[', '{').Replace(']', '}'), value);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureOrlanguage)
         {
             return null;
         }

@@ -20,7 +20,7 @@ namespace SmokSmog.Views
             {
                 var menuItem = new MenuFlyoutItem()
                 {
-                    Text = converter.Convert(item, typeof(string), null, null).ToString(),
+                    Text = converter.Convert(item, typeof(string), null, "").ToString(),
                     Command = new GalaSoft.MvvmLight.Command.RelayCommand(()
                         => _vm.CurrentStationGroupingMode = item
                         ),
