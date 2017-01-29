@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="SmokSmog.Views.NotificationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SmokSmog.Views"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:notification="using:SmokSmog.Notification"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <notification:Tiles x:Key="Tiles"></notification:Tiles>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <StackPanel>
+
+            <Button Content="PinTile" HorizontalAlignment="Center">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="Tapped">
+                        <ic:CallMethodAction MethodName="PinTile" TargetObject="{StaticResource Tiles}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </Button>
+
+            <Button Content="PopToast" HorizontalAlignment="Center">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="Tapped">
+                        <ic:CallMethodAction MethodName="PopToast" TargetObject="{StaticResource Tiles}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

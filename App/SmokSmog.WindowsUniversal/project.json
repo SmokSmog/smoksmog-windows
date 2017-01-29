@@ -5,11 +5,12 @@
     "Microsoft.Bcl.Build": "1.0.21",
     "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Microsoft.Toolkit.Uwp.Notifications": "1.2.0",
     "Microsoft.Xaml.Behaviors.Uwp.Managed": "2.0.0",
     "morelinq": "2.0.0",
     "MvvmLightLibs": "5.3.0",
     "Newtonsoft.Json": "9.0.1",
-    "WinRTXamlToolkit.UWP": "2.0.0"
+    "WinRTXamlToolkit.UWP": "2.2.0"
   },
   "frameworks": {
     "uap10.0": {}

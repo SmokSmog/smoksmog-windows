@@ -9,6 +9,7 @@
     <Import_RootNamespace>Microsoft</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit.Uwp.Notifications\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\Behavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\BehaviorOfT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactivity\ITrigger.cs" />
