@@ -132,8 +132,10 @@ namespace SmokSmog
                 var locator = Resources["ServiceLocator"] as SmokSmog.Services.IServiceLocator;
                 var stations = await locator.DataService.GetStationsAsync();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                SmokSmog.Diagnostics.Logger.Log(ex);
+
                 // Create the message dialog and set its content
                 var messageDialog = new MessageDialog(LocalizedStrings.LocalizedString("StringNoApiConnection"));
 

@@ -1,12 +1,4 @@
-﻿/*
-
-Included as link to library implemented interfaces
-
-*/
-
-#if !PORTABLE
-
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using SmokSmog.Net.Http;
 using SmokSmog.Services.Data;
@@ -78,5 +70,3 @@ namespace SmokSmog.Services
         }
     }
 }
-
-#endif

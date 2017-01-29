@@ -12,7 +12,10 @@
              d:DesignWidth="400"
              mc:Ignorable="d">
 
-    <Border Margin="0" Padding="{Binding Padding, ElementName=This}" BorderThickness="0">
+    <Border Margin="0"
+            BorderThickness="0"
+            Padding="{Binding Padding,
+                              ElementName=This}">
         <!--  https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.uielement.righttapped  -->
         <Grid Margin="10,5" Background="{Binding Background, ElementName=This}">
             <i:Interaction.Behaviors>
@@ -26,34 +29,55 @@
 
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem Command="{Binding Source={StaticResource ViewModelLocator},
-                                                  Path=FavoritesViewModel.SetHomeStationCommand}"
-                                CommandParameter="{Binding}"
-                                    Tag=""
-                                Text="{Binding LocalizedResources.StringSetAsHomeStation,
-                                               Source={StaticResource LocalizedStrings}}"
-                                Visibility="{Binding Path=IsEnabled,
-                                                     RelativeSource={RelativeSource Self},
-                                                     Converter={StaticResource BooleanToVisabilityValueConverter}}" />
+                    <MenuFlyoutItem x:Name="SetHomeStationMenuItem"
+                                    Command="{Binding Source={StaticResource ViewModelLocator},
+                                                      Path=FavoritesViewModel.SetHomeStationCommand}"
+                                    CommandParameter="{Binding}"
+                                    Text="{Binding LocalizedResources.StringSetAsHomeStation,
+                                                   Source={StaticResource LocalizedStrings}}">
+                        <i:Interaction.Behaviors>
+                            <ic:DataTriggerBehavior Binding="{Binding IsEnabled, ElementName=SetHomeStationMenuItem}" Value="True">
+                                <ic:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+                            </ic:DataTriggerBehavior>
+                            <ic:DataTriggerBehavior Binding="{Binding IsEnabled, ElementName=SetHomeStationMenuItem}" Value="False">
+                                <ic:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                            </ic:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </MenuFlyoutItem>
 
-                    <MenuFlyoutItem Name="AddToFavorites" Tag="Copy"
-                                Command="{Binding Source={StaticResource ViewModelLocator},
-                                                  Path=FavoritesViewModel.AddStationToFavoritesCommand}"
-                                CommandParameter="{Binding}"
-                                Text="{Binding LocalizedResources.StringAddToFavorites,
-                                               Source={StaticResource LocalizedStrings}}"
-                                Visibility="{Binding Path=IsEnabled,
-                                                     RelativeSource={RelativeSource Self},
-                                                     Converter={StaticResource BooleanToVisabilityValueConverter}}" />
+                    <MenuFlyoutItem x:Name="AddStationToFavoritesMenuItem"
+                                    Command="{Binding Source={StaticResource ViewModelLocator},
+                                                      Path=FavoritesViewModel.AddStationToFavoritesCommand}"
+                                    CommandParameter="{Binding}"
+                                    Text="{Binding LocalizedResources.StringAddToFavorites,
+                                                   Source={StaticResource LocalizedStrings}}">
 
-                    <MenuFlyoutItem Command="{Binding Source={StaticResource ViewModelLocator},
-                                                  Path=FavoritesViewModel.RemoveStationFromFavoritesCommand}"
-                                CommandParameter="{Binding}"
-                                Text="{Binding LocalizedResources.StringRemoveFromFavorites,
-                                               Source={StaticResource LocalizedStrings}}"
-                                Visibility="{Binding Path=IsEnabled,
-                                                     RelativeSource={RelativeSource Self},
-                                                     Converter={StaticResource BooleanToVisabilityValueConverter}}" />
+                        <i:Interaction.Behaviors>
+                            <ic:DataTriggerBehavior Binding="{Binding IsEnabled, ElementName=AddStationToFavoritesMenuItem}" Value="True">
+                                <ic:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+                            </ic:DataTriggerBehavior>
+                            <ic:DataTriggerBehavior Binding="{Binding IsEnabled, ElementName=AddStationToFavoritesMenuItem}" Value="False">
+                                <ic:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                            </ic:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="RemoveStationFromFavoritesMenuItem"
+                        Command="{Binding Source={StaticResource ViewModelLocator},
+                                                      Path=FavoritesViewModel.RemoveStationFromFavoritesCommand}"
+                                    CommandParameter="{Binding}"
+                                    Text="{Binding LocalizedResources.StringRemoveFromFavorites,
+                                                   Source={StaticResource LocalizedStrings}}" Visibility="Collapsed">
+
+                        <i:Interaction.Behaviors>
+                            <ic:DataTriggerBehavior Binding="{Binding IsEnabled, ElementName=RemoveStationFromFavoritesMenuItem}" Value="True">
+                                <ic:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+                            </ic:DataTriggerBehavior>
+                            <ic:DataTriggerBehavior Binding="{Binding IsEnabled, ElementName=RemoveStationFromFavoritesMenuItem}" Value="False">
+                                <ic:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                            </ic:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </MenuFlyoutItem>
 
                     <!--<MenuFlyoutItem Text="{Binding LocalizedResources.StringPinToStart, Source={StaticResource LocalizedStrings}}" />-->
                 </MenuFlyout>
@@ -79,23 +103,23 @@
                            Fill="#00000001" />-->
 
             <TextBlock Grid.Column="1"
-                   FontSize="18"
-                   FontWeight="Bold"
-                   Style="{ThemeResource BaseTextBlockStyle}"
-                   Text="{Binding Name}">
-            <i:Interaction.Behaviors>
-                <is:TextBlockHighlightBehavior Highlight="{StaticResource SmokSmogAccentBrush}" SearchString="{Binding SearchString, ElementName=This}" />
-            </i:Interaction.Behaviors>
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Style="{ThemeResource BaseTextBlockStyle}"
+                       Text="{Binding Name}">
+                <i:Interaction.Behaviors>
+                    <is:TextBlockHighlightBehavior Highlight="{StaticResource SmokSmogAccentBrush}" SearchString="{Binding SearchString, ElementName=This}" />
+                </i:Interaction.Behaviors>
             </TextBlock>
 
             <TextBlock Grid.Row="1"
-                   Grid.Column="1"
-                   FontSize="12"
-                   Style="{ThemeResource BaseTextBlockStyle}"
-                   Text="{Binding Province}">
-            <i:Interaction.Behaviors>
-                <is:TextBlockHighlightBehavior Highlight="{StaticResource SmokSmogAccentBrush}" SearchString="{Binding SearchString, ElementName=This}" />
-            </i:Interaction.Behaviors>
+                       Grid.Column="1"
+                       FontSize="12"
+                       Style="{ThemeResource BaseTextBlockStyle}"
+                       Text="{Binding Province}">
+                <i:Interaction.Behaviors>
+                    <is:TextBlockHighlightBehavior Highlight="{StaticResource SmokSmogAccentBrush}" SearchString="{Binding SearchString, ElementName=This}" />
+                </i:Interaction.Behaviors>
             </TextBlock>
         </Grid>
     </Border>
