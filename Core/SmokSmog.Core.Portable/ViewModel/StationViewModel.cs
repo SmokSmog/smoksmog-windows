@@ -1,8 +1,6 @@
 ﻿namespace SmokSmog.ViewModel
 {
     using GalaSoft.MvvmLight;
-    using GalaSoft.MvvmLight.Messaging;
-    using Messenger;
     using Model;
     using MoreLinq;
     using System;
@@ -33,7 +31,6 @@
 
         public StationViewModel()
         {
-            Messenger.Default.Register<StationChangeMessage>(this, HandleStationChangeMessage);
             PropertyChanged += OnPropertyChanged;
 
             if (IsInDesignMode)
@@ -82,7 +79,7 @@
             }
         }
 
-        public bool IsValidStation => Station.Id != -1;
+        public bool IsValidStation => (Station?.Id ?? -1) != -1;
         public List<ParameterWithMeasurements> ParameterWithMeasurements { get; private set; } = new List<ViewModel.ParameterWithMeasurements>();
 
         public Model.Station Station
@@ -116,14 +113,6 @@
             {
                 Diagnostics.Logger.Log(ex);
                 throw;
-            }
-        }
-
-        private void HandleStationChangeMessage(StationChangeMessage message)
-        {
-            if (message != null && message.Content != null)
-            {
-                Station = message.Content;
             }
         }
 
