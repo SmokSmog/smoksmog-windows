@@ -6,6 +6,7 @@ using SmokSmog.Services.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,11 +17,11 @@ namespace SmokSmog.Services.Data
         private readonly IStorageService _settingsService;
 
         public SmokSmogApiDataProvider(IHttpClient httpClient, IStorageService settingsService)
-//#if DEBUG
-//            : base(httpClient, "http://beta-api.smoksmog.jkostrz.name")
-//#else
+            //#if DEBUG
+            //            : base(httpClient, "http://beta-api.smoksmog.jkostrz.name")
+            //#else
             : base(httpClient, "http://api.smoksmog.jkostrz.name")
-//#endif
+        //#endif
         {
             if (settingsService == null)
                 throw new ArgumentNullException(nameof(settingsService));
@@ -42,7 +43,15 @@ namespace SmokSmog.Services.Data
                 if (station == null)
                     throw new ArgumentNullException(nameof(station));
 
-                Task<string> task = GetStringAsync($"{language}/stations/{station.Id}", cancellationToken);
+                // TODO
+                //X-Smog-AdditionalMeasurements pm25
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get,
+                    new Uri(BaseUri, $"{language}/stations/{station.Id}"));
+                request.Headers.Add("X-Smog-AdditionalMeasurements", "pm25");
+
+                //Task<string> task = GetStringAsync($"{language}/stations/{station.Id}", cancellationToken);
+                Task<string> task = SendAsync(request, cancellationToken);
                 string response = await task;
                 var token = JToken.Parse(response);
                 var particulates = token["particulates"];
@@ -97,7 +106,13 @@ namespace SmokSmog.Services.Data
                 // TODO
                 //X-Smog-AdditionalMeasurements pm25
 
-                Task<string> task = GetStringAsync($"{language}/stations/{station.Id}", cancellationToken);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get,
+                    new Uri(BaseUri, $"{language}/stations/{station.Id}"));
+                request.Headers.Add("X-Smog-AdditionalMeasurements", "pm25");
+
+                //Task<string> task = GetStringAsync($"{language}/stations/{station.Id}", cancellationToken);
+                Task<string> task = SendAsync(request, cancellationToken);
+
                 string response = await task;
                 var token = JToken.Parse(response);
                 var particulates = token["particulates"];
@@ -132,7 +147,7 @@ namespace SmokSmog.Services.Data
         {
             if (id <= 0) return null;
             var list = await GetStationsAsync(token);
-            return list?.Where(o => o.Id == id)?.FirstOrDefault();
+            return list.FirstOrDefault(o => o.Id == id);
         }
 
         public override async Task<List<Station>> GetStationsAsync(CancellationToken cancellationToken)

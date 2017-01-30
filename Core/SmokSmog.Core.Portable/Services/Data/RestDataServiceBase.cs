@@ -37,33 +37,43 @@ namespace SmokSmog.Services.Data
         protected async Task<string> GetStringAsync(string relativeUri)
             => await GetStringAsync(new Uri(relativeUri, UriKind.Relative));
 
-        protected async Task<string> GetStringAsync(string relativeUri, CancellationToken cancellationToken)
-            => await GetStringAsync(new Uri(relativeUri, UriKind.Relative), cancellationToken);
+        protected async Task<string> GetStringAsync(string relativeUri, CancellationToken token)
+            => await GetStringAsync(new Uri(relativeUri, UriKind.Relative), token);
 
         protected async Task<string> GetStringAsync(Uri relativeUri)
             => await GetStringAsync(relativeUri, new CancellationToken());
 
-        protected virtual async Task<string> GetStringAsync(Uri relativeUri, CancellationToken cancellationToken)
+        protected virtual async Task<string> GetStringAsync(Uri relativeUri, CancellationToken token)
         {
-            try
-            {
-                HttpResponseMessage message = await HttpClient.GetAsync(new Uri(BaseUri, relativeUri), cancellationToken);
+            //try
+            //{
+            HttpResponseMessage message = await HttpClient.GetAsync(new Uri(BaseUri, relativeUri), token);
+            return await ValidateAndReturn(message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Diagnostics.Logger.Log(ex);
+            //    throw;
+            //}
+        }
 
-                if (message.IsSuccessStatusCode && (
-                    message.StatusCode == HttpStatusCode.OK ||
-                    message.StatusCode == HttpStatusCode.NotModified))
-                {
-                    return await message.Content.ReadAsStringAsync();
-                }
-                else
-                {
-                    throw new HttpRequestException($"Code:{message.StatusCode} : {message.ReasonPhrase}");
-                }
-            }
-            catch (Exception ex)
+        protected virtual async Task<string> SendAsync(HttpRequestMessage request, CancellationToken token)
+        {
+            HttpResponseMessage message = await HttpClient.SendAsync(request, token);
+            return await ValidateAndReturn(message);
+        }
+
+        private async Task<string> ValidateAndReturn(HttpResponseMessage message)
+        {
+            if (message.IsSuccessStatusCode && (
+                message.StatusCode == HttpStatusCode.OK ||
+                message.StatusCode == HttpStatusCode.NotModified))
             {
-                Diagnostics.Logger.Log(ex);
-                throw;
+                return await message.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                throw new HttpRequestException($"Code:{message.StatusCode} : {message.ReasonPhrase}");
             }
         }
     }
