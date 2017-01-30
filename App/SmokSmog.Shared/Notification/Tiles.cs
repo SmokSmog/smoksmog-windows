@@ -1,7 +1,13 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
+using SmokSmog.Model;
+using SmokSmog.ViewModel;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
 using Windows.System.Profile;
+using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
 
@@ -9,24 +15,24 @@ namespace SmokSmog.Notification
 {
     internal class Tiles
     {
-        public static TileContent GenerateTileContent()
+        public static TileContent GenerateTileContent(Station station, List<ParameterWithMeasurements> pwms)
         {
             return new TileContent()
             {
                 Visual = new TileVisual()
                 {
-                    TileSmall = GenerateTileBindingSmall(),
-                    TileMedium = GenerateTileBindingMedium(),
-                    TileWide = GenerateTileBindingWide(),
-                    TileLarge = GenerateTileBindingLarge(),
+                    //TileSmall = GenerateTileBindingSmall(),
+                    TileMedium = GenerateTileBindingMedium(station, pwms),
+                    TileWide = GenerateTileBindingWide(station, pwms),
+                    TileLarge = GenerateTileBindingLarge(station, pwms),
 
                     // Set the base URI for the images, so we don't redundantly specify the entire path
-                    BaseUri = new Uri("Assets/NotificationAssets/", UriKind.Relative)
+                    BaseUri = new Uri("ms-appx:///Assets/Notification/")
                 }
             };
         }
 
-        public static ToastContent GenerateToastContent()
+        public static ToastContent GenerateToastContent(Station station, List<ParameterWithMeasurements> parameterwith)
         {
             // Start by constructing the visual portion of the toast
             ToastBindingGeneric binding = new ToastBindingGeneric();
@@ -35,26 +41,15 @@ namespace SmokSmog.Notification
             // your toast starts with a text element)
             binding.Children.Add(new AdaptiveText()
             {
-                Text = "Today will be mostly sunny with a high of 63 and a low of 42."
+                Text = "Dziś sytuacja smogowa będzie następująca"
             });
 
             // If Adaptive Toast Notifications are supported
             if (IsAdaptiveToastSupported())
             {
                 // Use the rich Tile-like visual layout
-                binding.Children.Add(new AdaptiveGroup()
-                {
-                    Children =
-                    {
-                        GenerateSubgroup("Mon", "Mostly Cloudy.png", 63, 42),
-                        GenerateSubgroup("Tue", "Cloudy.png", 57, 38),
-                        GenerateSubgroup("Wed", "Sunny.png", 59, 43),
-                        GenerateSubgroup("Thu", "Sunny.png", 62, 42),
-                        GenerateSubgroup("Fri", "Sunny.png", 71, 66)
-                    }
-                });
+                binding.Children.Add(GenerateAdaptiveGroup(station, parameterwith, 4));
             }
-
             // Otherwise...
             else
             {
@@ -79,7 +74,7 @@ namespace SmokSmog.Notification
                     BindingGeneric = binding,
 
                     // Set the base URI for the images, so we don't redundantly specify the entire path
-                    BaseUri = new Uri("Assets/NotificationAssets/", UriKind.Relative)
+                    BaseUri = new Uri("ms-appx:///Assets/Notification/")
                 },
 
                 // Include launch string so we know what to open when user clicks toast
@@ -87,26 +82,126 @@ namespace SmokSmog.Notification
             };
         }
 
-        private static AdaptiveSubgroup GenerateLargeSubgroup(string day, string image, int high, int low)
+        public async void PinTile(object sender, object parameters)
+        {
+            SecondaryTile tile = new SecondaryTile(DateTime.Now.Ticks.ToString())
+            {
+                DisplayName = "SmokSmog",
+                Arguments = "args"
+            };
+
+            tile.VisualElements.ShowNameOnSquare150x150Logo = true;
+            tile.VisualElements.ShowNameOnSquare310x310Logo = true;
+            tile.VisualElements.ShowNameOnWide310x150Logo = true;
+
+            tile.VisualElements.BackgroundColor = Color.FromArgb(255, 33, 33, 33);
+
+            tile.VisualElements.Square150x150Logo =
+                new Uri("ms-appx:///Assets/Tiles/Medium/Square150x150Logo.png");
+            tile.VisualElements.Wide310x150Logo =
+                new Uri("ms-appx:///Assets/Tiles/Wide/Wide310x150Logo.png");
+            tile.VisualElements.Square310x310Logo =
+                new Uri("ms-appx:///Assets/Tiles/Large/Square310x310Logo.png");
+
+            if (!await tile.RequestCreateAsync())
+            {
+                return;
+            }
+
+            var data = await LoadTestData();
+
+            // Generate the tile notification content and update the tile
+            TileContent content = GenerateTileContent(data.Item1, data.Item2);
+            TileUpdateManager.CreateTileUpdaterForSecondaryTile(tile.TileId).Update(new TileNotification(content.GetXml()));
+        }
+
+        public async void PopToast(object sender, object parameters)
+        {
+            var data = await LoadTestData();
+
+            // Generate the toast notification content and pop the toast
+            ToastContent content = GenerateToastContent(data.Item1, data.Item2);
+            ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
+        }
+
+        private async Task<Tuple<Station, List<ParameterWithMeasurements>>> LoadTestData()
+        {
+            List<ParameterWithMeasurements> parameterWithMeasurements = new List<ParameterWithMeasurements>();
+
+            try
+            {
+                var dataService = new Services.ServiceLocator().DataService;
+
+                var station = dataService.GetStation(4);
+
+                var parameters = (await dataService.GetParametersAsync(station)).ToList();
+                var measurements = (await dataService.GetMeasurementsAsync(station, parameters)).ToList();
+
+                if (measurements.Any())
+                {
+                    foreach (var param in parameters)
+                    {
+                        if (param != null)
+                            parameterWithMeasurements.Add(
+                                new ParameterWithMeasurements(param,
+                                    (from m in measurements where m.ParameterId == param.Id orderby m.DateUTC select m).ToList()));
+                    }
+                }
+
+                return new Tuple<Station, List<ParameterWithMeasurements>>(station, parameterWithMeasurements);
+            }
+            catch (Exception ex)
+            {
+                Diagnostics.Logger.Log(ex);
+                //throw;
+            }
+
+            return null;
+        }
+
+        private static AdaptiveGroup GenerateAdaptiveGroup(
+                                    Station station,
+            List<ParameterWithMeasurements> parameterwith,
+            int count)
+        {
+            var group = new AdaptiveGroup();
+
+            var pwmList = parameterwith.OrderByDescending(o => o.LastMeasurement.Aqi.Value).ToList();
+
+            for (int i = 0; i < pwmList.Count && i < count; i++)
+            {
+                var pwm = pwmList[i];
+                string header = pwm.Parameter.ShortName;
+                string image = pwm.LastMeasurement.Aqi.Info.Level + ".png";
+                string line1 = pwm.LastMeasurement.Value?.ToString("#.");
+                string line2 = pwm.Parameter.Unit;
+                group.Children.Add(GenerateSubgroup(header, image, line1, line2));
+            }
+
+            return group;
+        }
+
+        private static AdaptiveSubgroup GenerateLargeSubgroup(string header, string image, string line1, string line2)
         {
             // Generate the normal subgroup
-            var subgroup = GenerateSubgroup(day, image, high, low);
+            var subgroup = GenerateSubgroup(header, image, line1, line2);
 
             // Allow there to be padding around the image
-            (subgroup.Children[1] as AdaptiveImage).HintRemoveMargin = null;
+            if (subgroup.Children.Count > 1 && subgroup.Children[1] is AdaptiveImage)
+                (subgroup.Children[1] as AdaptiveImage).HintRemoveMargin = null;
 
             return subgroup;
         }
 
-        private static AdaptiveText GenerateLegacyToastText(string day, string weatherEmoji, int tempHi, int tempLo)
-        {
-            return new AdaptiveText()
-            {
-                Text = $"{day} {weatherEmoji} {tempHi}? / {tempLo}?"
-            };
-        }
+        //private static AdaptiveText GenerateLegacyToastText(string day, string weatherEmoji, int tempHi, int tempLo)
+        //{
+        //    return new AdaptiveText()
+        //    {
+        //        Text = $"{day} {weatherEmoji} {tempHi}? / {tempLo}?"
+        //    };
+        //}
 
-        private static AdaptiveSubgroup GenerateSubgroup(string day, string img, int tempHi, int tempLo)
+        private static AdaptiveSubgroup GenerateSubgroup(string header, string img, string line1, string line2)
         {
             return new AdaptiveSubgroup()
             {
@@ -117,10 +212,9 @@ namespace SmokSmog.Notification
                     // Day
                     new AdaptiveText()
                     {
-                        Text = day,
+                        Text = header,
                         HintAlign = AdaptiveTextAlign.Center
                     },
-
                     // Image
                     new AdaptiveImage()
                     {
@@ -131,14 +225,14 @@ namespace SmokSmog.Notification
                     // High temp
                     new AdaptiveText()
                     {
-                        Text = tempHi + "?",
+                        Text = line1,
                         HintAlign = AdaptiveTextAlign.Center
                     },
 
                     // Low temp
                     new AdaptiveText()
                     {
-                        Text = tempLo + "?",
+                        Text = line2,
                         HintAlign = AdaptiveTextAlign.Center,
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
                     }
@@ -146,7 +240,7 @@ namespace SmokSmog.Notification
             };
         }
 
-        private static TileBinding GenerateTileBindingLarge()
+        private static TileBinding GenerateTileBindingLarge(Station station, List<ParameterWithMeasurements> parameterwith)
         {
             return new TileBinding()
             {
@@ -163,7 +257,7 @@ namespace SmokSmog.Notification
                                     HintWeight = 30,
                                     Children =
                                     {
-                                        new AdaptiveImage() { Source = "Mostly Cloudy.png" }
+                                        new AdaptiveImage() { Source = "Good.png" }
                                     }
                                 },
 
@@ -198,25 +292,16 @@ namespace SmokSmog.Notification
                             }
                         },
 
-                        // For spacing
+                        //// For spacing
                         new AdaptiveText(),
 
-                        new AdaptiveGroup()
-                        {
-                            Children =
-                            {
-                                GenerateLargeSubgroup("Tue", "Cloudy.png", 57, 38),
-                                GenerateLargeSubgroup("Wed", "Sunny.png", 59, 43),
-                                GenerateLargeSubgroup("Thu", "Sunny.png", 62, 42),
-                                GenerateLargeSubgroup("Fri", "Sunny.png", 71, 66)
-                            }
-                        }
+                        GenerateAdaptiveGroup(station, parameterwith, 4)
                     }
                 }
             };
         }
 
-        private static TileBinding GenerateTileBindingMedium()
+        private static TileBinding GenerateTileBindingMedium(Station station, List<ParameterWithMeasurements> parameterwith)
         {
             return new TileBinding()
             {
@@ -224,20 +309,13 @@ namespace SmokSmog.Notification
                 {
                     Children =
                     {
-                        new AdaptiveGroup()
-                        {
-                            Children =
-                            {
-                                GenerateSubgroup("Mon", "Mostly Cloudy.png", 63, 42),
-                                GenerateSubgroup("Tue", "Cloudy.png", 57, 38)
-                            }
-                        }
+                        GenerateAdaptiveGroup(station, parameterwith, 2)
                     }
                 }
             };
         }
 
-        private static TileBinding GenerateTileBindingSmall()
+        private static TileBinding GenerateTileBindingSmall(Station station, List<ParameterWithMeasurements> parameterwith)
         {
             return new TileBinding()
             {
@@ -265,7 +343,7 @@ namespace SmokSmog.Notification
             };
         }
 
-        private static TileBinding GenerateTileBindingWide()
+        private static TileBinding GenerateTileBindingWide(Station station, List<ParameterWithMeasurements> parameterwith)
         {
             return new TileBinding()
             {
@@ -273,17 +351,7 @@ namespace SmokSmog.Notification
                 {
                     Children =
                     {
-                        new AdaptiveGroup()
-                        {
-                            Children =
-                            {
-                                GenerateSubgroup("Mon", "Mostly Cloudy.png", 63, 42),
-                                GenerateSubgroup("Tue", "Cloudy.png", 57, 38),
-                                GenerateSubgroup("Wed", "Sunny.png", 59, 43),
-                                GenerateSubgroup("Thu", "Sunny.png", 62, 42),
-                                GenerateSubgroup("Fri", "Sunny.png", 71, 66)
-                            }
-                        }
+                        GenerateAdaptiveGroup(station, parameterwith, 4)
                     }
                 }
             };
@@ -307,42 +375,6 @@ namespace SmokSmog.Notification
 #else
             return false;
 #endif
-        }
-
-        public async void PinTile(object sender, object parameters)
-        {
-            SecondaryTile tile = new SecondaryTile(DateTime.Now.Ticks.ToString())
-            {
-                DisplayName = "SmokSmog",
-                Arguments = "args"
-            };
-
-            tile.VisualElements.ShowNameOnSquare150x150Logo = true;
-            tile.VisualElements.ShowNameOnSquare310x310Logo = true;
-            tile.VisualElements.ShowNameOnWide310x150Logo = true;
-
-            tile.VisualElements.Square150x150Logo =
-                new Uri("ms-appx:///Assets/Tiles/Medium/Square150x150Logo.png");
-            tile.VisualElements.Wide310x150Logo =
-                new Uri("ms-appx:///Assets/Tiles/Wide/Wide310x150Logo.png");
-            tile.VisualElements.Square310x310Logo =
-                new Uri("ms-appx:///Assets/Tiles/Large/Square310x310Logo.png");
-
-            if (!await tile.RequestCreateAsync())
-            {
-                return;
-            }
-
-            // Generate the tile notification content and update the tile
-            TileContent content = GenerateTileContent();
-            TileUpdateManager.CreateTileUpdaterForSecondaryTile(tile.TileId).Update(new TileNotification(content.GetXml()));
-        }
-
-        public void PopToast(object sender, object parameters)
-        {
-            // Generate the toast notification content and pop the toast
-            ToastContent content = GenerateToastContent();
-            ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
         }
     }
 }

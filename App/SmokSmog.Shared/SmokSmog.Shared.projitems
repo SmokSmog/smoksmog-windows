@@ -134,5 +134,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\SEGMDL2.TTF" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Bad.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Good.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Moderate.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Sufficient.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryBad.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryGood.png" />
   </ItemGroup>
 </Project>

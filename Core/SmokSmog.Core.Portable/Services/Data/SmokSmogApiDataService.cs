@@ -16,11 +16,11 @@ namespace SmokSmog.Services.Data
         private readonly IStorageService _settingsService;
 
         public SmokSmogApiDataProvider(IHttpClient httpClient, IStorageService settingsService)
-#if DEBUG
-            : base(httpClient, "http://beta-api.smoksmog.jkostrz.name")
-#else
+//#if DEBUG
+//            : base(httpClient, "http://beta-api.smoksmog.jkostrz.name")
+//#else
             : base(httpClient, "http://api.smoksmog.jkostrz.name")
-#endif
+//#endif
         {
             if (settingsService == null)
                 throw new ArgumentNullException(nameof(settingsService));
@@ -93,6 +93,9 @@ namespace SmokSmog.Services.Data
             {
                 if (station == null)
                     throw new ArgumentNullException(nameof(station));
+
+                // TODO
+                //X-Smog-AdditionalMeasurements pm25
 
                 Task<string> task = GetStringAsync($"{language}/stations/{station.Id}", cancellationToken);
                 string response = await task;
