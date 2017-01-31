@@ -46,6 +46,8 @@ namespace SmokSmog.Core.Portable.Tests.Services.Data
             //public Task<HttpResponseMessage> GetAsync(Uri requestUri, CancellationToken cancellationToken);
 
             httpClientOfflineMock.Setup(x => x.GetAsync(It.IsAny<Uri>(), It.IsAny<CancellationToken>())).ThrowsAsync(new HttpRequestException());
+            httpClientOfflineMock.Setup(x => x.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<CancellationToken>())).ThrowsAsync(new HttpRequestException());
+
             // .ThrowsAsync(new HttpRequestException());
 
             //var handler = new Mock<HttpMessageHandler>();

@@ -35,13 +35,6 @@ namespace SmokSmog.Model
                     break;
                 }
             }
-
-            //else if (value <= 1) Info = new AirQualityInfo(AirQualityLevel.VeryGood);
-            //else if (value <= 3) Info = new AirQualityInfo(AirQualityLevel.Good);
-            //else if (value <= 5) Info = new AirQualityInfo(AirQualityLevel.Moderate);
-            //else if (value <= 7) Info = new AirQualityInfo(AirQualityLevel.Sufficient);
-            //else if (value <= 10) Info = new AirQualityInfo(AirQualityLevel.Bad);
-            //else if (value > 10) Info = new AirQualityInfo(AirQualityLevel.VeryBad);
         }
 
         public AirQualityInfo Info { get; }

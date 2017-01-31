@@ -49,6 +49,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\NotificationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\SearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +101,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigateAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Notification\Tiles.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\ApplicationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\FavoritesPage.xaml.cs">
@@ -104,6 +109,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\NotificationPage.xaml.cs">
+      <DependentUpon>NotificationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
@@ -126,5 +134,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\SEGMDL2.TTF" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Bad.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Good.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Moderate.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Sufficient.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryBad.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryGood.png" />
   </ItemGroup>
 </Project>

@@ -85,6 +85,9 @@ namespace SmokSmog
             var navProvider = Application.Current as INavigationProvider;
             navProvider?.NavigationService?.NavigateTo(nameof(StationListPage));
             navProvider?.NavigationService?.NavigateTo(nameof(InformationPage));
+
+            navProvider?.NavigationService?.NavigateTo(nameof(NotificationPage));
+
         }
 
         private void MainPageSizeChanged(object sender, SizeChangedEventArgs e)

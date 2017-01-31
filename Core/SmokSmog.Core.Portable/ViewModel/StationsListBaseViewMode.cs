@@ -1,6 +1,4 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using SmokSmog.Messenger;
 using SmokSmog.Services.Data;
 using System.Collections.Generic;
 using System.Linq;
