@@ -41,7 +41,7 @@ namespace SmokSmog.Notification
             // your toast starts with a text element)
             binding.Children.Add(new AdaptiveText()
             {
-                Text = "Dziś sytuacja smogowa będzie następująca"
+                Text = $"Stacja {station.Name} AQI : 4.3"
             });
 
             // If Adaptive Toast Notifications are supported
@@ -50,20 +50,21 @@ namespace SmokSmog.Notification
                 // Use the rich Tile-like visual layout
                 binding.Children.Add(GenerateAdaptiveGroup(station, parameterwith, 4));
             }
-            // Otherwise...
-            else
-            {
-                // We'll just add two simple lines of text
-                binding.Children.Add(new AdaptiveText()
-                {
-                    Text = "Monday ? 63? / 42?"
-                });
 
-                binding.Children.Add(new AdaptiveText()
-                {
-                    Text = "Tuesday ? 57? / 38?"
-                });
-            }
+            //// Otherwise...
+            //else
+            //{
+            //    // We'll just add two simple lines of text
+            //    binding.Children.Add(new AdaptiveText()
+            //    {
+            //        Text = "Monday ? 63? / 42?"
+            //    });
+
+            //    binding.Children.Add(new AdaptiveText()
+            //    {
+            //        Text = "Tuesday ? 57? / 38?"
+            //    });
+            //}
 
             // Construct the entire notification
             return new ToastContent()
@@ -78,7 +79,7 @@ namespace SmokSmog.Notification
                 },
 
                 // Include launch string so we know what to open when user clicks toast
-                Launch = "action=viewForecast&zip=98008"
+                Launch = $"view=StationPage&stationId={station.Id}"
             };
         }
 
@@ -144,7 +145,7 @@ namespace SmokSmog.Notification
                         if (param != null)
                             parameterWithMeasurements.Add(
                                 new ParameterWithMeasurements(param,
-                                    (from m in measurements where m.ParameterId == param.Id orderby m.DateUTC select m).ToList()));
+                                    (from m in measurements where m.Parameter.Id == param.Id orderby m.DateUTC select m).ToList()));
                     }
                 }
 
@@ -160,7 +161,7 @@ namespace SmokSmog.Notification
         }
 
         private static AdaptiveGroup GenerateAdaptiveGroup(
-                                    Station station,
+            Station station,
             List<ParameterWithMeasurements> parameterwith,
             int count)
         {

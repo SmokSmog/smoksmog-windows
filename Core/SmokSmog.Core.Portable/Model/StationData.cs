@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight;
 namespace SmokSmog.Model
 {
     [DataContract(Namespace = "SmokSmog.Model")]
-    public class StationState : ObservableObject
+    public class StationData : ObservableObject
     {
         private double? _aqi = null;
         private bool _isActive = false;
@@ -14,7 +14,7 @@ namespace SmokSmog.Model
         private int[] _ParametersIds = new int[0];
         private int _stationId = -1;
 
-        public StationState(int stationId)
+        public StationData(int stationId)
         {
             _stationId = stationId;
             _lastCheckUtc = DateTime.UtcNow;

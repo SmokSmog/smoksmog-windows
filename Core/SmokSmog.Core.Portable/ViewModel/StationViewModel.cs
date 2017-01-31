@@ -134,7 +134,7 @@
                         if (param != null)
                             ParameterWithMeasurements.Add(
                                 new ParameterWithMeasurements(param,
-                                    (from m in measurements where m.ParameterId == param.Id orderby m.DateUTC select m).ToList()));
+                                    (from m in measurements where m.Parameter.Id == param.Id orderby m.DateUTC select m).ToList()));
                     }
                 }
             }

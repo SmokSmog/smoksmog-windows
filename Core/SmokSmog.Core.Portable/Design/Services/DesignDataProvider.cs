@@ -19,12 +19,12 @@ namespace SmokSmog.Design.Services
         {
             return new List<Measurement>()
             {
-                new Measurement( station.Id,  7) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=81.3},
-                new Measurement( station.Id,  1) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=16.2},
-                new Measurement( station.Id,  3) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=37.15},
-                new Measurement( station.Id,  4) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=610.94},
-                new Measurement( station.Id,  5) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=28.92},
-                new Measurement( station.Id,  11) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=5.66},
+                new Measurement( station, new Parameter( 7)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=81.3},
+                new Measurement( station, new Parameter( 1)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=16.2},
+                new Measurement( station, new Parameter( 3)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=37.15},
+                new Measurement( station, new Parameter( 4)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=610.94},
+                new Measurement( station, new Parameter( 5)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=28.92},
+                new Measurement( station, new Parameter(11)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=5.66},
             };
         }
 
@@ -56,15 +56,14 @@ namespace SmokSmog.Design.Services
         {
             var result = new List<Station>()
             {
-                new Station() { Name="Andrychów", City="Andrychów", Province="Małopolska" },
-                new Station() { Name="Kraków - Ditla", City="Kraków", Province="Małopolska" },
-                new Station() { Name="Kraków - Bronowice", City="Kraków", Province="Małopolska" },
-                new Station() { Name="Kraków - Aleja Kraśińskiego", City="Kraków", Province="Małopolska" },
-                new Station() { Name="Kraków - Nowa Huta", City="Kraków", Province="Małopolska" },
-                new Station() { Name="Kraków - Bierzanów", City="Kraków", Province="Małopolska" },
-                new Station() { Name="Tarnów", City="Tarnów", Province="Małopolska"},
-                new Station() { Name="Nowy Sącz", City="Nowy Sącz", Province="Małopolska"},
-                new Station() { Name="Warszawa", City="Warszawa", Province="Mazowieckie" },
+                new Station(1) { Name="Andrychów", City="Andrychów", Province="Małopolska" },
+                new Station(2) { Name="Kraków - Ditla", City="Kraków", Province="Małopolska" },
+                new Station(3) { Name="Kraków - Bronowice", City="Kraków", Province="Małopolska" },
+                new Station(4) { Name="Kraków - Aleja Kraśińskiego", City="Kraków", Province="Małopolska" },
+                new Station(5) { Name="Kraków - Nowa Huta", City="Kraków", Province="Małopolska" },
+                new Station(6) { Name="Kraków - Bierzanów", City="Kraków", Province="Małopolska" },
+                new Station(7) { Name="Tarnów", City="Tarnów", Province="Małopolska"},
+                new Station(8) { Name="Nowy Sącz", City="Nowy Sącz", Province="Małopolska"},
             };
 
             return result;

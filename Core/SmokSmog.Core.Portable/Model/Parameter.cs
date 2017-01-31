@@ -20,25 +20,18 @@ namespace SmokSmog.Model
     }
 
     [DataContract(Namespace = "SmokSmog.Model")]
-    public partial class Parameter : ObservableObject, IComparable<int>
+    public class Parameter : ObservableObject, IComparable<int>
     {
         private string _description = string.Empty;
-
-        private int _id = -1;
-
         private string _name = Resources.AppResources.StringUnknown;
-
         private string _normType = Resources.AppResources.StringUnknown;
-
         private double? _normValue = null;
-
         private string _shortName = Resources.AppResources.StringUnknown;
-
         private string _unit = Resources.AppResources.StringUnknown;
 
-        public Parameter(int id) : base()
+        public Parameter(int id)
         {
-            _id = id;
+            Id = id;
         }
 
         /// <summary>
@@ -60,16 +53,7 @@ namespace SmokSmog.Model
         /// Identifier
         /// </summary>
         [DataMember]
-        public int Id
-        {
-            get { return _id; }
-            private set
-            {
-                if (_id == value) return;
-                _id = value;
-                RaisePropertyChanged(nameof(Id));
-            }
-        }
+        public int Id { get; private set; } = -1;
 
         /// <summary>
         /// Full name of particulate
@@ -135,15 +119,7 @@ namespace SmokSmog.Model
             }
         }
 
-        public ParameterType Type
-        {
-            get
-            {
-                if (Enum.IsDefined(typeof(ParameterType), _id))
-                    return (ParameterType)_id;
-                return ParameterType.UNKNOWN;
-            }
-        }
+        public ParameterType Type => Enum.IsDefined(typeof(ParameterType), Id) ? (ParameterType)Id : ParameterType.UNKNOWN;
 
         /// <summary>
         /// Base unit of particulate in which measurement and norms are presented

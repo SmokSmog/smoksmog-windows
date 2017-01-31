@@ -43,18 +43,16 @@ namespace SmokSmog.Services.Data
                 if (station == null)
                     throw new ArgumentNullException(nameof(station));
 
-                // TODO
-                //X-Smog-AdditionalMeasurements pm25
-
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get,
                     new Uri(BaseUri, $"{language}/stations/{station.Id}"));
                 request.Headers.Add("X-Smog-AdditionalMeasurements", "pm25");
 
-                //Task<string> task = GetStringAsync($"{language}/stations/{station.Id}", cancellationToken);
                 Task<string> task = SendAsync(request, cancellationToken);
                 string response = await task;
                 var token = JToken.Parse(response);
                 var particulates = token["particulates"];
+
+                var parametersLocal = parameters.ToList();
 
                 List<Measurement> measurements = new List<Measurement>();
                 foreach (var item in particulates)
@@ -62,10 +60,10 @@ namespace SmokSmog.Services.Data
                     var id = item["id"].Value<int?>();
                     if (!id.HasValue) continue;
 
-                    if (!parameters.Any(p => p.Id == id))
-                        continue;
+                    var parameter = parametersLocal.FirstOrDefault(p => p.Id == id.Value);
+                    if (parameter == null) continue;
 
-                    var measurement = new Measurement(station.Id, id.Value)
+                    var measurement = new Measurement(station, parameter)
                     {
                         Value = item["value"].Value<double?>(),
                     };
@@ -167,9 +165,8 @@ namespace SmokSmog.Services.Data
                     int? id = item["id"].Value<int?>();
                     if (!id.HasValue || id <= 0) continue;
 
-                    var station = new Station()
+                    var station = new Station(id.Value)
                     {
-                        Id = id.Value,
                         Name = (item["name"].Value<string>() ?? "").RemoveWhiteSpaces().Trim(),
                         Geocoordinate = new Geocoordinate()
                         {
