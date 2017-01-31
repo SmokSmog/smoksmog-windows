@@ -1,9 +1,8 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
+using MoreLinq;
 using SmokSmog.Model;
-using SmokSmog.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
 using Windows.System.Profile;
@@ -15,16 +14,16 @@ namespace SmokSmog.Notification
 {
     internal class Tiles
     {
-        public static TileContent GenerateTileContent(Station station, List<ParameterWithMeasurements> pwms)
+        public static TileContent GenerateTileContent(List<Measurement> measurements)
         {
             return new TileContent()
             {
                 Visual = new TileVisual()
                 {
                     //TileSmall = GenerateTileBindingSmall(),
-                    TileMedium = GenerateTileBindingMedium(station, pwms),
-                    TileWide = GenerateTileBindingWide(station, pwms),
-                    TileLarge = GenerateTileBindingLarge(station, pwms),
+                    TileMedium = GenerateTileBindingMedium(measurements),
+                    TileWide = GenerateTileBindingWide(measurements),
+                    TileLarge = GenerateTileBindingLarge(measurements),
 
                     // Set the base URI for the images, so we don't redundantly specify the entire path
                     BaseUri = new Uri("ms-appx:///Assets/Notification/")
@@ -32,23 +31,25 @@ namespace SmokSmog.Notification
             };
         }
 
-        public static ToastContent GenerateToastContent(Station station, List<ParameterWithMeasurements> parameterwith)
+        public static ToastContent GenerateToastContent(List<Measurement> measurements)
         {
             // Start by constructing the visual portion of the toast
             ToastBindingGeneric binding = new ToastBindingGeneric();
+
+            var measurement = measurements.MaxBy(o => o.Aqi.Value);
 
             // We'll always have this summary text on our toast notification (it is required that
             // your toast starts with a text element)
             binding.Children.Add(new AdaptiveText()
             {
-                Text = $"Stacja {station.Name} AQI : 4.3"
+                Text = $"Stacja {measurement.Station.Name} AQI : 4.3"
             });
 
             // If Adaptive Toast Notifications are supported
             if (IsAdaptiveToastSupported())
             {
                 // Use the rich Tile-like visual layout
-                binding.Children.Add(GenerateAdaptiveGroup(station, parameterwith, 4));
+                binding.Children.Add(GenerateAdaptiveGroup(measurements, 4));
             }
 
             //// Otherwise...
@@ -79,7 +80,7 @@ namespace SmokSmog.Notification
                 },
 
                 // Include launch string so we know what to open when user clicks toast
-                Launch = $"view=StationPage&stationId={station.Id}"
+                Launch = $"view=StationPage&stationId={measurement.Station.Id}"
             };
         }
 
@@ -112,7 +113,7 @@ namespace SmokSmog.Notification
             var data = await LoadTestData();
 
             // Generate the tile notification content and update the tile
-            TileContent content = GenerateTileContent(data.Item1, data.Item2);
+            TileContent content = GenerateTileContent(data);
             TileUpdateManager.CreateTileUpdaterForSecondaryTile(tile.TileId).Update(new TileNotification(content.GetXml()));
         }
 
@@ -121,35 +122,19 @@ namespace SmokSmog.Notification
             var data = await LoadTestData();
 
             // Generate the toast notification content and pop the toast
-            ToastContent content = GenerateToastContent(data.Item1, data.Item2);
+            ToastContent content = GenerateToastContent(data);
             ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
         }
 
-        private async Task<Tuple<Station, List<ParameterWithMeasurements>>> LoadTestData()
+        private async Task<List<Measurement>> LoadTestData()
         {
-            List<ParameterWithMeasurements> parameterWithMeasurements = new List<ParameterWithMeasurements>();
-
             try
             {
                 var dataService = new Services.ServiceLocator().DataService;
-
-                var station = dataService.GetStation(4);
-
-                var parameters = (await dataService.GetParametersAsync(station)).ToList();
-                var measurements = (await dataService.GetMeasurementsAsync(station, parameters)).ToList();
-
-                if (measurements.Any())
-                {
-                    foreach (var param in parameters)
-                    {
-                        if (param != null)
-                            parameterWithMeasurements.Add(
-                                new ParameterWithMeasurements(param,
-                                    (from m in measurements where m.Parameter.Id == param.Id orderby m.DateUTC select m).ToList()));
-                    }
-                }
-
-                return new Tuple<Station, List<ParameterWithMeasurements>>(station, parameterWithMeasurements);
+                var station = await dataService.GetStationAsync(4);
+                var parameters = await dataService.GetParametersAsync(station);
+                var measurements = await dataService.GetMeasurementsAsync(station, parameters);
+                return measurements;
             }
             catch (Exception ex)
             {
@@ -160,22 +145,17 @@ namespace SmokSmog.Notification
             return null;
         }
 
-        private static AdaptiveGroup GenerateAdaptiveGroup(
-            Station station,
-            List<ParameterWithMeasurements> parameterwith,
-            int count)
+        private static AdaptiveGroup GenerateAdaptiveGroup(List<Measurement> measurements, int maxCount = 5)
         {
             var group = new AdaptiveGroup();
 
-            var pwmList = parameterwith.OrderByDescending(o => o.LastMeasurement.Aqi.Value).ToList();
-
-            for (int i = 0; i < pwmList.Count && i < count; i++)
+            for (int i = 0; i < measurements.Count && i < maxCount; i++)
             {
-                var pwm = pwmList[i];
-                string header = pwm.Parameter.ShortName;
-                string image = pwm.LastMeasurement.Aqi.Info.Level + ".png";
-                string line1 = pwm.LastMeasurement.Value?.ToString("#.");
-                string line2 = pwm.Parameter.Unit;
+                var measurement = measurements[i];
+                string header = measurement.Parameter.ShortName;
+                string image = measurement.Aqi.Info.Level + ".png";
+                string line1 = measurement.Value?.ToString("#.");
+                string line2 = measurement.Parameter.Unit;
                 group.Children.Add(GenerateSubgroup(header, image, line1, line2));
             }
 
@@ -241,7 +221,7 @@ namespace SmokSmog.Notification
             };
         }
 
-        private static TileBinding GenerateTileBindingLarge(Station station, List<ParameterWithMeasurements> parameterwith)
+        private static TileBinding GenerateTileBindingLarge(List<Measurement> measurements)
         {
             return new TileBinding()
             {
@@ -293,16 +273,16 @@ namespace SmokSmog.Notification
                             }
                         },
 
-                        //// For spacing
+                        // For spacing
                         new AdaptiveText(),
 
-                        GenerateAdaptiveGroup(station, parameterwith, 4)
+                        GenerateAdaptiveGroup(measurements, 4)
                     }
                 }
             };
         }
 
-        private static TileBinding GenerateTileBindingMedium(Station station, List<ParameterWithMeasurements> parameterwith)
+        private static TileBinding GenerateTileBindingMedium(List<Measurement> measurements)
         {
             return new TileBinding()
             {
@@ -310,49 +290,48 @@ namespace SmokSmog.Notification
                 {
                     Children =
                     {
-                        GenerateAdaptiveGroup(station, parameterwith, 2)
+                        GenerateAdaptiveGroup(measurements, 2)
                     }
                 }
             };
         }
 
-        private static TileBinding GenerateTileBindingSmall(Station station, List<ParameterWithMeasurements> parameterwith)
+        //TODO - figure it out how to the smallest tile should look like - not used now
+        //private static TileBinding GenerateTileBindingSmall(Station station, List<ParameterWithMeasurements> parameterwith)
+        //{
+        //    return new TileBinding()
+        //    {
+        //        Content = new TileBindingContentAdaptive()
+        //        {
+        //            TextStacking = TileTextStacking.Center,
+        //            Children =
+        //            {
+        //                new AdaptiveText()
+        //                {
+        //                    Text = "Mon",
+        //                    HintStyle = AdaptiveTextStyle.Body,
+        //                    HintAlign = AdaptiveTextAlign.Center
+        //                },
+        //                new AdaptiveText()
+        //                {
+        //                    Text = "63?",
+        //                    HintStyle = AdaptiveTextStyle.Base,
+        //                    HintAlign = AdaptiveTextAlign.Center
+        //                }
+        //            }
+        //        }
+        //    };
+        //}
+
+        private static TileBinding GenerateTileBindingWide(List<Measurement> measurements)
         {
             return new TileBinding()
             {
                 Content = new TileBindingContentAdaptive()
                 {
-                    TextStacking = TileTextStacking.Center,
-
                     Children =
                     {
-                        new AdaptiveText()
-                        {
-                            Text = "Mon",
-                            HintStyle = AdaptiveTextStyle.Body,
-                            HintAlign = AdaptiveTextAlign.Center
-                        },
-
-                        new AdaptiveText()
-                        {
-                            Text = "63?",
-                            HintStyle = AdaptiveTextStyle.Base,
-                            HintAlign = AdaptiveTextAlign.Center
-                        }
-                    }
-                }
-            };
-        }
-
-        private static TileBinding GenerateTileBindingWide(Station station, List<ParameterWithMeasurements> parameterwith)
-        {
-            return new TileBinding()
-            {
-                Content = new TileBindingContentAdaptive()
-                {
-                    Children =
-                    {
-                        GenerateAdaptiveGroup(station, parameterwith, 4)
+                        GenerateAdaptiveGroup(measurements, 4)
                     }
                 }
             };
