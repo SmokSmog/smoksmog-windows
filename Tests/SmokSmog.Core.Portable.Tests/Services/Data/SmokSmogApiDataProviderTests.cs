@@ -75,16 +75,16 @@ namespace SmokSmog.Core.Portable.Tests.Services.Data
         public void GetParameters_Offline_Throw_HttpRequestException()
         {
             // stationId = 4 - Kraków - Aleja Krasińskiego
-            var parameters = _serviceOffline.GetParameters(new Model.Station() { Id = 4 });
+            var parameters = _serviceOffline.GetParameters(new Model.Station(4));
         }
 
         [TestMethod]
         public void GetParameters_Online_Success()
         {
             // stationId = 4 - Kraków - Aleja Krasińskiego
-            var parameters = _serviceOnline.GetParameters(new Model.Station() { Id = 4 });
+            var parameters = _serviceOnline.GetParameters(new Model.Station(4));
             Assert.IsNotNull(parameters);
-            Assert.IsTrue(parameters.Count() > 0);
+            Assert.IsTrue(parameters.Any());
         }
 
         [TestMethod]
@@ -99,7 +99,7 @@ namespace SmokSmog.Core.Portable.Tests.Services.Data
         {
             var stations = _serviceOnline.GetStations();
             Assert.IsNotNull(stations);
-            Assert.IsTrue(stations.Count() > 0);
+            Assert.IsTrue(stations.Any());
         }
     }
 }

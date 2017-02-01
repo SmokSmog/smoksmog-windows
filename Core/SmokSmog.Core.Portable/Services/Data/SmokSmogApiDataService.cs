@@ -43,18 +43,16 @@ namespace SmokSmog.Services.Data
                 if (station == null)
                     throw new ArgumentNullException(nameof(station));
 
-                // TODO
-                //X-Smog-AdditionalMeasurements pm25
-
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get,
                     new Uri(BaseUri, $"{language}/stations/{station.Id}"));
                 request.Headers.Add("X-Smog-AdditionalMeasurements", "pm25");
 
-                //Task<string> task = GetStringAsync($"{language}/stations/{station.Id}", cancellationToken);
                 Task<string> task = SendAsync(request, cancellationToken);
                 string response = await task;
                 var token = JToken.Parse(response);
                 var particulates = token["particulates"];
+
+                var parametersLocal = parameters.ToList();
 
                 List<Measurement> measurements = new List<Measurement>();
                 foreach (var item in particulates)
@@ -62,10 +60,10 @@ namespace SmokSmog.Services.Data
                     var id = item["id"].Value<int?>();
                     if (!id.HasValue) continue;
 
-                    if (!parameters.Any(p => p.Id == id))
-                        continue;
+                    var parameter = parametersLocal.FirstOrDefault(p => p.Id == id.Value);
+                    if (parameter == null) continue;
 
-                    var measurement = new Measurement(station.Id, id.Value)
+                    var measurement = new Measurement(station, parameter)
                     {
                         Value = item["value"].Value<double?>(),
                     };
@@ -74,9 +72,12 @@ namespace SmokSmog.Services.Data
                     if (date != null)
                         measurement.Date = DateTime.Parse(date.ToString());
 
-                    var avg = item["avg"]?.Value<double?>();
-                    if (avg.HasValue)
-                        measurement.Average = new Average(AggregationType.Avg1Day, avg.Value);
+                    if (parameter.Type != ParameterType.PM25)
+                    {
+                        var avg = item["avg"]?.Value<double?>();
+                        if (avg.HasValue)
+                            measurement.Average = new Average(AggregationType.Avg1Day, avg.Value);
+                    }
 
                     measurements.Add(measurement);
                 }
@@ -123,12 +124,21 @@ namespace SmokSmog.Services.Data
                     var id = item["id"].Value<int?>();
                     if (!id.HasValue) continue;
 
+                    var norm = item["norm"].Value<double?>();
+
+                    var shortName = (item["short_name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim();
+                    if (shortName == "PM\u2082.\u2085")
+                    {
+                        shortName = "PM\u2082\u200A\u0326\u200A\u2085";
+                        norm = null;
+                    }
+
                     var parameter = new Parameter(id.Value)
                     {
                         Name = (item["name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
-                        ShortName = (item["short_name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
+                        ShortName = shortName,
                         Unit = (item["unit"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
-                        NormValue = item["norm"].Value<double?>(),
+                        NormValue = norm,
                     };
 
                     parameters.Add(parameter);
@@ -167,9 +177,8 @@ namespace SmokSmog.Services.Data
                     int? id = item["id"].Value<int?>();
                     if (!id.HasValue || id <= 0) continue;
 
-                    var station = new Station()
+                    var station = new Station(id.Value)
                     {
-                        Id = id.Value,
                         Name = (item["name"].Value<string>() ?? "").RemoveWhiteSpaces().Trim(),
                         Geocoordinate = new Geocoordinate()
                         {

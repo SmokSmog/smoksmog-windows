@@ -64,7 +64,10 @@ namespace SmokSmog.Services.Data
                 //"addressStreet":"ul. Bartnicza"
                 try
                 {
-                    lista.Add(new Station()
+                    int? id = item["id"].Value<int?>();
+                    if (!id.HasValue) continue;
+
+                    lista.Add(new Station(id.Value)
                     {
                         Name = item["stationName"].ToString(),
                         Geocoordinate = new Geocoordinate()
@@ -75,11 +78,11 @@ namespace SmokSmog.Services.Data
                         City = (item["city"]["name"] ?? item["city"]["commune"]["communeName"]).ToString(),
                         Province = (item["city"]["commune"]["provinceName"] ?? "-").ToString().ToLower(),
                         Address = (item["addressStreet"]).ToString(),
-                        //Aqi = (int)item["id"] % 7,
                     });
                 }
                 catch (Exception)
                 {
+                    throw;
 #if (DEBUG)
                     //e.ToString();
                     //System.Diagnostics.Debugger.Break();

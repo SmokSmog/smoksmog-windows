@@ -32,25 +32,19 @@ namespace SmokSmog.Model
     {
         private Average _average;
         private DateTime _date = DateTime.MinValue;
-
-        private int _parameterId = -1;
-
         private TimeSpan _period;
-
-        private int _stationId;
-
         private double? _value;
 
-        public Measurement(int stationId, int parameterId)
+        public Measurement(Station station, Parameter parameter)
         {
-            _stationId = stationId;
-            _parameterId = parameterId;
+            Station = station;
+            Parameter = parameter;
         }
 
         /// <summary>
         /// Air Quality Index value
         /// </summary>
-        public AirQualityIndex Aqi => AirQualityIndex.CalculateAirQualityIndex((ParameterType)_parameterId, Value);
+        public AirQualityIndex Aqi => AirQualityIndex.CalculateAirQualityIndex(Parameter.Type, Value);
 
         public Average Average
         {
@@ -85,19 +79,9 @@ namespace SmokSmog.Model
         public DateTime DateUTC => Date.ToUniversalTime();
 
         /// <summary>
-        /// Identification number of Parameter to which this measurement belongs
+        /// Parameter to which this measurement belongs
         /// </summary>
-        [DataMember]
-        public int ParameterId
-        {
-            get { return _parameterId; }
-            private set
-            {
-                if (_parameterId == value) return;
-                _parameterId = value;
-                RaisePropertyChanged(nameof(ParameterId));
-            }
-        }
+        public Parameter Parameter { get; }
 
         /// <summary>
         /// Period from which the values are averaged It determine frequency of date as well
@@ -115,19 +99,9 @@ namespace SmokSmog.Model
         }
 
         /// <summary>
-        /// Station Id
+        /// Station to which this measurement belongs
         /// </summary>
-        [DataMember]
-        public int StationId
-        {
-            get { return _stationId; }
-            private set
-            {
-                if (_stationId == value) return;
-                _stationId = value;
-                RaisePropertyChanged(nameof(StationId));
-            }
-        }
+        public Station Station { get; }
 
         /// <summary>
         /// Value
@@ -151,19 +125,19 @@ namespace SmokSmog.Model
             if (obj is Measurement)
             {
                 Measurement o = (obj as Measurement);
-                return o.StationId == this.StationId &&
-                    o.ParameterId == this.ParameterId &&
-                    o.Date == this.Date &&
-                    o.Value == this.Value &&
-                    o.Period == this.Period;
+                return o.Station != this.Station ||
+                    o.Parameter != this.Parameter ||
+                    o.Date != this.Date ||
+                    !Equals(o.Value, this.Value) ||
+                    o.Period != this.Period;
             }
             return false;
         }
 
         public override int GetHashCode()
-            => new { StationId, ParameterId, Date, Value, Period }.GetHashCode();
+            => new { Station, Parameter, Date, Value, Period }.GetHashCode();
 
         public override string ToString()
-            => $"Measurement StationId:{StationId} ParticulateId:{ParameterId} Date:{Date} Value:{Value} Period:{Period}";
+            => $"Measurement StationId:{Station?.Id} ParticulateId:{Parameter?.Id} Date:{Date} Value:{Value} Period:{Period}";
     }
 }

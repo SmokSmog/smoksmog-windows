@@ -5,27 +5,26 @@ using System.Runtime.Serialization;
 namespace SmokSmog.Model
 {
     [DataContract(Namespace = "SmokSmog.Model")]
-    public partial class Station : ObservableObject, IComparable<int>
+    public class Station : ObservableObject, IComparable<int>
     {
         private string _address = Resources.AppResources.StringUnknown;
         private string _city = Resources.AppResources.StringUnknown;
         private Geocoordinate _geocoordinate = new Geocoordinate();
-        private int _id = -1;
         private string _name = Resources.AppResources.StringUnknown;
         private string _province = Resources.AppResources.StringUnknown;
 
-        public Station()
+        public Station(int id)
         {
+            Id = id;
         }
 
-        public static Station Sample { get; } = new Station()
+        public static Station Sample { get; } = new Station(1)
         {
-            Id = 1,
             Address = "ul. Bulwarowa",
             City = "Kraków",
             Name = "Kraków-Kurdwanów",
             Province = "Małopolskie",
-            Geocoordinate = new Geocoordinate(50.069308, 20, 053492),
+            Geocoordinate = new Geocoordinate(50.069308, 20.053492),
         };
 
         /// <summary>
@@ -35,7 +34,7 @@ namespace SmokSmog.Model
         public string Address
         {
             get { return _address; }
-            set
+            internal set
             {
                 if (_address == value) return;
                 _address = value;
@@ -50,7 +49,7 @@ namespace SmokSmog.Model
         public string City
         {
             get { return _city; }
-            set
+            internal set
             {
                 if (_city == value) return;
                 _city = value;
@@ -65,7 +64,7 @@ namespace SmokSmog.Model
         public Geocoordinate Geocoordinate
         {
             get { return _geocoordinate; }
-            set
+            internal set
             {
                 if (_geocoordinate == value) return;
                 _geocoordinate = value;
@@ -77,16 +76,7 @@ namespace SmokSmog.Model
         /// Station identifier example : 1 it must be unique
         /// </summary>
         [DataMember]
-        public int Id
-        {
-            get { return _id; }
-            set
-            {
-                if (_id == value) return;
-                _id = value;
-                RaisePropertyChanged(nameof(Id));
-            }
-        }
+        public int Id { get; } = -1;
 
         /// <summary>
         /// Station Name (city) example : "Kraków - Aleja Krasińskiego"
@@ -95,7 +85,7 @@ namespace SmokSmog.Model
         public string Name
         {
             get { return _name; }
-            set
+            internal set
             {
                 if (_name == value) return;
                 _name = value;
@@ -110,7 +100,7 @@ namespace SmokSmog.Model
         public string Province
         {
             get { return _province; }
-            set
+            internal set
             {
                 if (_province == value) return;
                 _province = value;
@@ -118,7 +108,7 @@ namespace SmokSmog.Model
             }
         }
 
-        internal static Station Empty { get; } = new Station()
+        internal static Station Empty { get; } = new Station(-1)
         {
             Address = string.Empty,
             City = string.Empty,
@@ -133,13 +123,13 @@ namespace SmokSmog.Model
 
         public override bool Equals(object obj)
         {
-            if (obj is Station)
+            var station = obj as Station;
+            if (station != null)
             {
-                Station o = (obj as Station);
-                return o.Id == this.Id &&
-                    o.Name.Equals(this.Name) &&
-                    o.Geocoordinate == this.Geocoordinate &&
-                    o.Province.Equals(this.Province);
+                return station.Id == this.Id &&
+                    station.Name.Equals(this.Name) &&
+                    station.Geocoordinate == this.Geocoordinate &&
+                    station.Province.Equals(this.Province);
             }
             return false;
         }
