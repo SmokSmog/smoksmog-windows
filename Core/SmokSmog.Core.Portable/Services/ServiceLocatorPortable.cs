@@ -5,15 +5,15 @@ using SmokSmog.Services.Storage;
 
 namespace SmokSmog.Services
 {
-    internal class ServiceLocator : IServiceLocator
+    internal class ServiceLocatorPortable : IServiceLocator
     {
-        private ServiceLocator()
+        private ServiceLocatorPortable()
         {
             if (!Microsoft.Practices.ServiceLocation.ServiceLocator.IsLocationProviderSet)
                 Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
         }
 
-        public static IServiceLocator Instance = new ServiceLocator();
+        public static IServiceLocator Instance = new ServiceLocatorPortable();
 
         public IDataProvider DataService => SimpleIoc.Default.GetInstance<IDataProvider>();
 

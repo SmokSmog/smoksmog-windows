@@ -1,0 +1,9 @@
+﻿<model:Parameter xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:model="using:SmokSmog.Model"
+                 Name="Pył Zawieszony"
+                 Id="7"
+                 NormType="24h"
+                 NormValue="50.0"
+                 ShortName="PM₁₀"
+                 Unit="µg/m³" />

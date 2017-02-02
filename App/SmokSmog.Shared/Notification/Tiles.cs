@@ -87,7 +87,7 @@ namespace SmokSmog.Notification
 
         public async void PinTile(object sender, object parameters)
         {
-            SecondaryTile tile = new SecondaryTile(DateTime.Now.Ticks.ToString())
+            SecondaryTile tile = new SecondaryTile("SmokSmogSecondaryTile")
             {
                 DisplayName = "SmokSmog",
                 Arguments = "args",
@@ -133,6 +133,22 @@ namespace SmokSmog.Notification
             var notyfication = new TileNotification(notificationXml) { Tag = "First" };
 
             TileUpdateManager.CreateTileUpdaterForSecondaryTile(tile.TileId).Update(notyfication);
+        }
+
+        public async void UpdateTile(object sender, object parameters)
+        {
+            TileUpdateManager.CreateTileUpdaterForSecondaryTile("SmokSmogSecondaryTile").EnableNotificationQueue(true);
+
+            var data = await LoadTestData();
+
+            // Generate the tile notification content and update the tile
+            TileContent content = GenerateTileContent(data);
+
+            // notification queue https://blogs.msdn.microsoft.com/tiles_and_toasts/2016/01/05/quickstart-how-to-use-the-tile-notification-queue-with-local-notifications/
+            var notificationXml = content.GetXml();
+            var notyfication = new TileNotification(notificationXml) { Tag = "First" };
+
+            TileUpdateManager.CreateTileUpdaterForSecondaryTile("SmokSmogSecondaryTile").Update(notyfication);
         }
 
         public async void PopToast(object sender, object parameters)

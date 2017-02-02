@@ -1,0 +1,30 @@
+﻿<model:Measurement xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:model="using:SmokSmog.Model"
+                   Date="2017-02-02 20:44"
+                   Value="52">
+    <model:Measurement.Average>
+        <model:Average AggregationType="Avg24Hour" Value="50" />
+    </model:Measurement.Average>
+
+    <model:Measurement.Station>
+        <model:Station Name="Kraków-Kurdwanów"
+                       Address="ul. Bulwarowa"
+                       City="Kraków"
+                       Id="1"
+                       Province="Małopolskie">
+            <model:Station.Geocoordinate>
+                <model:Geocoordinate Latitude="50.069308" Longitude="20.053492" />
+            </model:Station.Geocoordinate>
+        </model:Station>
+    </model:Measurement.Station>
+
+    <model:Measurement.Parameter>
+        <model:Parameter Name="Pył Zawieszony"
+                         Id="7"
+                         NormType="24h"
+                         NormValue="50.0"
+                         ShortName="PM₁₀"
+                         Unit="µg/m³" />
+    </model:Measurement.Parameter>
+</model:Measurement>

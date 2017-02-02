@@ -9,6 +9,14 @@
     <Import_RootNamespace>SmokSmog</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <DesignData Include="$(MSBuildThisFileDirectory)DesignData\Parameter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </DesignData>
+    <DesignData Include="$(MSBuildThisFileDirectory)DesignData\Station.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </DesignData>
     <Page Include="$(MSBuildThisFileDirectory)Controls\AqiRing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -29,10 +37,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Design\Test.xaml">
+    <DesignData Include="$(MSBuildThisFileDirectory)DesignData\Measurement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </DesignData>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -89,10 +97,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\SvgImage.xaml.cs">
       <DependentUpon>SvgImage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Design\Test.xaml.cs">
-      <DependentUpon>Test.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Design\TestViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

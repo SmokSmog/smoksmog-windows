@@ -89,7 +89,7 @@
     <Compile Include="Services\Data\GiosRestApiDataService.cs" />
     <Compile Include="Services\Geolocation\GeolocationTimeOutException.cs" />
     <Compile Include="Services\Search\SearchQuerry.cs" />
-    <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="Services\ServiceLocatorPortable.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Threading\AsyncBridge.cs" />
     <Compile Include="Linq\Grouping.cs" />

@@ -20,7 +20,7 @@ namespace SmokSmog.Model
     }
 
     [DataContract(Namespace = "SmokSmog.Model")]
-    public class Parameter : ObservableObject, IComparable<int>
+    public partial class Parameter : ObservableObject, IComparable<int>
     {
         private string _description = string.Empty;
         private string _name = Resources.AppResources.StringUnknown;
@@ -28,6 +28,17 @@ namespace SmokSmog.Model
         private double? _normValue = null;
         private string _shortName = Resources.AppResources.StringUnknown;
         private string _unit = Resources.AppResources.StringUnknown;
+
+        /// <summary>
+        /// default constructor for design purposes only
+        /// </summary>
+        internal Parameter()
+        {
+            if (!ViewModelBase.IsInDesignModeStatic)
+            {
+                throw new NotSupportedException();
+            }
+        }
 
         public Parameter(int id)
         {
@@ -41,7 +52,7 @@ namespace SmokSmog.Model
         public string Description
         {
             get { return _description; }
-            set
+            internal set
             {
                 if (_description == value) return;
                 _description = value;
@@ -53,7 +64,7 @@ namespace SmokSmog.Model
         /// Identifier
         /// </summary>
         [DataMember]
-        public int Id { get; private set; } = -1;
+        public int Id { get; internal set; } = -1;
 
         /// <summary>
         /// Full name of particulate
@@ -63,7 +74,7 @@ namespace SmokSmog.Model
         public string Name
         {
             get { return _name; }
-            set
+            internal set
             {
                 if (_name == value) return;
                 _name = value;
@@ -78,7 +89,7 @@ namespace SmokSmog.Model
         public string NormType
         {
             get { return _normType; }
-            set
+            internal set
             {
                 if (_normType == value) return;
                 _normType = value;
@@ -93,7 +104,7 @@ namespace SmokSmog.Model
         public double? NormValue
         {
             get { return _normValue; }
-            set
+            internal set
             {
                 if (_normValue == value) return;
                 _normValue = value;
@@ -111,7 +122,7 @@ namespace SmokSmog.Model
         public string ShortName
         {
             get { return _shortName; }
-            set
+            internal set
             {
                 if (_shortName == value) return;
                 _shortName = value;
@@ -129,7 +140,7 @@ namespace SmokSmog.Model
         public string Unit
         {
             get { return _unit; }
-            set
+            internal set
             {
                 if (_unit == value) return;
                 _unit = value;

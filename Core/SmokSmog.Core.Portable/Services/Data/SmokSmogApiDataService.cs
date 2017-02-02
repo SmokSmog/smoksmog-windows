@@ -76,7 +76,7 @@ namespace SmokSmog.Services.Data
                     {
                         var avg = item["avg"]?.Value<double?>();
                         if (avg.HasValue)
-                            measurement.Average = new Average(AggregationType.Avg1Day, avg.Value);
+                            measurement.Average = new Average(AggregationType.Avg24Hour, avg.Value);
                     }
 
                     measurements.Add(measurement);
@@ -129,7 +129,7 @@ namespace SmokSmog.Services.Data
                     var shortName = (item["short_name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim();
                     if (shortName == "PM\u2082.\u2085")
                     {
-                        shortName = "PM\u2082\u200A\u0326\u200A\u2085";
+                        shortName = "PM\u2082\u200A\u05c5\u200A\u2085";
                         norm = null;
                     }
 

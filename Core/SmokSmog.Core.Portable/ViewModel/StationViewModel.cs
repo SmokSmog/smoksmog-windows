@@ -3,6 +3,7 @@
     using GalaSoft.MvvmLight;
     using Model;
     using MoreLinq;
+    using Services;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -105,7 +106,7 @@
             Station = null;
             try
             {
-                var dataService = Services.ServiceLocator.Instance.DataService;
+                var dataService = ServiceLocatorPortable.Instance.DataService;
                 var station = await dataService.GetStationAsync(id);
                 Station = station;
             }
@@ -116,14 +117,14 @@
             }
         }
 
-        private async Task LoadData(Model.Station station)
+        private async Task LoadData(Station station)
         {
             ParameterWithMeasurements.Clear();
             RaisePropertyChanged(nameof(ParameterWithMeasurements));
 
             try
             {
-                var dataService = Services.ServiceLocator.Instance.DataService;
+                var dataService = ServiceLocatorPortable.Instance.DataService;
                 var parameters = (await dataService.GetParametersAsync(station)).ToList();
                 var measurements = (await dataService.GetMeasurementsAsync(station, parameters)).ToList();
 

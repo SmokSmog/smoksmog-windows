@@ -28,7 +28,7 @@ namespace SmokSmog
             // inject WinRT Resource Manager into Resx Generated App Resources Classes
             WinRTResourceManager.InjectIntoResxGeneratedAppResources(typeof(SmokSmog.Resources.AppResources));
 
-            SmokSmog.Services.ServiceLocator.Initialize();
+            Services.ServiceLocator.Initialize();
 
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;

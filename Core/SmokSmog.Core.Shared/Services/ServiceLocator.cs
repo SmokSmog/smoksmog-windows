@@ -11,7 +11,7 @@ namespace SmokSmog.Services
 {
     public class ServiceLocator : IServiceLocator
     {
-        private ServiceLocation.IServiceLocator _locator;
+        private readonly ServiceLocation.IServiceLocator _locator;
 
         private static bool _isInitialized = false;
 

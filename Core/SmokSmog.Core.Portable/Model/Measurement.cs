@@ -10,7 +10,7 @@ namespace SmokSmog.Model
         Avg1Hour = 1,
         Avg8Hour = 8,
         Avg12Hour = 12,
-        Avg1Day = 24,
+        Avg24Hour = 24,
         Avg1Week = 168,
         Avg1Year = 8760,
     }
@@ -23,8 +23,8 @@ namespace SmokSmog.Model
             AggregationType = aggregationType;
         }
 
-        public double? Value { get; }
-        public AggregationType AggregationType { get; }
+        public double? Value { get; internal set; }
+        public AggregationType AggregationType { get; internal set; }
     }
 
     [DataContract(Namespace = "SmokSmog.Model")]
@@ -34,6 +34,17 @@ namespace SmokSmog.Model
         private DateTime _date = DateTime.MinValue;
         private TimeSpan _period;
         private double? _value;
+
+        /// <summary>
+        /// default constructor for design purposes only
+        /// </summary>
+        internal Measurement()
+        {
+            if (!ViewModelBase.IsInDesignModeStatic)
+            {
+                throw new NotSupportedException();
+            }
+        }
 
         public Measurement(Station station, Parameter parameter)
         {
@@ -49,7 +60,7 @@ namespace SmokSmog.Model
         public Average Average
         {
             get { return _average; }
-            set
+            internal set
             {
                 _average = value;
                 RaisePropertyChanged(nameof(Average));
@@ -64,7 +75,7 @@ namespace SmokSmog.Model
         public DateTime Date
         {
             get { return _date; }
-            set
+            internal set
             {
                 if (_date == value) return;
                 _date = value;
@@ -90,7 +101,7 @@ namespace SmokSmog.Model
         public TimeSpan Period
         {
             get { return _period; }
-            set
+            internal set
             {
                 if (_period == value) return;
                 _period = value;
@@ -111,7 +122,7 @@ namespace SmokSmog.Model
         public double? Value
         {
             get { return _value; }
-            set
+            internal set
             {
                 if (_value == value) return;
                 _value = value;

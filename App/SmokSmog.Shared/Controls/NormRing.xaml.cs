@@ -67,7 +67,7 @@ namespace SmokSmog.Controls
                 var pwm = ring.ParameterWithMeasurements;
                 if (pwm != null)
                 {
-                    var norm = pwm?.Parameter?.NormValue;
+                    var norm = pwm.Parameter?.NormValue;
                     var avg = pwm.LastMeasurement?.Average.Value;
 
                     if (norm.HasValue && avg.HasValue)
@@ -96,6 +96,10 @@ namespace SmokSmog.Controls
                         }
 
                         ring.Percent = string.Format(format, ratio * 100d);
+                    }
+                    else
+                    {
+                        ring.Percent = string.Format(LocalizedStrings.LocalizedString("StringNA"));
                     }
                 }
                 else
