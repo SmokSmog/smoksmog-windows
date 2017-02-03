@@ -26,6 +26,15 @@
                 </i:Interaction.Behaviors>
             </Button>
 
+            <Button Content="UpdateTile" HorizontalAlignment="Center">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="Tapped">
+                        <ic:CallMethodAction MethodName="UpdateTile" TargetObject="{StaticResource Tiles}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </Button>
+
+
             <Button Content="PopToast" HorizontalAlignment="Center">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="Tapped">

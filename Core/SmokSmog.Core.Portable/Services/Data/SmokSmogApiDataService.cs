@@ -63,23 +63,30 @@ namespace SmokSmog.Services.Data
                     var parameter = parametersLocal.FirstOrDefault(p => p.Id == id.Value);
                     if (parameter == null) continue;
 
-                    var measurement = new Measurement(station, parameter)
+                    var dateString = item["date"]?.Value<string>();
+                    DateTime date;
+                    DateTime.TryParse(dateString, out date);
+
+                    measurements.Add(new Measurement(station, parameter)
                     {
+                        Aggregation = AggregationType.Avg1Hour,
                         Value = item["value"].Value<double?>(),
-                    };
+                        Date = date,
+                    });
 
-                    var date = item["date"]?.Value<string>();
-                    if (date != null)
-                        measurement.Date = DateTime.Parse(date.ToString());
-
-                    if (parameter.Type != ParameterType.PM25)
+                    if (parameter.Type != ParameterType.PM25 && parameter.Type != ParameterType.C6H6)
                     {
                         var avg = item["avg"]?.Value<double?>();
                         if (avg.HasValue)
-                            measurement.Average = new Average(AggregationType.Avg1Day, avg.Value);
+                        {
+                            measurements.Add(new Measurement(station, parameter)
+                            {
+                                Aggregation = AggregationType.Avg24Hour,
+                                Value = avg.Value,
+                                Date = date,
+                            });
+                        }
                     }
-
-                    measurements.Add(measurement);
                 }
 
                 return measurements;
@@ -94,7 +101,7 @@ namespace SmokSmog.Services.Data
         /// <summary>
         /// </summary>
         /// <see cref="http://api.smoksmog.jkostrz.name/en/stations/4"/>
-        /// <param name="stationId">        </param>
+        /// <param name="station">          </param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         public override async Task<List<Parameter>> GetParametersAsync(Model.Station station, CancellationToken cancellationToken)
@@ -125,21 +132,35 @@ namespace SmokSmog.Services.Data
                     if (!id.HasValue) continue;
 
                     var norm = item["norm"].Value<double?>();
+                    var normAggregation = AggregationType.Avg24Hour;
 
                     var shortName = (item["short_name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim();
                     if (shortName == "PM\u2082.\u2085")
                     {
-                        shortName = "PM\u2082\u200A\u0326\u200A\u2085";
-                        norm = null;
+                        shortName = "PM\u2082\u200A\u05c5\u200A\u2085";
                     }
 
-                    var parameter = new Parameter(id.Value)
+                    var parameter = new Parameter(station, id.Value)
                     {
                         Name = (item["name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
                         ShortName = shortName,
                         Unit = (item["unit"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim(),
-                        NormValue = norm,
                     };
+
+                    if (parameter.Type == ParameterType.PM25 || parameter.Type == ParameterType.C6H6)
+                    {
+                        normAggregation = AggregationType.Avg1Year;
+                    }
+
+                    if (norm.HasValue)
+                    {
+                        parameter.Norm = new Norm()
+                        {
+                            Aggregation = normAggregation,
+                            Value = norm.Value,
+                            Name = "WIOŚ"
+                        };
+                    }
 
                     parameters.Add(parameter);
                 }

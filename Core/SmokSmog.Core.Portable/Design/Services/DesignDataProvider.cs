@@ -19,12 +19,12 @@ namespace SmokSmog.Design.Services
         {
             return new List<Measurement>()
             {
-                new Measurement( station, new Parameter( 7)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=81.3},
-                new Measurement( station, new Parameter( 1)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=16.2},
-                new Measurement( station, new Parameter( 3)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=37.15},
-                new Measurement( station, new Parameter( 4)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=610.94},
-                new Measurement( station, new Parameter( 5)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=28.92},
-                new Measurement( station, new Parameter(11)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=5.66},
+                new Measurement( station, new Parameter(station, 7)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=81.3},
+                new Measurement( station, new Parameter(station, 1)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=16.2},
+                new Measurement( station, new Parameter(station, 3)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=37.15},
+                new Measurement( station, new Parameter(station, 4)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=610.94},
+                new Measurement( station, new Parameter(station, 5)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=28.92},
+                new Measurement( station, new Parameter(station,11)) {  Date= DateTime.Parse("01.01.2017 18:00:00"), Value=5.66},
             };
         }
 
@@ -34,12 +34,12 @@ namespace SmokSmog.Design.Services
         {
             return new List<Parameter>()
             {
-                new Parameter(7){ Name="Pył zawieszony",    ShortName="PM₁₀",   Unit="µg/m³", NormType="Nieznany", NormValue=50},
-                new Parameter(1){ Name="Dwutlenek siarki",  ShortName="SO₂",    Unit="µg/m³", NormType="Nieznany", NormValue=350},
-                new Parameter(3){ Name="Dwutlenek azotu",   ShortName="NO₂",    Unit="µg/m³", NormType="Nieznany", NormValue=200},
-                new Parameter(4){ Name="Tlenek węgla",      ShortName="CO",     Unit="µg/m³", NormType="Nieznany", NormValue=10000},
-                new Parameter(5){ Name="Ozon",              ShortName="O₃",     Unit="µg/m³", NormType="Nieznany", NormValue=120},
-                new Parameter(11){ Name="Benzen",           ShortName="C₆H₆",   Unit="µg/m³", NormType="Nieznany", NormValue=5},
+                new Parameter(station, 7){ Name="Pył zawieszony",    ShortName="PM₁₀",   Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg24Hour, Name = "WIOŚ", Value = 50} },
+                new Parameter(station, 1){ Name="Dwutlenek siarki",  ShortName="SO₂",    Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg24Hour, Name = "WIOŚ", Value =350} },
+                new Parameter(station, 3){ Name="Dwutlenek azotu",   ShortName="NO₂",    Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg24Hour, Name = "WIOŚ", Value =200} },
+                new Parameter(station, 4){ Name="Tlenek węgla",      ShortName="CO",     Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg24Hour, Name = "WIOŚ", Value =10000} },
+                new Parameter(station, 5){ Name="Ozon",              ShortName="O₃",     Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg24Hour, Name = "WIOŚ", Value =120} },
+                new Parameter(station, 11){ Name="Benzen",           ShortName="C₆H₆",   Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg24Hour, Name = "WIOŚ", Value =5} },
             };
         }
 

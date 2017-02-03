@@ -5,13 +5,24 @@ using System.Runtime.Serialization;
 namespace SmokSmog.Model
 {
     [DataContract(Namespace = "SmokSmog.Model")]
-    public class Station : ObservableObject, IComparable<int>
+    public partial class Station : ObservableObject, IComparable<int>
     {
         private string _address = Resources.AppResources.StringUnknown;
         private string _city = Resources.AppResources.StringUnknown;
         private Geocoordinate _geocoordinate = new Geocoordinate();
         private string _name = Resources.AppResources.StringUnknown;
         private string _province = Resources.AppResources.StringUnknown;
+
+        /// <summary>
+        /// default constructor for design purposes only
+        /// </summary>
+        internal Station()
+        {
+            if (!ViewModelBase.IsInDesignModeStatic)
+            {
+                throw new NotSupportedException();
+            }
+        }
 
         public Station(int id)
         {
@@ -76,7 +87,7 @@ namespace SmokSmog.Model
         /// Station identifier example : 1 it must be unique
         /// </summary>
         [DataMember]
-        public int Id { get; } = -1;
+        public int Id { get; internal set; } = -1;
 
         /// <summary>
         /// Station Name (city) example : "Kraków - Aleja Krasińskiego"

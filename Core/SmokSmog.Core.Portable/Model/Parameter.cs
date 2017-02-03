@@ -1,5 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
+using MoreLinq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace SmokSmog.Model
@@ -19,19 +22,80 @@ namespace SmokSmog.Model
         C6H6 = 11,  // Benzene
     }
 
+    public partial class Parameter : ObservableObject
+    {
+        private List<Measurement> _measurements = new List<Measurement>();
+
+        public Parameter(Station station, int id)
+        {
+            Station = station;
+            Id = id;
+        }
+
+        public Measurement Current
+        {
+            get
+            {
+                var list = Measurements?.Where(o => o.Aggregation == AggregationType.Avg1Hour).ToArray();
+                return list.Any() ? list.MaxBy(o => o.DateUtc) : new Measurement(Station, this);
+            }
+        }
+
+        public Measurement CurrentAvg
+        {
+            get
+            {
+                var list = Measurements?.Where(o => o.Aggregation == AggregationType.Avg24Hour).ToArray();
+                return list.Any() ? list.MaxBy(o => o.DateUtc) : new Measurement(Station, this);
+            }
+        }
+
+        /// <summary>
+        /// example: "2013-10-29 18:15:00"
+        /// </summary>
+        public DateTime LastSyncDate
+        {
+            get { return LastSyncDateUtc.ToLocalTime(); }
+            internal set { LastSyncDateUtc = value.ToUniversalTime(); }
+        }
+
+        /// <summary>
+        /// example: 2013-10-29 17:15:00
+        /// </summary>
+        public DateTime LastSyncDateUtc { get; internal set; } = DateTime.MinValue;
+
+        public List<Measurement> Measurements
+        {
+            get { return _measurements; }
+            set
+            {
+                if (_measurements == value) return;
+                _measurements = value;
+                RaisePropertyChanged(nameof(Measurements));
+            }
+        }
+
+        public Station Station { get; internal set; }
+    }
+
     [DataContract(Namespace = "SmokSmog.Model")]
-    public class Parameter : ObservableObject, IComparable<int>
+    public partial class Parameter : ObservableObject
     {
         private string _description = string.Empty;
         private string _name = Resources.AppResources.StringUnknown;
-        private string _normType = Resources.AppResources.StringUnknown;
-        private double? _normValue = null;
+        private Norm _norm = null;
         private string _shortName = Resources.AppResources.StringUnknown;
         private string _unit = Resources.AppResources.StringUnknown;
 
-        public Parameter(int id)
+        /// <summary>
+        /// default constructor for design purposes only
+        /// </summary>
+        internal Parameter()
         {
-            Id = id;
+            if (!ViewModelBase.IsInDesignModeStatic)
+            {
+                throw new NotSupportedException();
+            }
         }
 
         /// <summary>
@@ -41,7 +105,7 @@ namespace SmokSmog.Model
         public string Description
         {
             get { return _description; }
-            set
+            internal set
             {
                 if (_description == value) return;
                 _description = value;
@@ -53,7 +117,7 @@ namespace SmokSmog.Model
         /// Identifier
         /// </summary>
         [DataMember]
-        public int Id { get; private set; } = -1;
+        public int Id { get; internal set; } = -1;
 
         /// <summary>
         /// Full name of particulate
@@ -63,7 +127,7 @@ namespace SmokSmog.Model
         public string Name
         {
             get { return _name; }
-            set
+            internal set
             {
                 if (_name == value) return;
                 _name = value;
@@ -71,33 +135,14 @@ namespace SmokSmog.Model
             }
         }
 
-        /// <summary>
-        /// Norm Type
-        /// </summary>
-        [DataMember]
-        public string NormType
+        public Norm Norm
         {
-            get { return _normType; }
+            get { return _norm; }
             set
             {
-                if (_normType == value) return;
-                _normType = value;
-                RaisePropertyChanged(nameof(NormType));
-            }
-        }
-
-        /// <summary>
-        /// The value of the norm expressed in units defined by the field unit
-        /// </summary>
-        [DataMember]
-        public double? NormValue
-        {
-            get { return _normValue; }
-            set
-            {
-                if (_normValue == value) return;
-                _normValue = value;
-                RaisePropertyChanged(nameof(NormValue));
+                if (_norm == value) return;
+                _norm = value;
+                RaisePropertyChanged(nameof(Norm));
             }
         }
 
@@ -111,7 +156,7 @@ namespace SmokSmog.Model
         public string ShortName
         {
             get { return _shortName; }
-            set
+            internal set
             {
                 if (_shortName == value) return;
                 _shortName = value;
@@ -129,17 +174,12 @@ namespace SmokSmog.Model
         public string Unit
         {
             get { return _unit; }
-            set
+            internal set
             {
                 if (_unit == value) return;
                 _unit = value;
                 RaisePropertyChanged(nameof(Unit));
             }
-        }
-
-        public int CompareTo(int integer)
-        {
-            return integer.CompareTo(this.Id);
         }
 
         public override bool Equals(object obj)
@@ -156,6 +196,6 @@ namespace SmokSmog.Model
             => new { Id, Name, ShortName, Unit }.GetHashCode();
 
         public override string ToString()
-            => $"{nameof(Parameter)} Id:{Id} Name:{Name} ShortName:{ShortName} Unit:{Unit} NormType:{NormType} Norm:{NormValue}";
+            => $"{nameof(Parameter)} Id:{Id} Name:{Name} ShortName:{ShortName} Unit:{Unit} Norm:{Norm}";
     }
 }

@@ -3,6 +3,7 @@ using MoreLinq;
 using SmokSmog.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
 using Windows.System.Profile;
@@ -49,7 +50,7 @@ namespace SmokSmog.Notification
             if (IsAdaptiveToastSupported())
             {
                 // Use the rich Tile-like visual layout
-                binding.Children.Add(GenerateAdaptiveGroup(measurements, 4));
+                binding.Children.Add(GenerateMeasurementGroup(measurements, 4));
             }
 
             //// Otherwise...
@@ -86,10 +87,10 @@ namespace SmokSmog.Notification
 
         public async void PinTile(object sender, object parameters)
         {
-            SecondaryTile tile = new SecondaryTile(DateTime.Now.Ticks.ToString())
+            SecondaryTile tile = new SecondaryTile("SmokSmogSecondaryTile")
             {
                 DisplayName = "SmokSmog",
-                Arguments = "args"
+                Arguments = "args",
             };
 
             tile.VisualElements.ShowNameOnSquare150x150Logo = true;
@@ -98,23 +99,56 @@ namespace SmokSmog.Notification
 
             tile.VisualElements.BackgroundColor = Color.FromArgb(255, 33, 33, 33);
 
+            //tile.VisualElements.Square30x30Logo =
+            //    new Uri("ms-appx:///Assets/Tiles/Medium/Square150x150Logo.png");
+
+#if WINDOWS_UWP || WINDOWS_PHONE
+            tile.VisualElements.Square71x71Logo =
+                new Uri("ms-appx:///Assets/Tiles/Small/Square71x71Logo.png");
+#else
+            tile.VisualElements.Square70x70Logo =
+                new Uri("ms-appx:///Assets/Tiles/Small/Square70x70Logo.png");
+#endif
             tile.VisualElements.Square150x150Logo =
                 new Uri("ms-appx:///Assets/Tiles/Medium/Square150x150Logo.png");
+
             tile.VisualElements.Wide310x150Logo =
                 new Uri("ms-appx:///Assets/Tiles/Wide/Wide310x150Logo.png");
+
             tile.VisualElements.Square310x310Logo =
                 new Uri("ms-appx:///Assets/Tiles/Large/Square310x310Logo.png");
 
-            if (!await tile.RequestCreateAsync())
-            {
-                return;
-            }
+            var result = await tile.RequestCreateAsync();
+            if (!result) return;
+
+            TileUpdateManager.CreateTileUpdaterForSecondaryTile(tile.TileId).EnableNotificationQueue(true);
 
             var data = await LoadTestData();
 
             // Generate the tile notification content and update the tile
             TileContent content = GenerateTileContent(data);
-            TileUpdateManager.CreateTileUpdaterForSecondaryTile(tile.TileId).Update(new TileNotification(content.GetXml()));
+
+            // notification queue https://blogs.msdn.microsoft.com/tiles_and_toasts/2016/01/05/quickstart-how-to-use-the-tile-notification-queue-with-local-notifications/
+            var notificationXml = content.GetXml();
+            var notyfication = new TileNotification(notificationXml) { Tag = "First" };
+
+            TileUpdateManager.CreateTileUpdaterForSecondaryTile(tile.TileId).Update(notyfication);
+        }
+
+        public async void UpdateTile(object sender, object parameters)
+        {
+            TileUpdateManager.CreateTileUpdaterForSecondaryTile("SmokSmogSecondaryTile").EnableNotificationQueue(true);
+
+            var data = await LoadTestData();
+
+            // Generate the tile notification content and update the tile
+            TileContent content = GenerateTileContent(data);
+
+            // notification queue https://blogs.msdn.microsoft.com/tiles_and_toasts/2016/01/05/quickstart-how-to-use-the-tile-notification-queue-with-local-notifications/
+            var notificationXml = content.GetXml();
+            var notyfication = new TileNotification(notificationXml) { Tag = "First" };
+
+            TileUpdateManager.CreateTileUpdaterForSecondaryTile("SmokSmogSecondaryTile").Update(notyfication);
         }
 
         public async void PopToast(object sender, object parameters)
@@ -134,7 +168,7 @@ namespace SmokSmog.Notification
                 var station = await dataService.GetStationAsync(4);
                 var parameters = await dataService.GetParametersAsync(station);
                 var measurements = await dataService.GetMeasurementsAsync(station, parameters);
-                return measurements;
+                return measurements.OrderByDescending(o => o.Aqi.Value).ToList();
             }
             catch (Exception ex)
             {
@@ -145,21 +179,77 @@ namespace SmokSmog.Notification
             return null;
         }
 
-        private static AdaptiveGroup GenerateAdaptiveGroup(List<Measurement> measurements, int maxCount = 5)
+        private static AdaptiveGroup GenerateMeasurementGroup(List<Measurement> measurements, int count = 4)
         {
             var group = new AdaptiveGroup();
 
-            for (int i = 0; i < measurements.Count && i < maxCount; i++)
+            for (int i = 0; i < count; i++)
             {
-                var measurement = measurements[i];
-                string header = measurement.Parameter.ShortName;
-                string image = measurement.Aqi.Info.Level + ".png";
-                string line1 = measurement.Value?.ToString("#.");
-                string line2 = measurement.Parameter.Unit;
-                group.Children.Add(GenerateSubgroup(header, image, line1, line2));
+                if (measurements.Count > i)
+                {
+                    var measurement = measurements[i];
+                    string header = measurement.Parameter.ShortName;
+                    string image = measurement.Aqi.Info.Level + ".png";
+                    string line1 = measurement.Value?.ToString("#.");
+                    string line2 = measurement.Parameter.Unit;
+                    group.Children.Add(GenerateSubgroup(header, image, line1, line2));
+                }
+                else
+                {
+                    // if there is not enough groups generate empty
+                    group.Children.Add(new AdaptiveSubgroup()
+                    {
+                        HintWeight = 1,
+                    });
+                }
             }
-
             return group;
+        }
+
+        private static AdaptiveGroup GenerateStationInfoGroup(List<Measurement> measurements)
+        {
+            var measuremant = measurements.MaxBy(o => o.Aqi.Value);
+            if (measuremant == null)
+                return null;
+
+            return new AdaptiveGroup()
+            {
+                Children =
+                {
+                    new AdaptiveSubgroup()
+                    {
+                        HintWeight = 34,
+                        Children =
+                        {
+                            new AdaptiveImage() {Source = $"{measuremant.Aqi.Info.Level}-square.png"},
+                        }
+                    },
+
+                    new AdaptiveSubgroup()
+                    {
+                        Children =
+                        {
+                            new AdaptiveText()
+                            {
+                                Text = measuremant.Aqi.Info.Text,
+                                HintStyle = AdaptiveTextStyle.Base
+                            },
+
+                            new AdaptiveText()
+                            {
+                                Text = measuremant.Date.ToString("g"),
+                                HintStyle = AdaptiveTextStyle.BaseSubtle
+                            },
+
+                            new AdaptiveText()
+                            {
+                                Text = $"AQI : {measuremant.Aqi.Value:0.0}",
+                                HintStyle = AdaptiveTextStyle.BaseSubtle
+                            },
+                        }
+                    }
+                }
+            };
         }
 
         private static AdaptiveSubgroup GenerateLargeSubgroup(string header, string image, string line1, string line2)
@@ -167,9 +257,9 @@ namespace SmokSmog.Notification
             // Generate the normal subgroup
             var subgroup = GenerateSubgroup(header, image, line1, line2);
 
-            // Allow there to be padding around the image
-            if (subgroup.Children.Count > 1 && subgroup.Children[1] is AdaptiveImage)
-                (subgroup.Children[1] as AdaptiveImage).HintRemoveMargin = null;
+            //// Allow there to be padding around the image
+            //if (subgroup.Children.Count > 1 && subgroup.Children[1] is AdaptiveImage)
+            //    (subgroup.Children[1] as AdaptiveImage).HintRemoveMargin = null;
 
             return subgroup;
         }
@@ -223,60 +313,22 @@ namespace SmokSmog.Notification
 
         private static TileBinding GenerateTileBindingLarge(List<Measurement> measurements)
         {
+            var measuremant = measurements.MaxBy(o => o.Aqi.Value);
+            if (measuremant == null)
+                return null;
+
             return new TileBinding()
             {
                 Content = new TileBindingContentAdaptive()
                 {
                     Children =
                     {
-                        new AdaptiveGroup()
-                        {
-                            Children =
-                            {
-                                new AdaptiveSubgroup()
-                                {
-                                    HintWeight = 30,
-                                    Children =
-                                    {
-                                        new AdaptiveImage() { Source = "Good.png" }
-                                    }
-                                },
+                        GenerateStationInfoGroup(measurements),
 
-                                new AdaptiveSubgroup()
-                                {
-                                    Children =
-                                    {
-                                        new AdaptiveText()
-                                        {
-                                            Text = "Monday",
-                                            HintStyle = AdaptiveTextStyle.Base
-                                        },
-
-                                        new AdaptiveText()
-                                        {
-                                            Text = "63? / 42?"
-                                        },
-
-                                        new AdaptiveText()
-                                        {
-                                            Text = "20% chance of rain",
-                                            HintStyle = AdaptiveTextStyle.CaptionSubtle
-                                        },
-
-                                        new AdaptiveText()
-                                        {
-                                            Text = "Winds 5 mph NE",
-                                            HintStyle = AdaptiveTextStyle.CaptionSubtle
-                                        }
-                                    }
-                                }
-                            }
-                        },
-
-                        // For spacing
+                        //For spacing
                         new AdaptiveText(),
 
-                        GenerateAdaptiveGroup(measurements, 4)
+                        GenerateMeasurementGroup(measurements, 4)
                     }
                 }
             };
@@ -290,7 +342,7 @@ namespace SmokSmog.Notification
                 {
                     Children =
                     {
-                        GenerateAdaptiveGroup(measurements, 2)
+                        GenerateMeasurementGroup(measurements, 2)
                     }
                 }
             };
@@ -331,7 +383,7 @@ namespace SmokSmog.Notification
                 {
                     Children =
                     {
-                        GenerateAdaptiveGroup(measurements, 4)
+                        GenerateMeasurementGroup(measurements, 4)
                     }
                 }
             };

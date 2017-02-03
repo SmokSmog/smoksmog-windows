@@ -1,0 +1,12 @@
+﻿<model:Station xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:model="using:SmokSmog.Model"
+               Name="Kraków-Kurdwanów"
+               Address="ul. Bulwarowa"
+               City="Kraków"
+               Id="1"
+               Province="Małopolskie">
+    <model:Station.Geocoordinate>
+        <model:Geocoordinate Latitude="50.069308" Longitude="20.053492" />
+    </model:Station.Geocoordinate>
+</model:Station>

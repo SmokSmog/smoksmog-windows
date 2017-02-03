@@ -1,0 +1,13 @@
+﻿<model:Parameter xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:model="using:SmokSmog.Model"
+                 Name="Pył Zawieszony"
+                 Id="7"
+                 ShortName="PM₁₀"
+                 Unit="µg/m³">
+    <model:Parameter.Norm>
+        <model:Norm Name="WIOŚ"
+                    Aggregation="Avg24Hour"
+                    Value="50" />
+    </model:Parameter.Norm>
+</model:Parameter>

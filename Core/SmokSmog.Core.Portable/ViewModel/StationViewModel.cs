@@ -3,26 +3,11 @@
     using GalaSoft.MvvmLight;
     using Model;
     using MoreLinq;
+    using Services;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
-    public class ParameterWithMeasurements
-    {
-        public ParameterWithMeasurements(Parameter parameter, IEnumerable<Measurement> measurements)
-        {
-            if (parameter == null)
-                throw new ArgumentException(nameof(parameter));
-
-            Parameter = parameter;
-            Measurements = measurements?.ToList() ?? new List<Measurement>();
-        }
-
-        public Measurement LastMeasurement => Measurements.MaxBy(o => o.DateUTC);
-        public List<Measurement> Measurements { get; }
-        public Parameter Parameter { get; }
-    }
 
     public class StationViewModel : ViewModelBase
     {
@@ -52,35 +37,37 @@
             }
         }
 
-        public List<ParameterWithMeasurements> AQIComponentsList
+        public List<Parameter> AqiComponents
         {
             get
             {
-                if (ParameterWithMeasurements.Any())
+                if (Parameters.Any())
                 {
-                    var list = from p in ParameterWithMeasurements
-                               where p.Measurements.MaxBy(m => m.DateUTC).DateUTC - DateTime.UtcNow < TimeSpan.FromMinutes(80)
-                               select p;
+                    var list = (from p in Parameters
+                                where p.Current.Aqi.Value.HasValue && DateTime.Now - p.Current.Date < TimeSpan.FromMinutes(80)
+                                orderby p.Current.Aqi.Value descending
+                                select p).ToList();
 
                     if (list.Any())
                     {
-                        var max = list.Max(p => p.LastMeasurement.DateUTC);
-                        var lastMeasurements = from pwm in list where pwm.LastMeasurement.DateUTC - max < TimeSpan.FromMinutes(10) select pwm;
-                        if (lastMeasurements.Any())
+                        var max = list.MaxBy(o => o.Current.Aqi.Value)?.Current;
+
+                        if (max != null)
                         {
-                            AirQualityIndex = lastMeasurements.MaxBy(o => o.LastMeasurement.Aqi.Info).LastMeasurement.Aqi;
-                            return lastMeasurements.OrderByDescending(o => o.LastMeasurement.Aqi.Value).ToList();
+                            AirQualityIndex = max.Aqi;
+                            return list;
                         }
                     }
                 }
 
                 AirQualityIndex = AirQualityIndex.Unavaible;
-                return new List<ViewModel.ParameterWithMeasurements>();
+                return new List<Parameter>();
             }
         }
 
         public bool IsValidStation => (Station?.Id ?? -1) != -1;
-        public List<ParameterWithMeasurements> ParameterWithMeasurements { get; private set; } = new List<ViewModel.ParameterWithMeasurements>();
+
+        public List<Parameter> Parameters { get; private set; } = new List<Parameter>();
 
         public Model.Station Station
         {
@@ -105,7 +92,7 @@
             Station = null;
             try
             {
-                var dataService = Services.ServiceLocator.Instance.DataService;
+                var dataService = ServiceLocatorPortable.Instance.DataService;
                 var station = await dataService.GetStationAsync(id);
                 Station = station;
             }
@@ -116,26 +103,30 @@
             }
         }
 
-        private async Task LoadData(Model.Station station)
+        private async Task LoadData(Station station)
         {
-            ParameterWithMeasurements.Clear();
-            RaisePropertyChanged(nameof(ParameterWithMeasurements));
+            Parameters.Clear();
+            RaisePropertyChanged(nameof(Parameters));
 
             try
             {
-                var dataService = Services.ServiceLocator.Instance.DataService;
+                var dataService = ServiceLocatorPortable.Instance.DataService;
                 var parameters = (await dataService.GetParametersAsync(station)).ToList();
                 var measurements = (await dataService.GetMeasurementsAsync(station, parameters)).ToList();
 
                 if (measurements.Any())
                 {
-                    foreach (var param in parameters)
+                    foreach (var parameter in parameters)
                     {
-                        if (param != null)
-                            ParameterWithMeasurements.Add(
-                                new ParameterWithMeasurements(param,
-                                    (from m in measurements where m.Parameter.Id == param.Id orderby m.DateUTC select m).ToList()));
+                        if (parameter != null)
+                        {
+                            parameter.Measurements =
+                                measurements.Where(o => o.Station.Id == station.Id && o.Parameter.Id == parameter.Id)
+                                    .ToList();
+                        }
                     }
+
+                    Parameters = parameters;
                 }
             }
             catch (Exception ex)
@@ -144,8 +135,8 @@
                 //throw;
             }
 
-            RaisePropertyChanged(nameof(AQIComponentsList));
-            RaisePropertyChanged(nameof(ParameterWithMeasurements));
+            RaisePropertyChanged(nameof(AqiComponents));
+            RaisePropertyChanged(nameof(Parameters));
         }
 
         private async void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
