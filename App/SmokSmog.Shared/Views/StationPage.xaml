@@ -311,7 +311,7 @@
                                         <Viewbox Grid.Column="1"
                                                  Width="100"
                                                  Margin="0,10,0,10">
-                                            <controls:NormRing ParameterWithMeasurements="{Binding}" />
+                                            <controls:NormRing Parameter="{Binding}" />
                                         </Viewbox>
 
                                         <Grid Grid.Column="2" Margin="12,8,8,8">

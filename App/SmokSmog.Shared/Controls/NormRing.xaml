@@ -9,6 +9,7 @@
              x:Name="This"
              MinWidth="250"
              MinHeight="250"
+             d:DataContext="{d:DesignData Source=../DesignData/Parameter.xaml}"
              d:DesignHeight="250"
              d:DesignWidth="250"
              RequestedTheme="Light"

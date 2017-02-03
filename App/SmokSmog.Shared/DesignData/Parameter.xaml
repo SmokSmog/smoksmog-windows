@@ -3,7 +3,11 @@
                  xmlns:model="using:SmokSmog.Model"
                  Name="Pył Zawieszony"
                  Id="7"
-                 NormType="24h"
-                 NormValue="50.0"
                  ShortName="PM₁₀"
-                 Unit="µg/m³" />
+                 Unit="µg/m³">
+    <model:Parameter.Norm>
+        <model:Norm Name="WIOŚ"
+                    Aggregation="Avg24Hour"
+                    Value="50" />
+    </model:Parameter.Norm>
+</model:Parameter>

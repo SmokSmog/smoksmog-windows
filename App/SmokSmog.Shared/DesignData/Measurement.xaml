@@ -1,11 +1,9 @@
 ﻿<model:Measurement xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:model="using:SmokSmog.Model"
+                   Aggregation="Avg1Hour"
                    Date="2017-02-02 20:44"
                    Value="52">
-    <model:Measurement.Average>
-        <model:Average AggregationType="Avg24Hour" Value="50" />
-    </model:Measurement.Average>
 
     <model:Measurement.Station>
         <model:Station Name="Kraków-Kurdwanów"
@@ -22,9 +20,13 @@
     <model:Measurement.Parameter>
         <model:Parameter Name="Pył Zawieszony"
                          Id="7"
-                         NormType="24h"
-                         NormValue="50.0"
                          ShortName="PM₁₀"
-                         Unit="µg/m³" />
+                         Unit="µg/m³">
+            <model:Parameter.Norm>
+                <model:Norm Name="WIOŚ"
+                            Aggregation="Avg24Hour"
+                            Value="50" />
+            </model:Parameter.Norm>
+        </model:Parameter>
     </model:Measurement.Parameter>
 </model:Measurement>

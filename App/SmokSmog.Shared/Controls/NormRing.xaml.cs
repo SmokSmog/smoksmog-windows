@@ -1,5 +1,5 @@
 ﻿using SmokSmog.Globalization;
-using SmokSmog.ViewModel;
+using SmokSmog.Model;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -10,6 +10,9 @@ namespace SmokSmog.Controls
         public NormRing()
         {
             this.InitializeComponent();
+
+            if (GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
+                Parameter = DataContext as Parameter;
         }
 
         public string Color
@@ -42,17 +45,17 @@ namespace SmokSmog.Controls
         public static readonly DependencyProperty PercentProperty =
             DependencyProperty.Register("Percent", typeof(string), typeof(NormRing), new PropertyMetadata("0%"));
 
-        public ParameterWithMeasurements ParameterWithMeasurements
+        public Parameter Parameter
         {
-            get { return (ParameterWithMeasurements)GetValue(ParameterWithMeasurementsProperty); }
-            set { SetValue(ParameterWithMeasurementsProperty, value); }
+            get { return (Parameter)GetValue(ParameterProperty); }
+            set { SetValue(ParameterProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for ParameterWithMeasurements
-        public static readonly DependencyProperty ParameterWithMeasurementsProperty =
-            DependencyProperty.Register("ParameterWithMeasurements", typeof(ParameterWithMeasurements), typeof(NormRing), new PropertyMetadata(null, ParameterWithMeasurementsChanged));
+        public static readonly DependencyProperty ParameterProperty =
+            DependencyProperty.Register(nameof(Parameter), typeof(Parameter), typeof(NormRing), new PropertyMetadata(null, ParameterChanged));
 
-        private static void ParameterWithMeasurementsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ParameterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ring = d as NormRing;
             if (ring != null)
@@ -64,13 +67,13 @@ namespace SmokSmog.Controls
                     return;
                 }
 
-                var pwm = ring.ParameterWithMeasurements;
+                var pwm = ring.Parameter;
                 if (pwm != null)
                 {
-                    var norm = pwm.Parameter?.NormValue;
-                    var avg = pwm.LastMeasurement?.Average.Value;
+                    var norm = pwm?.Norm;
+                    var avg = pwm.Current?.Value;
 
-                    if (norm.HasValue && avg.HasValue)
+                    if (norm != null && norm.Aggregation == AggregationType.Avg1Hour && avg.HasValue)
                     {
                         double ratio = avg.Value / norm.Value;
                         string format = "{0:0.0}%";
@@ -78,21 +81,21 @@ namespace SmokSmog.Controls
                         if (ratio > 0 && ratio < 1)
                         {
                             ring.EndAngle = ratio * 360d - 180d;
-                            ring.Color = "#5ae1d7";
+                            ring.Color = "#FF5AE1D7";
                             if (ratio < 0.1d)
                                 format = "{0:0.00}%";
                         }
                         else if (ratio >= 1)
                         {
                             ring.EndAngle = 180d;
-                            ring.Color = "#FFf2a21b";
+                            ring.Color = "#FFf2A21B";
                             if (ratio >= 10)
                                 format = "{0:0.}%";
                         }
                         else
                         {
                             ring.EndAngle = -180d;
-                            ring.Color = "#5ae1d7";
+                            ring.Color = "#FF5AE1D7";
                         }
 
                         ring.Percent = string.Format(format, ratio * 100d);
