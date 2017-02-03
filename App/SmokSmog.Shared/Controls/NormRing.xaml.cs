@@ -43,7 +43,7 @@ namespace SmokSmog.Controls
 
         // Using a DependencyProperty as the backing store for Percent.
         public static readonly DependencyProperty PercentProperty =
-            DependencyProperty.Register("Percent", typeof(string), typeof(NormRing), new PropertyMetadata("0%"));
+            DependencyProperty.Register("Percent", typeof(string), typeof(NormRing), new PropertyMetadata(LocalizedStrings.LocalizedString("StringNA")));
 
         public Parameter Parameter
         {
@@ -71,11 +71,11 @@ namespace SmokSmog.Controls
                 if (pwm != null)
                 {
                     var norm = pwm?.Norm;
-                    var avg = pwm.Current?.Value;
+                    var avg = pwm.CurrentAvg;
 
-                    if (norm != null && norm.Aggregation == AggregationType.Avg1Hour && avg.HasValue)
+                    if (norm != null && avg?.Value.HasValue == true && norm.Aggregation == avg.Aggregation)
                     {
-                        double ratio = avg.Value / norm.Value;
+                        double ratio = avg.Value.Value / norm.Value;
                         string format = "{0:0.0}%";
 
                         if (ratio > 0 && ratio < 1)

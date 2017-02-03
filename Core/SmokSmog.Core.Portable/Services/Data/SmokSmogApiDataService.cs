@@ -81,8 +81,8 @@ namespace SmokSmog.Services.Data
                         {
                             measurements.Add(new Measurement(station, parameter)
                             {
-                                Aggregation = AggregationType.Avg1Hour,
-                                Value = item["value"].Value<double?>(),
+                                Aggregation = AggregationType.Avg24Hour,
+                                Value = avg.Value,
                                 Date = date,
                             });
                         }

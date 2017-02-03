@@ -44,13 +44,13 @@
                 if (Parameters.Any())
                 {
                     var list = (from p in Parameters
-                                where p.Current.Aqi.Value.HasValue && p.Current.Date - DateTime.Now < TimeSpan.FromMinutes(80)
+                                where p.Current.Aqi.Value.HasValue && DateTime.Now - p.Current.Date < TimeSpan.FromMinutes(80)
                                 orderby p.Current.Aqi.Value descending
                                 select p).ToList();
 
                     if (list.Any())
                     {
-                        var max = list.MaxBy(o => o.Current.Aqi)?.Current;
+                        var max = list.MaxBy(o => o.Current.Aqi.Value)?.Current;
 
                         if (max != null)
                         {

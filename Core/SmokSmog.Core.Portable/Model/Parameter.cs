@@ -26,9 +26,29 @@ namespace SmokSmog.Model
     {
         private List<Measurement> _measurements = new List<Measurement>();
 
+        public Parameter(Station station, int id)
+        {
+            Station = station;
+            Id = id;
+        }
+
         public Measurement Current
-                    => Measurements?.Where(o => o.Aggregation == AggregationType.Avg1Hour).MaxBy(o => o.DateUtc)
-                    ?? new Measurement(Station, this);
+        {
+            get
+            {
+                var list = Measurements?.Where(o => o.Aggregation == AggregationType.Avg1Hour).ToArray();
+                return list.Any() ? list.MaxBy(o => o.DateUtc) : new Measurement(Station, this);
+            }
+        }
+
+        public Measurement CurrentAvg
+        {
+            get
+            {
+                var list = Measurements?.Where(o => o.Aggregation == AggregationType.Avg24Hour).ToArray();
+                return list.Any() ? list.MaxBy(o => o.DateUtc) : new Measurement(Station, this);
+            }
+        }
 
         /// <summary>
         /// example: "2013-10-29 18:15:00"
@@ -56,12 +76,6 @@ namespace SmokSmog.Model
         }
 
         public Station Station { get; internal set; }
-
-        public Parameter(Station station, int id)
-        {
-            Station = station;
-            Id = id;
-        }
     }
 
     [DataContract(Namespace = "SmokSmog.Model")]
