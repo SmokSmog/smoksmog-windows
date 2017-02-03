@@ -43,8 +43,17 @@ namespace SmokSmog.Model
 
         public double? Value { get; } = null;
 
-        public static AirQualityIndex CalculateAirQualityIndex(ParameterType parameterType, double? parameterValue)
+        public static AirQualityIndex CalculateAirQualityIndex(Measurement measurement)
         {
+            if (measurement == null)
+                return new AirQualityIndex();
+
+            ParameterType parameterType = measurement.Parameter.Type;
+            double? parameterValue = measurement.Value;
+
+            if (measurement.Aggregation != AggregationType.Avg1Hour)
+                return new AirQualityIndex();
+
             if (!parameterValue.HasValue)
                 return new AirQualityIndex();
 

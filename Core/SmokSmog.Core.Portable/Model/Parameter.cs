@@ -1,5 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
+using MoreLinq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace SmokSmog.Model
@@ -19,13 +22,54 @@ namespace SmokSmog.Model
         C6H6 = 11,  // Benzene
     }
 
+    public partial class Parameter : ObservableObject
+    {
+        private List<Measurement> _measurements = new List<Measurement>();
+
+        public Measurement Current
+                    => Measurements?.Where(o => o.Aggregation == AggregationType.Avg1Hour).MaxBy(o => o.DateUtc)
+                    ?? new Measurement(Station, this);
+
+        /// <summary>
+        /// example: "2013-10-29 18:15:00"
+        /// </summary>
+        public DateTime LastSyncDate
+        {
+            get { return LastSyncDateUtc.ToLocalTime(); }
+            internal set { LastSyncDateUtc = value.ToUniversalTime(); }
+        }
+
+        /// <summary>
+        /// example: 2013-10-29 17:15:00
+        /// </summary>
+        public DateTime LastSyncDateUtc { get; internal set; } = DateTime.MinValue;
+
+        public List<Measurement> Measurements
+        {
+            get { return _measurements; }
+            set
+            {
+                if (_measurements == value) return;
+                _measurements = value;
+                RaisePropertyChanged(nameof(Measurements));
+            }
+        }
+
+        public Station Station { get; internal set; }
+
+        public Parameter(Station station, int id)
+        {
+            Station = station;
+            Id = id;
+        }
+    }
+
     [DataContract(Namespace = "SmokSmog.Model")]
-    public partial class Parameter : ObservableObject, IComparable<int>
+    public partial class Parameter : ObservableObject
     {
         private string _description = string.Empty;
         private string _name = Resources.AppResources.StringUnknown;
-        private string _normType = Resources.AppResources.StringUnknown;
-        private double? _normValue = null;
+        private Norm _norm = null;
         private string _shortName = Resources.AppResources.StringUnknown;
         private string _unit = Resources.AppResources.StringUnknown;
 
@@ -38,11 +82,6 @@ namespace SmokSmog.Model
             {
                 throw new NotSupportedException();
             }
-        }
-
-        public Parameter(int id)
-        {
-            Id = id;
         }
 
         /// <summary>
@@ -82,33 +121,14 @@ namespace SmokSmog.Model
             }
         }
 
-        /// <summary>
-        /// Norm Type
-        /// </summary>
-        [DataMember]
-        public string NormType
+        public Norm Norm
         {
-            get { return _normType; }
-            internal set
+            get { return _norm; }
+            set
             {
-                if (_normType == value) return;
-                _normType = value;
-                RaisePropertyChanged(nameof(NormType));
-            }
-        }
-
-        /// <summary>
-        /// The value of the norm expressed in units defined by the field unit
-        /// </summary>
-        [DataMember]
-        public double? NormValue
-        {
-            get { return _normValue; }
-            internal set
-            {
-                if (_normValue == value) return;
-                _normValue = value;
-                RaisePropertyChanged(nameof(NormValue));
+                if (_norm == value) return;
+                _norm = value;
+                RaisePropertyChanged(nameof(Norm));
             }
         }
 
@@ -148,11 +168,6 @@ namespace SmokSmog.Model
             }
         }
 
-        public int CompareTo(int integer)
-        {
-            return integer.CompareTo(this.Id);
-        }
-
         public override bool Equals(object obj)
         {
             if (obj is Parameter)
@@ -167,6 +182,6 @@ namespace SmokSmog.Model
             => new { Id, Name, ShortName, Unit }.GetHashCode();
 
         public override string ToString()
-            => $"{nameof(Parameter)} Id:{Id} Name:{Name} ShortName:{ShortName} Unit:{Unit} NormType:{NormType} Norm:{NormValue}";
+            => $"{nameof(Parameter)} Id:{Id} Name:{Name} ShortName:{ShortName} Unit:{Unit} Norm:{Norm}";
     }
 }

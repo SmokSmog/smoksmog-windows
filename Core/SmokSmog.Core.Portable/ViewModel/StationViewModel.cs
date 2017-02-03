@@ -20,7 +20,7 @@
             Measurements = measurements?.ToList() ?? new List<Measurement>();
         }
 
-        public Measurement LastMeasurement => Measurements.MaxBy(o => o.DateUTC);
+        public Measurement LastMeasurement => Measurements.MaxBy(o => o.DateUtc);
         public List<Measurement> Measurements { get; }
         public Parameter Parameter { get; }
     }
@@ -60,13 +60,13 @@
                 if (ParameterWithMeasurements.Any())
                 {
                     var list = from p in ParameterWithMeasurements
-                               where p.Measurements.MaxBy(m => m.DateUTC).DateUTC - DateTime.UtcNow < TimeSpan.FromMinutes(80)
+                               where p.Measurements.MaxBy(m => m.DateUtc).DateUtc - DateTime.UtcNow < TimeSpan.FromMinutes(80)
                                select p;
 
                     if (list.Any())
                     {
-                        var max = list.Max(p => p.LastMeasurement.DateUTC);
-                        var lastMeasurements = from pwm in list where pwm.LastMeasurement.DateUTC - max < TimeSpan.FromMinutes(10) select pwm;
+                        var max = list.Max(p => p.LastMeasurement.DateUtc);
+                        var lastMeasurements = from pwm in list where pwm.LastMeasurement.DateUtc - max < TimeSpan.FromMinutes(10) select pwm;
                         if (lastMeasurements.Any())
                         {
                             AirQualityIndex = lastMeasurements.MaxBy(o => o.LastMeasurement.Aqi.Info).LastMeasurement.Aqi;
@@ -135,7 +135,7 @@
                         if (param != null)
                             ParameterWithMeasurements.Add(
                                 new ParameterWithMeasurements(param,
-                                    (from m in measurements where m.Parameter.Id == param.Id orderby m.DateUTC select m).ToList()));
+                                    (from m in measurements where m.Parameter.Id == param.Id orderby m.DateUtc select m).ToList()));
                     }
                 }
             }

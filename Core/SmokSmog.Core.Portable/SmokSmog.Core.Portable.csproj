@@ -71,6 +71,7 @@
     <Compile Include="Globalization\LocalizedStrings.cs" />
     <Compile Include="Model\AirQualityIndex.cs" />
     <Compile Include="Model\AirQualityInfo.cs" />
+    <Compile Include="Model\Norm.cs" />
     <Compile Include="Model\StationData.cs" />
     <Compile Include="Net\Http\HttpClientProxy.cs" />
     <Compile Include="Net\Http\IHttpClient.cs" />
