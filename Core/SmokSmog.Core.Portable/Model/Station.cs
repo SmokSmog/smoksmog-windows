@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace SmokSmog.Model
@@ -11,7 +12,13 @@ namespace SmokSmog.Model
         private string _city = Resources.AppResources.StringUnknown;
         private Geocoordinate _geocoordinate = new Geocoordinate();
         private string _name = Resources.AppResources.StringUnknown;
+        private List<Parameter> _parameters = new List<Parameter>();
         private string _province = Resources.AppResources.StringUnknown;
+
+        public Station(int id)
+        {
+            Id = id;
+        }
 
         /// <summary>
         /// default constructor for design purposes only
@@ -22,11 +29,6 @@ namespace SmokSmog.Model
             {
                 throw new NotSupportedException();
             }
-        }
-
-        public Station(int id)
-        {
-            Id = id;
         }
 
         public static Station Sample { get; } = new Station(1)
@@ -101,6 +103,17 @@ namespace SmokSmog.Model
                 if (_name == value) return;
                 _name = value;
                 RaisePropertyChanged(nameof(Name));
+            }
+        }
+
+        public List<Parameter> Parameters
+        {
+            get { return _parameters; }
+           internal set
+            {
+                if (_parameters == value) return;
+                _parameters = value;
+                RaisePropertyChanged(nameof(Parameters));
             }
         }
 

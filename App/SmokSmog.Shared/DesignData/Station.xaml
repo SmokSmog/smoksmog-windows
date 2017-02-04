@@ -2,6 +2,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:model="using:SmokSmog.Model"
                Name="Kraków-Kurdwanów"
+               x:Name="Station"
                Address="ul. Bulwarowa"
                City="Kraków"
                Id="1"
@@ -9,4 +10,165 @@
     <model:Station.Geocoordinate>
         <model:Geocoordinate Latitude="50.069308" Longitude="20.053492" />
     </model:Station.Geocoordinate>
+
+    <model:Station.Parameters>
+
+        <model:Parameter Name="Pył zawieszony"
+                         x:Name="PM10"
+                         Id="7"
+                         ShortName="PM₁₀"
+                         Station="{Binding ElementName=Station}"
+                         Unit="µg/m³">
+            <model:Parameter.Norm>
+                <model:Norm Name="WIOŚ"
+                            Aggregation="Avg24Hour"
+                            Value="50" />
+            </model:Parameter.Norm>
+
+            <model:Parameter.Measurements>
+                <model:Measurement Aggregation="Avg1Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=PM10}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="52" />
+                <model:Measurement Aggregation="Avg24Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=PM10}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="50.98" />
+            </model:Parameter.Measurements>
+
+        </model:Parameter>
+
+        <model:Parameter Name="Dwutlenek siarki"
+                         x:Name="SO2"
+                         Id="1"
+                         ShortName="SO₂"
+                         Station="{Binding ElementName=Station}"
+                         Unit="µg/m³">
+            <model:Parameter.Norm>
+                <model:Norm Name="WIOŚ"
+                            Aggregation="Avg24Hour"
+                            Value="350" />
+            </model:Parameter.Norm>
+
+            <model:Parameter.Measurements>
+                <model:Measurement Aggregation="Avg1Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=SO2}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="280" />
+                <model:Measurement Aggregation="Avg24Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=SO2}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="290.66" />
+            </model:Parameter.Measurements>
+
+        </model:Parameter>
+
+        <model:Parameter Name="Dwutlenek azotu"
+                         x:Name="NO2"
+                         Id="3"
+                         ShortName="NO₂"
+                         Station="{Binding ElementName=Station}"
+                         Unit="µg/m³">
+            <model:Parameter.Norm>
+                <model:Norm Name="WIOŚ"
+                            Aggregation="Avg24Hour"
+                            Value="200" />
+            </model:Parameter.Norm>
+
+            <model:Parameter.Measurements>
+                <model:Measurement Aggregation="Avg1Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=NO2}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="124" />
+                <model:Measurement Aggregation="Avg24Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=NO2}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="130.75" />
+            </model:Parameter.Measurements>
+        </model:Parameter>
+
+        <model:Parameter Name="Tlenek węgla"
+                         x:Name="CO"
+                         Id="4"
+                         ShortName="CO"
+                         Station="{Binding ElementName=Station}"
+                         Unit="µg/m³">
+            <model:Parameter.Norm>
+                <model:Norm Name="WIOŚ"
+                            Aggregation="Avg24Hour"
+                            Value="10000" />
+            </model:Parameter.Norm>
+
+            <model:Parameter.Measurements>
+                <model:Measurement Aggregation="Avg1Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=CO}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="3852" />
+                <model:Measurement Aggregation="Avg24Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=CO}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="2650" />
+            </model:Parameter.Measurements>
+        </model:Parameter>
+
+        <model:Parameter Name="Ozon"
+                         x:Name="O3"
+                         Id="5"
+                         ShortName="O₃"
+                         Station="{Binding ElementName=Station}"
+                         Unit="µg/m³">
+            <model:Parameter.Norm>
+                <model:Norm Name="WIOŚ"
+                            Aggregation="Avg24Hour"
+                            Value="120" />
+            </model:Parameter.Norm>
+
+            <model:Parameter.Measurements>
+                <model:Measurement Aggregation="Avg1Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=O3}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="80" />
+                <model:Measurement Aggregation="Avg24Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=O3}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="90.37" />
+            </model:Parameter.Measurements>
+        </model:Parameter>
+
+        <model:Parameter Name="Benzen"
+                         x:Name="C6H6"
+                         Id="11"
+                         ShortName="C₆H₆"
+                         Station="{Binding ElementName=Station}"
+                         Unit="µg/m³">
+            <model:Parameter.Norm>
+                <model:Norm Name="WIOŚ"
+                            Aggregation="Avg1Year"
+                            Value="5" />
+            </model:Parameter.Norm>
+
+            <model:Parameter.Measurements>
+                <model:Measurement Aggregation="Avg1Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=C6H6}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="7" />
+                <model:Measurement Aggregation="Avg24Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=C6H6}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="6.55" />
+            </model:Parameter.Measurements>
+        </model:Parameter>
+    </model:Station.Parameters>
 </model:Station>

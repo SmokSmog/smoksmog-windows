@@ -39,7 +39,7 @@ namespace SmokSmog.Design.Services
                 new Parameter(station, 3){ Name="Dwutlenek azotu",   ShortName="NO₂",    Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg24Hour, Name = "WIOŚ", Value =200} },
                 new Parameter(station, 4){ Name="Tlenek węgla",      ShortName="CO",     Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg24Hour, Name = "WIOŚ", Value =10000} },
                 new Parameter(station, 5){ Name="Ozon",              ShortName="O₃",     Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg24Hour, Name = "WIOŚ", Value =120} },
-                new Parameter(station, 11){ Name="Benzen",           ShortName="C₆H₆",   Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg24Hour, Name = "WIOŚ", Value =5} },
+                new Parameter(station, 11){ Name="Benzen",           ShortName="C₆H₆",   Unit="µg/m³", Norm = new Norm() { Aggregation = AggregationType.Avg1Year, Name = "WIOŚ", Value =5} },
             };
         }
 

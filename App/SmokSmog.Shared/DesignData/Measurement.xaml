@@ -6,7 +6,8 @@
                    Value="52">
 
     <model:Measurement.Station>
-        <model:Station Name="Kraków-Kurdwanów"
+        <model:Station x:Name="Station"
+                       Name="Kraków-Kurdwanów"
                        Address="ul. Bulwarowa"
                        City="Kraków"
                        Id="1"
@@ -21,7 +22,7 @@
         <model:Parameter Name="Pył Zawieszony"
                          Id="7"
                          ShortName="PM₁₀"
-                         Unit="µg/m³">
+                         Unit="µg/m³" Station="{Binding ElementName=Station}">
             <model:Parameter.Norm>
                 <model:Norm Name="WIOŚ"
                             Aggregation="Avg24Hour"
