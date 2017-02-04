@@ -5,6 +5,7 @@
     xmlns:local="using:SmokSmog.Views"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:sct="using:SmokSmog.Controls.Tiles"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:notification="using:SmokSmog.Notification"
@@ -42,6 +43,9 @@
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </Button>
+            
+            <sct:Large x:Name="Large" d:DataContext="{d:DesignData Source=../DesignData/Station.xaml}"></sct:Large>
+            
         </StackPanel>
     </Grid>
 </Page>

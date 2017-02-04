@@ -9,6 +9,105 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    public enum ModelStatus
+    {
+        Reday,
+        Loading,
+        Error
+    }
+
+    public class ParameterViewModel : ViewModelBase
+    {
+        private AirQualityIndex _airQualityIndex = AirQualityIndex.Unavaible;
+
+        private Dictionary<AggregationType, Measurement> _lastestMeasurements = new Dictionary
+            <AggregationType, Measurement>()
+            {
+                { AggregationType.Avg1Hour , new Measurement(Station.Empty, null) },
+                { AggregationType.Avg8Hour , new Measurement(Station.Empty, null) },
+                { AggregationType.Avg24Hour, new Measurement(Station.Empty, null) },
+                { AggregationType.Avg1Year , new Measurement(Station.Empty, null) },
+            };
+
+        private Dictionary<AggregationType, List<Measurement>> _measurements = new Dictionary
+            <AggregationType, List<Measurement>>()
+            {
+                { AggregationType.Avg1Hour , new List<Measurement>() },
+                { AggregationType.Avg8Hour , new List<Measurement>() },
+                { AggregationType.Avg24Hour, new List<Measurement>() },
+                { AggregationType.Avg1Year , new List<Measurement>() },
+            };
+
+        private Parameter _parameter = null;
+        private Station _station = Station.Empty;
+
+        public ParameterViewModel(Station station, Parameter parameter)
+        {
+            _station = station;
+            _parameter = parameter;
+            Clear();
+        }
+
+        /// <summary>
+        /// default constructor for design purposes only
+        /// </summary>
+        internal ParameterViewModel()
+        {
+            if (!ViewModelBase.IsInDesignModeStatic)
+                throw new NotSupportedException();
+        }
+
+        public AirQualityIndex AirQualityIndex
+        {
+            get { return _airQualityIndex; }
+            set
+            {
+                if (_airQualityIndex == value) return;
+                _airQualityIndex = value;
+                RaisePropertyChanged(nameof(AirQualityIndex));
+            }
+        }
+
+        public Dictionary<AggregationType, Measurement> LastestMeasurements
+        {
+            get { return _lastestMeasurements; }
+        }
+
+        public Dictionary<AggregationType, List<Measurement>> Measurements
+        {
+            get { return _measurements; }
+        }
+
+        public Parameter Parameter => _parameter;
+        public Station Station => _station;
+
+        private AggregationType[] _supportedAggregations =
+        {
+            AggregationType.Avg1Hour,
+            AggregationType.Avg8Hour,
+            AggregationType.Avg24Hour,
+            AggregationType.Avg1Year,
+        };
+
+        public void Clear()
+        {
+            foreach (var supportedAggregation in _supportedAggregations)
+            {
+                _measurements[supportedAggregation] = new List<Measurement>();
+                _lastestMeasurements[supportedAggregation] = new Measurement(Station, Parameter);
+            }
+            RaisePropertyChanged(nameof(Measurements));
+            RaisePropertyChanged(nameof(LastestMeasurements));
+        }
+
+        public async Task LoadData()
+        {
+            var dataService = ServiceLocatorPortable.Instance.DataService;
+            var parameters = (await dataService.GetParametersAsync(Station)).ToList();
+            var measurements = (await dataService.GetMeasurementsAsync(Station, new[] { Parameter })).ToList();
+        }
+    }
+
     public class StationViewModel : ViewModelBase
     {
         private AirQualityIndex _airQualityIndex = AirQualityIndex.Unavaible;
@@ -126,6 +225,7 @@
                         }
                     }
 
+                    Station.Parameters = parameters;
                     Parameters = parameters;
                 }
             }

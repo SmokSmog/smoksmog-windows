@@ -1,8 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using MoreLinq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 
 namespace SmokSmog.Model
@@ -22,61 +19,42 @@ namespace SmokSmog.Model
         C6H6 = 11,  // Benzene
     }
 
-    public partial class Parameter : ObservableObject
-    {
-        private List<Measurement> _measurements = new List<Measurement>();
+    //public partial class Parameter : ObservableObject
+    //{
+    //    //private List<Measurement> _measurements = new List<Measurement>();
 
-        public Parameter(Station station, int id)
-        {
-            Station = station;
-            Id = id;
-        }
+    // //public Measurement Current //{ // get // { // var list = Measurements?.Where(o =>
+    // o.Aggregation == AggregationType.Avg1Hour).ToArray(); // return list.Any() ? list.MaxBy(o =>
+    // o.DateUtc) : new Measurement(Station, this); // } //}
 
-        public Measurement Current
-        {
-            get
-            {
-                var list = Measurements?.Where(o => o.Aggregation == AggregationType.Avg1Hour).ToArray();
-                return list.Any() ? list.MaxBy(o => o.DateUtc) : new Measurement(Station, this);
-            }
-        }
+    // //public Measurement CurrentAvg //{ // get // { // var list = Measurements?.Where(o =>
+    // o.Aggregation == AggregationType.Avg24Hour).ToArray(); // return list.Any() ? list.MaxBy(o =>
+    // o.DateUtc) : new Measurement(Station, this); // } //}
 
-        public Measurement CurrentAvg
-        {
-            get
-            {
-                var list = Measurements?.Where(o => o.Aggregation == AggregationType.Avg24Hour).ToArray();
-                return list.Any() ? list.MaxBy(o => o.DateUtc) : new Measurement(Station, this);
-            }
-        }
+    // /////
+    // <summary>
+    // ///// example: "2013-10-29 18:15:00" /////
+    // </summary>
+    // //public DateTime LastSyncDate //{ // get { return LastSyncDateUtc.ToLocalTime(); } //
+    // internal set { LastSyncDateUtc = value.ToUniversalTime(); } //}
 
-        /// <summary>
-        /// example: "2013-10-29 18:15:00"
-        /// </summary>
-        public DateTime LastSyncDate
-        {
-            get { return LastSyncDateUtc.ToLocalTime(); }
-            internal set { LastSyncDateUtc = value.ToUniversalTime(); }
-        }
+    // /////
+    // <summary>
+    // ///// example: 2013-10-29 17:15:00 /////
+    // </summary>
+    // //public DateTime LastSyncDateUtc { get; internal set; } = DateTime.MinValue;
 
-        /// <summary>
-        /// example: 2013-10-29 17:15:00
-        /// </summary>
-        public DateTime LastSyncDateUtc { get; internal set; } = DateTime.MinValue;
-
-        public List<Measurement> Measurements
-        {
-            get { return _measurements; }
-            set
-            {
-                if (_measurements == value) return;
-                _measurements = value;
-                RaisePropertyChanged(nameof(Measurements));
-            }
-        }
-
-        public Station Station { get; internal set; }
-    }
+    //    //public List<Measurement> Measurements
+    //    //{
+    //    //    get { return _measurements; }
+    //    //    set
+    //    //    {
+    //    //        if (_measurements == value) return;
+    //    //        _measurements = value;
+    //    //        RaisePropertyChanged(nameof(Measurements));
+    //    //    }
+    //    //}
+    //}
 
     [DataContract(Namespace = "SmokSmog.Model")]
     public partial class Parameter : ObservableObject
@@ -87,15 +65,19 @@ namespace SmokSmog.Model
         private string _shortName = Resources.AppResources.StringUnknown;
         private string _unit = Resources.AppResources.StringUnknown;
 
+        public Parameter(Station station, int id)
+        {
+            Station = station;
+            Id = id;
+        }
+
         /// <summary>
         /// default constructor for design purposes only
         /// </summary>
         internal Parameter()
         {
             if (!ViewModelBase.IsInDesignModeStatic)
-            {
                 throw new NotSupportedException();
-            }
         }
 
         /// <summary>
@@ -164,6 +146,7 @@ namespace SmokSmog.Model
             }
         }
 
+        public Station Station { get; internal set; }
         public ParameterType Type => Enum.IsDefined(typeof(ParameterType), Id) ? (ParameterType)Id : ParameterType.UNKNOWN;
 
         /// <summary>

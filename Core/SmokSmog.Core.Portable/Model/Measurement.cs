@@ -9,9 +9,11 @@ namespace SmokSmog.Model
         Unavailable = 0,
         Avg1Hour = 1,
         Avg8Hour = 8,
-        Avg12Hour = 12,
+
+        //Avg12Hour = 12,
         Avg24Hour = 24,
-        Avg1Week = 168,
+
+        //Avg1Week = 168,
         Avg1Year = 8760,
     }
 
@@ -30,9 +32,7 @@ namespace SmokSmog.Model
         internal Measurement()
         {
             if (!ViewModelBase.IsInDesignModeStatic)
-            {
                 throw new NotSupportedException();
-            }
         }
 
         public AggregationType Aggregation { get; internal set; } = AggregationType.Unavailable;

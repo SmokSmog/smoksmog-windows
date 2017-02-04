@@ -39,7 +39,7 @@ namespace SmokSmog.Views
                 return;
             }
 
-            if (e?.Parameter?.ToString() == "Home")
+            if (e.Parameter?.ToString() == "Home")
             {
                 if (Settings.HomeStationId.HasValue)
                     await StationViewModel.SetStationAsync(Settings.HomeStationId.Value);

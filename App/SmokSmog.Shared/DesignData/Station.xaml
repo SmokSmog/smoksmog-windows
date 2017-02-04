@@ -15,8 +15,6 @@
 
         <model:Parameter Name="Pył zawieszony"
                          x:Name="PM10"
-                         Current="{Binding 
-                                           Path=Measurements[0]}"
                          Id="7"
                          ShortName="PM₁₀"
                          Station="{Binding ElementName=Station}"
@@ -40,6 +38,25 @@
                                    Value="50.98" />
             </model:Parameter.Measurements>
 
+            <model:Parameter.Current>
+                <model:Measurement Aggregation="Avg1Hour"
+                                   Date="2017-02-02 20:44"
+                                   Parameter="{Binding ElementName=PM10}"
+                                   Station="{Binding ElementName=Station}"
+                                   Value="52">
+                    <model:Measurement.Aqi>
+                        <model:AirQualityIndex Value="2.1">
+                            <model:AirQualityIndex.Info>
+                                <model:AirQualityInfo Level="Good"
+                                                      Maximum="1"
+                                                      Minimum="0"
+                                                      Text="Dobrze"
+                                                      Color="#FF00b050" />
+                            </model:AirQualityIndex.Info>
+                        </model:AirQualityIndex>
+                    </model:Measurement.Aqi>
+                </model:Measurement>
+            </model:Parameter.Current>
         </model:Parameter>
 
         <model:Parameter Name="Dwutlenek siarki"
@@ -66,7 +83,6 @@
                                    Station="{Binding ElementName=Station}"
                                    Value="290.66" />
             </model:Parameter.Measurements>
-
         </model:Parameter>
 
         <model:Parameter Name="Dwutlenek azotu"

@@ -4,12 +4,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="using:SmokSmog.Controls.Tiles"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vc="using:SmokSmog.Xaml.Data.ValueConverters"
+             MinWidth="310"
+             MinHeight="310"
+             MaxWidth="310"
+             MaxHeight="310"
              d:DataContext="{d:DesignData Source=../../DesignData/Station.xaml}"
              d:DesignHeight="310"
              d:DesignWidth="310"
              FontSize="20"
              Foreground="White"
              mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <vc:AqiToImage x:Key="AqiToImage" />
+    </UserControl.Resources>
 
     <Grid Background="DimGray">
 
@@ -25,7 +34,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <Image Source="/Assets/Notification/VeryGood-square.png" />
+            <Image Source="{Binding Current.Aqi, Converter={StaticResource AqiToImage}}" />
 
             <StackPanel Grid.Column="1"
                         VerticalAlignment="Center"
@@ -41,9 +50,10 @@
                   IsItemClickEnabled="True"
                   ItemsSource="{Binding Parameters}"
                   SelectionMode="None">
+
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid Orientation="Horizontal" />
+                    <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
 
@@ -52,18 +62,19 @@
                     <Setter Property="Padding" Value="0" />
                     <Setter Property="Margin" Value="8,8" />
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Foreground" Value="White" />
                 </Style>
             </GridView.ItemContainerStyle>
 
             <GridView.ItemTemplate>
-
                 <DataTemplate>
-                    <StackPanel MaxWidth="50"
+                    <StackPanel MinHeight="200"
+                                MaxWidth="50"
                                 VerticalAlignment="Center"
                                 Orientation="Vertical">
                         <TextBlock Text="{Binding ShortName}" TextAlignment="Center" />
-                        <Image Source="/Assets/Notification/VeryGood.png" />
-                        <TextBlock Text="{Binding Measurements[0].Value}" TextAlignment="Center" />
+                        <Image Source="{Binding Current.Aqi, Converter={StaticResource AqiToImage}}" />
+                        <TextBlock Text="{Binding Current.Value}" TextAlignment="Center" />
                         <TextBlock Foreground="LightGray"
                                    Text="{Binding Unit}"
                                    TextAlignment="Center" />
@@ -78,4 +89,3 @@
                    Text="{Binding Name}" />
     </Grid>
 </UserControl>
-    

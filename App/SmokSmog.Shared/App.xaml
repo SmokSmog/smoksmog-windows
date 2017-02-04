@@ -16,12 +16,11 @@
         <ResourceDictionary>
             <properties:ApplicationInfo x:Key="ApplicationInfo" />
             <navigation:NavigationService x:Key="NavigationService" />
-
             <services:ServiceLocator x:Key="ServiceLocator" d:IsDataSource="True" />
             <viewmodel:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
             <globalization:LocalizedStrings x:Key="LocalizedStrings" d:IsDataSource="True" />
 
-            <valueConverters:AqiToBrush x:Key="AqiIntToBrushValueConverter" />
+            <valueConverters:AqiToBrush x:Key="AqiToBrushValueConverter" />
             <valueConverters:BooleanToVisability x:Key="BooleanToVisabilityValueConverter" />
             <valueConverters:StringGetFirstChar x:Key="StringGetFirstCharValueConverter" />
             <valueConverters:StringToFirstCharCase x:Key="StringToFirstCharCaseValueConverter" />
