@@ -63,7 +63,7 @@
                                 Orientation="Vertical">
                         <TextBlock Text="{Binding ShortName}" TextAlignment="Center" />
                         <Image Source="/Assets/Notification/VeryGood.png" />
-                        <TextBlock Text="{Binding Current.Value}" TextAlignment="Center" />
+                        <TextBlock Text="{Binding Measurements[0].Value}" TextAlignment="Center" />
                         <TextBlock Foreground="LightGray"
                                    Text="{Binding Unit}"
                                    TextAlignment="Center" />
@@ -78,3 +78,4 @@
                    Text="{Binding Name}" />
     </Grid>
 </UserControl>
+    

@@ -9,6 +9,7 @@
     <Import_RootNamespace>SmokSmog</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ColorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\WinRTResourceManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Network\NetworkInformation.cs" />
@@ -16,7 +17,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\StorageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\Array.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ArrayItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiIntToBrush.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiToBrush.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiToImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\BooleanToVisability.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StationGroupingModeEnumToString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringFormatConverter.cs" />
@@ -37,10 +39,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TypeConverterHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\PropertyChangeEventSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\SvgData.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters.xaml">
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
 </Project>
