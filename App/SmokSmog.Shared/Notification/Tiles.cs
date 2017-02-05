@@ -135,6 +135,15 @@ namespace SmokSmog.Notification
             TileUpdateManager.CreateTileUpdaterForSecondaryTile(tile.TileId).Update(notyfication);
         }
 
+        public async void PopToast(object sender, object parameters)
+        {
+            var data = await LoadTestData();
+
+            // Generate the toast notification content and pop the toast
+            ToastContent content = GenerateToastContent(data);
+            ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
+        }
+
         public async void UpdateTile(object sender, object parameters)
         {
             TileUpdateManager.CreateTileUpdaterForSecondaryTile("SmokSmogSecondaryTile").EnableNotificationQueue(true);
@@ -150,33 +159,16 @@ namespace SmokSmog.Notification
 
             TileUpdateManager.CreateTileUpdaterForSecondaryTile("SmokSmogSecondaryTile").Update(notyfication);
         }
-
-        public async void PopToast(object sender, object parameters)
+        private static AdaptiveSubgroup GenerateLargeSubgroup(string header, string image, string line1, string line2)
         {
-            var data = await LoadTestData();
+            // Generate the normal subgroup
+            var subgroup = GenerateSubgroup(header, image, line1, line2);
 
-            // Generate the toast notification content and pop the toast
-            ToastContent content = GenerateToastContent(data);
-            ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
-        }
+            //// Allow there to be padding around the image
+            //if (subgroup.Children.Count > 1 && subgroup.Children[1] is AdaptiveImage)
+            //    (subgroup.Children[1] as AdaptiveImage).HintRemoveMargin = null;
 
-        private async Task<List<Measurement>> LoadTestData()
-        {
-            try
-            {
-                var dataService = new Services.ServiceLocator().DataService;
-                var station = await dataService.GetStationAsync(4);
-                var parameters = await dataService.GetParametersAsync(station);
-                var measurements = await dataService.GetMeasurementsAsync(station, parameters);
-                return measurements.OrderByDescending(o => o.Aqi.Value).ToList();
-            }
-            catch (Exception ex)
-            {
-                Diagnostics.Logger.Log(ex);
-                //throw;
-            }
-
-            return null;
+            return subgroup;
         }
 
         private static AdaptiveGroup GenerateMeasurementGroup(List<Measurement> measurements, int count = 4)
@@ -252,26 +244,6 @@ namespace SmokSmog.Notification
             };
         }
 
-        private static AdaptiveSubgroup GenerateLargeSubgroup(string header, string image, string line1, string line2)
-        {
-            // Generate the normal subgroup
-            var subgroup = GenerateSubgroup(header, image, line1, line2);
-
-            //// Allow there to be padding around the image
-            //if (subgroup.Children.Count > 1 && subgroup.Children[1] is AdaptiveImage)
-            //    (subgroup.Children[1] as AdaptiveImage).HintRemoveMargin = null;
-
-            return subgroup;
-        }
-
-        //private static AdaptiveText GenerateLegacyToastText(string day, string weatherEmoji, int tempHi, int tempLo)
-        //{
-        //    return new AdaptiveText()
-        //    {
-        //        Text = $"{day} {weatherEmoji} {tempHi}? / {tempLo}?"
-        //    };
-        //}
-
         private static AdaptiveSubgroup GenerateSubgroup(string header, string img, string line1, string line2)
         {
             return new AdaptiveSubgroup()
@@ -311,6 +283,13 @@ namespace SmokSmog.Notification
             };
         }
 
+        //private static AdaptiveText GenerateLegacyToastText(string day, string weatherEmoji, int tempHi, int tempLo)
+        //{
+        //    return new AdaptiveText()
+        //    {
+        //        Text = $"{day} {weatherEmoji} {tempHi}? / {tempLo}?"
+        //    };
+        //}
         private static TileBinding GenerateTileBindingLarge(List<Measurement> measurements)
         {
             var measuremant = measurements.MaxBy(o => o.Aqi.Value);
@@ -348,6 +327,20 @@ namespace SmokSmog.Notification
             };
         }
 
+        private static TileBinding GenerateTileBindingWide(List<Measurement> measurements)
+        {
+            return new TileBinding()
+            {
+                Content = new TileBindingContentAdaptive()
+                {
+                    Children =
+                    {
+                        GenerateMeasurementGroup(measurements, 4)
+                    }
+                }
+            };
+        }
+
         //TODO - figure it out how to the smallest tile should look like - not used now
         //private static TileBinding GenerateTileBindingSmall(Station station, List<ParameterWithMeasurements> parameterwith)
         //{
@@ -374,21 +367,6 @@ namespace SmokSmog.Notification
         //        }
         //    };
         //}
-
-        private static TileBinding GenerateTileBindingWide(List<Measurement> measurements)
-        {
-            return new TileBinding()
-            {
-                Content = new TileBindingContentAdaptive()
-                {
-                    Children =
-                    {
-                        GenerateMeasurementGroup(measurements, 4)
-                    }
-                }
-            };
-        }
-
         private static bool IsAdaptiveToastSupported()
         {
 #if WINDOWS_UWP
@@ -407,6 +385,25 @@ namespace SmokSmog.Notification
 #else
             return false;
 #endif
+        }
+
+        private async Task<List<Measurement>> LoadTestData()
+        {
+            try
+            {
+                var dataService = new Services.ServiceLocator().DataService;
+                var station = await dataService.GetStationAsync(4);
+                var parameters = await dataService.GetParametersAsync(station);
+                var measurements = await dataService.GetMeasurementsAsync(station, parameters);
+                return measurements.OrderByDescending(o => o.Aqi.Value).ToList();
+            }
+            catch (Exception ex)
+            {
+                Diagnostics.Logger.Log(ex);
+                //throw;
+            }
+
+            return null;
         }
     }
 }
