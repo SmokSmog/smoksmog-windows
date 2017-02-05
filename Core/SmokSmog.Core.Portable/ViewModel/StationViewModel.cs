@@ -1,4 +1,6 @@
-﻿namespace SmokSmog.ViewModel
+﻿using System.Collections.ObjectModel;
+
+namespace SmokSmog.ViewModel
 {
     using GalaSoft.MvvmLight;
     using Model;
@@ -9,10 +11,18 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    public enum ModelStatus
+    {
+        Reday,
+        Loading,
+        Error
+    }
+
+    public class ParameterViewModels : ObservableCollection<ParameterViewModel> { }
+
     public class StationViewModel : ViewModelBase
     {
-        private AirQualityIndex _airQualityIndex = AirQualityIndex.Unavaible;
-        private Model.Station _station = null;
+        private Station _station = null;
 
         public StationViewModel()
         {
@@ -28,48 +38,49 @@
 
         public AirQualityIndex AirQualityIndex
         {
-            get { return _airQualityIndex; }
-            private set
+            get
             {
-                if (_airQualityIndex == value) return;
-                _airQualityIndex = value;
-                RaisePropertyChanged(nameof(AirQualityIndex));
+                if (!AqiComponents.Any()) return AirQualityIndex.Unavaible;
+
+                var max = AqiComponents.MaxBy(o => o.AirQualityIndex.Value);
+                return max != null ? max.AirQualityIndex : AirQualityIndex.Unavaible;
             }
         }
 
-        public List<Parameter> AqiComponents
+        public List<ParameterViewModel> AqiComponents
         {
             get
             {
-                if (Parameters.Any())
-                {
-                    var list = (from p in Parameters
-                                where p.Current.Aqi.Value.HasValue && DateTime.Now - p.Current.Date < TimeSpan.FromMinutes(80)
-                                orderby p.Current.Aqi.Value descending
-                                select p).ToList();
+                var result = new List<ParameterViewModel>();
 
-                    if (list.Any())
-                    {
-                        var max = list.MaxBy(o => o.Current.Aqi.Value)?.Current;
+                if (!Parameters.Any())
+                    return result;
 
-                        if (max != null)
-                        {
-                            AirQualityIndex = max.Aqi;
-                            return list;
-                        }
-                    }
-                }
+                var lastest = Parameters.Select(o => o.Latest).ToList();
+                if (!lastest.Any())
+                    return result;
 
-                AirQualityIndex = AirQualityIndex.Unavaible;
-                return new List<Parameter>();
+                var lastDateUtc = lastest.MaxBy(o => o.DateUtc).DateUtc;
+                if (DateTime.UtcNow - lastDateUtc > TimeSpan.FromMinutes(80))
+                    return result;
+
+                Predicate<AirQualityIndex> shouldBeCounted =
+                    aqi => aqi?.Value != null && lastDateUtc - aqi.DateUtc < TimeSpan.FromMinutes(80);
+
+                result = (from p in Parameters
+                          where shouldBeCounted(p.AirQualityIndex)
+                          orderby p.AirQualityIndex.Value descending
+                          select p).ToList();
+
+                return result;
             }
         }
 
         public bool IsValidStation => (Station?.Id ?? -1) != -1;
 
-        public List<Parameter> Parameters { get; private set; } = new List<Parameter>();
+        public ParameterViewModels Parameters { get; } = new ParameterViewModels();
 
-        public Model.Station Station
+        public Station Station
         {
             get
             {
@@ -112,21 +123,16 @@
             {
                 var dataService = ServiceLocatorPortable.Instance.DataService;
                 var parameters = (await dataService.GetParametersAsync(station)).ToList();
-                var measurements = (await dataService.GetMeasurementsAsync(station, parameters)).ToList();
 
-                if (measurements.Any())
+                if (parameters.Any())
                 {
                     foreach (var parameter in parameters)
                     {
-                        if (parameter != null)
-                        {
-                            parameter.Measurements =
-                                measurements.Where(o => o.Station.Id == station.Id && o.Parameter.Id == parameter.Id)
-                                    .ToList();
-                        }
+                        var parameterViewModel = new ParameterViewModel(station, parameter);
+                        await parameterViewModel.LoadData();
+                        Parameters.Add(parameterViewModel);
                     }
-
-                    Parameters = parameters;
+                    Station.Parameters = parameters;
                 }
             }
             catch (Exception ex)
@@ -135,8 +141,9 @@
                 //throw;
             }
 
-            RaisePropertyChanged(nameof(AqiComponents));
             RaisePropertyChanged(nameof(Parameters));
+            RaisePropertyChanged(nameof(AqiComponents));
+            RaisePropertyChanged(nameof(AirQualityIndex));
         }
 
         private async void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

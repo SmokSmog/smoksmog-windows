@@ -2,6 +2,7 @@
 using SmokSmog.Globalization;
 using SmokSmog.Navigation;
 using SmokSmog.Resources;
+using SmokSmog.ViewModel;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -41,6 +42,26 @@ namespace SmokSmog
                 object obj = null;
                 Resources.TryGetValue("NavigationService", out obj);
                 return obj as SmokSmog.Navigation.NavigationService;
+            }
+        }
+
+        public SmokSmog.Services.IServiceLocator ServiceLocator
+        {
+            get
+            {
+                object obj = null;
+                Resources.TryGetValue("ServiceLocator", out obj);
+                return obj as SmokSmog.Services.IServiceLocator;
+            }
+        }
+
+        public ViewModelLocator ViewModelLocator
+        {
+            get
+            {
+                object obj = null;
+                Resources.TryGetValue("ViewModelLocator", out obj);
+                return obj as ViewModelLocator;
             }
         }
 

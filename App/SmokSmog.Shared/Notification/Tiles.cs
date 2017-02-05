@@ -189,8 +189,8 @@ namespace SmokSmog.Notification
                 {
                     var measurement = measurements[i];
                     string header = measurement.Parameter.ShortName;
-                    string image = measurement.Aqi.Info.Level + ".png";
-                    string line1 = measurement.Value?.ToString("#.");
+                    string image = measurement.Aqi.Level + ".png";
+                    string line1 = measurement.Avg1Hour?.ToString("#.");
                     string line2 = measurement.Parameter.Unit;
                     group.Children.Add(GenerateSubgroup(header, image, line1, line2));
                 }
@@ -221,7 +221,7 @@ namespace SmokSmog.Notification
                         HintWeight = 34,
                         Children =
                         {
-                            new AdaptiveImage() {Source = $"{measuremant.Aqi.Info.Level}-square.png"},
+                            new AdaptiveImage() {Source = $"{measuremant.Aqi.Level}-square.png"},
                         }
                     },
 
@@ -231,7 +231,7 @@ namespace SmokSmog.Notification
                         {
                             new AdaptiveText()
                             {
-                                Text = measuremant.Aqi.Info.Text,
+                                Text = measuremant.Aqi.Text,
                                 HintStyle = AdaptiveTextStyle.Base
                             },
 

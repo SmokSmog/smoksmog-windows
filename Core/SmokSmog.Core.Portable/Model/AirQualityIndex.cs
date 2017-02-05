@@ -15,50 +15,53 @@ namespace SmokSmog.Model
 
     public class AirQualityIndex
     {
+        private readonly AirQualityInfo _info;
+
         private AirQualityIndex()
         {
-            Info = AirQualityInfo.Factory(AirQualityLevel.NotAvailable);
+            _info = AirQualityInfo.Factory(AirQualityLevel.NotAvailable);
+            Date = DateTime.Now;
+            DateUtc = DateTime.UtcNow;
         }
 
-        private AirQualityIndex(double? value)
+        private AirQualityIndex(Measurement measurement, double? value = null)
         {
             Value = value;
 
-            if (!value.HasValue) Info = AirQualityInfo.Factory(AirQualityLevel.NotAvailable);
+            if (!value.HasValue) _info = AirQualityInfo.Factory(AirQualityLevel.NotAvailable);
 
             foreach (AirQualityLevel item in Enum.GetValues(typeof(AirQualityLevel)))
             {
                 var info = AirQualityInfo.Factory(item);
-                if (info.Minimum < Value.Value && Value <= info.Maximum)
-                {
-                    Info = info;
-                    break;
-                }
+                if (!(info.Minimum < Value) || !(Value <= info.Maximum)) continue;
+                _info = info;
+                break;
             }
+
+            Measurement = measurement;
+            Date = measurement.Date;
+            DateUtc = measurement.DateUtc;
+
+            Parameter = measurement.Parameter;
         }
 
-        public AirQualityInfo Info { get; }
-
+        public string Color => _info.Color;
+        public DateTime Date { get; }
+        public DateTime DateUtc { get; }
+        public AirQualityLevel Level => _info.Level;
+        public Measurement Measurement { get; }
+        public Parameter Parameter { get; }
+        public string Text => _info.Text;
         public static AirQualityIndex Unavaible => new AirQualityIndex();
-
         public double? Value { get; } = null;
 
         public static AirQualityIndex CalculateAirQualityIndex(Measurement measurement)
         {
-            if (measurement == null)
+            if (measurement?.Parameter == null || !measurement.Avg1Hour.HasValue)
                 return new AirQualityIndex();
 
-            ParameterType parameterType = measurement.Parameter.Type;
-            double? parameterValue = measurement.Value;
-
-            if (measurement.Aggregation != AggregationType.Avg1Hour)
-                return new AirQualityIndex();
-
-            if (!parameterValue.HasValue)
-                return new AirQualityIndex();
-
-            double index = parameterValue.Value * 5;
-            switch (parameterType)
+            double index = measurement.Avg1Hour.Value * 5;
+            switch (measurement.Parameter.Type)
             {
                 // Polish Air Quality Index based on WIOŚ algorithm helpful links :
                 // http://aqicn.org/faq/2015-09-03/air-quality-scale-in-poland/pl/ http://monitoring.krakow.pios.gov.pl/
@@ -78,7 +81,7 @@ namespace SmokSmog.Model
                     return new AirQualityIndex();
             }
 
-            return new AirQualityIndex(index);
+            return new AirQualityIndex(measurement, index);
         }
     }
 }

@@ -16,7 +16,7 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
-        <valueconverters:StringDigitFormatConverter x:Key="StringDigitFormatConverter" />
+        <valueconverters:NumericFormatConverter x:Key="NumericFormatConverter" />
     </UserControl.Resources>
 
     <Grid MinWidth="250" MinHeight="250">
@@ -28,7 +28,7 @@
 
         <xtcontrols:RingSlice EndAngle="{Binding EndAngle,
                                                  ElementName=This}"
-                              Fill="{Binding AQI.Info.Color,
+                              Fill="{Binding AQI.Color,
                                              ElementName=This}"
                               InnerRadius="95"
                               Radius="120.0"
@@ -39,11 +39,11 @@
                    VerticalAlignment="Center"
                    FontSize="80"
                    FontWeight="Bold"
-                   Foreground="{Binding AQI.Info.Color,
+                   Foreground="{Binding AQI.Color,
                                         ElementName=This}"
                    Text="{Binding AQI.Value,
                                   ElementName=This,
-                                  Converter={StaticResource StringDigitFormatConverter},
+                                  Converter={StaticResource NumericFormatConverter},
                                   ConverterParameter='[0:0.0]'}" />
     </Grid>
 </UserControl>

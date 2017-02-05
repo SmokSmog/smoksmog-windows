@@ -1,24 +1,24 @@
-﻿<Page
-    x:Class="SmokSmog.Views.NotificationPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SmokSmog.Views"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:notification="using:SmokSmog.Notification"
-    mc:Ignorable="d">
+﻿<Page x:Class="SmokSmog.Views.NotificationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:local="using:SmokSmog.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:notification="using:SmokSmog.Notification"
+      xmlns:sct="using:SmokSmog.Controls.Tiles"
+      mc:Ignorable="d">
 
     <Page.Resources>
-        <notification:Tiles x:Key="Tiles"></notification:Tiles>
+        <notification:Tiles x:Key="Tiles" />
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <StackPanel>
 
-            <Button Content="PinTile" HorizontalAlignment="Center">
+            <Button HorizontalAlignment="Center" Content="PinTile">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="Tapped">
                         <ic:CallMethodAction MethodName="PinTile" TargetObject="{StaticResource Tiles}" />
@@ -26,7 +26,7 @@
                 </i:Interaction.Behaviors>
             </Button>
 
-            <Button Content="UpdateTile" HorizontalAlignment="Center">
+            <Button HorizontalAlignment="Center" Content="UpdateTile">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="Tapped">
                         <ic:CallMethodAction MethodName="UpdateTile" TargetObject="{StaticResource Tiles}" />
@@ -34,14 +34,35 @@
                 </i:Interaction.Behaviors>
             </Button>
 
-
-            <Button Content="PopToast" HorizontalAlignment="Center">
+            <Button HorizontalAlignment="Center" Content="PopToast">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="Tapped">
                         <ic:CallMethodAction MethodName="PopToast" TargetObject="{StaticResource Tiles}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </Button>
+
+            <sct:Large x:Name="Large"
+                       Margin="0,0,0,10"
+                       ShowName="True" />
+            <sct:Wide x:Name="WideO"
+                      Margin="0,0,0,10"
+                      ShowName="True"
+                      Site="Front" />
+            <sct:Wide x:Name="WideD"
+                      Margin="0,0,0,10"
+                      ShowName="True"
+                      Site="Back" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <sct:Medium Margin="0,0,10,0" x:Name="MediumO"
+                            ShowName="True"
+                            Site="Front" />
+                <sct:Medium Margin="0,0,0,0" x:Name="MediumD"
+                            ShowName="True"
+                            Site="Back" />
+            </StackPanel>
+
         </StackPanel>
     </Grid>
 </Page>

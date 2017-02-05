@@ -1,8 +1,8 @@
-﻿using SmokSmog.Services.Geolocation;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using SmokSmog.Services.Geolocation;
 
-namespace SmokSmog.Design.Services
+namespace SmokSmog.DesignData.Services
 {
     public class GeolocationService : IGeolocationService
     {

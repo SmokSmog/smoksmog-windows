@@ -27,17 +27,24 @@ namespace SmokSmog.ViewModel
 
         public static void Initialize()
         {
-            if (!_isInitialized)
-            {
-                SimpleIoc.Default.Register<AqiInformationViewModel>();
-                SimpleIoc.Default.Register<FavoritesViewModel>();
-                SimpleIoc.Default.Register<GeolocationViewModel>();
-                SimpleIoc.Default.Register<GroupedViewModel>();
-                SimpleIoc.Default.Register<SearchViewModel>();
-                SimpleIoc.Default.Register<StationViewModel>();
+            if (_isInitialized) return;
 
-                _isInitialized = true;
-            }
+            //if (GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
+            //{
+            //    SimpleIoc.Default.Register<DesignData.ViewModel.StationViewModel>();
+            //}
+            //else
+            //{
+            //    SimpleIoc.Default.Register<StationViewModel>();
+            //}
+
+            SimpleIoc.Default.Register<AqiInformationViewModel>();
+            SimpleIoc.Default.Register<FavoritesViewModel>();
+            SimpleIoc.Default.Register<GeolocationViewModel>();
+            SimpleIoc.Default.Register<GroupedViewModel>();
+            SimpleIoc.Default.Register<SearchViewModel>();
+            SimpleIoc.Default.Register<StationViewModel>();
+            _isInitialized = true;
         }
 
         static ViewModelLocator()
