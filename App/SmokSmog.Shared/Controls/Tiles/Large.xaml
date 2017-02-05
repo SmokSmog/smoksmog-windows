@@ -2,10 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="using:SmokSmog.Controls.Tiles"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vc="using:SmokSmog.Xaml.Data.ValueConverters"
-             xmlns:vm="using:SmokSmog.ViewModel"
              MinWidth="310"
              MinHeight="310"
              MaxWidth="310"
@@ -13,6 +11,8 @@
              d:DataContext="{d:DesignData Source=../../DesignData/StationViewModel.xaml}"
              d:DesignHeight="310"
              d:DesignWidth="310"
+             DataContext="{Binding Source={StaticResource ViewModelLocator},
+                                   Path=StationViewModel}"
              FontSize="20"
              Foreground="White"
              mc:Ignorable="d">
@@ -57,7 +57,7 @@
 
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/>
+                    <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
 

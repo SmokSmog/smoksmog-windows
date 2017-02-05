@@ -51,19 +51,28 @@ namespace SmokSmog.ViewModel
         {
             get
             {
+                var result = new List<ParameterViewModel>();
+
+                if (!Parameters.Any())
+                    return result;
+
+                var lastest = Parameters.Select(o => o.Latest).ToList();
+                if (!lastest.Any())
+                    return result;
+
+                var lastDateUtc = lastest.MaxBy(o => o.DateUtc).DateUtc;
+                if (DateTime.UtcNow - lastDateUtc > TimeSpan.FromMinutes(80))
+                    return result;
+
                 Predicate<AirQualityIndex> shouldBeCounted =
-                    aqi => aqi.Value.HasValue && DateTime.UtcNow - aqi.DateUtc < TimeSpan.FromMinutes(120);
+                    aqi => aqi?.Value != null && lastDateUtc - aqi.DateUtc < TimeSpan.FromMinutes(80);
 
-                if (!Parameters.Any()) return new List<ParameterViewModel>();
+                result = (from p in Parameters
+                          where shouldBeCounted(p.AirQualityIndex)
+                          orderby p.AirQualityIndex.Value descending
+                          select p).ToList();
 
-                var list = (from p in Parameters
-                            where shouldBeCounted(p.AirQualityIndex)
-                            orderby p.AirQualityIndex.Value descending
-                            select p).ToList();
-
-                if (!list.Any()) return new List<ParameterViewModel>();
-                var max = list.MaxBy(o => o.AirQualityIndex.Value);
-                return max != null ? list : new List<ParameterViewModel>();
+                return result;
             }
         }
 
