@@ -6,7 +6,7 @@ namespace SmokSmog.Model
 {
     public class AirQualityInfo : IComparable
     {
-        private static HashSet<AirQualityInfo> infos = new HashSet<AirQualityInfo>();
+        private static readonly HashSet<AirQualityInfo> Infos = new HashSet<AirQualityInfo>();
 
         private AirQualityInfo(AirQualityLevel level)
         {
@@ -67,7 +67,7 @@ namespace SmokSmog.Model
 
         public string Color { get; }
 
-        public AirQualityLevel Level { get; } = AirQualityLevel.NotAvailable;
+        public AirQualityLevel Level { get; }
 
         public double Maximum { get; }
 
@@ -77,11 +77,11 @@ namespace SmokSmog.Model
 
         public static AirQualityInfo Factory(AirQualityLevel level)
         {
-            var info = infos.Where(i => i.Level == level).FirstOrDefault();
+            var info = Infos.FirstOrDefault(i => i.Level == level);
             if (info == null)
             {
                 info = new AirQualityInfo(level);
-                infos.Add(info);
+                Infos.Add(info);
             }
             return info;
         }

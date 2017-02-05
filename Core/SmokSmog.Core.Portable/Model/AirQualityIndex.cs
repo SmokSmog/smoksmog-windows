@@ -15,32 +15,44 @@ namespace SmokSmog.Model
 
     public class AirQualityIndex
     {
+        private readonly AirQualityInfo _info;
+
         private AirQualityIndex()
         {
-            Info = AirQualityInfo.Factory(AirQualityLevel.NotAvailable);
+            _info = AirQualityInfo.Factory(AirQualityLevel.NotAvailable);
+            Date = DateTime.Now;
+            DateUtc = DateTime.UtcNow;
         }
 
-        private AirQualityIndex(double? value)
+        private AirQualityIndex(Measurement measurement, double? value = null)
         {
             Value = value;
 
-            if (!value.HasValue) Info = AirQualityInfo.Factory(AirQualityLevel.NotAvailable);
+            if (!value.HasValue) _info = AirQualityInfo.Factory(AirQualityLevel.NotAvailable);
 
             foreach (AirQualityLevel item in Enum.GetValues(typeof(AirQualityLevel)))
             {
                 var info = AirQualityInfo.Factory(item);
-                if (info.Minimum < Value.Value && Value <= info.Maximum)
-                {
-                    Info = info;
-                    break;
-                }
+                if (!(info.Minimum < Value) || !(Value <= info.Maximum)) continue;
+                _info = info;
+                break;
             }
+
+            Measurement = measurement;
+            Date = measurement.Date;
+            DateUtc = measurement.DateUtc;
+
+            Parameter = measurement.Parameter;
         }
 
-        public AirQualityInfo Info { get; }
-
+        public string Color => _info.Color;
+        public DateTime Date { get; }
+        public DateTime DateUtc { get; }
+        public AirQualityLevel Level => _info.Level;
+        public Measurement Measurement { get; }
+        public Parameter Parameter { get; }
+        public string Text => _info.Text;
         public static AirQualityIndex Unavaible => new AirQualityIndex();
-
         public double? Value { get; } = null;
 
         public static AirQualityIndex CalculateAirQualityIndex(Measurement measurement)
@@ -78,7 +90,7 @@ namespace SmokSmog.Model
                     return new AirQualityIndex();
             }
 
-            return new AirQualityIndex(index);
+            return new AirQualityIndex(measurement, index);
         }
     }
 }

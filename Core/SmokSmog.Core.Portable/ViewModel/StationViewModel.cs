@@ -18,25 +18,15 @@
 
     public class ParameterViewModel : ViewModelBase
     {
+        private readonly AggregationType[] _supportedAggregations =
+        {
+            AggregationType.Avg1Hour,
+            AggregationType.Avg8Hour,
+            AggregationType.Avg24Hour,
+            AggregationType.Avg1Year,
+        };
+
         private AirQualityIndex _airQualityIndex = AirQualityIndex.Unavaible;
-
-        private Dictionary<AggregationType, Measurement> _lastestMeasurements = new Dictionary
-            <AggregationType, Measurement>()
-            {
-                { AggregationType.Avg1Hour , new Measurement(Station.Empty, null) },
-                { AggregationType.Avg8Hour , new Measurement(Station.Empty, null) },
-                { AggregationType.Avg24Hour, new Measurement(Station.Empty, null) },
-                { AggregationType.Avg1Year , new Measurement(Station.Empty, null) },
-            };
-
-        private Dictionary<AggregationType, List<Measurement>> _measurements = new Dictionary
-            <AggregationType, List<Measurement>>()
-            {
-                { AggregationType.Avg1Hour , new List<Measurement>() },
-                { AggregationType.Avg8Hour , new List<Measurement>() },
-                { AggregationType.Avg24Hour, new List<Measurement>() },
-                { AggregationType.Avg1Year , new List<Measurement>() },
-            };
 
         private Parameter _parameter = null;
         private Station _station = Station.Empty;
@@ -57,54 +47,76 @@
                 throw new NotSupportedException();
         }
 
-        public AirQualityIndex AirQualityIndex
-        {
-            get { return _airQualityIndex; }
-            set
+        public AirQualityIndex AirQualityIndex => _airQualityIndex;
+
+        public Dictionary<AggregationType, Measurement> LastestMeasurements { get; }
+            = new Dictionary<AggregationType, Measurement>()
             {
-                if (_airQualityIndex == value) return;
-                _airQualityIndex = value;
-                RaisePropertyChanged(nameof(AirQualityIndex));
-            }
-        }
+                { AggregationType.Avg1Hour , new Measurement(Station.Empty, null) },
+                { AggregationType.Avg8Hour , new Measurement(Station.Empty, null) },
+                { AggregationType.Avg24Hour, new Measurement(Station.Empty, null) },
+                { AggregationType.Avg1Year , new Measurement(Station.Empty, null) },
+            };
 
-        public Dictionary<AggregationType, Measurement> LastestMeasurements
-        {
-            get { return _lastestMeasurements; }
-        }
-
-        public Dictionary<AggregationType, List<Measurement>> Measurements
-        {
-            get { return _measurements; }
-        }
+        public Dictionary<AggregationType, List<Measurement>> Measurements { get; }
+            = new Dictionary<AggregationType, List<Measurement>>()
+            {
+                { AggregationType.Avg1Hour , new List<Measurement>() },
+                { AggregationType.Avg8Hour , new List<Measurement>() },
+                { AggregationType.Avg24Hour, new List<Measurement>() },
+                { AggregationType.Avg1Year , new List<Measurement>() },
+            };
 
         public Parameter Parameter => _parameter;
         public Station Station => _station;
 
-        private AggregationType[] _supportedAggregations =
-        {
-            AggregationType.Avg1Hour,
-            AggregationType.Avg8Hour,
-            AggregationType.Avg24Hour,
-            AggregationType.Avg1Year,
-        };
-
         public void Clear()
         {
+            _airQualityIndex = AirQualityIndex.Unavaible;
+
             foreach (var supportedAggregation in _supportedAggregations)
             {
-                _measurements[supportedAggregation] = new List<Measurement>();
-                _lastestMeasurements[supportedAggregation] = new Measurement(Station, Parameter);
+                Measurements[supportedAggregation] = new List<Measurement>();
+                LastestMeasurements[supportedAggregation] = new Measurement(Station, Parameter);
             }
+
+            RaisePropertyChanged(nameof(AirQualityIndex));
             RaisePropertyChanged(nameof(Measurements));
             RaisePropertyChanged(nameof(LastestMeasurements));
         }
 
         public async Task LoadData()
         {
-            var dataService = ServiceLocatorPortable.Instance.DataService;
-            var parameters = (await dataService.GetParametersAsync(Station)).ToList();
-            var measurements = (await dataService.GetMeasurementsAsync(Station, new[] { Parameter })).ToList();
+            Clear();
+            try
+            {
+                var dataService = ServiceLocatorPortable.Instance.DataService;
+                var measurements = (await dataService.GetMeasurementsAsync(Station, new[] { Parameter })).ToList();
+
+                if (measurements.Any())
+                {
+                    foreach (var aggregation in _supportedAggregations)
+                    {
+                        var querry = measurements.Where(o => o.Aggregation == aggregation).OrderByDescending(o => o.Date).ToList();
+                        if (!querry.Any()) continue;
+                        Measurements[aggregation] = querry;
+                        LastestMeasurements[aggregation] = querry.First();
+                    }
+
+                    _airQualityIndex = LastestMeasurements[AggregationType.Avg1Hour].Aqi;
+                }
+            }
+            catch (Exception exception)
+            {
+                //TODO - catch all and show notification to user
+                SmokSmog.Diagnostics.Logger.Log(exception);
+            }
+            finally
+            {
+                RaisePropertyChanged(nameof(AirQualityIndex));
+                RaisePropertyChanged(nameof(Measurements));
+                RaisePropertyChanged(nameof(LastestMeasurements));
+            }
         }
     }
 
@@ -136,37 +148,40 @@
             }
         }
 
-        public List<Parameter> AqiComponents
+        public List<ParameterViewModel> AqiComponents
         {
             get
             {
+                Predicate<AirQualityIndex> shouldBeCounted =
+                    aqi => aqi.Value.HasValue && DateTime.UtcNow - aqi.DateUtc < TimeSpan.FromMinutes(80);
+
                 if (Parameters.Any())
                 {
                     var list = (from p in Parameters
-                                where p.Current.Aqi.Value.HasValue && DateTime.Now - p.Current.Date < TimeSpan.FromMinutes(80)
-                                orderby p.Current.Aqi.Value descending
+                                where shouldBeCounted(p.AirQualityIndex)
+                                orderby p.AirQualityIndex.Value descending
                                 select p).ToList();
 
                     if (list.Any())
                     {
-                        var max = list.MaxBy(o => o.Current.Aqi.Value)?.Current;
+                        var max = list.MaxBy(o => o.AirQualityIndex.Value);
 
                         if (max != null)
                         {
-                            AirQualityIndex = max.Aqi;
+                            AirQualityIndex = max.AirQualityIndex;
                             return list;
                         }
                     }
                 }
 
                 AirQualityIndex = AirQualityIndex.Unavaible;
-                return new List<Parameter>();
+                return new List<ParameterViewModel>();
             }
         }
 
         public bool IsValidStation => (Station?.Id ?? -1) != -1;
 
-        public List<Parameter> Parameters { get; private set; } = new List<Parameter>();
+        public List<ParameterViewModel> Parameters { get; private set; } = new List<ParameterViewModel>();
 
         public Model.Station Station
         {
@@ -211,22 +226,16 @@
             {
                 var dataService = ServiceLocatorPortable.Instance.DataService;
                 var parameters = (await dataService.GetParametersAsync(station)).ToList();
-                var measurements = (await dataService.GetMeasurementsAsync(station, parameters)).ToList();
 
-                if (measurements.Any())
+                if (parameters.Any())
                 {
                     foreach (var parameter in parameters)
                     {
-                        if (parameter != null)
-                        {
-                            parameter.Measurements =
-                                measurements.Where(o => o.Station.Id == station.Id && o.Parameter.Id == parameter.Id)
-                                    .ToList();
-                        }
+                        var parameterViewModel = new ParameterViewModel(station, parameter);
+                        await parameterViewModel.LoadData();
                     }
 
                     Station.Parameters = parameters;
-                    Parameters = parameters;
                 }
             }
             catch (Exception ex)
