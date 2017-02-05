@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiToBrush.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiToImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\BooleanToVisability.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\NumericFormatConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StationGroupingModeEnumToString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringFormatConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringGetFirstChar.cs" />

@@ -21,8 +21,10 @@ namespace SmokSmog.Views
             await vm.SetStationAsync(4);
             await Task.Delay(1000);
             Large.DataContext = vm;
-            WideOverview.DataContext = vm;
-            WideDetails.DataContext = vm;
+            WideO.DataContext = vm;
+            WideD.DataContext = vm;
+            MediumO.DataContext = vm;
+            MediumD.DataContext = vm;
         }
     }
 }

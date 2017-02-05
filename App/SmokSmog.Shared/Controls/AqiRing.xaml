@@ -16,7 +16,7 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
-        <valueconverters:StringDigitFormatConverter x:Key="StringDigitFormatConverter" />
+        <valueconverters:NumericFormatConverter x:Key="NumericFormatConverter" />
     </UserControl.Resources>
 
     <Grid MinWidth="250" MinHeight="250">
@@ -43,7 +43,7 @@
                                         ElementName=This}"
                    Text="{Binding AQI.Value,
                                   ElementName=This,
-                                  Converter={StaticResource StringDigitFormatConverter},
+                                  Converter={StaticResource NumericFormatConverter},
                                   ConverterParameter='[0:0.0]'}" />
     </Grid>
 </UserControl>

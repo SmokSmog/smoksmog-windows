@@ -31,13 +31,13 @@
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
-        <tiles:WideOverview Grid.Row="0"
+        <tiles:Wide Grid.Row="0"
                             DataContext="{Binding}"
-                            ShowName="False" />
+                            ShowName="False" Site="Front" />
 
-        <tiles:WideDetails Grid.Row="1"
+        <tiles:Wide Grid.Row="1"
                            DataContext="{Binding}"
-                           ShowName="False" />
+                           ShowName="False" Site="Back" />
 
         <TextBlock Grid.Row="2"
                    Margin="10,0,0,10"

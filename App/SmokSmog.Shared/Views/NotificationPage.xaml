@@ -43,14 +43,26 @@
             </Button>
 
             <sct:Large x:Name="Large"
-                       Margin="10,0,0,10"
+                       Margin="0,0,0,10"
                        ShowName="True" />
-            <sct:WideOverview x:Name="WideOverview"
-                              Margin="10,0,0,10"
-                              ShowName="True" />
-            <sct:WideDetails x:Name="WideDetails"
-                             Margin="10,0,0,10"
-                             ShowName="True" />
+            <sct:Wide x:Name="WideO"
+                      Margin="0,0,0,10"
+                      ShowName="True"
+                      Site="Front" />
+            <sct:Wide x:Name="WideD"
+                      Margin="0,0,0,10"
+                      ShowName="True"
+                      Site="Back" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <sct:Medium Margin="0,0,10,0" x:Name="MediumO"
+                            ShowName="True"
+                            Site="Front" />
+                <sct:Medium Margin="0,0,0,0" x:Name="MediumD"
+                            ShowName="True"
+                            Site="Back" />
+            </StackPanel>
+
         </StackPanel>
     </Grid>
 </Page>

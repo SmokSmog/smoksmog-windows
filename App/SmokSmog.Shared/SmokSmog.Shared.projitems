@@ -49,11 +49,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
-    <Page Include="$(MSBuildThisFileDirectory)Controls\Tiles\WideDetails.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Controls\Tiles\Medium.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Controls\Tiles\WideOverview.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Controls\Tiles\Wide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,11 +116,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Tiles\Large.xaml.cs">
       <DependentUpon>Large.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Tiles\WideDetails.xaml.cs">
-      <DependentUpon>WideDetails.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Tiles\Medium.xaml.cs">
+      <DependentUpon>Medium.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Tiles\WideOverview.xaml.cs">
-      <DependentUpon>WideOverview.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Tiles\TileSite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Tiles\Wide.xaml.cs">
+      <DependentUpon>Wide.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
