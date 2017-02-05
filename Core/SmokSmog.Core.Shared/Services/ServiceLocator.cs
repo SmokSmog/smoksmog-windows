@@ -1,10 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using SmokSmog.Net.Http;
 using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Storage;
-using System.Net.Http;
 using ServiceLocation = Microsoft.Practices.ServiceLocation;
 
 namespace SmokSmog.Services
@@ -17,29 +15,20 @@ namespace SmokSmog.Services
 
         public static void Initialize()
         {
-            if (!ServiceLocation.ServiceLocator.IsLocationProviderSet)
-                ServiceLocation.ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            ServiceLocatorPortable.Initialize();
 
-            if (!_isInitialized)
+            if (_isInitialized) return;
+
+            if (ViewModelBase.IsInDesignModeStatic)
             {
-                SimpleIoc.Default.Register<HttpClient>(() => new HttpClient());
-                SimpleIoc.Default.Register<IHttpClient, HttpClientProxy>();
-
-                if (ViewModelBase.IsInDesignModeStatic)
-                {
-                    SimpleIoc.Default.Register<IDataProvider, DesignData.Services.ApiDataProvider>();
-                    SimpleIoc.Default.Register<IGeolocationService, DesignData.Services.GeolocationService>();
-                }
-                else
-                {
-                    SimpleIoc.Default.Register<IDataProvider, SmokSmogApiDataProvider>();
-                    SimpleIoc.Default.Register<IGeolocationService, GeolocationService>();
-                }
-
-                SimpleIoc.Default.Register<IStorageService, StorageService>();
-
-                _isInitialized = true;
+                SimpleIoc.Default.Register<IGeolocationService, DesignData.Services.GeolocationService>();
             }
+            else
+            {
+                SimpleIoc.Default.Register<IGeolocationService, GeolocationService>();
+            }
+            SimpleIoc.Default.Register<IStorageService, StorageService>();
+            _isInitialized = true;
         }
 
         static ServiceLocator()
