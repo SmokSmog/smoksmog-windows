@@ -6,14 +6,15 @@
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:is="using:SmokSmog.Xaml.Interactions"
+      xmlns:vm="using:SmokSmog.ViewModel"
       xmlns:local="using:SmokSmog.Views"
+      xmlns:model="using:SmokSmog.Model"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:valueconverters="using:SmokSmog.Xaml.Data.ValueConverters"
       xmlns:xtcommon="using:WinRTXamlToolkit.Common"
       xmlns:xtcontrols="using:WinRTXamlToolkit.Controls"
       x:Name="This"
-      d:DataContext="{Binding Path=StationViewModel,
-                              Source={StaticResource ViewModelLocator}}"
+      d:DataContext="{Binding Source={StaticResource DesignStationViewModel}}"
       DataContext="{Binding Path=StationViewModel,
                             Source={StaticResource ViewModelLocator}}"
       Foreground="#FF333333"
@@ -22,6 +23,7 @@
 
     <Page.Resources>
         <valueconverters:StringDigitFormatConverter x:Key="StringDigitFormatConverter" />
+        <dvm:StationViewModel  x:Key="DesignStationViewModel" xmlns:dvm="using:SmokSmog.DesignData.ViewModel" />
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource SmokSmogPageBackgroundBrush}">
@@ -171,7 +173,7 @@
                             </Button>
                         </Grid>
 
-                        <controls:AqiRing Grid.Row="1"
+                        <controls:AqiRing Grid.Row="1" Grid.Column="0"
                                           Margin="20"
                                           AQI="{Binding AirQualityIndex}" />
 
@@ -214,18 +216,18 @@
                                                            Margin="0"
                                                            FontSize="50"
                                                            Padding="0"
-                                                           Text="{Binding ShortName}" />
+                                                           Text="{Binding Parameter.ShortName}" />
                                                 <Border Grid.Column="1"
                                                         Width="100"
                                                         Margin="10,0,0,0"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        Background="{Binding Current.Aqi.Info.Color}"
+                                                        Background="{Binding AirQualityIndex.Color}"
                                                         BorderThickness="0"
                                                         Padding="5">
                                                     <TextBlock HorizontalAlignment="Center"
                                                                FontSize="50"
-                                                               Text="{Binding Current.Aqi.Value,
+                                                               Text="{Binding AirQualityIndex.Value,
                                                                               Converter={StaticResource StringDigitFormatConverter},
                                                                               ConverterParameter='[0:0.0]'}" />
                                                 </Border>
@@ -235,20 +237,19 @@
                                 </ListView>
                             </Viewbox>
                         </StackPanel>
-                        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+                        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0">
                             <TextBlock FontSize="20"
                                        Text="{Binding LocalizedResources.StringAirQuality,
                                                       Source={StaticResource LocalizedStrings}}"
                                        TextAlignment="Center" />
                             <TextBlock FontSize="40"
-                                       Text="{Binding AirQualityIndex.Info.Text}"
+                                       Text="{Binding AirQualityIndex.Text}"
                                        TextAlignment="Center" />
                         </StackPanel>
                     </Grid>
                 </Viewbox>
 
-                <GridView x:Name="myGridView"
-                          HorizontalAlignment="Center"
+                <GridView HorizontalAlignment="Center"
                           IsItemClickEnabled="True"
                           ItemsSource="{Binding Parameters}"
                           SelectionMode="None">
@@ -272,6 +273,7 @@
                             <Border Background="#77FFFFFF"
                                     BorderBrush="Transparent"
                                     BorderThickness="0">
+
                                 <Viewbox MaxWidth="400">
 
                                     <Grid MinHeight="140" HorizontalAlignment="Center">
@@ -286,25 +288,27 @@
                                                    Margin="6,0,0,5"
                                                    VerticalAlignment="Bottom"
                                                    FontSize="15"
-                                                   Text="{Binding Name}" />
+                                                   Text="{Binding Parameter.Name}" />
 
-                                        <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                                        <StackPanel Grid.Column="0" HorizontalAlignment="Center" Orientation="Vertical">
                                             <TextBlock Text="{Binding LocalizedResources.StringMeasure, Source={StaticResource LocalizedStrings}}" TextAlignment="Center" />
                                             <TextBlock Margin="5,0"
                                                        FontSize="20"
                                                        FontWeight="Medium"
                                                        Foreground="Black"
-                                                       Text="{Binding Current.Value,
+                                                       Text="{Binding Latest.Avg1Hour,
                                                                       Converter={StaticResource StringDigitFormatConverter},
                                                                       ConverterParameter='[0:0.##]'}"
                                                        TextAlignment="Center" />
+
+
                                             <TextBlock FontSize="10"
-                                                       Text="{Binding Unit}"
+                                                       Text="{Binding Parameter.Unit}"
                                                        TextAlignment="Center" />
 
                                             <TextBlock Margin="0,10,0,0"
                                                        FontSize="38"
-                                                       Text="{Binding ShortName}"
+                                                       Text="{Binding Parameter.ShortName}"
                                                        TextAlignment="Center" />
                                         </StackPanel>
 
@@ -328,10 +332,10 @@
                                                 <TextBlock TextAlignment="Center">
                                                     <Run FontWeight="Medium"
                                                          Foreground="Black"
-                                                         Text="{Binding Norm.Value,
+                                                         Text="{Binding Parameter.Norm.Value,
                                                                         Converter={StaticResource StringDigitFormatConverter},
                                                                         ConverterParameter='[0:0.##]'}" />
-                                                    <Run Text="{Binding Unit}" />
+                                                    <Run Text="{Binding Parameter.Unit}" />
                                                 </TextBlock>
                                             </StackPanel>
 
@@ -343,10 +347,10 @@
                                                 <TextBlock TextAlignment="Center">
                                                     <Run FontWeight="Medium"
                                                          Foreground="Black"
-                                                         Text="{Binding CurrentAvg.Value,
+                                                         Text="{Binding Latest.Avg24Hour,
                                                                         Converter={StaticResource StringDigitFormatConverter},
                                                                         ConverterParameter='[0:0.##]'}" />
-                                                    <Run Text="{Binding Unit}" />
+                                                    <Run Text="{Binding Parameter.Unit}" />
                                                 </TextBlock>
                                             </StackPanel>
 
@@ -355,13 +359,13 @@
                                                         VerticalAlignment="Bottom"
                                                         Orientation="Vertical">
                                                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                                    <TextBlock FontWeight="Bold" Text="{Binding Current.Date.Hour, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]:'}" />
-                                                    <TextBlock FontWeight="Bold" Text="{Binding Current.Date.Minute, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]'}" />
+                                                    <TextBlock FontWeight="Bold" Text="{Binding Latest.Date.Hour, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]:'}" />
+                                                    <TextBlock FontWeight="Bold" Text="{Binding Latest.Date.Minute, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]'}" />
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock FontSize="10" Text="{Binding Current.Date.Day, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]-'}" />
-                                                    <TextBlock FontSize="10" Text="{Binding Current.Date.Month, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]-'}" />
-                                                    <TextBlock FontSize="10" Text="{Binding Current.Date.Year, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:0000]  '}" />
+                                                    <TextBlock FontSize="10" Text="{Binding Latest.Date.Day, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]-'}" />
+                                                    <TextBlock FontSize="10" Text="{Binding Latest.Date.Month, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:00]-'}" />
+                                                    <TextBlock FontSize="10" Text="{Binding Latest.Date.Year, Converter={StaticResource StringDigitFormatConverter}, ConverterParameter='[0:0000]  '}" />
                                                 </StackPanel>
                                             </StackPanel>
                                         </Grid>

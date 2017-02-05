@@ -10,7 +10,7 @@
     <model:Station.Geocoordinate>
         <model:Geocoordinate Latitude="50.069308" Longitude="20.053492" />
     </model:Station.Geocoordinate>
-
+    <!--
     <model:Station.Parameters>
 
         <model:Parameter Name="Pył zawieszony"
@@ -188,5 +188,5 @@
                                    Value="6.55" />
             </model:Parameter.Measurements>
         </model:Parameter>
-    </model:Station.Parameters>
+    </model:Station.Parameters>-->
 </model:Station>

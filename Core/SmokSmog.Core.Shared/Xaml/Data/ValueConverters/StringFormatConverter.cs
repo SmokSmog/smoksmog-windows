@@ -13,18 +13,21 @@ namespace SmokSmog.Xaml.Data.ValueConverters
                 return LocalizedStrings.LocalizedString("StringNA");
             }
 
-            if (value is double && double.IsPositiveInfinity((double)value))
-                return "∞";
+            double val = 0;
+            bool isDouble = double.TryParse(value.ToString(), out val);
 
-            if (value is double && double.IsNegativeInfinity((double)value))
-                return "-∞";
+            if (isDouble)
+            {
+                if (double.IsPositiveInfinity(val))
+                    return "∞";
 
-            return string.Format(((parameter as string) ?? "{0}").Replace('[', '{').Replace(']', '}'), value);
-        }
+                if (double.IsNegativeInfinity(val))
+                    return "-∞";
 
-        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureOrlanguage)
-        {
-            return null;
+                return string.Format(((parameter as string) ?? "{0}").Replace('[', '{').Replace(']', '}'), val);
+            }
+
+            return LocalizedStrings.LocalizedString("StringNA");
         }
     }
 }

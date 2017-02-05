@@ -1,24 +1,19 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SmokSmog.Model
 {
     public enum AggregationType
     {
-        Unavailable = 0,
         Avg1Hour = 1,
         Avg8Hour = 8,
-
-        //Avg12Hour = 12,
         Avg24Hour = 24,
-
-        //Avg1Week = 168,
         Avg1Year = 8760,
     }
 
-    [DataContract(Namespace = "SmokSmog.Model")]
-    public partial class Measurement
+    public class Measurement
     {
         public Measurement(Station station, Parameter parameter)
         {
@@ -35,12 +30,34 @@ namespace SmokSmog.Model
                 throw new NotSupportedException();
         }
 
-        public AggregationType Aggregation { get; internal set; } = AggregationType.Unavailable;
-
         /// <summary>
         /// Air Quality Index value
         /// </summary>
         public AirQualityIndex Aqi => AirQualityIndex.CalculateAirQualityIndex(this);
+
+        public double? Avg1Hour
+        {
+            get { return Values[AggregationType.Avg1Hour]; }
+            set { Values[AggregationType.Avg1Hour] = value; }
+        }
+
+        public double? Avg1Year
+        {
+            get { return Values[AggregationType.Avg1Year]; }
+            set { Values[AggregationType.Avg1Year] = value; }
+        }
+
+        public double? Avg24Hour
+        {
+            get { return Values[AggregationType.Avg24Hour]; }
+            set { Values[AggregationType.Avg24Hour] = value; }
+        }
+
+        public double? Avg8Hour
+        {
+            get { return Values[AggregationType.Avg8Hour]; }
+            set { Values[AggregationType.Avg8Hour] = value; }
+        }
 
         /// <summary>
         /// Date and time of Measurement
@@ -72,7 +89,38 @@ namespace SmokSmog.Model
         /// Value
         /// example: "23.3"
         /// </summary>
-        public double? Value { get; internal set; }
+
+        public Dictionary<AggregationType, double?> Values { get; } = new Dictionary
+            <AggregationType, double?>
+            {
+                    { AggregationType.Avg1Hour , null },
+                    { AggregationType.Avg8Hour , null },
+                    { AggregationType.Avg24Hour, null },
+                    { AggregationType.Avg1Year , null },
+            };
+
+        public double? this[string key]
+        {
+            get
+            {
+                AggregationType type;
+                double? value = null;
+                if (Enum.TryParse(key, out type))
+                    Values.TryGetValue(type, out value);
+
+                return value;
+            }
+        }
+
+        public double? this[AggregationType type]
+        {
+            get
+            {
+                double? value = null;
+                Values.TryGetValue(type, out value);
+                return value;
+            }
+        }
 
         public override bool Equals(object obj)
         {
@@ -82,15 +130,17 @@ namespace SmokSmog.Model
                 return o.Station != this.Station ||
                     o.Parameter != this.Parameter ||
                     o.Date != this.Date ||
-                    !Equals(o.Value, this.Value);
+                    !Equals(o.Values, this.Values);
             }
             return false;
         }
 
         public override int GetHashCode()
-            => new { Station, Parameter, Date, Value, }.GetHashCode();
+            => new { Station, Parameter, Date, Values, }.GetHashCode();
 
         public override string ToString()
-            => $"Measurement StationId:{Station?.Id} ParticulateId:{Parameter?.Id} Date:{Date} Value:{Value} ";
+            => $"Measurement StationId:{Station?.Id} ParticulateId:{Parameter?.Id} Date:{Date} Values:{Values} ";
     }
+
+    public class Measurements : ObservableCollection<Measurement> { }
 }

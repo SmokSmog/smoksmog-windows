@@ -28,7 +28,7 @@
 
         <xtcontrols:RingSlice EndAngle="{Binding EndAngle,
                                                  ElementName=This}"
-                              Fill="{Binding AQI.Info.Color,
+                              Fill="{Binding AQI.Color,
                                              ElementName=This}"
                               InnerRadius="95"
                               Radius="120.0"
@@ -39,7 +39,7 @@
                    VerticalAlignment="Center"
                    FontSize="80"
                    FontWeight="Bold"
-                   Foreground="{Binding AQI.Info.Color,
+                   Foreground="{Binding AQI.Color,
                                         ElementName=This}"
                    Text="{Binding AQI.Value,
                                   ElementName=This,

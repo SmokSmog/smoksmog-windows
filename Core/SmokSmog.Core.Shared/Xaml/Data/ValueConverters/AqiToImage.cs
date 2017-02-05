@@ -14,16 +14,12 @@ namespace SmokSmog.Xaml.Data.ValueConverters
         {
             var square = parameter?.Equals("square") ?? false;
             var aqi = value as AirQualityIndex;
+            if (aqi == null) return new BitmapImage();
 
-            if (aqi != null)
-            {
-                var uri = square
-                    ? new Uri($"ms-appx:///Assets/Notification/{aqi.Info.Level}-square.png")
-                    : new Uri($"ms-appx:///Assets/Notification/{aqi.Info.Level}.png");
-                return new BitmapImage(uri);
-            }
-
-            return new BitmapImage();
+            var uri = square
+                ? new Uri($"ms-appx:///Assets/Notification/{aqi.Level}-square.png")
+                : new Uri($"ms-appx:///Assets/Notification/{aqi.Level}.png");
+            return new BitmapImage(uri);
         }
     }
 }

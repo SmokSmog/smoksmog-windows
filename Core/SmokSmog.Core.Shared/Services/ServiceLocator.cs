@@ -27,8 +27,8 @@ namespace SmokSmog.Services
 
                 if (ViewModelBase.IsInDesignModeStatic)
                 {
-                    SimpleIoc.Default.Register<IDataProvider, Design.Services.DesignDataProvider>();
-                    SimpleIoc.Default.Register<IGeolocationService, Design.Services.GeolocationService>();
+                    SimpleIoc.Default.Register<IDataProvider, DesignData.Services.ApiDataProvider>();
+                    SimpleIoc.Default.Register<IGeolocationService, DesignData.Services.GeolocationService>();
                 }
                 else
                 {

@@ -1,4 +1,6 @@
-﻿namespace SmokSmog.ViewModel
+﻿using System.Collections.ObjectModel;
+
+namespace SmokSmog.ViewModel
 {
     using GalaSoft.MvvmLight;
     using Model;
@@ -16,114 +18,11 @@
         Error
     }
 
-    public class ParameterViewModel : ViewModelBase
-    {
-        private readonly AggregationType[] _supportedAggregations =
-        {
-            AggregationType.Avg1Hour,
-            AggregationType.Avg8Hour,
-            AggregationType.Avg24Hour,
-            AggregationType.Avg1Year,
-        };
-
-        private AirQualityIndex _airQualityIndex = AirQualityIndex.Unavaible;
-
-        private Parameter _parameter = null;
-        private Station _station = Station.Empty;
-
-        public ParameterViewModel(Station station, Parameter parameter)
-        {
-            _station = station;
-            _parameter = parameter;
-            Clear();
-        }
-
-        /// <summary>
-        /// default constructor for design purposes only
-        /// </summary>
-        internal ParameterViewModel()
-        {
-            if (!ViewModelBase.IsInDesignModeStatic)
-                throw new NotSupportedException();
-        }
-
-        public AirQualityIndex AirQualityIndex => _airQualityIndex;
-
-        public Dictionary<AggregationType, Measurement> LastestMeasurements { get; }
-            = new Dictionary<AggregationType, Measurement>()
-            {
-                { AggregationType.Avg1Hour , new Measurement(Station.Empty, null) },
-                { AggregationType.Avg8Hour , new Measurement(Station.Empty, null) },
-                { AggregationType.Avg24Hour, new Measurement(Station.Empty, null) },
-                { AggregationType.Avg1Year , new Measurement(Station.Empty, null) },
-            };
-
-        public Dictionary<AggregationType, List<Measurement>> Measurements { get; }
-            = new Dictionary<AggregationType, List<Measurement>>()
-            {
-                { AggregationType.Avg1Hour , new List<Measurement>() },
-                { AggregationType.Avg8Hour , new List<Measurement>() },
-                { AggregationType.Avg24Hour, new List<Measurement>() },
-                { AggregationType.Avg1Year , new List<Measurement>() },
-            };
-
-        public Parameter Parameter => _parameter;
-        public Station Station => _station;
-
-        public void Clear()
-        {
-            _airQualityIndex = AirQualityIndex.Unavaible;
-
-            foreach (var supportedAggregation in _supportedAggregations)
-            {
-                Measurements[supportedAggregation] = new List<Measurement>();
-                LastestMeasurements[supportedAggregation] = new Measurement(Station, Parameter);
-            }
-
-            RaisePropertyChanged(nameof(AirQualityIndex));
-            RaisePropertyChanged(nameof(Measurements));
-            RaisePropertyChanged(nameof(LastestMeasurements));
-        }
-
-        public async Task LoadData()
-        {
-            Clear();
-            try
-            {
-                var dataService = ServiceLocatorPortable.Instance.DataService;
-                var measurements = (await dataService.GetMeasurementsAsync(Station, new[] { Parameter })).ToList();
-
-                if (measurements.Any())
-                {
-                    foreach (var aggregation in _supportedAggregations)
-                    {
-                        var querry = measurements.Where(o => o.Aggregation == aggregation).OrderByDescending(o => o.Date).ToList();
-                        if (!querry.Any()) continue;
-                        Measurements[aggregation] = querry;
-                        LastestMeasurements[aggregation] = querry.First();
-                    }
-
-                    _airQualityIndex = LastestMeasurements[AggregationType.Avg1Hour].Aqi;
-                }
-            }
-            catch (Exception exception)
-            {
-                //TODO - catch all and show notification to user
-                SmokSmog.Diagnostics.Logger.Log(exception);
-            }
-            finally
-            {
-                RaisePropertyChanged(nameof(AirQualityIndex));
-                RaisePropertyChanged(nameof(Measurements));
-                RaisePropertyChanged(nameof(LastestMeasurements));
-            }
-        }
-    }
+    public class ParameterViewModels : ObservableCollection<ParameterViewModel> { }
 
     public class StationViewModel : ViewModelBase
     {
-        private AirQualityIndex _airQualityIndex = AirQualityIndex.Unavaible;
-        private Model.Station _station = null;
+        private Station _station = null;
 
         public StationViewModel()
         {
@@ -139,12 +38,12 @@
 
         public AirQualityIndex AirQualityIndex
         {
-            get { return _airQualityIndex; }
-            private set
+            get
             {
-                if (_airQualityIndex == value) return;
-                _airQualityIndex = value;
-                RaisePropertyChanged(nameof(AirQualityIndex));
+                if (!AqiComponents.Any()) return AirQualityIndex.Unavaible;
+
+                var max = AqiComponents.MaxBy(o => o.AirQualityIndex.Value);
+                return max != null ? max.AirQualityIndex : AirQualityIndex.Unavaible;
             }
         }
 
@@ -153,37 +52,26 @@
             get
             {
                 Predicate<AirQualityIndex> shouldBeCounted =
-                    aqi => aqi.Value.HasValue && DateTime.UtcNow - aqi.DateUtc < TimeSpan.FromMinutes(80);
+                    aqi => aqi.Value.HasValue && DateTime.UtcNow - aqi.DateUtc < TimeSpan.FromMinutes(120);
 
-                if (Parameters.Any())
-                {
-                    var list = (from p in Parameters
-                                where shouldBeCounted(p.AirQualityIndex)
-                                orderby p.AirQualityIndex.Value descending
-                                select p).ToList();
+                if (!Parameters.Any()) return new List<ParameterViewModel>();
 
-                    if (list.Any())
-                    {
-                        var max = list.MaxBy(o => o.AirQualityIndex.Value);
+                var list = (from p in Parameters
+                            where shouldBeCounted(p.AirQualityIndex)
+                            orderby p.AirQualityIndex.Value descending
+                            select p).ToList();
 
-                        if (max != null)
-                        {
-                            AirQualityIndex = max.AirQualityIndex;
-                            return list;
-                        }
-                    }
-                }
-
-                AirQualityIndex = AirQualityIndex.Unavaible;
-                return new List<ParameterViewModel>();
+                if (!list.Any()) return new List<ParameterViewModel>();
+                var max = list.MaxBy(o => o.AirQualityIndex.Value);
+                return max != null ? list : new List<ParameterViewModel>();
             }
         }
 
         public bool IsValidStation => (Station?.Id ?? -1) != -1;
 
-        public List<ParameterViewModel> Parameters { get; private set; } = new List<ParameterViewModel>();
+        public ParameterViewModels Parameters { get; } = new ParameterViewModels();
 
-        public Model.Station Station
+        public Station Station
         {
             get
             {
@@ -233,8 +121,8 @@
                     {
                         var parameterViewModel = new ParameterViewModel(station, parameter);
                         await parameterViewModel.LoadData();
+                        Parameters.Add(parameterViewModel);
                     }
-
                     Station.Parameters = parameters;
                 }
             }
@@ -244,8 +132,9 @@
                 //throw;
             }
 
-            RaisePropertyChanged(nameof(AqiComponents));
             RaisePropertyChanged(nameof(Parameters));
+            RaisePropertyChanged(nameof(AqiComponents));
+            RaisePropertyChanged(nameof(AirQualityIndex));
         }
 
         private async void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

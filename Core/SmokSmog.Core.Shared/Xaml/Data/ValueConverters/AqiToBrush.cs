@@ -10,7 +10,7 @@ namespace SmokSmog.Xaml.Data.ValueConverters
         public override object Convert(object value, Type targetType, object parameter, CultureInfo cultureOrlanguage)
         {
             var aqi = value as AirQualityIndex;
-            return aqi?.Info.Color.ToBrush();
+            return aqi?.Color.ToBrush();
         }
     }
 }

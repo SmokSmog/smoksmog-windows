@@ -20,8 +20,7 @@ namespace SmokSmog.Views
             StationViewModel vm = new StationViewModel();
             await vm.SetStationAsync(4);
             await Task.Delay(1000);
-
-            Large.DataContext = vm.Station;
+            Large.DataContext = vm;
         }
     }
 }

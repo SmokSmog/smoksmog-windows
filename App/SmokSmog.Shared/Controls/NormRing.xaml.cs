@@ -1,5 +1,4 @@
 ﻿using SmokSmog.Globalization;
-using SmokSmog.Model;
 using SmokSmog.ViewModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -67,20 +66,20 @@ namespace SmokSmog.Controls
         {
             var pwm = args.NewValue as ParameterViewModel;
             var norm = pwm?.Parameter?.Norm;
-            Measurement average = null;
+            double? average = null;
             if (norm != null)
             {
-                average = pwm?.LastestMeasurements[norm.Aggregation];
+                average = pwm?.Latest[norm.Aggregation];
             }
 
-            if (pwm?.Parameter == null || average?.Value == null)
+            if (norm == null || !average.HasValue)
             {
                 Percent = string.Format(LocalizedStrings.LocalizedString("StringNA"));
                 EndAngle = -180d;
                 return;
             }
 
-            double ratio = average.Value.Value / norm.Value;
+            double ratio = average.Value / norm.Value;
             string format = "{0:0.0}%";
 
             if (ratio > 0 && ratio < 1)

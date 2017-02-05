@@ -5,11 +5,12 @@
              xmlns:local="using:SmokSmog.Controls.Tiles"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vc="using:SmokSmog.Xaml.Data.ValueConverters"
+             xmlns:vm="using:SmokSmog.ViewModel"
              MinWidth="310"
              MinHeight="310"
              MaxWidth="310"
              MaxHeight="310"
-             d:DataContext="{d:DesignData Source=../../DesignData/Station.xaml}"
+             d:DataContext="{d:DesignData Source=../../DesignData/StationViewModel.xaml}"
              d:DesignHeight="310"
              d:DesignWidth="310"
              FontSize="20"
@@ -34,14 +35,17 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <Image Source="{Binding Current.Aqi, Converter={StaticResource AqiToImage}}" />
+            <Image Source="{Binding AirQualityIndex, Converter={StaticResource AqiToImage}}" />
 
             <StackPanel Grid.Column="1"
                         VerticalAlignment="Center"
                         Orientation="Vertical">
-                <TextBlock FontSize="25">Umiarkowany</TextBlock>
-                <TextBlock Foreground="LightGray">01-02-2017 09:00</TextBlock>
-                <TextBlock Foreground="LightGray">AQI : 1.1</TextBlock>
+                <TextBlock FontSize="25" Text="{Binding AirQualityIndex.Text}" />
+                <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Date}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="LightGray" Text="AQI : " />
+                    <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Value}" />
+                </StackPanel>
             </StackPanel>
         </Grid>
 
@@ -53,7 +57,7 @@
 
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal" />
+                    <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
 
@@ -72,11 +76,11 @@
                                 MaxWidth="50"
                                 VerticalAlignment="Center"
                                 Orientation="Vertical">
-                        <TextBlock Text="{Binding ShortName}" TextAlignment="Center" />
-                        <Image Source="{Binding Current.Aqi, Converter={StaticResource AqiToImage}}" />
-                        <TextBlock Text="{Binding Current.Value}" TextAlignment="Center" />
+                        <TextBlock Text="{Binding Parameter.ShortName}" TextAlignment="Center" />
+                        <Image Source="{Binding Latest.Aqi, Converter={StaticResource AqiToImage}}" />
+                        <TextBlock Text="{Binding Latest.Avg1Hour}" TextAlignment="Center" />
                         <TextBlock Foreground="LightGray"
-                                   Text="{Binding Unit}"
+                                   Text="{Binding Parameter.Unit}"
                                    TextAlignment="Center" />
                     </StackPanel>
                 </DataTemplate>
@@ -86,6 +90,6 @@
         <TextBlock Grid.Row="2"
                    Margin="10"
                    VerticalAlignment="Bottom"
-                   Text="{Binding Name}" />
+                   Text="{Binding Station.Name}" />
     </Grid>
 </UserControl>

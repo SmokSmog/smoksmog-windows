@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 
 namespace SmokSmog.Model
@@ -181,4 +182,6 @@ namespace SmokSmog.Model
         public override string ToString()
             => $"{nameof(Parameter)} Id:{Id} Name:{Name} ShortName:{ShortName} Unit:{Unit} Norm:{Norm}";
     }
+
+    public class Parameters : ObservableCollection<Parameter> { }
 }

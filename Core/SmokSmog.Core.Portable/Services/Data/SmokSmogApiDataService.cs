@@ -67,26 +67,28 @@ namespace SmokSmog.Services.Data
                     DateTime date;
                     DateTime.TryParse(dateString, out date);
 
-                    measurements.Add(new Measurement(station, parameter)
+                    Measurement measurement = new Measurement(station, parameter)
                     {
-                        Aggregation = AggregationType.Avg1Hour,
-                        Value = item["value"].Value<double?>(),
                         Date = date,
-                    });
+                        Avg1Hour = item["value"].Value<double?>(),
+                        Avg24Hour = item["avg"]?.Value<double?>()
+                    };
 
-                    if (parameter.Type != ParameterType.PM25 && parameter.Type != ParameterType.C6H6)
-                    {
-                        var avg = item["avg"]?.Value<double?>();
-                        if (avg.HasValue)
-                        {
-                            measurements.Add(new Measurement(station, parameter)
-                            {
-                                Aggregation = AggregationType.Avg24Hour,
-                                Value = avg.Value,
-                                Date = date,
-                            });
-                        }
-                    }
+                    measurements.Add(measurement);
+
+                    //if (parameter.Type != ParameterType.PM25 && parameter.Type != ParameterType.C6H6)
+                    //{
+                    //    var avg = item["avg"]?.Value<double?>();
+                    //    if (avg.HasValue)
+                    //    {
+                    //        measurements.Add(new Measurement(station, parameter)
+                    //        {
+                    //            Aggregation = AggregationType.Avg24Hour,
+                    //            Value = avg.Value,
+                    //            Date = date,
+                    //        });
+                    //    }
+                    //}
                 }
 
                 return measurements;

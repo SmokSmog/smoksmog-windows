@@ -57,20 +57,11 @@ namespace SmokSmog.Model
 
         public static AirQualityIndex CalculateAirQualityIndex(Measurement measurement)
         {
-            if (measurement == null)
+            if (measurement?.Parameter == null || !measurement.Avg1Hour.HasValue)
                 return new AirQualityIndex();
 
-            ParameterType parameterType = measurement.Parameter.Type;
-            double? parameterValue = measurement.Value;
-
-            if (measurement.Aggregation != AggregationType.Avg1Hour)
-                return new AirQualityIndex();
-
-            if (!parameterValue.HasValue)
-                return new AirQualityIndex();
-
-            double index = parameterValue.Value * 5;
-            switch (parameterType)
+            double index = measurement.Avg1Hour.Value * 5;
+            switch (measurement.Parameter.Type)
             {
                 // Polish Air Quality Index based on WIOŚ algorithm helpful links :
                 // http://aqicn.org/faq/2015-09-03/air-quality-scale-in-poland/pl/ http://monitoring.krakow.pios.gov.pl/
