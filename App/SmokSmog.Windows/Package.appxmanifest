@@ -17,6 +17,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SmokSmog.App">
       <m2:VisualElements DisplayName="SmokSmog" Square150x150Logo="Assets\Tiles\Medium\Square150x150Logo.png" Square30x30Logo="Assets\Icon\Square30x30Logo.png" Description="SmokSmog" ForegroundText="light" BackgroundColor="gray">
+        <m2:LockScreen Notification="badge" BadgeLogo="Assets\Badge\BadgeLogo.png" />
         <m2:DefaultTile Wide310x150Logo="Assets\Tiles\Wide\Wide310x150Logo.png" Square70x70Logo="Assets\Tiles\Small\Square70x70Logo.png" ShortName="SmokSmog" Square310x310Logo="Assets\Tiles\Large\Square310x310Logo.png" DefaultSize="square150x150Logo">
           <m2:ShowNameOnTiles>
             <m2:ShowOn Tile="square150x150Logo" />
@@ -26,6 +27,13 @@
         </m2:DefaultTile>
         <m2:SplashScreen Image="Assets\SplashScreen\SplashScreenHorizontal.png" />
       </m2:VisualElements>
+      <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="SmokSmog.Core.Tiles.TilesBackgroundTask">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>
