@@ -14,19 +14,20 @@ namespace SmokSmog.Services.Storage
         public T GetSetting<T>(string key)
         {
             object obj = null;
-            if (ApplicationData.Current.LocalSettings.Values.TryGetValue(key, out obj))
-            {
-                if (obj == null) return default(T);
+            if (!ApplicationData.Current.LocalSettings.Values.TryGetValue(key, out obj))
+                return default(T);
 
-                try
-                {
-                    T value = JsonConvert.DeserializeObject<T>(obj.ToString());
-                    return value;
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log(ex);
-                }
+            if (obj == null)
+                return default(T);
+
+            try
+            {
+                T value = JsonConvert.DeserializeObject<T>(obj.ToString());
+                return value;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
             }
             return default(T);
         }

@@ -5,14 +5,18 @@ namespace SmokSmog.Controls.Tiles
 {
     public sealed partial class Medium : UserControl
     {
+        // Using a DependencyProperty as the backing store for ShowName.
+        public static readonly DependencyProperty ShowNameProperty =
+            DependencyProperty.Register("ShowName", typeof(bool), typeof(Medium), new PropertyMetadata(false));
+
+        // Using a DependencyProperty as the backing store for Site.
+        public static readonly DependencyProperty SiteProperty =
+            DependencyProperty.Register("Site", typeof(TileSite), typeof(Medium), new PropertyMetadata(TileSite.Front, TileSiteChangedCallback));
+
         public Medium()
         {
             this.InitializeComponent();
         }
-
-        // Using a DependencyProperty as the backing store for ShowName.
-        public static readonly DependencyProperty ShowNameProperty =
-            DependencyProperty.Register("ShowName", typeof(bool), typeof(Medium), new PropertyMetadata(false));
 
         public bool ShowName
         {
@@ -25,10 +29,6 @@ namespace SmokSmog.Controls.Tiles
             get { return (TileSite)GetValue(SiteProperty); }
             set { SetValue(SiteProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for Site.
-        public static readonly DependencyProperty SiteProperty =
-            DependencyProperty.Register("Site", typeof(TileSite), typeof(Medium), new PropertyMetadata(TileSite.Front, TileSiteChangedCallback));
 
         private static void TileSiteChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {

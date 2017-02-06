@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmokSmog.Services.Geolocation;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
@@ -7,7 +8,7 @@ namespace SmokSmog.Services.Geolocation
 {
     public class GeolocationService : IGeolocationService
     {
-        private Geolocator _geolocator;
+        private readonly Geolocator _geolocator;
 
         private CancellationTokenSource _cts = null;
 

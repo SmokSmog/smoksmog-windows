@@ -9,6 +9,10 @@ namespace SmokSmog.Controls.Tiles
         public static readonly DependencyProperty ShowNameProperty =
             DependencyProperty.Register("ShowName", typeof(bool), typeof(Wide), new PropertyMetadata(false));
 
+        // Using a DependencyProperty as the backing store for Site.
+        public static readonly DependencyProperty SiteProperty =
+            DependencyProperty.Register("Site", typeof(TileSite), typeof(Wide), new PropertyMetadata(TileSite.Front, TileSiteChangedCallback));
+
         public Wide()
         {
             this.InitializeComponent();
@@ -25,10 +29,6 @@ namespace SmokSmog.Controls.Tiles
             get { return (TileSite)GetValue(SiteProperty); }
             set { SetValue(SiteProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for Site.
-        public static readonly DependencyProperty SiteProperty =
-            DependencyProperty.Register("Site", typeof(TileSite), typeof(Wide), new PropertyMetadata(TileSite.Front, TileSiteChangedCallback));
 
         private static void TileSiteChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {

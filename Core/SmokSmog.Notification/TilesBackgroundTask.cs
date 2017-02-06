@@ -4,7 +4,7 @@ using Windows.ApplicationModel.Background;
 using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
 
-namespace SmokSmog.Core.Tiles
+namespace SmokSmog.Notification
 {
     public sealed class TilesBackgroundTask : IBackgroundTask
     {

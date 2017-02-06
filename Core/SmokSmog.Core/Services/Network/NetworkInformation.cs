@@ -9,17 +9,7 @@ namespace SmokSmog.Services.Network
         {
             var connections = Windows.Networking.Connectivity.NetworkInformation.GetConnectionProfiles().ToList();
             connections.Add(Windows.Networking.Connectivity.NetworkInformation.GetInternetConnectionProfile());
-
-            foreach (var connection in connections)
-            {
-                if (connection == null)
-                    continue;
-
-                if (connection.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
-                    return true;
-            }
-
-            return false;
+            return connections.Any(connection => connection?.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess);
         }
     }
 }

@@ -108,7 +108,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MoreLinq, Version=2.0.20029.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\morelinq.2.0.0\lib\netstandard1.0\MoreLinq.dll</HintPath>
+      <HintPath>..\..\packages\morelinq.2.1.0\lib\netstandard1.0\MoreLinq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -139,9 +139,13 @@
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
       <Name>SmokSmog.Core.Portable</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\SmokSmog.Core.Tiles\SmokSmog.Core.Tiles.csproj">
+    <ProjectReference Include="..\..\Core\SmokSmog.Core\SmokSmog.Core.csproj">
+      <Project>{f8a355db-501a-4cef-9ca4-5a9c61a594a3}</Project>
+      <Name>SmokSmog.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\SmokSmog.Notification\SmokSmog.Notification.csproj">
       <Project>{941b1e36-05de-46d8-8aa3-993455928f97}</Project>
-      <Name>SmokSmog.Core.Tiles</Name>
+      <Name>SmokSmog.Notification</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

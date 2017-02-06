@@ -28,7 +28,7 @@
         <m3:SplashScreen Image="Assets\SplashScreen\SplashScreenVertical.png" />
       </m3:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="SmokSmog.Core.Tiles.TilesBackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="SmokSmog.Notification.TilesBackgroundTask">
           <BackgroundTasks>
             <Task Type="timer" />
           </BackgroundTasks>

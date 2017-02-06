@@ -15,10 +15,9 @@ namespace SmokSmog.Xaml.Data.ValueConverters
             var square = parameter?.Equals("square") ?? false;
             var aqi = value as AirQualityIndex;
             if (aqi == null) return new BitmapImage();
-
             var uri = square
-                ? new Uri($"ms-appx:///Assets/Notification/{aqi.Level}-square.png")
-                : new Uri($"ms-appx:///Assets/Notification/{aqi.Level}.png");
+                ? new Uri($"ms-appx:///SmokSmog.Core/Assets/Notification/{aqi.Level}-square.png")
+                : new Uri($"ms-appx:///SmokSmog.Core/Assets/Notification/{aqi.Level}.png");
             return new BitmapImage(uri);
         }
     }

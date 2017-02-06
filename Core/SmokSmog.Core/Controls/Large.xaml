@@ -9,7 +9,6 @@
              MinHeight="310"
              MaxWidth="310"
              MaxHeight="310"
-             d:DataContext="{d:DesignData Source=../../DesignData/StationViewModel.xaml}"
              d:DesignHeight="310"
              d:DesignWidth="310"
              DataContext="{Binding Source={StaticResource ViewModelLocator},

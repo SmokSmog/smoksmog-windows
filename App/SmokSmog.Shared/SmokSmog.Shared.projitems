@@ -41,22 +41,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
-    <Page Include="$(MSBuildThisFileDirectory)Controls\Tiles\Large.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <DesignData Include="$(MSBuildThisFileDirectory)DesignData\StationViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
-    <Page Include="$(MSBuildThisFileDirectory)Controls\Tiles\Medium.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Controls\Tiles\Wide.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -113,16 +101,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\SvgImage.xaml.cs">
       <DependentUpon>SvgImage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Tiles\Large.xaml.cs">
-      <DependentUpon>Large.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Tiles\Medium.xaml.cs">
-      <DependentUpon>Medium.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Tiles\TileSite.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Tiles\Wide.xaml.cs">
-      <DependentUpon>Wide.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -131,7 +109,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigateAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Notification\Tiles.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\ApplicationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\FavoritesPage.xaml.cs">
@@ -164,17 +141,5 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\SEGMDL2.TTF" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Bad-square.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Bad.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Good-square.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Good.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Moderate-square.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Moderate.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Sufficient-square.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Sufficient.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryBad-square.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryBad.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryGood-square.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryGood.png" />
   </ItemGroup>
 </Project>

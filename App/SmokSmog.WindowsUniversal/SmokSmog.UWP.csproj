@@ -155,9 +155,13 @@
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
       <Name>SmokSmog.Core.Portable</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\SmokSmog.Core.Tiles\SmokSmog.Core.Tiles.csproj">
+    <ProjectReference Include="..\..\Core\SmokSmog.Core\SmokSmog.Core.csproj">
+      <Project>{f8a355db-501a-4cef-9ca4-5a9c61a594a3}</Project>
+      <Name>SmokSmog.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\SmokSmog.Notification\SmokSmog.Notification.csproj">
       <Project>{941b1e36-05de-46d8-8aa3-993455928f97}</Project>
-      <Name>SmokSmog.Core.Tiles</Name>
+      <Name>SmokSmog.Notification</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

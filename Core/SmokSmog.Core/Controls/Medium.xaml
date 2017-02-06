@@ -9,11 +9,9 @@
              MinHeight="150"
              MaxWidth="150"
              MaxHeight="150"
-             d:DataContext="{d:DesignData Source=../../DesignData/StationViewModel.xaml}"
+             d:DataContext="{d:DesignData Source=../../../App/SmokSmog.Shared/DesignData/StationViewModel.xaml}"
              d:DesignHeight="150"
              d:DesignWidth="150"
-             DataContext="{Binding Source={StaticResource ViewModelLocator},
-                                   Path=StationViewModel}"
              FontSize="18"
              Foreground="White"
              mc:Ignorable="d">
@@ -43,16 +41,13 @@
                        Source="{Binding AirQualityIndex,
                                         Converter={StaticResource AqiToImage},
                                         ConverterParameter='square'}" />
-                <TextBlock FontSize="20" Text="{Binding AirQualityIndex.Text}" />
-            </StackPanel>
-
-
-            <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:dd.MM.yyyy]'}" />
-            <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:HH:mm]'}" />
-            <StackPanel Orientation="Horizontal">
                 <TextBlock Foreground="LightGray" Text="AQI :" />
                 <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Value, Converter={StaticResource NumericFormatConverter}, ConverterParameter='[0: 0.0]'}" />
             </StackPanel>
+
+            <TextBlock FontSize="20" Text="{Binding AirQualityIndex.Text}" />
+            <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:dd.MM.yyyy]'}" />
+            <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:HH:mm]'}" />
 
         </StackPanel>
 

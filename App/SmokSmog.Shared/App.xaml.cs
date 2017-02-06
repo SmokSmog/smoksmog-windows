@@ -23,8 +23,8 @@ namespace SmokSmog
         {
             var builder = new BackgroundTaskBuilder()
             {
-                Name = "SmokSmog.Core.Tiles",
-                TaskEntryPoint = "SmokSmog.Core.Tiles.TilesBackgroundTask"
+                Name = "SmokSmog.Notification",
+                TaskEntryPoint = "SmokSmog.Notification.TilesBackgroundTask"
             };
 
             IBackgroundTrigger trigger = new TimeTrigger(15, false);
