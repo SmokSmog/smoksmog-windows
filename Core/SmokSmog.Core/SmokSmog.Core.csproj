@@ -194,6 +194,9 @@
     <Content Include="Assets\Notification\VeryBad.png" />
     <Content Include="Assets\Notification\VeryGood-square.png" />
     <Content Include="Assets\Notification\VeryGood.png" />
+    <Content Include="Controls\Large.xml" />
+    <Content Include="Controls\Medium.xml" />
+    <Content Include="Controls\Wide.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -203,6 +206,11 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>copy /Y "$(ProjectDir)Controls\Medium.xaml" "$(ProjectDir)Controls\Medium.xml"
+copy /Y "$(ProjectDir)Controls\Wide.xaml" "$(ProjectDir)Controls\Wide.xml"
+copy /Y "$(ProjectDir)Controls\Large.xaml" "$(ProjectDir)Controls\Large.xml"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

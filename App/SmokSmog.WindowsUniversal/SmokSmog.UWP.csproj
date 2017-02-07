@@ -159,9 +159,9 @@
       <Project>{f8a355db-501a-4cef-9ca4-5a9c61a594a3}</Project>
       <Name>SmokSmog.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\SmokSmog.Notification\SmokSmog.Notification.csproj">
-      <Project>{941b1e36-05de-46d8-8aa3-993455928f97}</Project>
-      <Name>SmokSmog.Notification</Name>
+    <ProjectReference Include="..\..\Notification\SmokSmog.Notification.UWP\SmokSmog.Notification.UWP.csproj">
+      <Project>{0d8b2081-2fee-4342-b630-d414a068fd50}</Project>
+      <Name>SmokSmog.Notification.UWP</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

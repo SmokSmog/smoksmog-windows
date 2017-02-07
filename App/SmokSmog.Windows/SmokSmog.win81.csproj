@@ -165,10 +165,6 @@
       <Project>{f8a355db-501a-4cef-9ca4-5a9c61a594a3}</Project>
       <Name>SmokSmog.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\SmokSmog.Notification\SmokSmog.Notification.csproj">
-      <Project>{941b1e36-05de-46d8-8aa3-993455928f97}</Project>
-      <Name>SmokSmog.Notification</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">

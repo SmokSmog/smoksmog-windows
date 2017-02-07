@@ -9,9 +9,38 @@ namespace SmokSmog.Services
 {
     public class ServiceLocator : IServiceLocator
     {
+        private static IServiceLocator _current = null;
+        private static bool _isInitialized = false;
         private readonly ServiceLocation.IServiceLocator _locator;
 
-        private static bool _isInitialized = false;
+        static ServiceLocator()
+        {
+            Initialize();
+        }
+
+        public ServiceLocator()
+        {
+            Initialize();
+            _locator = ServiceLocation.ServiceLocator.Current;
+        }
+
+        public static IServiceLocator Current => _current ?? (_current = new ServiceLocator());
+
+        public IDataProvider DataService
+            => _locator.GetInstance<IDataProvider>();
+
+        public IGeolocationService GeolocationService
+            => _locator.GetInstance<IGeolocationService>();
+
+        public IStorageService SettingService
+            => _locator.GetInstance<IStorageService>();
+
+        /// <summary>
+        /// Cleans up all the resources.
+        /// </summary>
+        public static void Cleanup()
+        {
+        }
 
         public static void Initialize()
         {
@@ -29,33 +58,6 @@ namespace SmokSmog.Services
             }
             SimpleIoc.Default.Register<IStorageService, StorageService>();
             _isInitialized = true;
-        }
-
-        static ServiceLocator()
-        {
-            Initialize();
-        }
-
-        public ServiceLocator()
-        {
-            Initialize();
-            _locator = ServiceLocation.ServiceLocator.Current;
-        }
-
-        public IDataProvider DataService
-            => _locator.GetInstance<IDataProvider>();
-
-        public IGeolocationService GeolocationService
-            => _locator.GetInstance<IGeolocationService>();
-
-        public IStorageService SettingService
-            => _locator.GetInstance<IStorageService>();
-
-        /// <summary>
-        /// Cleans up all the resources.
-        /// </summary>
-        public static void Cleanup()
-        {
         }
     }
 }

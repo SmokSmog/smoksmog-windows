@@ -36,13 +36,13 @@
                     VerticalAlignment="Center"
                     Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <Image Width="25"
+                <Image x:Name="AirQualityIndexImage" Width="25"
                        Margin="0,0,10,0"
                        Source="{Binding AirQualityIndex,
                                         Converter={StaticResource AqiToImage},
                                         ConverterParameter='square'}" />
                 <TextBlock Foreground="LightGray" Text="AQI :" />
-                <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Value, Converter={StaticResource NumericFormatConverter}, ConverterParameter='[0: 0.0]'}" />
+                <TextBlock x:Name="AirQualityIndexValue" Foreground="LightGray" Text="{Binding AirQualityIndex.Value, Converter={StaticResource NumericFormatConverter}, ConverterParameter='[0: 0.0]'}" />
             </StackPanel>
 
             <TextBlock FontSize="20" Text="{Binding AirQualityIndex.Text}" />
