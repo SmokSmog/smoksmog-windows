@@ -6,40 +6,45 @@
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:local="using:SmokSmog.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:notification="using:SmokSmog.Notification"
       xmlns:sct="using:SmokSmog.Controls.Tiles"
+      x:Name="This"
       mc:Ignorable="d">
 
     <Page.Resources>
-        <notification:Tiles x:Key="Tiles" />
+
+        <!--<notification:Tiles xmlns:notification="using:SmokSmog.Notification" x:Key="Tiles" />-->
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <StackPanel>
 
+            <TextBox Text="{Binding ElementName=This, Path=InstallLocaltion}" FontSize="25"></TextBox>
+            
+            <TextBox Text="{Binding ElementName=This, Path=LocalFolder}" FontSize="25"></TextBox>
+
             <Button HorizontalAlignment="Center" Content="PinTile">
-                <i:Interaction.Behaviors>
+                <!--<i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="Tapped">
                         <ic:CallMethodAction MethodName="PinTile" TargetObject="{StaticResource Tiles}" />
                     </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
+                </i:Interaction.Behaviors>-->
             </Button>
 
             <Button HorizontalAlignment="Center" Content="UpdateTile">
-                <i:Interaction.Behaviors>
+                <!--<i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="Tapped">
                         <ic:CallMethodAction MethodName="UpdateTile" TargetObject="{StaticResource Tiles}" />
                     </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
+                </i:Interaction.Behaviors>-->
             </Button>
 
             <Button HorizontalAlignment="Center" Content="PopToast">
-                <i:Interaction.Behaviors>
+                <!--<i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="Tapped">
                         <ic:CallMethodAction MethodName="PopToast" TargetObject="{StaticResource Tiles}" />
                     </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
+                </i:Interaction.Behaviors>-->
             </Button>
 
             <sct:Large x:Name="Large"

@@ -27,6 +27,15 @@
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen\SplashScreenHorizontal.png" />
       </uap:VisualElements>
+      <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="SmokSmog.Notification.TilesBackgroundTask">
+          <BackgroundTasks>
+            <Task Type="general" />
+            <Task Type="timer" />
+            <uap:Task Type="mediaProcessing" />
+          </BackgroundTasks>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

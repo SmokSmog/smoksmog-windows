@@ -1,4 +1,6 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE file in
+﻿#if !WINDOWS_UWP
+
+// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE file in
 // the project root for full license information.
 namespace Microsoft.Xaml.Interactivity
 {
@@ -12,83 +14,35 @@ namespace Microsoft.Xaml.Interactivity
         }
 
         public static string CallMethodActionValidMethodNotFoundExceptionMessage
-        {
-            get
-            {
-                return ResourceHelper.GetString("CallMethodActionValidMethodNotFoundExceptionMessage");
-            }
-        }
+            => ResourceHelper.GetString("CallMethodActionValidMethodNotFoundExceptionMessage");
 
         public static string ChangePropertyActionCannotFindPropertyNameExceptionMessage
-        {
-            get
-            {
-                return ResourceHelper.GetString("ChangePropertyActionCannotFindPropertyNameExceptionMessage");
-            }
-        }
+            => ResourceHelper.GetString("ChangePropertyActionCannotFindPropertyNameExceptionMessage");
 
         public static string ChangePropertyActionCannotSetValueExceptionMessage
-        {
-            get
-            {
-                return ResourceHelper.GetString("ChangePropertyActionCannotSetValueExceptionMessage");
-            }
-        }
+            => ResourceHelper.GetString("ChangePropertyActionCannotSetValueExceptionMessage");
 
         public static string ChangePropertyActionPropertyIsReadOnlyExceptionMessage
-        {
-            get
-            {
-                return ResourceHelper.GetString("ChangePropertyActionPropertyIsReadOnlyExceptionMessage");
-            }
-        }
+            => ResourceHelper.GetString("ChangePropertyActionPropertyIsReadOnlyExceptionMessage");
 
         public static string GoToStateActionTargetHasNoStateGroups
-        {
-            get
-            {
-                return ResourceHelper.GetString("GoToStateActionTargetHasNoStateGroups");
-            }
-        }
+            => ResourceHelper.GetString("GoToStateActionTargetHasNoStateGroups");
 
         public static string CannotAttachBehaviorMultipleTimesExceptionMessage
-        {
-            get
-            {
-                return ResourceHelper.GetString("CannotAttachBehaviorMultipleTimesExceptionMessage");
-            }
-        }
+            => ResourceHelper.GetString("CannotAttachBehaviorMultipleTimesExceptionMessage");
 
         public static string CannotFindEventNameExceptionMessage
-        {
-            get
-            {
-                return ResourceHelper.GetString("CannotFindEventNameExceptionMessage");
-            }
-        }
+            => ResourceHelper.GetString("CannotFindEventNameExceptionMessage");
 
         public static string InvalidLeftOperand
-        {
-            get
-            {
-                return ResourceHelper.GetString("InvalidLeftOperand");
-            }
-        }
+            => ResourceHelper.GetString("InvalidLeftOperand");
 
         public static string InvalidRightOperand
-        {
-            get
-            {
-                return ResourceHelper.GetString("InvalidRightOperand");
-            }
-        }
+            => ResourceHelper.GetString("InvalidRightOperand");
 
         public static string InvalidOperands
-        {
-            get
-            {
-                return ResourceHelper.GetString("InvalidOperands");
-            }
-        }
+            => ResourceHelper.GetString("InvalidOperands");
     }
 }
+
+#endif

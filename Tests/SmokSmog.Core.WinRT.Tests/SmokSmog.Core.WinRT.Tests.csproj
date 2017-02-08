@@ -100,6 +100,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\StringExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ServiceLocatorUnitTest.cs" />
     <Compile Include="UnitTestApp.xaml.cs">
@@ -132,6 +133,10 @@
     <ProjectReference Include="..\..\Core\SmokSmog.Core.Portable\SmokSmog.Core.Portable.csproj">
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
       <Name>SmokSmog.Core.Portable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\SmokSmog.Core\SmokSmog.Core.csproj">
+      <Project>{f8a355db-501a-4cef-9ca4-5a9c61a594a3}</Project>
+      <Name>SmokSmog.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

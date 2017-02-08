@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -18,7 +19,26 @@ namespace SmokSmog
     /// </summary>
     public sealed partial class App : Application, INavigationProvider
     {
-        //private TransitionCollection _transitions;
+        private void RegisterBackgroundTasks()
+        {
+            var builder = new BackgroundTaskBuilder()
+            {
+                Name = "SmokSmog.Notification",
+                TaskEntryPoint = "SmokSmog.Notification.TilesBackgroundTask"
+            };
+
+            IBackgroundTrigger trigger = new TimeTrigger(15, false);
+            builder.SetTrigger(trigger);
+
+            IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
+            builder.AddCondition(condition);
+
+            IBackgroundTaskRegistration task = builder.Register();
+
+            //YOu have the option of implementing these events to do something upon completion
+            //task.Progress += task_Progress;
+            //task.Completed += task_Completed;
+        }
 
         /// <summary>
         /// Initializes the singleton application object. This is the first line of authored code
@@ -79,6 +99,7 @@ namespace SmokSmog
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+            RegisterBackgroundTasks();
 
             await CheckInternetConnection();
 

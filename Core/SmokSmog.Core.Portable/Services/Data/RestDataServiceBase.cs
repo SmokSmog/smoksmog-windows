@@ -1,10 +1,10 @@
 ﻿using SmokSmog.Net.Http;
 using System;
 using System.Diagnostics;
-using System.Net;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.Web.Http;
+
 
 namespace SmokSmog.Services.Data
 {
@@ -26,8 +26,6 @@ namespace SmokSmog.Services.Data
 
             BaseUri = baseUri;
             Debug.Assert(baseUri != null && !string.IsNullOrWhiteSpace(BaseUri.AbsolutePath));
-
-            HttpClient.BaseAddress = BaseUri;
         }
 
         protected Uri BaseUri { get; }
@@ -47,7 +45,7 @@ namespace SmokSmog.Services.Data
         {
             //try
             //{
-            HttpResponseMessage message = await HttpClient.GetAsync(new Uri(BaseUri, relativeUri), token);
+            var message = await HttpClient.GetAsync(new Uri(BaseUri, relativeUri), token);
             return await ValidateAndReturn(message);
             //}
             //catch (Exception ex)
@@ -57,7 +55,7 @@ namespace SmokSmog.Services.Data
             //}
         }
 
-        protected virtual async Task<string> SendAsync(HttpRequestMessage request, CancellationToken token)
+        protected virtual async Task<string> SendAsync(Windows.Web.Http.HttpRequestMessage request, CancellationToken token)
         {
             HttpResponseMessage message = await HttpClient.SendAsync(request, token);
             return await ValidateAndReturn(message);
@@ -66,7 +64,7 @@ namespace SmokSmog.Services.Data
         private async Task<string> ValidateAndReturn(HttpResponseMessage message)
         {
             if (message.IsSuccessStatusCode && (
-                message.StatusCode == HttpStatusCode.OK ||
+                message.StatusCode == HttpStatusCode.Ok ||
                 message.StatusCode == HttpStatusCode.NotModified))
             {
                 return await message.Content.ReadAsStringAsync();

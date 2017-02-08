@@ -31,10 +31,14 @@ namespace SmokSmog.Extensions
         public static bool ContainsAll(this string str,
             IEnumerable<string> expressions, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            if (string.IsNullOrWhiteSpace(str) || expressions == null || expressions.Count() == 0)
+            if (expressions == null) return false;
+
+            var items = expressions as string[] ?? expressions?.ToArray();
+
+            if (string.IsNullOrWhiteSpace(str) || !items.Any())
                 return false;
 
-            foreach (var item in expressions)
+            foreach (var item in items)
             {
                 if (!str.Contains(item, comparisonType)) return false;
             }
@@ -44,10 +48,14 @@ namespace SmokSmog.Extensions
         public static bool ContainsAny(this string str,
             IEnumerable<string> expressions, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            if (string.IsNullOrWhiteSpace(str) || expressions == null || expressions.Count() == 0)
+            if (expressions == null) return false;
+
+            var items = expressions as string[] ?? expressions?.ToArray();
+
+            if (string.IsNullOrWhiteSpace(str) || !items.Any())
                 return false;
 
-            foreach (var item in expressions)
+            foreach (var item in items)
             {
                 if (str.Contains(item, comparisonType)) return true;
             }
@@ -87,10 +95,12 @@ namespace SmokSmog.Extensions
 
             var result = new Dictionary<string, IEnumerable<int>>();
 
-            if (string.IsNullOrWhiteSpace(str) || expressions.Count() == 0)
+            var items = expressions as string[] ?? expressions.ToArray();
+
+            if (string.IsNullOrWhiteSpace(str) || !items.Any())
                 return result;
 
-            foreach (var item in expressions)
+            foreach (var item in items)
             {
                 if (!string.IsNullOrEmpty(item))
                     result[item] = str.IndexOfAll(item, comparisonType).ToList();
@@ -125,17 +135,17 @@ namespace SmokSmog.Extensions
 
             bool IsNewSentense = true;
             var result = new StringBuilder(str.Length);
-            for (int i = 0; i < str.Length; i++)
+            foreach (char @char in str)
             {
-                if (IsNewSentense && char.IsLetter(str[i]))
+                if (IsNewSentense && char.IsLetter(@char))
                 {
-                    result.Append(char.ToUpper(str[i]));
+                    result.Append(char.ToUpper(@char));
                     IsNewSentense = false;
                 }
                 else
-                    result.Append(char.ToLower(str[i]));
+                    result.Append(char.ToLower(@char));
 
-                if (str[i] == '!' || str[i] == '?' || str[i] == '.')
+                if (@char == '!' || @char == '?' || @char == '.')
                 {
                     IsNewSentense = true;
                 }
@@ -151,17 +161,17 @@ namespace SmokSmog.Extensions
 
             bool IsNewWord = true;
             var result = new StringBuilder(str.Length);
-            for (int i = 0; i < str.Length; i++)
+            foreach (char @char in str)
             {
-                if (IsNewWord && char.IsLetter(str[i]))
+                if (IsNewWord && char.IsLetter(@char))
                 {
-                    result.Append(char.ToUpper(str[i]));
+                    result.Append(char.ToUpper(@char));
                     IsNewWord = false;
                 }
                 else
-                    result.Append(char.ToLower(str[i]));
+                    result.Append(char.ToLower(@char));
 
-                if (!char.IsLetter(str[i]))
+                if (!char.IsLetter(@char))
                 {
                     IsNewWord = true;
                 }

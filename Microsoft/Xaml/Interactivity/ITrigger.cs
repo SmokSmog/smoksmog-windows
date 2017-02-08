@@ -1,4 +1,6 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+﻿#if !WINDOWS_UWP
+
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 namespace Microsoft.Xaml.Interactivity
 {
@@ -13,3 +15,5 @@ namespace Microsoft.Xaml.Interactivity
         ActionCollection Actions { get; }
     }
 }
+
+#endif
