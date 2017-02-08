@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json.Linq;
 using SmokSmog.Extensions;
 using SmokSmog.Model;
-using SmokSmog.Net.Http;
 using SmokSmog.Services.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using SmokSmog.Net.Http;
+using Windows.Web.Http;
 
 namespace SmokSmog.Services.Data
 {

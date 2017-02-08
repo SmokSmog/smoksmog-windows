@@ -4,7 +4,7 @@ using SmokSmog.Net.Http;
 using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Storage;
-using System.Net.Http;
+using Windows.Web.Http;
 
 namespace SmokSmog.Services
 {
@@ -19,8 +19,7 @@ namespace SmokSmog.Services
 
             if (_isInitialized) return;
 
-            SimpleIoc.Default.Register<HttpClient>(() => new HttpClient());
-            SimpleIoc.Default.Register<IHttpClient, HttpClientProxy>();
+            SimpleIoc.Default.Register<IHttpClient>(() => new HttpClientProxy(new HttpClient()));
 
             if (ViewModelBase.IsInDesignModeStatic)
             {

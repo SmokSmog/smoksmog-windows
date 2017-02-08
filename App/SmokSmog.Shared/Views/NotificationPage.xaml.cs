@@ -1,6 +1,7 @@
 ﻿using SmokSmog.Navigation;
 using SmokSmog.ViewModel;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
 
 namespace SmokSmog.Views
@@ -14,6 +15,10 @@ namespace SmokSmog.Views
 
             Load();
         }
+
+        public string InstallLocaltion => Package.Current.InstalledLocation.Path;
+
+        public string LocalFolder => Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 
         public async void Load()
         {

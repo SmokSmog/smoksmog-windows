@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using SmokSmog.Extensions;
+using System;
+using System.Linq;
 
 namespace SmokSmog.Core.Portable.Tests.Extensions
 {
@@ -117,31 +116,33 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void IndexOfAll_NullStringThrowException()
         {
-            // act
-
-            string str = null;
-            str.IndexOfAll(_loremIpsumShort);
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                // act
+                ((string)null).IndexOfAll(_loremIpsumShort);
+            });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void IndexOfAll_NullValueThrowException()
         {
-            string value = null;
-
-            // act
-            StringExtension.IndexOfAll(_loremIpsumShort, value, StringComparison.Ordinal);
+            Assert.ThrowsException<ArgumentException>(() =>
+            {
+                // act
+                _loremIpsumShort.IndexOfAll((string)null, StringComparison.Ordinal);
+            });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void RemoveWhiteSpaces_NullStringThrowException()
         {
-            // act
-            StringExtension.RemoveWhiteSpaces(null);
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                // act
+                StringExtension.RemoveWhiteSpaces(null);
+            });
         }
 
         [TestMethod]
@@ -150,31 +151,37 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
             string str = "lorem    ipsum";
 
             // act
-            Assert.IsTrue("lorem ipsum" == StringExtension.RemoveWhiteSpaces(str));
+            Assert.IsTrue("lorem ipsum" == str.RemoveWhiteSpaces());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ToFirstCharCase_NullStringThrowException()
         {
-            // act
-            StringExtension.ToFirstCharCase(null);
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                // act
+                StringExtension.ToFirstCharCase(null);
+            });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ToSentenceCase_NullStringThrowException()
         {
-            // act
-            StringExtension.ToSentenceCase(null);
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                // act
+                StringExtension.ToSentenceCase(null);
+            });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ToWordsCase_NullStringThrowException()
         {
-            // act
-            StringExtension.ToWordsCase(null);
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                // act
+                StringExtension.ToWordsCase(null);
+            });
         }
     }
 }

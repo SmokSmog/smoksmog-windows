@@ -32,7 +32,7 @@
           <BackgroundTasks>
             <Task Type="general" />
             <Task Type="timer" />
-            <Task Type="pushNotification" />
+            <uap:Task Type="mediaProcessing" />
           </BackgroundTasks>
         </Extension>
       </Extensions>

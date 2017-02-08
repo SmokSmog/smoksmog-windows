@@ -10,6 +10,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -17,7 +18,7 @@ namespace SmokSmog.Notification
 {
     public sealed class TilesBackgroundTask : XamlRenderingBackgroundTask
     {
-        public async void Run(IBackgroundTaskInstance taskInstance)
+        protected override async void OnRun(IBackgroundTaskInstance taskInstance)
         {
             // Get a deferral, to prevent the task from closing prematurely while asynchronous code
             // is still running.
@@ -57,15 +58,16 @@ namespace SmokSmog.Notification
             {
                 var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
                 var xmlString = await Windows.Storage.FileIO.ReadTextAsync(file);
-                var control = XamlReader.Load(xmlString) as FrameworkElement;
+                var control = XamlReader.Load(xmlString) as UserControl;
 
                 var vm = new StationViewModel();
                 await vm.SetStationAsync(4);
 
                 control.DataContext = vm;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                Diagnostics.Logger.Log(ex);
             }
 
             // Package.Current.InstalledLocation.GetFolderAsync()
@@ -91,51 +93,51 @@ namespace SmokSmog.Notification
 
             await GenerateHighResTileImageUpdateAsync();
 
-            var name = "LargeTile.png";
-            var folder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            var option = Windows.Storage.CreationCollisionOption.ReplaceExisting;
+            //var name = "LargeTile.png";
+            //var folder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            //var option = Windows.Storage.CreationCollisionOption.ReplaceExisting;
 
-            // create file
-            var file = await folder.CreateFileAsync(name, option);
+            //// create file
+            //var file = await folder.CreateFileAsync(name, option);
 
-            //AirQualityIndexImage
-            //AirQualityIndexValue
+            ////AirQualityIndexImage
+            ////AirQualityIndexValue
 
-            // write content
-            //await Windows.Storage.FileIO.WriteBytesAsync(file, null);
+            //// write content
+            ////await Windows.Storage.FileIO.WriteBytesAsync(file, null);
 
-            //// acquire file
-            //file = await folder.GetFileAsync(name);
+            ////// acquire file
+            ////file = await folder.GetFileAsync(name);
 
-            //// read content
-            //var _ReadThis = await Windows.Storage.FileIO.ReadTextAsync(file);
+            ////// read content
+            ////var _ReadThis = await Windows.Storage.FileIO.ReadTextAsync(file);
 
-            var vm = new StationViewModel();
-            await vm.SetStationAsync(4);
+            //var vm = new StationViewModel();
+            //await vm.SetStationAsync(4);
 
-            Large large = null;
-            if (large != null)
-            {
-                large.DataContext = vm;
-                await SaveVisualElementToFile(large, file);
-            }
-
-            // Keep track of the number feed items that get tile notifications.
-            //int itemCount = 0;
-
-            //// Create a tile notification for each feed item.
-            //foreach (var item in feed.Items)
+            //Large large = null;
+            //if (large != null)
             //{
-            //    XmlDocument tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWideText03);
-
-            // var title = item.Title; string titleText = title.Text == null ? String.Empty :
-            // title.Text; tileXml.GetElementsByTagName(textElementName)[0].InnerText = titleText;
-
-            // // Create a new tile notification. updater.Update(new TileNotification(tileXml));
-
-            //    // Don't create more than 5 notifications.
-            //    if (itemCount++ > 5) break;
+            //    large.DataContext = vm;
+            //    await SaveVisualElementToFile(large, file);
             //}
+
+            //// Keep track of the number feed items that get tile notifications.
+            ////int itemCount = 0;
+
+            ////// Create a tile notification for each feed item.
+            ////foreach (var item in feed.Items)
+            ////{
+            ////    XmlDocument tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWideText03);
+
+            //// var title = item.Title; string titleText = title.Text == null ? String.Empty :
+            //// title.Text; tileXml.GetElementsByTagName(textElementName)[0].InnerText = titleText;
+
+            //// // Create a new tile notification. updater.Update(new TileNotification(tileXml));
+
+            ////    // Don't create more than 5 notifications.
+            ////    if (itemCount++ > 5) break;
+            ////}
         }
     }
 }
