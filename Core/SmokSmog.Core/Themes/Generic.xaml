@@ -1,0 +1,10 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tiles="using:SmokSmog.Tiles">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///SmokSmog.Core/Tiles/TileMedium.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

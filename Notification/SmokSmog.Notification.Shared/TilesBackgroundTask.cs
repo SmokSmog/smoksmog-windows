@@ -1,8 +1,9 @@
-﻿using SmokSmog.Controls.Tiles;
-using SmokSmog.ViewModel;
+﻿using SmokSmog.ViewModel;
 using System;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Windows.ApplicationModel.Background;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
@@ -23,8 +24,10 @@ namespace SmokSmog.Notification
             // Get a deferral, to prevent the task from closing prematurely while asynchronous code
             // is still running.
             BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
+            base.OnRun(taskInstance);
+            //await UpdateTile();
 
-            await UpdateTile();
+            await TileRenderer.CreateTileGraphAsync("", 310, 310, "test.png");
 
             // Inform the system that the task is finished.
             deferral.Complete();
