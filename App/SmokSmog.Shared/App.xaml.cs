@@ -19,27 +19,6 @@ namespace SmokSmog
     /// </summary>
     public sealed partial class App : Application, INavigationProvider
     {
-        private void RegisterBackgroundTasks()
-        {
-            var builder = new BackgroundTaskBuilder()
-            {
-                Name = "SmokSmog.Notification",
-                TaskEntryPoint = "SmokSmog.Notification.TilesBackgroundTask"
-            };
-
-            IBackgroundTrigger trigger = new TimeTrigger(15, false);
-            builder.SetTrigger(trigger);
-
-            IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
-            builder.AddCondition(condition);
-
-            IBackgroundTaskRegistration task = builder.Register();
-
-            //YOu have the option of implementing these events to do something upon completion
-            //task.Progress += task_Progress;
-            //task.Completed += task_Completed;
-        }
-
         /// <summary>
         /// Initializes the singleton application object. This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -220,6 +199,30 @@ namespace SmokSmog
             var deferral = e.SuspendingOperation.GetDeferral();
             // TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private void RegisterBackgroundTasks()
+        {
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+                task.Value?.Unregister(true);
+
+            var builder = new BackgroundTaskBuilder()
+            {
+                Name = "SmokSmog.Notification",
+                TaskEntryPoint = "SmokSmog.Notification.TilesBackgroundTask"
+            };
+
+            IBackgroundTrigger trigger = new TimeTrigger(15, false);
+            builder.SetTrigger(trigger);
+
+            IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
+            builder.AddCondition(condition);
+
+            IBackgroundTaskRegistration registration = builder.Register();
+
+            //YOu have the option of implementing these events to do something upon completion
+            //task.Progress += task_Progress;
+            //task.Completed += task_Completed;
         }
     }
 }

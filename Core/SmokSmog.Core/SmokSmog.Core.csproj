@@ -107,6 +107,7 @@
     <Compile Include="Controls\Medium.xaml.cs">
       <DependentUpon>Medium.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tiles\TileMedium.cs" />
     <Compile Include="Controls\TileSite.cs" />
     <Compile Include="Controls\Wide.xaml.cs">
       <DependentUpon>Wide.xaml</DependentUpon>
@@ -172,6 +173,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Content Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Tiles\TileMedium.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Notification\Bad-square.png" />
@@ -190,6 +199,7 @@
     <Content Include="Controls\Medium.xml" />
     <Content Include="Controls\Wide.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy /Y "$(ProjectDir)Controls\Medium.xaml" "$(ProjectDir)Controls\Medium.xml"

@@ -7,18 +7,20 @@
       xmlns:local="using:SmokSmog.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:sct="using:SmokSmog.Controls.Tiles"
+      xmlns:tiles="using:SmokSmog.Tiles"
       x:Name="This"
       mc:Ignorable="d">
 
     <Page.Resources>
-
-        <!--<notification:Tiles xmlns:notification="using:SmokSmog.Notification" x:Key="Tiles" />-->
+     
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <StackPanel>
 
+            <tiles:TileMedium  Width="250" Height="250"/>
+            
             <TextBox Text="{Binding ElementName=This, Path=InstallLocaltion}" FontSize="25"></TextBox>
             
             <TextBox Text="{Binding ElementName=This, Path=LocalFolder}" FontSize="25"></TextBox>
