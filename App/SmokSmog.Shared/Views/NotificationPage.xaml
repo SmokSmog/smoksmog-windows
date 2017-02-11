@@ -19,7 +19,7 @@
 
         <StackPanel>
 
-            <tiles:TileMedium  Width="250" Height="250"/>
+            <!--<tiles:TileMedium  Width="250" Height="250"/>-->
             
             <TextBox Text="{Binding ElementName=This, Path=InstallLocaltion}" FontSize="25"></TextBox>
             

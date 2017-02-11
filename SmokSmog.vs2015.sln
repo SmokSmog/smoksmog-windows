@@ -20,7 +20,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SmokSmog.Shared", "App\Smok
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.win81", "App\SmokSmog.Windows\SmokSmog.win81.csproj", "{9389EA2D-BEE5-45A4-8624-2D2CE8A2EC99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.wp81", "App\SmokSmog.WindowsPhone\SmokSmog.wp81.csproj", "{C011B579-AC19-4D54-BA90-F288A7556530}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.wpa81", "App\SmokSmog.WindowsPhone\SmokSmog.wpa81.csproj", "{C011B579-AC19-4D54-BA90-F288A7556530}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.UWP", "App\SmokSmog.WindowsUniversal\SmokSmog.UWP.csproj", "{E0A6623E-DD65-43A9-9967-63F1CEA9A872}"
 EndProject
@@ -42,17 +42,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.Core", "Core\SmokS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{BF35D649-ECB4-4DA5-865E-B3C019D5ED04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.Notification.wp81", "Notification\SmokSmog.Notification.WindowsPhone\SmokSmog.Notification.wp81.csproj", "{941B1E36-05DE-46D8-8AA3-993455928F97}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.Notification.UWP", "Notification\SmokSmog.Notification.WindowsUniversal\SmokSmog.Notification.UWP.csproj", "{6C123131-803F-4EB8-A0E1-C60FE639DC43}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SmokSmog.Notification.Shared", "Notification\SmokSmog.Notification.Shared\SmokSmog.Notification.Shared.shproj", "{469BBE96-5FB1-4828-891C-C2A0E2AE1381}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.Notification.win81", "Notification\SmokSmog.Notification.Windows\SmokSmog.Notification.win81.csproj", "{941B1E36-05DE-46D8-8AA3-993455928F97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokSmog.Notification.wpa81", "Notification\SmokSmog.Notification.WindowsPhone\SmokSmog.Notification.wpa81.csproj", "{3B0064C5-ADFF-4194-A32F-F4D972698FD8}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{11d343da-9019-41f5-8ae8-7c5797c900b4}*SharedItemsImports = 13
 		Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems*{1a93cb76-ef97-4592-b0e5-eea5b3e040c6}*SharedItemsImports = 13
 		Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems*{22ebc209-a370-4f97-b840-eb428f47b4be}*SharedItemsImports = 4
+		Notification\SmokSmog.Notification.Shared\SmokSmog.Notification.Shared.projitems*{3b0064c5-adff-4194-a32f-f4d972698fd8}*SharedItemsImports = 4
 		Notification\SmokSmog.Notification.Shared\SmokSmog.Notification.Shared.projitems*{469bbe96-5fb1-4828-891c-c2a0e2ae1381}*SharedItemsImports = 13
 		Notification\SmokSmog.Notification.Shared\SmokSmog.Notification.Shared.projitems*{6c123131-803f-4eb8-a0e1-c60fe639dc43}*SharedItemsImports = 4
 		Microsoft\Microsoft.projitems*{7de3d0ef-68e6-4323-acdb-ba3be5d1e11e}*SharedItemsImports = 13
@@ -197,22 +200,6 @@ Global
 		{F8A355DB-501A-4CEF-9CA4-5A9C61A594A3}.Release|x64.Build.0 = Release|x64
 		{F8A355DB-501A-4CEF-9CA4-5A9C61A594A3}.Release|x86.ActiveCfg = Release|x86
 		{F8A355DB-501A-4CEF-9CA4-5A9C61A594A3}.Release|x86.Build.0 = Release|x86
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|ARM.ActiveCfg = Release|ARM
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|ARM.Build.0 = Release|ARM
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|x64.ActiveCfg = Debug|x64
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|x64.Build.0 = Debug|x64
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|x86.ActiveCfg = Debug|x86
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|x86.Build.0 = Debug|x86
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|Any CPU.Build.0 = Release|Any CPU
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|ARM.ActiveCfg = Release|ARM
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|ARM.Build.0 = Release|ARM
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|x64.ActiveCfg = Release|x64
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|x64.Build.0 = Release|x64
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|x86.ActiveCfg = Release|x86
-		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|x86.Build.0 = Release|x86
 		{6C123131-803F-4EB8-A0E1-C60FE639DC43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6C123131-803F-4EB8-A0E1-C60FE639DC43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C123131-803F-4EB8-A0E1-C60FE639DC43}.Debug|ARM.ActiveCfg = Release|ARM
@@ -229,6 +216,38 @@ Global
 		{6C123131-803F-4EB8-A0E1-C60FE639DC43}.Release|x64.Build.0 = Release|x64
 		{6C123131-803F-4EB8-A0E1-C60FE639DC43}.Release|x86.ActiveCfg = Release|x86
 		{6C123131-803F-4EB8-A0E1-C60FE639DC43}.Release|x86.Build.0 = Release|x86
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|ARM.ActiveCfg = Debug|ARM
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|ARM.Build.0 = Debug|ARM
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|x64.ActiveCfg = Debug|x64
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|x64.Build.0 = Debug|x64
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|x86.ActiveCfg = Debug|x86
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Debug|x86.Build.0 = Debug|x86
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|ARM.ActiveCfg = Release|ARM
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|ARM.Build.0 = Release|ARM
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|x64.ActiveCfg = Release|x64
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|x64.Build.0 = Release|x64
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|x86.ActiveCfg = Release|x86
+		{941B1E36-05DE-46D8-8AA3-993455928F97}.Release|x86.Build.0 = Release|x86
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Debug|ARM.ActiveCfg = Debug|ARM
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Debug|ARM.Build.0 = Debug|ARM
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Debug|x64.ActiveCfg = Debug|x64
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Debug|x64.Build.0 = Debug|x64
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Debug|x86.ActiveCfg = Debug|x86
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Debug|x86.Build.0 = Debug|x86
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Release|ARM.ActiveCfg = Release|ARM
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Release|ARM.Build.0 = Release|ARM
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Release|x64.ActiveCfg = Release|x64
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Release|x64.Build.0 = Release|x64
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Release|x86.ActiveCfg = Release|x86
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,8 +262,9 @@ Global
 		{22EBC209-A370-4F97-B840-EB428F47B4BE} = {5C10F19A-24F8-463C-B835-1AE72439F66A}
 		{7DE3D0EF-68E6-4323-ACDB-BA3BE5D1E11E} = {B715D4F7-0D62-42D2-9209-8016ED2F6BD6}
 		{F8A355DB-501A-4CEF-9CA4-5A9C61A594A3} = {80403CA5-C5B8-4A9A-9690-ABBB47B919D2}
-		{941B1E36-05DE-46D8-8AA3-993455928F97} = {BF35D649-ECB4-4DA5-865E-B3C019D5ED04}
 		{6C123131-803F-4EB8-A0E1-C60FE639DC43} = {BF35D649-ECB4-4DA5-865E-B3C019D5ED04}
 		{469BBE96-5FB1-4828-891C-C2A0E2AE1381} = {BF35D649-ECB4-4DA5-865E-B3C019D5ED04}
+		{941B1E36-05DE-46D8-8AA3-993455928F97} = {BF35D649-ECB4-4DA5-865E-B3C019D5ED04}
+		{3B0064C5-ADFF-4194-A32F-F4D972698FD8} = {BF35D649-ECB4-4DA5-865E-B3C019D5ED04}
 	EndGlobalSection
 EndGlobal

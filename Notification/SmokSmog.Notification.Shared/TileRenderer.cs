@@ -16,9 +16,13 @@ namespace SmokSmog.Notification
     {
         public static string MemoryStatus()
         {
+#if WINDOWS_UWP || WINDOWS_PHONE_APP
             var memory = MemoryManager.AppMemoryUsage;
             var memoryLimit = MemoryManager.AppMemoryUsageLimit;
             return $"Memory : \n\tused {ToMegaBytes(memory)} with limit {ToMegaBytes(memoryLimit)} MB\n\tused {ToKiloBytes(memory)} with limit {ToKiloBytes(memoryLimit)} KB";
+#else
+            return "";
+#endif
         }
 
         private static StringBuilder sb = new StringBuilder();
@@ -54,22 +58,119 @@ namespace SmokSmog.Notification
 
     internal class TileRenderer
     {
-        public static async Task RenderMediumTile(string filename)
+        private readonly Uri[] imageUris = new[]
+        {
+            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryGood-square.png"),
+            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Good-square.png"),
+            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Moderate-square.png"),
+            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Sufficient-square.png"),
+            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Bad-square.png"),
+            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryBad-square.png"),
+        };
+
+        public async Task RenderMediumTileFront(string filename)
         {
             MemoryInfo.DebugMemoryStatus("Start Rendering Medium Tile");
 
             using (var device = CanvasDevice.GetSharedDevice())
             {
-                Uri[] imageUris = new[]
+                CanvasBitmap[] bitmaps = new[]
                 {
-                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryGood-square.png"),
-                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Good-square.png"),
-                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Moderate-square.png"),
-                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Sufficient-square.png"),
-                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Bad-square.png"),
-                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryBad-square.png"),
+                    await CanvasBitmap.LoadAsync(device, imageUris[0]),
+                    //await CanvasBitmap.LoadAsync(device, imageUris[1]),
+                    //await CanvasBitmap.LoadAsync(device, imageUris[2]),
+                    //await CanvasBitmap.LoadAsync(device, imageUris[3]),
+                    //await CanvasBitmap.LoadAsync(device, imageUris[4]),
+                    //await CanvasBitmap.LoadAsync(device, imageUris[5]),
                 };
 
+                MemoryInfo.DebugMemoryStatus("After loading Bitmaps");
+
+                // scale-200
+                var size = new Size(300, 300);
+
+                using (var renderTarget = new CanvasRenderTarget(device, (float)size.Width, (float)size.Height, 96f))
+                {
+                    MemoryInfo.DebugMemoryStatus("After creating renderTarget");
+
+                    using (var session = renderTarget.CreateDrawingSession())
+                    {
+                        MemoryInfo.DebugMemoryStatus("After creating session");
+
+                        using (CanvasTextFormat textFromat = new CanvasTextFormat
+                        {
+                            FontFamily = "Segoe UI",
+                            FontSize = 40,
+                            HorizontalAlignment = CanvasHorizontalAlignment.Left,
+                            VerticalAlignment = CanvasVerticalAlignment.Center,
+                        },
+                        //textFromat2 = new CanvasTextFormat()
+                        //{
+                        //    FontFamily = "Segoe UI",
+                        //    FontSize = 28,
+                        //    HorizontalAlignment = CanvasHorizontalAlignment.Center,
+                        //    VerticalAlignment = CanvasVerticalAlignment.Center,
+                        //},
+                        textFromat3 = new CanvasTextFormat()
+                        {
+                            FontFamily = "Segoe UI",
+                            FontSize = 20,
+                            HorizontalAlignment = CanvasHorizontalAlignment.Left,
+                            VerticalAlignment = CanvasVerticalAlignment.Center,
+                        })
+                        {
+                            MemoryInfo.DebugMemoryStatus("Start Drawing SbuGroup");
+
+                            session.DrawImage(bitmaps[0], new Rect(5, 70, 140, 140));
+                            bitmaps[0].Dispose();
+
+                            session.DrawText("Umiarkowana", new Rect(20, 20, 300, 50), Colors.White, textFromat);
+                            //session.DrawText("AQI : 5.8", new Rect(150, 80, 150, 50), Colors.DarkGray, textFromat2);
+                            session.DrawText("18:00", new Rect(150, 100, 150, 50), Colors.DarkGray, textFromat);
+                            session.DrawText("poniedziałek", new Rect(150, 150, 150, 50), Colors.DarkGray, textFromat3);
+
+                            //poniedziałęk
+                            //wtorek
+                            //środa
+                            //czwartek
+                            //piątek
+                            //Sobota
+                            //Niedziela
+
+                            MemoryInfo.DebugMemoryStatus("End Drawing SbuGroup");
+
+                            textFromat.Dispose();
+                        }
+
+                        session.Dispose();
+                    }
+                    MemoryInfo.DebugMemoryStatus("After end session");
+
+                    var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, filename);
+                    await renderTarget.SaveAsync(path, CanvasBitmapFileFormat.Png);
+                    MemoryInfo.DebugMemoryStatus("After save renderTarget");
+                    renderTarget.Dispose();
+                }
+                MemoryInfo.DebugMemoryStatus("After release renderTarget");
+
+                // free bitmap resources
+                for (int i = 0; i < bitmaps.Length; i++)
+                {
+                    bitmaps[i].Dispose();
+                    bitmaps[i] = null;
+                }
+                bitmaps = null;
+                device.Dispose();
+            }
+            MemoryInfo.DebugMemoryStatus("After release device");
+        }
+
+        public async Task RenderMediumTileBack(string filename)
+        {
+            MemoryInfo.DebugMemoryStatus("Start Rendering Medium Tile");
+
+            using (var device = CanvasDevice.GetSharedDevice())
+            {
                 CanvasBitmap[] bitmaps = new[]
                 {
                     await CanvasBitmap.LoadAsync(device, imageUris[0]),
@@ -118,7 +219,7 @@ namespace SmokSmog.Notification
             MemoryInfo.DebugMemoryStatus("After release device");
         }
 
-        private static void RenderSubGroup(CanvasDrawingSession session, CanvasBitmap bitmap, string text1, string text2, string text3, float shiftX, float shiftY)
+        private void RenderSubGroup(CanvasDrawingSession session, CanvasBitmap bitmap, string text1, string text2, string text3, float shiftX, float shiftY)
         {
             using (var textFromat = new CanvasTextFormat
             {

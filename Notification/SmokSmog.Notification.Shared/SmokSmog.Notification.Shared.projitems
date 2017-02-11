@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)TileRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tiles.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TilesBackgroundTask.cs" />
   </ItemGroup>
 </Project>

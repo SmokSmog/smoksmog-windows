@@ -139,9 +139,9 @@
       <Project>{f8a355db-501a-4cef-9ca4-5a9c61a594a3}</Project>
       <Name>SmokSmog.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Notification\SmokSmog.Notification.WindowsPhone\SmokSmog.Notification.wp81.csproj">
-      <Project>{941b1e36-05de-46d8-8aa3-993455928f97}</Project>
-      <Name>SmokSmog.Notification.wp81</Name>
+    <ProjectReference Include="..\..\Notification\SmokSmog.Notification.WindowsPhone\SmokSmog.Notification.wpa81.csproj">
+      <Project>{3b0064c5-adff-4194-a32f-f4d972698fd8}</Project>
+      <Name>SmokSmog.Notification.wpa81</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

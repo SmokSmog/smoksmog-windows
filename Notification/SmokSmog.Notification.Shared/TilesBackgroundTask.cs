@@ -1,6 +1,9 @@
-﻿using System;
+﻿using SmokSmog.Diagnostics;
+using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
+using Windows.Foundation;
 
 namespace SmokSmog.Notification
 {
@@ -12,13 +15,33 @@ namespace SmokSmog.Notification
             // is still running.
             BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
 
+            await RenderTiles();
+
+            // Inform the system that the task is finished.
+            deferral.Complete();
+        }
+
+        public IAsyncAction RenderTilesAction()
+        {
+            return RenderTiles().AsAsyncAction();
+        }
+
+        internal async Task RenderTiles()
+        {
+            TileRenderer tileRenderer = new TileRenderer();
+
             try
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 1; i++)
                 {
                     MemoryInfo.DebugMemoryStatus("Before Rendering Start");
 
-                    await TileRenderer.RenderMediumTile($"LiveTile_{i}.png");
+                    await tileRenderer.RenderMediumTileBack($"LiveTileBack_{i}.png");
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    GC.Collect();
+
+                    await tileRenderer.RenderMediumTileFront($"LiveTileFront_{i}.png");
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                     GC.Collect();
@@ -28,6 +51,7 @@ namespace SmokSmog.Notification
             }
             catch (Exception ex)
             {
+                Logger.Log(ex);
                 if (Debugger.IsAttached)
                     Debugger.Break();
             }
@@ -35,9 +59,6 @@ namespace SmokSmog.Notification
             {
                 await MemoryInfo.SaveLog();
             }
-
-            // Inform the system that the task is finished.
-            deferral.Complete();
         }
     }
 }
