@@ -4,6 +4,8 @@ using SmokSmog.Navigation;
 using SmokSmog.Resources;
 using SmokSmog.ViewModel;
 using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -78,7 +80,7 @@ namespace SmokSmog
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            RegisterBackgroundTasks();
+            await RegisterBackgroundTasks();
 
             await CheckInternetConnection();
 
@@ -201,28 +203,45 @@ namespace SmokSmog
             deferral.Complete();
         }
 
-        private void RegisterBackgroundTasks()
+        private async Task RegisterBackgroundTasks()
         {
-            foreach (var task in BackgroundTaskRegistration.AllTasks)
-                task.Value?.Unregister(true);
-
-            var builder = new BackgroundTaskBuilder()
+            try
             {
-                Name = "SmokSmog.Notification",
-                TaskEntryPoint = "SmokSmog.Notification.TilesBackgroundTask"
-            };
+                BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
+#if WINDOWS_UWP
+                if (status == BackgroundAccessStatus.AlwaysAllowed || status == BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
+#elif WINDOWS_PHONE || WINDOWS_APP
+                if (status == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity || status == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity)
+#endif
+                {
+                    bool isRegistered = BackgroundTaskRegistration.AllTasks.Any(x => x.Value.Name == "SmokSmog.Notification.TilesBackgroundTask");
+                    if (!isRegistered)
+                    {
+                        var builder = new BackgroundTaskBuilder()
+                        {
+                            Name = "SmokSmog.Notification.TilesBackgroundTask",
+                            TaskEntryPoint = "SmokSmog.Notification.TilesBackgroundTask"
+                        };
 
-            IBackgroundTrigger trigger = new TimeTrigger(15, false);
-            builder.SetTrigger(trigger);
+                        IBackgroundTrigger trigger = new TimeTrigger(15, false);
+                        builder.SetTrigger(trigger);
 
-            IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
-            builder.AddCondition(condition);
+                        IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
+                        builder.AddCondition(condition);
 
-            IBackgroundTaskRegistration registration = builder.Register();
+                        IBackgroundTaskRegistration registration = builder.Register();
 
-            //YOu have the option of implementing these events to do something upon completion
-            //task.Progress += task_Progress;
-            //task.Completed += task_Completed;
+                        //You have the option of implementing these events to do something upon completion
+                        //registration.Progress += task_Progress;
+                        //registration.Completed += task_Completed;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                Debug.WriteLine("The access has already been granted");
+            }
         }
     }
 }

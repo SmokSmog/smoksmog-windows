@@ -45,7 +45,7 @@ namespace SmokSmog
             set { Storage.SetSetting<string>(LastMainViewKey, value); }
         }
 
-        private static IStorageService Storage => ServiceLocatorPortable.Instance.SettingService;
+        private static IStorageService Storage => ServiceLocator.Current.SettingService;
 
         private static void _favoritesStationsList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {

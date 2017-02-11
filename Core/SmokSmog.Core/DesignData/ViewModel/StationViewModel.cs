@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SmokSmog.DesignData.ViewModel
 {
-    public class StationViewModel : SmokSmog.ViewModel.StationViewModel
+    public class StationViewModel
     {
         public StationViewModel()
         {
@@ -21,13 +21,13 @@ namespace SmokSmog.DesignData.ViewModel
             AirQualityIndex = AirQualityIndex.Unavaible;
         }
 
-        public new AirQualityIndex AirQualityIndex { get; }
+        public AirQualityIndex AirQualityIndex { get; }
 
-        public new List<ParameterViewModel> AqiComponents { get; } = new List<ParameterViewModel>();
+        public List<ParameterViewModel> AqiComponents { get; } = new List<ParameterViewModel>();
 
-        public new bool IsValidStation => true;
+        public bool IsValidStation => true;
 
-        public new List<ParameterViewModel> Parameters { get; } = new List<ParameterViewModel>();
+        public List<ParameterViewModel> Parameters { get; } = new List<ParameterViewModel>();
 
         public new Station Station { get; }
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Text;
+using SmokSmog.ViewModel;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -68,7 +69,7 @@ namespace SmokSmog.Notification
             new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryBad-square.png"),
         };
 
-        public async Task RenderMediumTileFront(string filename)
+        public async Task RenderMediumTileFront(string filename, StationViewModel stationViewModel)
         {
             MemoryInfo.DebugMemoryStatus("Start Rendering Medium Tile");
 
@@ -103,20 +104,6 @@ namespace SmokSmog.Notification
                             FontSize = 40,
                             HorizontalAlignment = CanvasHorizontalAlignment.Left,
                             VerticalAlignment = CanvasVerticalAlignment.Center,
-                        },
-                        //textFromat2 = new CanvasTextFormat()
-                        //{
-                        //    FontFamily = "Segoe UI",
-                        //    FontSize = 28,
-                        //    HorizontalAlignment = CanvasHorizontalAlignment.Center,
-                        //    VerticalAlignment = CanvasVerticalAlignment.Center,
-                        //},
-                        textFromat3 = new CanvasTextFormat()
-                        {
-                            FontFamily = "Segoe UI",
-                            FontSize = 20,
-                            HorizontalAlignment = CanvasHorizontalAlignment.Left,
-                            VerticalAlignment = CanvasVerticalAlignment.Center,
                         })
                         {
                             MemoryInfo.DebugMemoryStatus("Start Drawing SbuGroup");
@@ -124,18 +111,12 @@ namespace SmokSmog.Notification
                             session.DrawImage(bitmaps[0], new Rect(5, 70, 140, 140));
                             bitmaps[0].Dispose();
 
-                            session.DrawText("Umiarkowana", new Rect(20, 20, 300, 50), Colors.White, textFromat);
-                            //session.DrawText("AQI : 5.8", new Rect(150, 80, 150, 50), Colors.DarkGray, textFromat2);
-                            session.DrawText("18:00", new Rect(150, 100, 150, 50), Colors.DarkGray, textFromat);
-                            session.DrawText("poniedziałek", new Rect(150, 150, 150, 50), Colors.DarkGray, textFromat3);
+                            DateTime date = DateTime.Now;
 
-                            //poniedziałęk
-                            //wtorek
-                            //środa
-                            //czwartek
-                            //piątek
-                            //Sobota
-                            //Niedziela
+                            session.DrawText(stationViewModel.AirQualityIndex.Text, new Rect(20, 20, 300, 50), Colors.White, textFromat);
+
+                            session.DrawText(date.ToString("HH:mm"), new Rect(150, 100, 150, 50), Colors.White, textFromat);
+                            session.DrawText(date.ToString("ddd"), new Rect(150, 170, 150, 50), Colors.White, textFromat);
 
                             MemoryInfo.DebugMemoryStatus("End Drawing SbuGroup");
 
@@ -165,7 +146,7 @@ namespace SmokSmog.Notification
             MemoryInfo.DebugMemoryStatus("After release device");
         }
 
-        public async Task RenderMediumTileBack(string filename)
+        public async Task RenderMediumTileBack(string filename, StationViewModel stationViewModel)
         {
             MemoryInfo.DebugMemoryStatus("Start Rendering Medium Tile");
 
@@ -193,8 +174,21 @@ namespace SmokSmog.Notification
                     using (var session = renderTarget.CreateDrawingSession())
                     {
                         MemoryInfo.DebugMemoryStatus("After creating session");
-                        RenderSubGroup(session, bitmaps[0], "PM₁₀", "142.0", "µg/m³", 0, 0);
-                        RenderSubGroup(session, bitmaps[0], "PM₁₀", "142.0", "µg/m³", 150, 0);
+
+                        for (var i = 0; i < 2 && i < stationViewModel.AqiComponents.Count; i++)
+                        {
+                            var model = stationViewModel.AqiComponents[i];
+                            RenderSubGroup(session,
+                                bitmaps[0],
+                                model.Parameter.ShortName,
+                                model.Latest.Avg1Hour?.ToString("0.0"),
+                                model.Parameter.Unit,
+                                i * 150,
+                                0);
+                        }
+                        //RenderSubGroup(session, bitmaps[0], "PM₁₀", "142.0", "µg/m³", 0, 0);
+                        //RenderSubGroup(session, bitmaps[0], "PM₁₀", "142.0", "µg/m³", 150, 0);
+
                         bitmaps[0].Dispose();
                         session.Dispose();
                     }
@@ -224,7 +218,7 @@ namespace SmokSmog.Notification
             using (var textFromat = new CanvasTextFormat
             {
                 FontFamily = "Segoe UI",
-                FontSize = 36,
+                FontSize = 38,
                 HorizontalAlignment = CanvasHorizontalAlignment.Center,
                 VerticalAlignment = CanvasVerticalAlignment.Center
             })
@@ -234,7 +228,7 @@ namespace SmokSmog.Notification
                 session.DrawText(text1, new Rect(shiftX + 15, shiftY + 20, 120, 50), Colors.White, textFromat);
                 session.DrawImage(bitmap, new Rect(shiftX + 15 + 20, shiftY + 70 - 10, 80, 80));
                 session.DrawText(text2, new Rect(shiftX + 15, shiftY + 130, 120, 50), Colors.White, textFromat);
-                session.DrawText(text3, new Rect(shiftX + 15, shiftY + 180, 120, 50), Colors.DarkGray, textFromat);
+                session.DrawText(text3, new Rect(shiftX + 15, shiftY + 180, 120, 50), Colors.LightGray, textFromat);
 
                 MemoryInfo.DebugMemoryStatus("End Drawing SbuGroup");
 

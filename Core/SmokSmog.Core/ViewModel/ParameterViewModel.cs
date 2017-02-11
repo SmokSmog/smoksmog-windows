@@ -54,7 +54,7 @@ namespace SmokSmog.ViewModel
             Clear();
             try
             {
-                var dataService = ServiceLocatorPortable.Instance.DataService;
+                var dataService = ServiceLocator.Current.DataService;
                 var measurements = (await dataService.GetMeasurementsAsync(Station, new[] { Parameter })).ToList();
 
                 if (measurements.Any())

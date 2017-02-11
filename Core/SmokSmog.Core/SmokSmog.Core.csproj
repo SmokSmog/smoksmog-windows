@@ -138,7 +138,6 @@
     <Compile Include="Services\Geolocation\IGeolocationService.cs" />
     <Compile Include="Services\IServiceLocator.cs" />
     <Compile Include="Services\Search\SearchQuerry.cs" />
-    <Compile Include="Services\ServiceLocatorPortable.cs" />
     <Compile Include="Services\Storage\IStorageService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Threading\AsyncBridge.cs" />

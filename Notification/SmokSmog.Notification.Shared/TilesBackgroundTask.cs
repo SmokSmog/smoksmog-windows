@@ -1,9 +1,12 @@
 ﻿using SmokSmog.Diagnostics;
+using SmokSmog.ViewModel;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
+using Windows.Data.Xml.Dom;
 using Windows.Foundation;
+using Windows.UI.Notifications;
 
 namespace SmokSmog.Notification
 {
@@ -15,18 +18,51 @@ namespace SmokSmog.Notification
             // is still running.
             BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
 
-            await RenderTiles();
+            await RenderAndUpdate();
 
             // Inform the system that the task is finished.
             deferral.Complete();
         }
 
-        public IAsyncAction RenderTilesAction()
+        public IAsyncAction RunAction(bool renderOnly)
         {
-            return RenderTiles().AsAsyncAction();
+            return RenderAndUpdate(renderOnly).AsAsyncAction();
         }
 
-        internal async Task RenderTiles()
+        internal async Task RenderAndUpdate(bool renderOnly = false)
+        {
+            var stationId = Settings.HomeStationId ?? (int?)4;
+            if (stationId.HasValue)
+            {
+                var vm = new StationViewModel();
+                await vm.SetStationAsync(stationId.Value);
+
+                if (vm.IsValidStation)
+                {
+                    await RenderTiles(vm);
+                    UpdateTile(vm);
+                }
+            }
+        }
+
+        internal void UpdateTile(StationViewModel stationViewModel)
+        {
+            TileUpdateManager.CreateTileUpdaterForApplication().Clear();
+            TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
+
+            var tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Image);
+
+            var tileImage = tileXml.GetElementsByTagName("image")[0] as XmlElement;
+            tileImage.SetAttribute("src", "ms-appdata:///local/LiveTileFront_0.png");
+            var tileNotification = new TileNotification(tileXml) { Tag = "front" };
+            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
+
+            tileImage.SetAttribute("src", "ms-appdata:///local/LiveTileBack_0.png");
+            tileNotification = new TileNotification(tileXml) { Tag = "back" };
+            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
+        }
+
+        internal async Task RenderTiles(StationViewModel stationViewModel)
         {
             TileRenderer tileRenderer = new TileRenderer();
 
@@ -36,12 +72,12 @@ namespace SmokSmog.Notification
                 {
                     MemoryInfo.DebugMemoryStatus("Before Rendering Start");
 
-                    await tileRenderer.RenderMediumTileBack($"LiveTileBack_{i}.png");
+                    await tileRenderer.RenderMediumTileBack($"LiveTileBack_{i}.png", stationViewModel);
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                     GC.Collect();
 
-                    await tileRenderer.RenderMediumTileFront($"LiveTileFront_{i}.png");
+                    await tileRenderer.RenderMediumTileFront($"LiveTileFront_{i}.png", stationViewModel);
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                     GC.Collect();

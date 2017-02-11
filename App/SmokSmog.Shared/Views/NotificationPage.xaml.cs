@@ -38,7 +38,7 @@ namespace SmokSmog.Views
             MediumD.DataContext = vm;
 #if WINDOWS_UWP
             TilesBackgroundTask a = new TilesBackgroundTask();
-            await a.RenderTilesAction();
+            await a.RunAction(true);
 #endif
         }
     }

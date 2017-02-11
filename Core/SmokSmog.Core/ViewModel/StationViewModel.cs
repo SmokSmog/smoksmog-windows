@@ -20,7 +20,7 @@ namespace SmokSmog.ViewModel
 
     public class ParameterViewModels : ObservableCollection<ParameterViewModel> { }
 
-    public class StationViewModel : ViewModelBase
+    public sealed class StationViewModel : ViewModelBase
     {
         private Station _station = null;
 
@@ -103,7 +103,7 @@ namespace SmokSmog.ViewModel
             Station = null;
             try
             {
-                var dataService = ServiceLocatorPortable.Instance.DataService;
+                var dataService = ServiceLocator.Current.DataService;
                 var station = await dataService.GetStationAsync(id);
                 Station = station;
             }
@@ -121,7 +121,7 @@ namespace SmokSmog.ViewModel
 
             try
             {
-                var dataService = ServiceLocatorPortable.Instance.DataService;
+                var dataService = ServiceLocator.Current.DataService;
                 var parameters = (await dataService.GetParametersAsync(station)).ToList();
 
                 if (parameters.Any())
