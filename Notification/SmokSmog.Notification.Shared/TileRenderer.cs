@@ -1,140 +1,144 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Text;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Windows.Foundation;
-using Windows.Graphics.Imaging;
 using Windows.Storage;
-using Windows.Storage.Streams;
+using Windows.System;
 using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Markup;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace SmokSmog.Notification
 {
+    internal class MemoryInfo
+    {
+        public static string MemoryStatus()
+        {
+            var memory = MemoryManager.AppMemoryUsage;
+            var memoryLimit = MemoryManager.AppMemoryUsageLimit;
+            return $"Memory : \n\tused {ToMegaBytes(memory)} with limit {ToMegaBytes(memoryLimit)} MB\n\tused {ToKiloBytes(memory)} with limit {ToKiloBytes(memoryLimit)} KB";
+        }
+
+        private static StringBuilder sb = new StringBuilder();
+
+        public static void DebugMemoryStatus(string str, params object[] paraeters)
+        {
+            sb.AppendFormat(str, paraeters);
+            Debug.WriteLine(str, paraeters);
+
+            var meminfo = MemoryInfo.MemoryStatus();
+            sb.AppendLine(meminfo);
+            Debug.WriteLine(meminfo);
+        }
+
+        public static async Task SaveLog()
+        {
+            var log = sb.ToString();
+            var folder = ApplicationData.Current.LocalFolder;
+            var file = await folder.CreateFileAsync("BackGroundTask.log", CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteTextAsync(file, log);
+        }
+
+        private static float ToMegaBytes(ulong memory)
+        {
+            return memory / 1024f / 1024f;
+        }
+
+        private static float ToKiloBytes(ulong memory)
+        {
+            return memory / 1024f;
+        }
+    }
+
     internal class TileRenderer
     {
-        public static async Task CreateTileGraphAsync(string data, int width, int height, string filename)
+        public static async Task RenderMediumTile(string filename)
         {
-            var control = await GetVisual(data, width, height);
-            await RenderAndSaveToFileAsync(control, (uint)width, (uint)height, filename);
-        }
+            MemoryInfo.DebugMemoryStatus("Start Rendering Medium Tile");
 
-        public static async Task CreateTileGraphAsync(string data, int width, int height, IRandomAccessStream stream)
-        {
-            var control = await GetVisual(data, width, height);
-            await RenderAndSaveToStreamAsync(control, (uint)width, (uint)height, stream);
-        }
-
-        public static async Task<UIElement> GetVisual(string data, int width, int height)
-        {
-            return await GetVisual(data, width, height, new SolidColorBrush(Colors.White));
-        }
-
-        public static async Task<UIElement> GetVisual(string data, int width, int height, Brush pathbrush)
-        {
-            ////TODO: Create you XAML UI here and return root element
-            //return new Border()
-            //{
-            //    Width = width,
-            //    Height = height,
-            //    Background = pathbrush
-            //};
-
-            //var resource = new ResourceDictionary();
-            //var uri = new Uri("ms-appx:///SmokSmog.Core/ThemesThemes/Generic.xaml", UriKind.Absolute);
-            var uri = new Uri("ms-appx:///SmokSmog.Core/Tiles/TileMedium.xaml", UriKind.Absolute);
-            var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
-            var xmlString = await Windows.Storage.FileIO.ReadTextAsync(file);
-
-            var doc = XDocument.Parse(xmlString);
-
-            XNamespace ns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
-            XNamespace x = "http://schemas.microsoft.com/winfx/2006/xaml";
-
-            var grid = doc.Root?
-                    .Descendants(ns + "Grid")
-                    .FirstOrDefault(n => n.Attribute(x + "Name")?.Value == "LayoutRoot");
-
-            var control = XamlReader.Load(grid.ToString()) as Grid;
-
-            control.Width = 310;
-            control.Height = 310;
-
-            return control;
-        }
-
-        private static async Task RenderAndSaveToFileAsync(UIElement element, uint width, uint height, string filename)
-        {
-            var resultStorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            var outputStorageFile = await resultStorageFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
-            using (var outputFileStream = await outputStorageFile.OpenAsync(FileAccessMode.ReadWrite))
+            using (var device = CanvasDevice.GetSharedDevice())
             {
-                await RenderAndSaveToStreamAsync(element, width, height, outputFileStream);
+                Uri[] imageUris = new[]
+                {
+                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryGood-square.png"),
+                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Good-square.png"),
+                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Moderate-square.png"),
+                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Sufficient-square.png"),
+                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Bad-square.png"),
+                    new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryBad-square.png"),
+                };
+
+                CanvasBitmap[] bitmaps = new[]
+                {
+                    await CanvasBitmap.LoadAsync(device, imageUris[0]),
+                    //await CanvasBitmap.LoadAsync(device, imageUris[1]),
+                    //await CanvasBitmap.LoadAsync(device, imageUris[2]),
+                    //await CanvasBitmap.LoadAsync(device, imageUris[3]),
+                    //await CanvasBitmap.LoadAsync(device, imageUris[4]),
+                    //await CanvasBitmap.LoadAsync(device, imageUris[5]),
+                };
+
+                MemoryInfo.DebugMemoryStatus("After loading Bitmaps");
+
+                // scale-200
+                var size = new Size(300, 300);
+
+                using (var renderTarget = new CanvasRenderTarget(device, (float)size.Width, (float)size.Height, 96f))
+                {
+                    MemoryInfo.DebugMemoryStatus("After creating renderTarget");
+
+                    using (var session = renderTarget.CreateDrawingSession())
+                    {
+                        MemoryInfo.DebugMemoryStatus("After creating session");
+                        RenderSubGroup(session, bitmaps[0], "PM₁₀", "142.0", "µg/m³", 0, 0);
+                        RenderSubGroup(session, bitmaps[0], "PM₁₀", "142.0", "µg/m³", 150, 0);
+                        bitmaps[0].Dispose();
+                        session.Dispose();
+                    }
+                    MemoryInfo.DebugMemoryStatus("After end session");
+
+                    var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, filename);
+                    await renderTarget.SaveAsync(path, CanvasBitmapFileFormat.Png);
+                    MemoryInfo.DebugMemoryStatus("After save renderTarget");
+                    renderTarget.Dispose();
+                }
+                MemoryInfo.DebugMemoryStatus("After release renderTarget");
+
+                // free bitmap resources
+                for (int i = 0; i < bitmaps.Length; i++)
+                {
+                    bitmaps[i].Dispose();
+                    bitmaps[i] = null;
+                }
+                bitmaps = null;
+                device.Dispose();
             }
+            MemoryInfo.DebugMemoryStatus("After release device");
         }
 
-        private static async Task RenderAndSaveToStreamAsync(UIElement element, uint width, uint height, IRandomAccessStream outputFileStream)
+        private static void RenderSubGroup(CanvasDrawingSession session, CanvasBitmap bitmap, string text1, string text2, string text3, float shiftX, float shiftY)
         {
-            var renderTargetBitmap = new RenderTargetBitmap();
-            await renderTargetBitmap.RenderAsync(element, (int)width, (int)height);
-            var pixelBuffer = await renderTargetBitmap.GetPixelsAsync();
-            var dataReader = DataReader.FromBuffer(pixelBuffer);
-            var pixelWidth = (uint)renderTargetBitmap.PixelWidth;
-            var pixelHeight = (uint)renderTargetBitmap.PixelHeight;
-            // free resource
-            renderTargetBitmap = null;
-
-            byte[] buffer = new byte[pixelBuffer.Length];
-            dataReader.ReadBytes(buffer);
-            var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, outputFileStream);
-            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, pixelWidth, pixelHeight, 96, 96, buffer);
-            await encoder.FlushAsync();
-
-            // free resource
-            buffer = null;
-
-            //await outputFileStream.FlushAsync();
-        }
-
-        public static IAsyncOperation<WriteableBitmap> RenderMiniToWritableBitmapOperation(UIElement element, uint width, uint height)
-        {
-            return RenderMiniToWritableBitmap(element, width, height).AsAsyncOperation();
-        }
-
-        internal static async Task<WriteableBitmap> RenderMiniToWritableBitmap(UIElement element, uint width, uint height)
-        {
-            var renderTargetBitmap = new RenderTargetBitmap();
-            await renderTargetBitmap.RenderAsync(element, (int)width, (int)height);
-            var wb = new WriteableBitmap((int)width, (int)height);
-
-            uint pixelWidth = (uint)renderTargetBitmap.PixelWidth;
-            uint pixelHeight = (uint)renderTargetBitmap.PixelHeight;
-            byte[] pixelBuffer = (await renderTargetBitmap.GetPixelsAsync()).ToArray();
-
-            // free resource
-            renderTargetBitmap = null;
-
-            using (var stream = new InMemoryRandomAccessStream())
+            using (var textFromat = new CanvasTextFormat
             {
-                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
-                encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, pixelWidth, pixelHeight, 96, 96, pixelBuffer);
-                await encoder.FlushAsync();
-                stream.Seek(0);
-                wb.SetSource(stream);
+                FontFamily = "Segoe UI",
+                FontSize = 36,
+                HorizontalAlignment = CanvasHorizontalAlignment.Center,
+                VerticalAlignment = CanvasVerticalAlignment.Center
+            })
+            {
+                MemoryInfo.DebugMemoryStatus("Start Drawing SbuGroup");
+
+                session.DrawText(text1, new Rect(shiftX + 15, shiftY + 20, 120, 50), Colors.White, textFromat);
+                session.DrawImage(bitmap, new Rect(shiftX + 15 + 20, shiftY + 70 - 10, 80, 80));
+                session.DrawText(text2, new Rect(shiftX + 15, shiftY + 130, 120, 50), Colors.White, textFromat);
+                session.DrawText(text3, new Rect(shiftX + 15, shiftY + 180, 120, 50), Colors.DarkGray, textFromat);
+
+                MemoryInfo.DebugMemoryStatus("End Drawing SbuGroup");
+
+                textFromat.Dispose();
             }
-
-            // free resource
-            pixelBuffer = null;
-
-            // Redraw the WriteableBitmap
-            wb.Invalidate();
-
-            return wb;
         }
     }
 }
