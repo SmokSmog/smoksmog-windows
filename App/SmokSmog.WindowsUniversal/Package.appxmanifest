@@ -31,8 +31,9 @@
         <Extension Category="windows.backgroundTasks" EntryPoint="SmokSmog.Notification.TilesBackgroundTask">
           <BackgroundTasks>
             <Task Type="general" />
+            <Task Type="systemEvent" />
             <Task Type="timer" />
-            <uap:Task Type="mediaProcessing" />
+            <Task Type="pushNotification" />
           </BackgroundTasks>
         </Extension>
       </Extensions>

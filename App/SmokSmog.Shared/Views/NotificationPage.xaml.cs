@@ -1,5 +1,4 @@
-﻿using System;
-using SmokSmog.Navigation;
+﻿using SmokSmog.Navigation;
 
 #if WINDOWS_UWP
 using SmokSmog.Notification;
@@ -36,10 +35,6 @@ namespace SmokSmog.Views
             WideD.DataContext = vm;
             MediumO.DataContext = vm;
             MediumD.DataContext = vm;
-#if WINDOWS_UWP
-            TilesBackgroundTask a = new TilesBackgroundTask();
-            await a.RunAction(true);
-#endif
         }
     }
 }

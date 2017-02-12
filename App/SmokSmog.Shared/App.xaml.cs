@@ -80,8 +80,6 @@ namespace SmokSmog
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            await RegisterBackgroundTasks();
-
             await CheckInternetConnection();
 
             var mainPage = Window.Current.Content as MainPage;
@@ -203,7 +201,7 @@ namespace SmokSmog
             deferral.Complete();
         }
 
-        private async Task RegisterBackgroundTasks()
+        internal async Task RegisterBackgroundTasks()
         {
             try
             {
@@ -214,27 +212,47 @@ namespace SmokSmog
                 if (status == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity || status == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity)
 #endif
                 {
-                    bool isRegistered = BackgroundTaskRegistration.AllTasks.Any(x => x.Value.Name == "SmokSmog.Notification.TilesBackgroundTask");
-                    if (!isRegistered)
+                    string registrationName = "TilesBackgroundTaskTimeTrigger";
+
+                    var registration = BackgroundTaskRegistration.AllTasks.FirstOrDefault(x => x.Value.Name == registrationName).Value;
+                    if (registration == null)
                     {
                         var builder = new BackgroundTaskBuilder()
                         {
-                            Name = "SmokSmog.Notification.TilesBackgroundTask",
-                            TaskEntryPoint = "SmokSmog.Notification.TilesBackgroundTask"
+                            Name = registrationName,
+                            TaskEntryPoint = typeof(SmokSmog.Notification.TilesBackgroundTask).FullName,
+#if WINDOWS_UWP || WINDOWS_PHONE
+                            IsNetworkRequested = true
+#endif
                         };
-
-                        IBackgroundTrigger trigger = new TimeTrigger(15, false);
-                        builder.SetTrigger(trigger);
 
                         IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
                         builder.AddCondition(condition);
 
-                        IBackgroundTaskRegistration registration = builder.Register();
+                        IBackgroundTrigger trigger = new TimeTrigger(15, false);
+                        //IBackgroundTrigger trigger = new SystemTrigger(SystemTriggerType.TimeZoneChange, false);
 
-                        //You have the option of implementing these events to do something upon completion
-                        //registration.Progress += task_Progress;
-                        //registration.Completed += task_Completed;
+                        builder.SetTrigger(trigger);
+
+                        var reg = builder.Register();
+
+                        //#if WINDOWS_UWP || WINDOWS_PHONE
+                        //                        if (reg.Trigger == null && Debugger.IsAttached)
+                        //                            Debugger.Break();
+                        //#endif
+
+                        registration = reg;
                     }
+
+                    ////You have the option of implementing these events to do something upon completion
+                    //registration.Progress += (sender, args) =>
+                    //{
+                    //    uint id = args.Progress;
+                    //};
+                    //registration.Completed += (sender, args) =>
+                    //{
+                    //    args.CheckResult();
+                    //};
                 }
             }
             catch (Exception ex)

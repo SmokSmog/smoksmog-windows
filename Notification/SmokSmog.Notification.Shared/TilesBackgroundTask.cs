@@ -6,22 +6,28 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
 using Windows.Foundation;
+using Windows.Storage;
 using Windows.UI.Notifications;
 
 namespace SmokSmog.Notification
 {
-    public sealed class TilesBackgroundTask : IBackgroundTask  //: XamlRenderingBackgroundTask
+    public sealed class TilesBackgroundTask : IBackgroundTask
     {
+        private BackgroundTaskDeferral _deferral;
+
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             // Get a deferral, to prevent the task from closing prematurely while asynchronous code
             // is still running.
-            BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
+            _deferral = taskInstance.GetDeferral();
 
-            await RenderAndUpdate();
+            // just for test create file
+            await ApplicationData.Current.LocalFolder.CreateFileAsync("test.txt", CreationCollisionOption.ReplaceExisting);
+
+            //await RenderAndUpdate();
 
             // Inform the system that the task is finished.
-            deferral.Complete();
+            _deferral.Complete();
         }
 
         public IAsyncAction RunAction(bool renderOnly)

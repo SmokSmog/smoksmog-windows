@@ -1,4 +1,5 @@
-﻿using SmokSmog.Navigation;
+﻿using System.Threading.Tasks;
+using SmokSmog.Navigation;
 using SmokSmog.Views;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -77,8 +78,17 @@ namespace SmokSmog
             if (IsSearchOpen) CloseSearch(); else OpenSearch();
         }
 
-        private void MainPageLoaded(object sender, RoutedEventArgs e)
+        private async void MainPageLoaded(object sender, RoutedEventArgs e)
         {
+            await Task.Delay(5000);
+
+            await ((App)Application.Current).RegisterBackgroundTasks();
+
+            //#if WINDOWS_UWP
+            //            TilesBackgroundTask a = new TilesBackgroundTask();
+            //            await a.RunAction(true);
+            //#endif
+
             SizeChanged += MainPageSizeChanged;
             SetRootLayout();
 
@@ -87,7 +97,6 @@ namespace SmokSmog
             navProvider?.NavigationService?.NavigateTo(nameof(InformationPage));
 
             navProvider?.NavigationService?.NavigateTo(nameof(NotificationPage));
-
         }
 
         private void MainPageSizeChanged(object sender, SizeChangedEventArgs e)
