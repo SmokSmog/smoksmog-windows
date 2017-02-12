@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using SmokSmog.Navigation;
+﻿using SmokSmog.Navigation;
 using SmokSmog.Views;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -16,6 +16,19 @@ namespace SmokSmog
 
             this.Loaded += MainPageLoaded;
             this.Unloaded += MainPageUnloaded;
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            await Task.Delay(5000);
+            await ((App)Application.Current).RegisterBackgroundTasks();
+
+            //#if WINDOWS_UWP
+            //            TilesBackgroundTask a = new TilesBackgroundTask();
+            //            await a.RunAction(true);
+            //#endif
         }
 
         public bool IsMenuOpen
@@ -78,17 +91,8 @@ namespace SmokSmog
             if (IsSearchOpen) CloseSearch(); else OpenSearch();
         }
 
-        private async void MainPageLoaded(object sender, RoutedEventArgs e)
+        private void MainPageLoaded(object sender, RoutedEventArgs e)
         {
-            await Task.Delay(5000);
-
-            await ((App)Application.Current).RegisterBackgroundTasks();
-
-            //#if WINDOWS_UWP
-            //            TilesBackgroundTask a = new TilesBackgroundTask();
-            //            await a.RunAction(true);
-            //#endif
-
             SizeChanged += MainPageSizeChanged;
             SetRootLayout();
 

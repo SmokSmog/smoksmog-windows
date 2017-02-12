@@ -24,7 +24,7 @@ namespace SmokSmog.Notification
             // just for test create file
             await ApplicationData.Current.LocalFolder.CreateFileAsync("test.txt", CreationCollisionOption.ReplaceExisting);
 
-            //await RenderAndUpdate();
+            await RenderAndUpdate();
 
             // Inform the system that the task is finished.
             _deferral.Complete();
