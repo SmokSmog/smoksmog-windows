@@ -25,11 +25,11 @@ namespace SmokSmog.Xaml.Interactions
     {
         private CancellationTokenSource _lastUpdateHighlightCts = null;
 
-        private ObservableCollection<Inline> _originalInlineList = new ObservableCollection<Inline>();
+        private readonly ObservableCollection<Inline> _originalInlineList = new ObservableCollection<Inline>();
 
         private string _originalText = string.Empty;
 
-        private List<PropertyChangeEventSource<string>> _runTextChangeEventSourceList = new List<PropertyChangeEventSource<string>>();
+        private readonly List<PropertyChangeEventSource<string>> _runTextChangeEventSourceList = new List<PropertyChangeEventSource<string>>();
 
         private PropertyChangeEventSource<string> _textChangeEventSource;
 

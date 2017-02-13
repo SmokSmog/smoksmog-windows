@@ -17,7 +17,7 @@ namespace SmokSmog
 
         public static TilesManager Current => _tilesManager ?? (_tilesManager = new TilesManager());
 
-        public bool IsPrimaryLiveTileEnable
+        public bool IsPrimaryTileNotificationEnable
         {
             get
             {
@@ -50,6 +50,6 @@ namespace SmokSmog
         private IStorageService Storage => ServiceLocator.Current.SettingService;
 
         // TODO implement secondary tiles
-        public bool IsSecondaryLiveTilesEnable => false;
+        public bool IsSecondaryTilesNotificationEnable => false;
     }
 }

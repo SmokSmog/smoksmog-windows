@@ -40,7 +40,7 @@ namespace SmokSmog.Notification
         {
             // if primary tile is disabled by user in application settings
             // clear tile and return
-            if (!TilesManager.Current.IsPrimaryLiveTileEnable)
+            if (!TilesManager.Current.IsPrimaryTileNotificationEnable)
             {
                 TileUpdateManager.CreateTileUpdaterForApplication().Clear();
                 return;

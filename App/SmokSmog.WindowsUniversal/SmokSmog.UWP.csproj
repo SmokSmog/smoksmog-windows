@@ -155,10 +155,6 @@
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
       <Name>SmokSmog.Core.Portable</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\SmokSmog.Core\SmokSmog.Core.csproj">
-      <Project>{f8a355db-501a-4cef-9ca4-5a9c61a594a3}</Project>
-      <Name>SmokSmog.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Notification\SmokSmog.Notification.WindowsUniversal\SmokSmog.Notification.UWP.csproj">
       <Project>{6c123131-803f-4eb8-a0e1-c60fe639dc43}</Project>
       <Name>SmokSmog.Notification.UWP</Name>
@@ -170,7 +166,6 @@
     </SDKReference>
   </ItemGroup>
   <Import Project="..\SmokSmog.Shared\SmokSmog.Shared.projitems" Label="Shared" />
-  <Import Project="..\..\Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

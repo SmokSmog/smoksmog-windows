@@ -9,6 +9,82 @@
     <Import_RootNamespace>SmokSmog</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Large.xaml.cs">
+      <DependentUpon>Large.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Medium.xaml.cs">
+      <DependentUpon>Medium.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\TileSite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Wide.xaml.cs">
+      <DependentUpon>Wide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DesignData\Services\ApiDataProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DesignData\Services\GeolocationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DesignData\ViewModel\StationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Diagnostics\Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ApplicationException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UserInterruptedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ColorExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\GenericExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Linq\Grouping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Linq\GroupingStation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AirQualityIndex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AirQualityInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Geocoordinate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Measurement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Norm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Parameter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Station.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\StationData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\Http\HttpClientProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\Http\HttpRequestException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\Http\IHttpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\WinRTResourceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Data\AsyncDataProviderBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Data\GiosRestApiDataService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Data\IDataProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Data\RestDataServiceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Data\SmokSmogApiDataService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationTimeOutException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\IGeolocationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\NetworkInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Search\SearchQuerry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\IStorageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\StorageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Threading\AsyncBridge.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TilesManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tiles\TileMedium.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AqiInformationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\FavoritesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GeolocationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GroupedViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ParameterViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SearchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SettingsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\StationsListBaseViewMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\StationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiToBrush.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiToImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\BooleanToVisability.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\NumericFormatConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StationGroupingModeEnumToString.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringFormatConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringGetFirstChar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToFirstCharCase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToLower.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToSentenceCase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToUpper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\StringToWordsCase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\ValueConverterBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\ValueConverterGroup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\DataBindingHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\FrameNavigateToPageAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\RangeDataTriggerBehavior.cs" />
@@ -17,5 +93,41 @@
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TextBlockHighlightBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TypeConverterHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\PropertyChangeEventSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\SvgData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Bad-square.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Bad.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Good-square.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Good.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Moderate-square.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Moderate.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Sufficient-square.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Sufficient.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryBad-square.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryBad.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryGood-square.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryGood.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Controls\Large.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)Controls\Medium.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)Controls\Wide.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml" />
+    <Content Include="$(MSBuildThisFileDirectory)Tiles\TileMedium.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\Large.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\Medium.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\Wide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
