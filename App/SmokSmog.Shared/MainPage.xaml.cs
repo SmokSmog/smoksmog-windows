@@ -1,6 +1,5 @@
 ﻿using SmokSmog.Navigation;
 using SmokSmog.Views;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -22,13 +21,12 @@ namespace SmokSmog
         {
             base.OnNavigatedTo(e);
 
-            await Task.Delay(5000);
-            await ((App)Application.Current).RegisterBackgroundTasks();
+            //await BackgroundTaskManager.RegisterBackgroundTasks();
 
-            //#if WINDOWS_UWP
-            //            TilesBackgroundTask a = new TilesBackgroundTask();
-            //            await a.RunAction(true);
-            //#endif
+            ////#if WINDOWS_UWP
+            ////            TilesBackgroundTask a = new TilesBackgroundTask();
+            ////            await a.RunAction(true);
+            ////#endif
         }
 
         public bool IsMenuOpen

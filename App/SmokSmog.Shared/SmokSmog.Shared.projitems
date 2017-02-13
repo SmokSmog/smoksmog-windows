@@ -86,6 +86,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BackgroundTaskManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\AqiRing.xaml.cs">
       <DependentUpon>AqiRing.xaml</DependentUpon>
     </Compile>

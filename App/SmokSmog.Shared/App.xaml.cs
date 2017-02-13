@@ -4,12 +4,9 @@ using SmokSmog.Navigation;
 using SmokSmog.Resources;
 using SmokSmog.ViewModel;
 using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Background;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -191,60 +188,6 @@ namespace SmokSmog
             var deferral = e.SuspendingOperation.GetDeferral();
             // TODO: Save application state and stop any background activity
             deferral.Complete();
-        }
-
-        internal async Task RegisterBackgroundTasks()
-        {
-            try
-            {
-                //BackgroundExecutionManager.RemoveAccess();
-                //var praid = Windows.ApplicationModel.Core.CoreApplication.Id;
-                BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
-#if WINDOWS_UWP
-                if (status == BackgroundAccessStatus.AlwaysAllowed || status == BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
-#elif WINDOWS_PHONE || WINDOWS_APP
-                if (status == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity || status == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity)
-#endif
-                {
-                    string registrationName = "TilesBackgroundTaskTimeTrigger";
-                    var registration = BackgroundTaskRegistration.AllTasks.FirstOrDefault(x => x.Value.Name == registrationName).Value;
-                    if (registration == null)
-                    {
-                        var builder = new BackgroundTaskBuilder()
-                        {
-                            Name = registrationName,
-                            TaskEntryPoint = typeof(SmokSmog.Notification.TilesBackgroundTask).FullName,
-#if WINDOWS_UWP || WINDOWS_PHONE
-                            IsNetworkRequested = true
-#endif
-                        };
-
-                        IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
-                        builder.AddCondition(condition);
-
-                        IBackgroundTrigger trigger = new TimeTrigger(15, false);
-                        //IBackgroundTrigger trigger = new SystemTrigger(SystemTriggerType.TimeZoneChange, false);
-
-                        builder.SetTrigger(trigger);
-                        registration = builder.Register();
-                    }
-
-                    ////You have the option of implementing these events to do something upon completion
-                    //registration.Progress += (sender, args) =>
-                    //{
-                    //    uint id = args.Progress;
-                    //};
-                    //registration.Completed += (sender, args) =>
-                    //{
-                    //    args.CheckResult();
-                    //};
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex);
-                Debug.WriteLine("The access has already been granted");
-            }
         }
     }
 }
