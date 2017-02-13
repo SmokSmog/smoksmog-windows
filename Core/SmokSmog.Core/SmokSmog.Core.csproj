@@ -141,6 +141,7 @@
     <Compile Include="Services\Storage\IStorageService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Threading\AsyncBridge.cs" />
+    <Compile Include="TilesManager.cs" />
     <Compile Include="Tiles\TileMedium.cs" />
     <Compile Include="Controls\TileSite.cs" />
     <Compile Include="Controls\Wide.xaml.cs">

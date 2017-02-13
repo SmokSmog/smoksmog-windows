@@ -9,6 +9,7 @@
     <Import_RootNamespace>SmokSmog.Notification.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)MemoryInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TileRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tiles.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TilesBackgroundTask.cs" />

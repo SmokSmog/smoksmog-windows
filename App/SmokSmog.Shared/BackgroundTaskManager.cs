@@ -15,7 +15,7 @@ namespace SmokSmog
         public bool IsPrimaryTileTimerUpdateRegidtered
             => PrimaryTileTimerUpdateRegistration != null;
 
-        public IBackgroundTaskRegistration PrimaryTileTimerUpdateRegistration
+        internal IBackgroundTaskRegistration PrimaryTileTimerUpdateRegistration
             => BackgroundTaskRegistration.AllTasks.FirstOrDefault(
                     x => x.Value.Name == PrimaryTileTimerUpdateBackgroundTaskName).Value;
 
@@ -25,17 +25,27 @@ namespace SmokSmog
         /// For Windows 10 UWP in documentation we can find Tip that there is no more requirement to run
         /// RequestAccessAsync from UI thread but if we run it from other TimeTriggers will not work
         /// </summary>
+        /// <seealso cref="https://docs.microsoft.com/en-us/uwp/api/Windows.ApplicationModel.Background.BackgroundExecutionManager#Windows_ApplicationModel_Background_BackgroundExecutionManager_RequestAccessAsync_System_String_"/>
         /// <returns></returns>
         public async Task RegisterBackgroundTasks()
         {
             try
             {
+                // Without this line sometimes TimeTriggers don't work
                 BackgroundExecutionManager.RemoveAccess();
+
+                // Explicit gets the package-relative app identifier (PRAID) for the process.
                 var praid = Windows.ApplicationModel.Core.CoreApplication.Id;
+
+                // this line should be run from UI Thread (even for some Windows 10 Devices)
                 var status = await BackgroundExecutionManager.RequestAccessAsync(praid);
 
+                // Obsolete in Windows 10 - CS0618
+                // but still works and on some Phones with Windows 10 we still get old statuses
+#pragma warning disable 618
                 switch (status)
                 {
+                    // Those are for Windows 8.1 and Windows 8.1 Phone
                     case BackgroundAccessStatus.Unspecified:
                     case BackgroundAccessStatus.Denied:
                         return;
@@ -44,6 +54,7 @@ namespace SmokSmog
                     case BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity:
                         break;
 
+                    // Those are for Windows 10 Devices
 #if WINDOWS_UWP
                     case BackgroundAccessStatus.DeniedBySystemPolicy:
                     case BackgroundAccessStatus.DeniedByUser:
@@ -53,12 +64,13 @@ namespace SmokSmog
                     case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
                         break;
 #endif
+                    // For future if something change it should still react properly
                     default: return;
                 }
 
                 var registration = PrimaryTileTimerUpdateRegistration;
 
-                // if there is no registration build new
+                // if there is no registration build new one
                 if (registration == null)
                 {
                     var builder = new BackgroundTaskBuilder()

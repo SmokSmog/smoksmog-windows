@@ -2,61 +2,14 @@
 using Microsoft.Graphics.Canvas.Text;
 using SmokSmog.ViewModel;
 using System;
-using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Storage;
-using Windows.System;
 using Windows.UI;
 
 namespace SmokSmog.Notification
 {
-    internal class MemoryInfo
-    {
-        public static string MemoryStatus()
-        {
-#if WINDOWS_UWP || WINDOWS_PHONE_APP
-            var memory = MemoryManager.AppMemoryUsage;
-            var memoryLimit = MemoryManager.AppMemoryUsageLimit;
-            return $"Memory : \n\tused {ToMegaBytes(memory)} with limit {ToMegaBytes(memoryLimit)} MB\n\tused {ToKiloBytes(memory)} with limit {ToKiloBytes(memoryLimit)} KB";
-#else
-            return "";
-#endif
-        }
-
-        private static StringBuilder sb = new StringBuilder();
-
-        public static void DebugMemoryStatus(string str, params object[] paraeters)
-        {
-            sb.AppendFormat(str, paraeters);
-            Debug.WriteLine(str, paraeters);
-
-            var meminfo = MemoryInfo.MemoryStatus();
-            sb.AppendLine(meminfo);
-            Debug.WriteLine(meminfo);
-        }
-
-        public static async Task SaveLog()
-        {
-            var log = sb.ToString();
-            var folder = ApplicationData.Current.LocalFolder;
-            var file = await folder.CreateFileAsync("BackGroundTask.log", CreationCollisionOption.ReplaceExisting);
-            await FileIO.WriteTextAsync(file, log);
-        }
-
-        private static float ToMegaBytes(ulong memory)
-        {
-            return memory / 1024f / 1024f;
-        }
-
-        private static float ToKiloBytes(ulong memory)
-        {
-            return memory / 1024f;
-        }
-    }
-
     internal class TileRenderer
     {
         private readonly Uri[] imageUris = new[]

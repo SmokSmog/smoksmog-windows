@@ -21,25 +21,35 @@ namespace SmokSmog.Notification
             // is still running.
             _deferral = taskInstance.GetDeferral();
 
-            // just for test create file
-            await ApplicationData.Current.LocalFolder.CreateFileAsync("test.txt", CreationCollisionOption.ReplaceExisting);
+            var log = await ApplicationData.Current.LocalFolder.CreateFileAsync("BackgroundTask.Execution.log", CreationCollisionOption.ReplaceExisting);
+            await FileIO.AppendTextAsync(log, $"\"Start\": \"{DateTime.Now:G}\",");
 
-            await RenderAndUpdate();
+            await PrimaryTileRenderAndUpdate();
 
+            await FileIO.AppendTextAsync(log, $"\"End\" : \"{DateTime.Now:G}\"");
             // Inform the system that the task is finished.
             _deferral.Complete();
         }
 
         public IAsyncAction RunAction(bool renderOnly)
         {
-            return RenderAndUpdate(renderOnly).AsAsyncAction();
+            return PrimaryTileRenderAndUpdate(renderOnly).AsAsyncAction();
         }
 
-        internal async Task RenderAndUpdate(bool renderOnly = false)
+        internal async Task PrimaryTileRenderAndUpdate(bool renderOnly = false)
         {
-            var stationId = Settings.HomeStationId ?? (int?)4;
+            // if primary tile is disabled by user in application settings
+            // clear tile and return
+            if (!TilesManager.Current.IsPrimaryLiveTileEnable)
+            {
+                TileUpdateManager.CreateTileUpdaterForApplication().Clear();
+                return;
+            }
+
+            var stationId = Settings.Current.HomeStationId;
             if (stationId.HasValue)
             {
+                //Download data (Set will download data from server)
                 var vm = new StationViewModel();
                 await vm.SetStationAsync(stationId.Value);
 
@@ -48,24 +58,44 @@ namespace SmokSmog.Notification
                     await RenderTiles(vm);
                     UpdateTile(vm);
                 }
+                else
+                {
+                    // if station is invalid clear and return
+                    TileUpdateManager.CreateTileUpdaterForApplication().Clear();
+                }
             }
         }
 
         internal void UpdateTile(StationViewModel stationViewModel)
         {
-            TileUpdateManager.CreateTileUpdaterForApplication().Clear();
-            TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
+            try
+            {
+                TileUpdateManager.CreateTileUpdaterForApplication().Clear();
+                TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
 
-            var tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Image);
+                var tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Image);
 
-            var tileImage = tileXml.GetElementsByTagName("image")[0] as XmlElement;
-            tileImage.SetAttribute("src", "ms-appdata:///local/LiveTileFront_0.png");
-            var tileNotification = new TileNotification(tileXml) { Tag = "front" };
-            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
+                var tileImage = tileXml.GetElementsByTagName("image")[0] as XmlElement;
+                tileImage.SetAttribute("src", "ms-appdata:///local/LiveTileFront_0.png");
+                var tileNotification = new TileNotification(tileXml)
+                {
+                    Tag = "front",
+                    ExpirationTime = DateTimeOffset.Now.AddHours(2)
+                };
+                TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
 
-            tileImage.SetAttribute("src", "ms-appdata:///local/LiveTileBack_0.png");
-            tileNotification = new TileNotification(tileXml) { Tag = "back" };
-            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
+                tileImage.SetAttribute("src", "ms-appdata:///local/LiveTileBack_0.png");
+                tileNotification = new TileNotification(tileXml)
+                {
+                    Tag = "back",
+                    ExpirationTime = DateTimeOffset.Now.AddHours(2)
+                };
+                TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
+            }
+            finally
+            {
+                TilesManager.Current.PrimaryTileLastUpdate = DateTime.Now;
+            }
         }
 
         internal async Task RenderTiles(StationViewModel stationViewModel)
@@ -99,7 +129,7 @@ namespace SmokSmog.Notification
             }
             finally
             {
-                await MemoryInfo.SaveLog();
+                await MemoryInfo.SaveLog("BackgroundTask.Memory.log");
             }
         }
     }

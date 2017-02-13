@@ -29,6 +29,6 @@ namespace SmokSmog.DesignData.ViewModel
 
         public List<ParameterViewModel> Parameters { get; } = new List<ParameterViewModel>();
 
-        public new Station Station { get; }
+        public Station Station { get; }
     }
 }

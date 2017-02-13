@@ -41,8 +41,8 @@ namespace SmokSmog.Views
 
             if (e.Parameter?.ToString() == "Home")
             {
-                if (Settings.HomeStationId.HasValue)
-                    await StationViewModel.SetStationAsync(Settings.HomeStationId.Value);
+                if (Settings.Current.HomeStationId.HasValue)
+                    await StationViewModel.SetStationAsync(Settings.Current.HomeStationId.Value);
                 return;
             }
         }
