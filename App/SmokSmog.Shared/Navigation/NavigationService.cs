@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 
 namespace SmokSmog.Navigation
@@ -41,7 +42,7 @@ namespace SmokSmog.Navigation
 
         public string LastSecondPageKey { get; private set; }
 
-        public MainPage MainPage => Window.Current.Content as MainPage;
+        public MainPage MainPage => (Window.Current.Content as Frame)?.Content as MainPage;
 
         /// <summary>
         /// Handles back requests and returns if request is handled

@@ -1,4 +1,9 @@
 ﻿using SmokSmog.Navigation;
+
+#if WINDOWS_UWP
+using SmokSmog.Notification;
+#endif
+
 using SmokSmog.ViewModel;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;

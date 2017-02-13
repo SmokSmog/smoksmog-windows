@@ -1,8 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using SmokSmog.Net.Http;
 using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using SmokSmog.Services.Storage;
+using Windows.Web.Http;
 using ServiceLocation = Microsoft.Practices.ServiceLocation;
 
 namespace SmokSmog.Services
@@ -44,9 +46,23 @@ namespace SmokSmog.Services
 
         public static void Initialize()
         {
-            ServiceLocatorPortable.Initialize();
+            if (_isInitialized) return;
+
+            if (!Microsoft.Practices.ServiceLocation.ServiceLocator.IsLocationProviderSet)
+                Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             if (_isInitialized) return;
+
+            SimpleIoc.Default.Register<IHttpClient>(() => new HttpClientProxy(new HttpClient()));
+
+            if (ViewModelBase.IsInDesignModeStatic)
+            {
+                SimpleIoc.Default.Register<IDataProvider, DesignData.Services.ApiDataProvider>();
+            }
+            else
+            {
+                SimpleIoc.Default.Register<IDataProvider, SmokSmogApiDataProvider>();
+            }
 
             if (ViewModelBase.IsInDesignModeStatic)
             {

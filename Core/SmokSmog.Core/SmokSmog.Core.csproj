@@ -107,6 +107,42 @@
     <Compile Include="Controls\Medium.xaml.cs">
       <DependentUpon>Medium.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DesignData\Services\ApiDataProvider.cs" />
+    <Compile Include="DesignData\Services\GeolocationService.cs" />
+    <Compile Include="DesignData\ViewModel\StationViewModel.cs" />
+    <Compile Include="Diagnostics\Logger.cs" />
+    <Compile Include="Exceptions\ApplicationException.cs" />
+    <Compile Include="Exceptions\UserInterruptedException.cs" />
+    <Compile Include="Extensions\GenericExtensions.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Linq\Grouping.cs" />
+    <Compile Include="Linq\GroupingStation.cs" />
+    <Compile Include="Model\AirQualityIndex.cs" />
+    <Compile Include="Model\AirQualityInfo.cs" />
+    <Compile Include="Model\Geocoordinate.cs" />
+    <Compile Include="Model\Measurement.cs" />
+    <Compile Include="Model\Norm.cs" />
+    <Compile Include="Model\Parameter.cs" />
+    <Compile Include="Model\Station.cs" />
+    <Compile Include="Model\StationData.cs" />
+    <Compile Include="Net\Http\HttpClientProxy.cs" />
+    <Compile Include="Net\Http\HttpRequestException.cs" />
+    <Compile Include="Net\Http\IHttpClient.cs" />
+    <Compile Include="Services\Data\AsyncDataProviderBase.cs" />
+    <Compile Include="Services\Data\GiosRestApiDataService.cs" />
+    <Compile Include="Services\Data\IDataProvider.cs" />
+    <Compile Include="Services\Data\RestDataServiceBase.cs" />
+    <Compile Include="Services\Data\SmokSmogApiDataService.cs" />
+    <Compile Include="Services\Geolocation\GeolocationStatus.cs" />
+    <Compile Include="Services\Geolocation\GeolocationTimeOutException.cs" />
+    <Compile Include="Services\Geolocation\IGeolocationService.cs" />
+    <Compile Include="Services\IServiceLocator.cs" />
+    <Compile Include="Services\Search\SearchQuerry.cs" />
+    <Compile Include="Services\Storage\IStorageService.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Threading\AsyncBridge.cs" />
+    <Compile Include="TilesManager.cs" />
+    <Compile Include="Tiles\TileMedium.cs" />
     <Compile Include="Controls\TileSite.cs" />
     <Compile Include="Controls\Wide.xaml.cs">
       <DependentUpon>Wide.xaml</DependentUpon>
@@ -118,6 +154,16 @@
     <Compile Include="Services\Network\NetworkInformation.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\Storage\StorageService.cs" />
+    <Compile Include="ViewModel\AqiInformationViewModel.cs" />
+    <Compile Include="ViewModel\FavoritesViewModel.cs" />
+    <Compile Include="ViewModel\GeolocationViewModel.cs" />
+    <Compile Include="ViewModel\GroupedViewModel.cs" />
+    <Compile Include="ViewModel\ParameterViewModel.cs" />
+    <Compile Include="ViewModel\SearchViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="ViewModel\StationsListBaseViewMode.cs" />
+    <Compile Include="ViewModel\StationViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Xaml\SvgData.cs" />
     <Compile Include="Xaml\Data\ValueConverters\AqiToBrush.cs" />
     <Compile Include="Xaml\Data\ValueConverters\AqiToImage.cs" />
@@ -172,6 +218,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Content Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Tiles\TileMedium.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Notification\Bad-square.png" />
@@ -190,6 +244,7 @@
     <Content Include="Controls\Medium.xml" />
     <Content Include="Controls\Wide.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy /Y "$(ProjectDir)Controls\Medium.xaml" "$(ProjectDir)Controls\Medium.xml"

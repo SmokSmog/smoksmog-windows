@@ -17,6 +17,18 @@ namespace SmokSmog
             this.Unloaded += MainPageUnloaded;
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            //await BackgroundTaskManager.RegisterBackgroundTasks();
+
+            ////#if WINDOWS_UWP
+            ////            TilesBackgroundTask a = new TilesBackgroundTask();
+            ////            await a.RunAction(true);
+            ////#endif
+        }
+
         public bool IsMenuOpen
             => MenuVisualStateGroup.CurrentState == MenuOpen;
 
@@ -87,7 +99,6 @@ namespace SmokSmog
             navProvider?.NavigationService?.NavigateTo(nameof(InformationPage));
 
             navProvider?.NavigationService?.NavigateTo(nameof(NotificationPage));
-
         }
 
         private void MainPageSizeChanged(object sender, SizeChangedEventArgs e)

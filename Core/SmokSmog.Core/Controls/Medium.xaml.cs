@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using SmokSmog.Xaml.Data.ValueConverters;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace SmokSmog.Controls.Tiles
@@ -49,5 +50,10 @@ namespace SmokSmog.Controls.Tiles
                 wide.BackContent.Visibility = Visibility.Visible;
             }
         }
+
+        public AqiToImage AqiToImage { get; } = new AqiToImage();
+        public BooleanToVisability BooleanToVisability { get; } = new BooleanToVisability();
+        public StringFormatConverter StringFormatConverter { get; } = new StringFormatConverter();
+        public NumericFormatConverter NumericFormatConverter { get; } = new NumericFormatConverter();
     }
 }

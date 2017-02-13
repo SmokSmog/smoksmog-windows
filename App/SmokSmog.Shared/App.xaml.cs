@@ -7,9 +7,9 @@ using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Background;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog
@@ -19,27 +19,6 @@ namespace SmokSmog
     /// </summary>
     public sealed partial class App : Application, INavigationProvider
     {
-        private void RegisterBackgroundTasks()
-        {
-            var builder = new BackgroundTaskBuilder()
-            {
-                Name = "SmokSmog.Notification",
-                TaskEntryPoint = "SmokSmog.Notification.TilesBackgroundTask"
-            };
-
-            IBackgroundTrigger trigger = new TimeTrigger(15, false);
-            builder.SetTrigger(trigger);
-
-            IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
-            builder.AddCondition(condition);
-
-            IBackgroundTaskRegistration task = builder.Register();
-
-            //YOu have the option of implementing these events to do something upon completion
-            //task.Progress += task_Progress;
-            //task.Completed += task_Completed;
-        }
-
         /// <summary>
         /// Initializes the singleton application object. This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -99,21 +78,22 @@ namespace SmokSmog
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            RegisterBackgroundTasks();
-
             await CheckInternetConnection();
 
-            var mainPage = Window.Current.Content as MainPage;
+            Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content, just ensure that
             // the window is active
-            if (mainPage == null)
+            if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                mainPage = new MainPage();
+                rootFrame = new Frame();
 
                 // TODO: change this value to a cache size that is appropriate for your application
-                //mainPage.ContentFrame.CacheSize = 1;
+                rootFrame.CacheSize = 1;
+
+                // Set the default language
+                rootFrame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -121,32 +101,20 @@ namespace SmokSmog
                 }
 
                 // Place the frame in the current Window
-                Window.Current.Content = mainPage;
+                Window.Current.Content = rootFrame;
             }
 
-            //if (mainPage.ContentFrame.Content == null)
-            //{
-            //    // Removes the turnstile navigation for startup.
-            //    if (mainPage.ContentFrame.ContentTransitions != null)
-            //    {
-            //        this._transitions = new TransitionCollection();
-            //        foreach (var c in mainPage.ContentFrame.ContentTransitions)
-            //        {
-            //            this._transitions.Add(c);
-            //        }
-            //    }
+            if (rootFrame.Content == null)
+            {
+                rootFrame.ContentTransitions = null;
 
-            // mainPage.ContentFrame.ContentTransitions = null; mainPage.ContentFrame.Navigated +=
-            // this.RootFrame_FirstNavigated; mainPage.ContentFrame.NavigationFailed += OnNavigationFailed;
-
-            // // When the navigation stack isn't restored navigate to the first page, configuring //
-            // the new page by passing required information as a navigation parameter
-
-            //    if (!mainPage.ContentFrame.Navigate(typeof(Views.StationPage), e.Arguments))
-            //    {
-            //        throw new Exception("Failed to create initial page");
-            //    }
-            //}
+                // When the navigation stack isn't restored navigate to the first page, configuring
+                // the new page by passing required information as a navigation parameter
+                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                {
+                    throw new Exception("Failed to create initial page");
+                }
+            }
 
             // Ensure the current window is active
             Window.Current.Activate();

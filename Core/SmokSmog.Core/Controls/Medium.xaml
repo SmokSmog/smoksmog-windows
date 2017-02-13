@@ -3,27 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vc="using:SmokSmog.Xaml.Data.ValueConverters"
              x:Name="This"
              MinWidth="150"
              MinHeight="150"
              MaxWidth="150"
              MaxHeight="150"
-             d:DataContext="{d:DesignData Source=../../../App/SmokSmog.Shared/DesignData/StationViewModel.xaml}"
              d:DesignHeight="150"
              d:DesignWidth="150"
              FontSize="18"
              Foreground="White"
              mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <vc:AqiToImage x:Key="AqiToImage" />
-        <vc:BooleanToVisability x:Key="BooleanToVisability" />
-        <vc:StringFormatConverter x:Key="StringFormatConverter" />
-        <vc:NumericFormatConverter x:Key="NumericFormatConverter" />
-    </UserControl.Resources>
+    <!--<UserControl.Resources>
+        <vc:AqiToImage x:Key="AqiToImage" xmlns:vc="using:SmokSmog.Xaml.Data.ValueConverters" />
+        <vc:BooleanToVisability x:Key="BooleanToVisability" xmlns:vc="using:SmokSmog.Xaml.Data.ValueConverters" />
+        <vc:StringFormatConverter x:Key="StringFormatConverter" xmlns:vc="using:SmokSmog.Xaml.Data.ValueConverters" />
+        <vc:NumericFormatConverter x:Key="NumericFormatConverter" xmlns:vc="using:SmokSmog.Xaml.Data.ValueConverters" />
+    </UserControl.Resources>-->
 
-    <Grid Background="DimGray">
+    <Grid x:Name="LayoutRoot" Background="DimGray">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="120" />
@@ -36,19 +34,25 @@
                     VerticalAlignment="Center"
                     Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <Image x:Name="AirQualityIndexImage" Width="25"
+                <Image x:Name="AirQualityIndexImage"
+                       Width="25"
                        Margin="0,0,10,0"
                        Source="{Binding AirQualityIndex,
-                                        Converter={StaticResource AqiToImage},
+                                        Converter={Binding AqiToImage,
+                                                           ElementName=This},
                                         ConverterParameter='square'}" />
                 <TextBlock Foreground="LightGray" Text="AQI :" />
-                <TextBlock x:Name="AirQualityIndexValue" Foreground="LightGray" Text="{Binding AirQualityIndex.Value, Converter={StaticResource NumericFormatConverter}, ConverterParameter='[0: 0.0]'}" />
+                <TextBlock x:Name="AirQualityIndexValue"
+                           Foreground="LightGray"
+                           Text="{Binding AirQualityIndex.Value,
+                                          Converter={Binding NumericFormatConverter,
+                                                             ElementName=This},
+                                          ConverterParameter='[0: 0.0]'}" />
             </StackPanel>
 
             <TextBlock FontSize="20" Text="{Binding AirQualityIndex.Text}" />
-            <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:dd.MM.yyyy]'}" />
-            <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:HH:mm]'}" />
-
+            <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Date, Converter={Binding StringFormatConverter, ElementName=This}, ConverterParameter='[0:dd.MM.yyyy]'}" />
+            <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Date, Converter={Binding StringFormatConverter, ElementName=This}, ConverterParameter='[0:HH:mm]'}" />
         </StackPanel>
 
         <GridView x:Name="BackContent"
@@ -87,7 +91,7 @@
                                 VerticalAlignment="Center"
                                 Orientation="Vertical">
                         <TextBlock Text="{Binding Parameter.ShortName}" TextAlignment="Center" />
-                        <Image Source="{Binding Latest.Aqi, Converter={StaticResource AqiToImage}}" />
+                        <Image Source="{Binding Latest.Aqi, Converter={Binding AqiToImage, ElementName=This}}" />
                         <TextBlock Text="{Binding Latest.Avg1Hour}" TextAlignment="Center" />
                         <TextBlock Foreground="LightGray"
                                    Text="{Binding Parameter.Unit}"
@@ -104,6 +108,6 @@
                    Text="{Binding Station.Name}"
                    Visibility="{Binding ElementName=This,
                                         Path=ShowName,
-                                        Converter={StaticResource BooleanToVisability}}" />
+                                        Converter={Binding BooleanToVisability, ElementName=This}}" />
     </Grid>
 </UserControl>

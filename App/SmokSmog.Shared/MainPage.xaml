@@ -218,7 +218,7 @@
                     </Button>
 
                     <Button BorderThickness="0"
-                            Visibility="Collapsed"
+                            Visibility="Visible"
                             Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
                             Padding="0"
                             Style="{StaticResource SmokSmogButtonStyle}">

@@ -7,14 +7,13 @@
       mc:Ignorable="d">
 
     <Grid Background="{StaticResource SmokSmogPageBackgroundBrush}">
-        <TextBlock FontSize="48">Settings Page</TextBlock>
-        <TextBlock HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="30"
-                   TextAlignment="Center">
-            Settings are not fully implemented yet
-            <LineBreak />
-            this is Beta Version
-        </TextBlock>
+
+        <StackPanel>
+
+            <ToggleSwitch Toggled="ToggleSwitch_OnToggled">Show home station statuses on Primary Live Tile</ToggleSwitch>
+
+            <ToggleSwitch>Allow using Localization</ToggleSwitch>
+
+        </StackPanel>
     </Grid>
 </Page>
