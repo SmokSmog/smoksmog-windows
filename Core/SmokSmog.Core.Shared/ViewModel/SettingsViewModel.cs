@@ -4,17 +4,25 @@ using System.Threading.Tasks;
 
 namespace SmokSmog.ViewModel
 {
+    using Services.Notification;
+    using Services.Settings;
+
     public class SettingsViewModel : ViewModelBase
     {
-        public SettingsViewModel()
+        private readonly ISettingsService _settingsService;
+        private readonly ITilesService _tilesService;
+
+        public SettingsViewModel(ISettingsService settingsService, ITilesService tilesService)
         {
+            _settingsService = settingsService;
+            _tilesService = tilesService;
         }
 
         public bool CanPrimaryTileNotificationEnable
-            => TilesManager.Current.CanRegisterBackgroundTasks && Settings.Current.HomeStationId.HasValue;
+            => _tilesService.CanRegisterBackgroundTasks && _settingsService.HomeStationId.HasValue;
 
         public bool IsPrimaryTileNotificationEnable
-            => TilesManager.Current.IsPrimaryTileNotificationEnable;
+            => _tilesService.IsPrimaryTileNotificationEnable;
 
         public async Task TooglePrimaryTileNotification()
         {
@@ -22,9 +30,9 @@ namespace SmokSmog.ViewModel
             try
             {
                 if (CanPrimaryTileNotificationEnable)
-                    registered = await TilesManager.Current.RegisterBackgroundTasks();
+                    registered = await _tilesService.RegisterBackgroundTasks();
                 else
-                    TilesManager.Current.UnregisterTasks();
+                    _tilesService.UnregisterTasks();
             }
             catch (Exception exception)
             {
@@ -32,7 +40,7 @@ namespace SmokSmog.ViewModel
             }
             finally
             {
-                Settings.Current.PrimaryLiveTileEnable = registered;
+                _settingsService.PrimaryLiveTileEnable = registered;
                 RaisePropertyChanged(nameof(IsPrimaryTileNotificationEnable));
                 RaisePropertyChanged(nameof(CanPrimaryTileNotificationEnable));
             }

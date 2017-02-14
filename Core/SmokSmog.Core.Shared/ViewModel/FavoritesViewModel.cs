@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using SmokSmog.Services.Data;
+using SmokSmog.Services.Settings;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,17 +8,17 @@ namespace SmokSmog.ViewModel
 {
     public class FavoritesViewModel : StationsListBaseViewMode
     {
+        private readonly ISettingsService _settingsService;
+
         private RelayCommand<Model.Station> _addStationToFavoritesCommand;
         private RelayCommand<Model.Station> _removeStationFromFavoritesCommand;
         private RelayCommand<Model.Station> _setHomeStationCommand;
 
-        public FavoritesViewModel(IDataProvider dataService) : base(dataService)
+        public FavoritesViewModel(IDataProvider dataService, ISettingsService settingsService)
+            : base(dataService)
         {
+            _settingsService = settingsService;
         }
-
-        public Model.Station SampleStation => Model.Station.Sample;
-
-        public bool IsFavoritesListEmpty { get; private set; } = true;
 
         /// <summary>
         /// Gets the AddStationToFavoritesCommand.
@@ -30,12 +31,12 @@ namespace SmokSmog.ViewModel
                     ?? (_addStationToFavoritesCommand = new RelayCommand<Model.Station>(
                     p =>
                     {
-                        if (p != null) Settings.Current.FavoritesStationsList.Add(p.Id);
+                        if (p != null) _settingsService.FavoritesStationsList.Add(p.Id);
                         _addStationToFavoritesCommand.RaiseCanExecuteChanged();
                         _removeStationFromFavoritesCommand.RaiseCanExecuteChanged();
                         RaisePropertyChanged(nameof(FavoritesList));
                     },
-                    p => p != null && !Settings.Current.FavoritesStationsList.Contains(p.Id)));
+                    p => p != null && !_settingsService.FavoritesStationsList.Contains(p.Id)));
             }
         }
 
@@ -44,13 +45,15 @@ namespace SmokSmog.ViewModel
             get
             {
                 var list = (from s in StationsList
-                            where Settings.Current.FavoritesStationsList.Contains(s.Id)
+                            where _settingsService.FavoritesStationsList.Contains(s.Id)
                             select s).ToList();
                 IsFavoritesListEmpty = list.Count == 0;
                 RaisePropertyChanged(nameof(IsFavoritesListEmpty));
                 return list;
             }
         }
+
+        public bool IsFavoritesListEmpty { get; private set; } = true;
 
         /// <summary>
         /// Gets the RemoveStationFromFavoritesCommand.
@@ -63,14 +66,16 @@ namespace SmokSmog.ViewModel
                     ?? (_removeStationFromFavoritesCommand = new RelayCommand<Model.Station>(
                     p =>
                     {
-                        if (p != null) Settings.Current.FavoritesStationsList.Remove(p.Id);
+                        if (p != null) _settingsService.FavoritesStationsList.Remove(p.Id);
                         _addStationToFavoritesCommand.RaiseCanExecuteChanged();
                         _removeStationFromFavoritesCommand.RaiseCanExecuteChanged();
                         RaisePropertyChanged(nameof(FavoritesList));
                     },
-                    p => p != null && Settings.Current.FavoritesStationsList.Contains(p.Id)));
+                    p => p != null && _settingsService.FavoritesStationsList.Contains(p.Id)));
             }
         }
+
+        public Model.Station SampleStation => Model.Station.Sample;
 
         /// <summary>
         /// Gets the SetHomeStationCommand.
@@ -83,10 +88,10 @@ namespace SmokSmog.ViewModel
                     ?? (_setHomeStationCommand = new RelayCommand<Model.Station>(
                     p =>
                     {
-                        if (p != null) Settings.Current.HomeStationId = p.Id;
+                        if (p != null) _settingsService.HomeStationId = p.Id;
                         _setHomeStationCommand.RaiseCanExecuteChanged();
                     },
-                    p => p != null && Settings.Current.HomeStationId != p.Id));
+                    p => p != null && _settingsService.HomeStationId != p.Id));
             }
         }
 

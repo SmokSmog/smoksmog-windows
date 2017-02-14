@@ -1,13 +1,13 @@
-﻿using SmokSmog.Net.Http;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 
-
 namespace SmokSmog.Services.Data
 {
+    using Network;
+
     public abstract class RestDataProviderBase : AsyncDataProviderBase
     {
         protected RestDataProviderBase(IHttpClient httpClient, string baseUrl)

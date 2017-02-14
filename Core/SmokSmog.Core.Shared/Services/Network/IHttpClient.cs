@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+
+#if  WINDOWS_UWP || WINDOWS_APP || WINDOWS_PHONE_APP
+
 using Windows.Web.Http;
 
-namespace SmokSmog.Net.Http
+#endif
+
+namespace SmokSmog.Services.Network
 {
     public interface IHttpClient
     {

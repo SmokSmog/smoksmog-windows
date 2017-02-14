@@ -1,4 +1,4 @@
-﻿namespace SmokSmog.Net.Http
+﻿namespace SmokSmog.Services.Network
 {
     public class HttpRequestException : System.Exception
     {

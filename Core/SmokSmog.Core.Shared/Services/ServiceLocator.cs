@@ -1,14 +1,18 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using SmokSmog.Net.Http;
-using SmokSmog.Services.Data;
-using SmokSmog.Services.Geolocation;
-using SmokSmog.Services.Storage;
+
 using Windows.Web.Http;
 using ServiceLocation = Microsoft.Practices.ServiceLocation;
 
 namespace SmokSmog.Services
 {
+    using Data;
+    using Geolocation;
+    using Network;
+    using Notification;
+    using Settings;
+    using Storage;
+
     public class ServiceLocator : IServiceLocator
     {
         private static IServiceLocator _current = null;
@@ -34,8 +38,14 @@ namespace SmokSmog.Services
         public IGeolocationService GeolocationService
             => _locator.GetInstance<IGeolocationService>();
 
-        public IStorageService SettingService
-            => _locator.GetInstance<IStorageService>();
+        public IHttpClient HttpClient => _locator.GetInstance<IHttpClient>();
+
+        public ISettingsService SettingsService => _locator.GetInstance<ISettingsService>();
+
+        public IStorageService StorageService => _locator.GetInstance<IStorageService>();
+
+        //#if WINDOWS_UWP || WINDOWS_APP || WINDOWS_PHONE_APP #endif
+        public ITilesService TilesService => _locator.GetInstance<TilesService>();
 
         /// <summary>
         /// Cleans up all the resources.
@@ -54,25 +64,26 @@ namespace SmokSmog.Services
             if (_isInitialized) return;
 
             SimpleIoc.Default.Register<IHttpClient>(() => new HttpClientProxy(new HttpClient()));
-
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                SimpleIoc.Default.Register<IDataProvider, DesignData.Services.ApiDataProvider>();
-            }
-            else
-            {
-                SimpleIoc.Default.Register<IDataProvider, SmokSmogApiDataProvider>();
-            }
+            SimpleIoc.Default.Register<IStorageService, StorageService>();
+            SimpleIoc.Default.Register<ISettingsService, SettingsService>();
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
                 SimpleIoc.Default.Register<IGeolocationService, DesignData.Services.GeolocationService>();
+                SimpleIoc.Default.Register<IDataProvider, DesignData.Services.ApiDataProvider>();
             }
             else
             {
                 SimpleIoc.Default.Register<IGeolocationService, GeolocationService>();
+                SimpleIoc.Default.Register<IDataProvider, SmokSmogApiDataProvider>();
             }
-            SimpleIoc.Default.Register<IStorageService, StorageService>();
+
+#if WINDOWS_UWP || WINDOWS_APP || WINDOWS_PHONE_APP
+            // we need to provide factory method since Tiles Service have internal constructor
+            SimpleIoc.Default.Register<TilesService>(
+                () => new TilesService(Current.SettingsService, Current.StorageService));
+#endif
+
             _isInitialized = true;
         }
     }

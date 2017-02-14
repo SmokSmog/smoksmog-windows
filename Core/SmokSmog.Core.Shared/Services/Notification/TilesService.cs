@@ -1,29 +1,33 @@
 ﻿using SmokSmog.Diagnostics;
-using SmokSmog.Services;
-using SmokSmog.Services.Storage;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
-namespace SmokSmog
+namespace SmokSmog.Services.Notification
 {
-    public sealed class TilesManager
+    using Settings;
+    using Storage;
+
+    public sealed class TilesService : ITilesService
     {
+        private readonly ISettingsService _settingsService;
+        private readonly IStorageService _storageService;
         public const string PrimaryTileTimerUpdateBackgroundTaskName = "primaryTileTimerUpdateBackgroundTask";
         private const string PrimaryTileLastUpdateKey = "TilesManager.PrimaryTileLastUpdate";
-        private static TilesManager _tilesManager;
 
-        private TilesManager()
+        internal TilesService(ISettingsService settingsService, IStorageService storageService)
         {
+            _settingsService = settingsService;
+            _storageService = storageService;
         }
 
         public bool CanRegisterBackgroundTasks
         {
             get
             {
-                // Explicit gets the package-relative app identifier (PRAID) for the process.
+                // Explicit gets the package-relative application identifier (PRAID) for the process.
                 var praid = Windows.ApplicationModel.Core.CoreApplication.Id;
                 var status = BackgroundExecutionManager.GetAccessStatus(praid);
                 return CanRegisterBackgroundTasksFromStatus(status);
@@ -35,10 +39,8 @@ namespace SmokSmog
             await RegisterBackgroundTasks();
         }
 
-        public static TilesManager Current => _tilesManager ?? (_tilesManager = new TilesManager());
-
         public bool IsPrimaryTileNotificationEnable
-            => Settings.Current.PrimaryLiveTileEnable && IsPrimaryTileTimerUpdateRegidtered;
+            => _settingsService.PrimaryLiveTileEnable && IsPrimaryTileTimerUpdateRegidtered;
 
         public bool IsPrimaryTileTimerUpdateRegidtered
             => PrimaryTileTimerUpdateRegistration != null;
@@ -48,15 +50,13 @@ namespace SmokSmog
 
         public DateTime? PrimaryTileLastUpdate
         {
-            get { return Storage.GetSetting<DateTime?>(PrimaryTileLastUpdateKey); }
-            set { Storage.SetSetting<DateTime?>(PrimaryTileLastUpdateKey, value); }
+            get { return _storageService.GetSetting<DateTime?>(PrimaryTileLastUpdateKey); }
+            set { _storageService.SetSetting<DateTime?>(PrimaryTileLastUpdateKey, value); }
         }
 
         internal IBackgroundTaskRegistration PrimaryTileTimerUpdateRegistration
             => BackgroundTaskRegistration.AllTasks.FirstOrDefault(
                     x => x.Value.Name == PrimaryTileTimerUpdateBackgroundTaskName).Value;
-
-        private IStorageService Storage => ServiceLocator.Current.SettingService;
 
         /// <summary>
         /// Register Background Tasks for SmokSmog Application
@@ -73,7 +73,7 @@ namespace SmokSmog
                 // Without this line sometimes TimeTriggers don't work
                 BackgroundExecutionManager.RemoveAccess();
 
-                // Explicit gets the package-relative app identifier (PRAID) for the process.
+                // Explicit gets the package-relative application identifier (PRAID) for the process.
                 var praid = Windows.ApplicationModel.Core.CoreApplication.Id;
 
                 // this line should be run from UI Thread (even for some Windows 10 Devices)
@@ -82,7 +82,7 @@ namespace SmokSmog
                 var registration = PrimaryTileTimerUpdateRegistration;
 
                 // if background task can not be registered or user disable primary live tile in settings
-                if (!CanRegisterBackgroundTasksFromStatus(status) || !Settings.Current.PrimaryLiveTileEnable)
+                if (!CanRegisterBackgroundTasksFromStatus(status) || !_settingsService.PrimaryLiveTileEnable)
                 {
                     if (registration != null)
                         UnregisterTasks();

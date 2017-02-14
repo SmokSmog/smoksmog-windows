@@ -38,9 +38,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Parameter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Station.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\StationData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Net\Http\HttpClientProxy.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Net\Http\HttpRequestException.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Net\Http\IHttpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\WinRTResourceManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Data\AsyncDataProviderBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Data\GiosRestApiDataService.cs" />
@@ -52,15 +49,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationTimeOutException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\IGeolocationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\HttpClientProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\HttpRequestException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\IHttpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Network\NetworkInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Notification\ITilesService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Notification\TilesService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Search\SearchQuerry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Settings\ISettingsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Settings\SettingsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\IStorageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\StorageService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Threading\AsyncBridge.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TilesManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Tiles\TileMedium.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AqiInformationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\FavoritesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GeolocationViewModel.cs" />
@@ -111,10 +112,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Controls\Large.xml" />
     <Content Include="$(MSBuildThisFileDirectory)Controls\Medium.xml" />
     <Content Include="$(MSBuildThisFileDirectory)Controls\Wide.xml" />
-    <Content Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml" />
-    <Content Include="$(MSBuildThisFileDirectory)Tiles\TileMedium.xaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Controls\Large.xaml">

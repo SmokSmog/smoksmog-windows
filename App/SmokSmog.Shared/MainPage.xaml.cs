@@ -21,7 +21,7 @@ namespace SmokSmog
         {
             base.OnNavigatedTo(e);
 
-            await TilesManager.Current.Initialize();
+            await TilesService.Current.Initialize();
 
             ////#if WINDOWS_UWP
             ////            TilesBackgroundTask a = new TilesBackgroundTask();

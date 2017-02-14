@@ -40,7 +40,7 @@ namespace SmokSmog.Notification
         {
             // if primary tile is disabled by user in application settings
             // clear tile and return
-            if (!TilesManager.Current.IsPrimaryTileNotificationEnable)
+            if (!TilesService.Current.IsPrimaryTileNotificationEnable)
             {
                 TileUpdateManager.CreateTileUpdaterForApplication().Clear();
                 return;
@@ -94,7 +94,7 @@ namespace SmokSmog.Notification
             }
             finally
             {
-                TilesManager.Current.PrimaryTileLastUpdate = DateTime.Now;
+                TilesService.Current.PrimaryTileLastUpdate = DateTime.Now;
             }
         }
 

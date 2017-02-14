@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 
-namespace SmokSmog.Net.Http
+namespace SmokSmog.Services.Network
 {
     public class HttpClientProxy : IHttpClient
     {

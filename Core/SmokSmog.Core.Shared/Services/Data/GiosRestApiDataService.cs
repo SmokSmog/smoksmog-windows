@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SmokSmog.Model;
-using SmokSmog.Net.Http;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace SmokSmog.Services.Data
 {
+    using Network;
+
     public class GiosRestApiDataService : RestDataProviderBase
     {
         public GiosRestApiDataService(IHttpClient httpClient) :
