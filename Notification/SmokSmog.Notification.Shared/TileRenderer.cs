@@ -1,5 +1,6 @@
 ﻿using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Text;
+using SmokSmog.Model;
 using SmokSmog.ViewModel;
 using System;
 using System.IO;
@@ -10,92 +11,32 @@ using Windows.UI;
 
 namespace SmokSmog.Notification
 {
-    internal class TileRenderer
+    internal class TileRenderer : IDisposable
     {
-        private readonly Uri[] imageUris = new[]
-        {
-            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryGood-square.png"),
-            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Good-square.png"),
-            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Moderate-square.png"),
-            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Sufficient-square.png"),
-            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Bad-square.png"),
-            new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryBad-square.png"),
-        };
+        private CanvasBitmap[] _bitmaps;
 
-        public async Task RenderMediumTileFront(string filename, StationViewModel stationViewModel)
-        {
-            MemoryInfo.DebugMemoryStatus("Start Rendering Medium Tile");
+        private CanvasDevice _device;
 
-            using (var device = CanvasDevice.GetSharedDevice())
+        public TileRenderer()
+        {
+            _device = CanvasDevice.GetSharedDevice();
+        }
+
+        public void Dispose()
+        {
+            if (_bitmaps != null)
             {
-                CanvasBitmap[] bitmaps = new[]
-                {
-                    await CanvasBitmap.LoadAsync(device, imageUris[0]),
-                    //await CanvasBitmap.LoadAsync(device, imageUris[1]),
-                    //await CanvasBitmap.LoadAsync(device, imageUris[2]),
-                    //await CanvasBitmap.LoadAsync(device, imageUris[3]),
-                    //await CanvasBitmap.LoadAsync(device, imageUris[4]),
-                    //await CanvasBitmap.LoadAsync(device, imageUris[5]),
-                };
-
-                MemoryInfo.DebugMemoryStatus("After loading Bitmaps");
-
-                // scale-200
-                var size = new Size(300, 300);
-
-                using (var renderTarget = new CanvasRenderTarget(device, (float)size.Width, (float)size.Height, 96f))
-                {
-                    MemoryInfo.DebugMemoryStatus("After creating renderTarget");
-
-                    using (var session = renderTarget.CreateDrawingSession())
-                    {
-                        MemoryInfo.DebugMemoryStatus("After creating session");
-
-                        using (CanvasTextFormat textFromat = new CanvasTextFormat
-                        {
-                            FontFamily = "Segoe UI",
-                            FontSize = 40,
-                            HorizontalAlignment = CanvasHorizontalAlignment.Left,
-                            VerticalAlignment = CanvasVerticalAlignment.Center,
-                        })
-                        {
-                            MemoryInfo.DebugMemoryStatus("Start Drawing SbuGroup");
-
-                            session.DrawImage(bitmaps[0], new Rect(5, 70, 140, 140));
-                            bitmaps[0].Dispose();
-
-                            DateTime date = DateTime.Now;
-
-                            session.DrawText(stationViewModel.AirQualityIndex.Text, new Rect(20, 20, 300, 50), Colors.White, textFromat);
-
-                            session.DrawText(date.ToString("HH:mm"), new Rect(150, 100, 150, 50), Colors.White, textFromat);
-                            session.DrawText(date.ToString("ddd"), new Rect(150, 170, 150, 50), Colors.White, textFromat);
-
-                            MemoryInfo.DebugMemoryStatus("End Drawing SbuGroup");
-
-                            textFromat.Dispose();
-                        }
-
-                        session.Dispose();
-                    }
-                    MemoryInfo.DebugMemoryStatus("After end session");
-
-                    var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, filename);
-                    await renderTarget.SaveAsync(path, CanvasBitmapFileFormat.Png);
-                    MemoryInfo.DebugMemoryStatus("After save renderTarget");
-                    renderTarget.Dispose();
-                }
-                MemoryInfo.DebugMemoryStatus("After release renderTarget");
-
                 // free bitmap resources
-                for (int i = 0; i < bitmaps.Length; i++)
+                for (int i = 0; i < _bitmaps.Length; i++)
                 {
-                    bitmaps[i].Dispose();
-                    bitmaps[i] = null;
+                    _bitmaps[i].Dispose();
+                    _bitmaps[i] = null;
                 }
-                bitmaps = null;
-                device.Dispose();
+                _bitmaps = null;
             }
+
+            _device?.Dispose();
+            _device = null;
             MemoryInfo.DebugMemoryStatus("After release device");
         }
 
@@ -103,67 +44,112 @@ namespace SmokSmog.Notification
         {
             MemoryInfo.DebugMemoryStatus("Start Rendering Medium Tile");
 
-            using (var device = CanvasDevice.GetSharedDevice())
+            await LoadBitmaps();
+
+            // scale-200
+            var size = new Size(300, 300);
+
+            using (var renderTarget = new CanvasRenderTarget(_device, (float)size.Width, (float)size.Height, 96f))
             {
-                CanvasBitmap[] bitmaps = new[]
+                MemoryInfo.DebugMemoryStatus("After creating renderTarget");
+
+                using (var session = renderTarget.CreateDrawingSession())
                 {
-                    await CanvasBitmap.LoadAsync(device, imageUris[0]),
-                    //await CanvasBitmap.LoadAsync(device, imageUris[1]),
-                    //await CanvasBitmap.LoadAsync(device, imageUris[2]),
-                    //await CanvasBitmap.LoadAsync(device, imageUris[3]),
-                    //await CanvasBitmap.LoadAsync(device, imageUris[4]),
-                    //await CanvasBitmap.LoadAsync(device, imageUris[5]),
-                };
+                    MemoryInfo.DebugMemoryStatus("After creating session");
 
-                MemoryInfo.DebugMemoryStatus("After loading Bitmaps");
-
-                // scale-200
-                var size = new Size(300, 300);
-
-                using (var renderTarget = new CanvasRenderTarget(device, (float)size.Width, (float)size.Height, 96f))
-                {
-                    MemoryInfo.DebugMemoryStatus("After creating renderTarget");
-
-                    using (var session = renderTarget.CreateDrawingSession())
+                    for (var i = 0; i < 2 && i < stationViewModel.AqiComponents.Count; i++)
                     {
-                        MemoryInfo.DebugMemoryStatus("After creating session");
-
-                        for (var i = 0; i < 2 && i < stationViewModel.AqiComponents.Count; i++)
-                        {
-                            var model = stationViewModel.AqiComponents[i];
-                            RenderSubGroup(session,
-                                bitmaps[0],
-                                model.Parameter.ShortName,
-                                model.Latest.Avg1Hour?.ToString("0.0"),
-                                model.Parameter.Unit,
-                                i * 150,
-                                0);
-                        }
-                        //RenderSubGroup(session, bitmaps[0], "PM₁₀", "142.0", "µg/m³", 0, 0);
-                        //RenderSubGroup(session, bitmaps[0], "PM₁₀", "142.0", "µg/m³", 150, 0);
-
-                        bitmaps[0].Dispose();
-                        session.Dispose();
+                        var model = stationViewModel.AqiComponents[i];
+                        RenderSubGroup(session,
+                            _bitmaps[(int)model.AirQualityIndex.Level],
+                            model.Parameter.ShortName,
+                            model.Latest.Avg1Hour?.ToString("0.0"),
+                            model.Parameter.Unit,
+                            i * 150,
+                            0);
                     }
-                    MemoryInfo.DebugMemoryStatus("After end session");
-
-                    var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, filename);
-                    await renderTarget.SaveAsync(path, CanvasBitmapFileFormat.Png);
-                    MemoryInfo.DebugMemoryStatus("After save renderTarget");
-                    renderTarget.Dispose();
+                    //RenderSubGroup(session, bitmaps[0], "PM₁₀", "142.0", "µg/m³", 0, 0);
+                    //RenderSubGroup(session, bitmaps[0], "PM₁₀", "142.0", "µg/m³", 150, 0);
+                    session.Dispose();
                 }
-                MemoryInfo.DebugMemoryStatus("After release renderTarget");
+                MemoryInfo.DebugMemoryStatus("After end session");
 
-                // free bitmap resources
-                for (int i = 0; i < bitmaps.Length; i++)
-                {
-                    bitmaps[i].Dispose();
-                    bitmaps[i] = null;
-                }
-                bitmaps = null;
-                device.Dispose();
+                var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, filename);
+                await renderTarget.SaveAsync(path, CanvasBitmapFileFormat.Png);
+                MemoryInfo.DebugMemoryStatus("After save renderTarget");
+                renderTarget.Dispose();
             }
-            MemoryInfo.DebugMemoryStatus("After release device");
+            MemoryInfo.DebugMemoryStatus("After release renderTarget");
+        }
+
+        public async Task RenderMediumTileFront(string filename, StationViewModel stationViewModel)
+        {
+            MemoryInfo.DebugMemoryStatus("Start Rendering Medium Tile");
+
+            await LoadBitmaps();
+
+            MemoryInfo.DebugMemoryStatus("After loading Bitmaps");
+
+            // scale-200
+            var size = new Size(300, 300);
+
+            using (var renderTarget = new CanvasRenderTarget(_device, (float)size.Width, (float)size.Height, 96f))
+            {
+                MemoryInfo.DebugMemoryStatus("After creating renderTarget");
+
+                using (var session = renderTarget.CreateDrawingSession())
+                {
+                    MemoryInfo.DebugMemoryStatus("After creating session");
+
+                    using (CanvasTextFormat textFromat = new CanvasTextFormat
+                    {
+                        FontFamily = "Segoe UI",
+                        FontSize = 40,
+                        HorizontalAlignment = CanvasHorizontalAlignment.Left,
+                        VerticalAlignment = CanvasVerticalAlignment.Center,
+                    })
+                    {
+                        MemoryInfo.DebugMemoryStatus("Start Drawing SbuGroup");
+
+                        if (stationViewModel.AirQualityIndex.Level != AirQualityLevel.NotAvailable)
+                            session.DrawImage(_bitmaps[(int)stationViewModel.AirQualityIndex.Level], new Rect(70, 70, 160, 160));
+
+                        session.DrawText(stationViewModel.AirQualityIndex.Text, new Rect(20, 20, 300, 50), Colors.White, textFromat);
+
+                        //DateTime date = DateTime.Now;
+                        //session.DrawText(date.ToString("HH:mm"), new Rect(150, 100, 150, 50), Colors.White, textFromat);
+                        //session.DrawText(date.ToString("ddd"), new Rect(150, 170, 150, 50), Colors.White, textFromat);
+
+                        MemoryInfo.DebugMemoryStatus("End Drawing SbuGroup");
+
+                        textFromat.Dispose();
+                    }
+                    session.Dispose();
+                }
+                MemoryInfo.DebugMemoryStatus("After end session");
+
+                var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, filename);
+                await renderTarget.SaveAsync(path, CanvasBitmapFileFormat.Png);
+                MemoryInfo.DebugMemoryStatus("After save renderTarget");
+                renderTarget.Dispose();
+            }
+            MemoryInfo.DebugMemoryStatus("After release renderTarget");
+        }
+
+        private async Task LoadBitmaps()
+        {
+            if (_bitmaps != null) return;
+            _bitmaps = new[]
+            {
+                await CanvasBitmap.LoadAsync(_device, new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryGood-square.png")),
+                await CanvasBitmap.LoadAsync(_device, new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Good-square.png")),
+                await CanvasBitmap.LoadAsync(_device, new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Moderate-square.png")),
+                await CanvasBitmap.LoadAsync(_device, new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Sufficient-square.png")),
+                await CanvasBitmap.LoadAsync(_device, new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/Bad-square.png")),
+                await CanvasBitmap.LoadAsync(_device, new Uri("ms-appx:///SmokSmog.Core/Assets/Notification/VeryBad-square.png")),
+            };
+
+            MemoryInfo.DebugMemoryStatus("After loading Bitmaps");
         }
 
         private void RenderSubGroup(CanvasDrawingSession session, CanvasBitmap bitmap, string text1, string text2, string text3, float shiftX, float shiftY)

@@ -85,6 +85,12 @@ namespace SmokSmog.Notification
 
                 if (vm.IsValidStation)
                 {
+                    if (_cancelRequested)
+                    {
+                        TileUpdateManager.CreateTileUpdaterForApplication().Clear();
+                        return;
+                    }
+
                     await RenderTiles(vm);
                     UpdateTile(vm);
                 }
@@ -131,36 +137,38 @@ namespace SmokSmog.Notification
 
         internal async Task RenderTiles(StationViewModel stationViewModel)
         {
-            TileRenderer tileRenderer = new TileRenderer();
-
-            try
+            using (TileRenderer tileRenderer = new TileRenderer())
             {
-                for (int i = 0; i < 1; i++)
+                try
                 {
-                    MemoryInfo.DebugMemoryStatus("Before Rendering Start");
+                    for (int i = 0; i < 1; i++)
+                    {
+                        MemoryInfo.DebugMemoryStatus("Before Rendering Start");
 
-                    await tileRenderer.RenderMediumTileBack($"LiveTileBack_{i}.png", stationViewModel);
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    GC.Collect();
+                        await tileRenderer.RenderMediumTileBack($"LiveTileBack_{i}.png", stationViewModel);
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
+                        GC.Collect();
 
-                    await tileRenderer.RenderMediumTileFront($"LiveTileFront_{i}.png", stationViewModel);
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    GC.Collect();
+                        await tileRenderer.RenderMediumTileFront($"LiveTileFront_{i}.png", stationViewModel);
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
+                        GC.Collect();
 
-                    MemoryInfo.DebugMemoryStatus("After GC Collection");
+                        MemoryInfo.DebugMemoryStatus("After GC Collection");
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex);
-                if (Debugger.IsAttached)
-                    Debugger.Break();
-            }
-            finally
-            {
-                await MemoryInfo.SaveLog("BackgroundTask.Memory.log");
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                    if (Debugger.IsAttached)
+                        Debugger.Break();
+                }
+                finally
+                {
+                    tileRenderer.Dispose();
+                    await MemoryInfo.SaveLog("BackgroundTask.Memory.log");
+                }
             }
         }
     }
