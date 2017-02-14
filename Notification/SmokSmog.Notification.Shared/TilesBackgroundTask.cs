@@ -1,6 +1,4 @@
-﻿using SmokSmog.Diagnostics;
-using SmokSmog.ViewModel;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
@@ -11,24 +9,53 @@ using Windows.UI.Notifications;
 
 namespace SmokSmog.Notification
 {
+    using Diagnostics;
+    using ViewModel;
+
     public sealed class TilesBackgroundTask : IBackgroundTask
     {
+        private BackgroundTaskCancellationReason _cancelReason = BackgroundTaskCancellationReason.Abort;
         private BackgroundTaskDeferral _deferral;
+        private volatile bool _cancelRequested = false;
 
+        /// <summary>
+        /// Primary Tile Updater Background Task
+        /// </summary>
+        /// <seealso cref="https://code.msdn.microsoft.com/windowsapps/Background-Task-Sample-9209ade9"/>
+        /// <param name="taskInstance"></param>
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             // Get a deferral, to prevent the task from closing prematurely while asynchronous code
             // is still running.
             _deferral = taskInstance.GetDeferral();
 
+            // Query BackgroundWorkCost
+            // Guidance: If BackgroundWorkCost is high, then perform only the minimum amount
+            // of work in the background task and return immediately.
             var log = await ApplicationData.Current.LocalFolder.CreateFileAsync("BackgroundTask.Execution.log", CreationCollisionOption.ReplaceExisting);
-            await FileIO.AppendTextAsync(log, $"\"Start\": \"{DateTime.Now:G}\",");
+            await FileIO.AppendTextAsync(log, $"\"Start\": \"{DateTime.Now:G}\", " +
+                                              $"\"Cost\": \"{BackgroundWorkCost.CurrentBackgroundWorkCost}\"");
+
+            // Associate a cancellation handler with the background task.
+            taskInstance.Canceled += new BackgroundTaskCanceledEventHandler(OnCanceled);
 
             await PrimaryTileRenderAndUpdate();
 
             await FileIO.AppendTextAsync(log, $"\"End\" : \"{DateTime.Now:G}\"");
             // Inform the system that the task is finished.
             _deferral.Complete();
+        }
+
+        // Handles background task cancellation.
+        private void OnCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        {
+            //
+            // Indicate that the background task is canceled.
+            //
+            _cancelRequested = true;
+            _cancelReason = reason;
+
+            Debug.WriteLine("Background " + sender.Task.Name + " Cancel Requested...");
         }
 
         public IAsyncAction RunAction(bool renderOnly)
@@ -38,15 +65,18 @@ namespace SmokSmog.Notification
 
         internal async Task PrimaryTileRenderAndUpdate(bool renderOnly = false)
         {
+            var tilesService = Services.ServiceLocator.Current.TilesService;
+            var settingsService = Services.ServiceLocator.Current.SettingsService;
+
             // if primary tile is disabled by user in application settings
             // clear tile and return
-            if (!TilesService.Current.IsPrimaryTileNotificationEnable)
+            if (!tilesService.IsPrimaryTileNotificationEnable)
             {
                 TileUpdateManager.CreateTileUpdaterForApplication().Clear();
                 return;
             }
 
-            var stationId = Settings.Current.HomeStationId;
+            var stationId = settingsService.HomeStationId;
             if (stationId.HasValue)
             {
                 //Download data (Set will download data from server)
@@ -94,7 +124,8 @@ namespace SmokSmog.Notification
             }
             finally
             {
-                TilesService.Current.PrimaryTileLastUpdate = DateTime.Now;
+                var tilesService = Services.ServiceLocator.Current.TilesService;
+                tilesService.PrimaryTileLastUpdate = DateTime.Now;
             }
         }
 

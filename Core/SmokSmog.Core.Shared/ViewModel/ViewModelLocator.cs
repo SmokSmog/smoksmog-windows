@@ -68,14 +68,7 @@ namespace SmokSmog.ViewModel
         {
             if (_isInitialized) return;
 
-            //if (GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
-            //{
-            //    SimpleIoc.Default.Register<DesignData.ViewModel.StationViewModel>();
-            //}
-            //else
-            //{
-            //    SimpleIoc.Default.Register<StationViewModel>();
-            //}
+            SmokSmog.Services.ServiceLocator.Initialize();
 
             SimpleIoc.Default.Register<AqiInformationViewModel>();
             SimpleIoc.Default.Register<FavoritesViewModel>();
@@ -84,6 +77,7 @@ namespace SmokSmog.ViewModel
             SimpleIoc.Default.Register<SearchViewModel>();
             SimpleIoc.Default.Register<StationViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
+
             _isInitialized = true;
         }
     }

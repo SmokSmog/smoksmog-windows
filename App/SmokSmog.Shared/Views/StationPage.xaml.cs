@@ -1,11 +1,13 @@
-﻿using SmokSmog.Model;
-using SmokSmog.Navigation;
-using SmokSmog.ViewModel;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog.Views
 {
+    using Model;
+    using Navigation;
+    using Services;
+    using ViewModel;
+
     [Navigation(ContentType = ContentType.Main)]
     public sealed partial class StationPage : Page
     {
@@ -41,9 +43,9 @@ namespace SmokSmog.Views
 
             if (e.Parameter?.ToString() == "Home")
             {
-                if (Settings.Current.HomeStationId.HasValue)
-                    await StationViewModel.SetStationAsync(Settings.Current.HomeStationId.Value);
-                return;
+                var settings = ServiceLocator.Current.SettingsService;
+                if (settings.HomeStationId.HasValue)
+                    await StationViewModel.SetStationAsync(settings.HomeStationId.Value);
             }
         }
     }

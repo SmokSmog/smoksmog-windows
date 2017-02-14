@@ -19,14 +19,8 @@ namespace SmokSmog
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            await Services.ServiceLocator.Current.TilesService.Initialize();
             base.OnNavigatedTo(e);
-
-            await TilesService.Current.Initialize();
-
-            ////#if WINDOWS_UWP
-            ////            TilesBackgroundTask a = new TilesBackgroundTask();
-            ////            await a.RunAction(true);
-            ////#endif
         }
 
         public bool IsMenuOpen

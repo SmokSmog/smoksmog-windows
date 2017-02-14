@@ -1,8 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-
 using Windows.Web.Http;
-using ServiceLocation = Microsoft.Practices.ServiceLocation;
 
 namespace SmokSmog.Services
 {
@@ -17,7 +15,7 @@ namespace SmokSmog.Services
     {
         private static IServiceLocator _current = null;
         private static bool _isInitialized = false;
-        private readonly ServiceLocation.IServiceLocator _locator;
+        private readonly Microsoft.Practices.ServiceLocation.IServiceLocator _locator;
 
         static ServiceLocator()
         {
@@ -27,7 +25,7 @@ namespace SmokSmog.Services
         public ServiceLocator()
         {
             Initialize();
-            _locator = ServiceLocation.ServiceLocator.Current;
+            _locator = Microsoft.Practices.ServiceLocation.ServiceLocator.Current;
         }
 
         public static IServiceLocator Current => _current ?? (_current = new ServiceLocator());
@@ -45,7 +43,7 @@ namespace SmokSmog.Services
         public IStorageService StorageService => _locator.GetInstance<IStorageService>();
 
         //#if WINDOWS_UWP || WINDOWS_APP || WINDOWS_PHONE_APP #endif
-        public ITilesService TilesService => _locator.GetInstance<TilesService>();
+        public ITilesService TilesService => _locator.GetInstance<ITilesService>();
 
         /// <summary>
         /// Cleans up all the resources.
@@ -80,10 +78,9 @@ namespace SmokSmog.Services
 
 #if WINDOWS_UWP || WINDOWS_APP || WINDOWS_PHONE_APP
             // we need to provide factory method since Tiles Service have internal constructor
-            SimpleIoc.Default.Register<TilesService>(
+            SimpleIoc.Default.Register<ITilesService>(
                 () => new TilesService(Current.SettingsService, Current.StorageService));
 #endif
-
             _isInitialized = true;
         }
     }
