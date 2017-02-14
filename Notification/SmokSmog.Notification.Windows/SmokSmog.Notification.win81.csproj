@@ -127,6 +127,10 @@
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
       <Name>SmokSmog.Core.Portable</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\SmokSmog.Core.Windows\SmokSmog.Core.win81.csproj">
+      <Project>{f8a355db-501a-4cef-9ca4-5a9c61a594a3}</Project>
+      <Name>SmokSmog.Core.win81</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\SmokSmog.Notification.Shared\SmokSmog.Notification.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />

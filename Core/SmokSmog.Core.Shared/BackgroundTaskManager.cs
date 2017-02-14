@@ -76,7 +76,8 @@ namespace SmokSmog
                     var builder = new BackgroundTaskBuilder()
                     {
                         Name = PrimaryTileTimerUpdateBackgroundTaskName,
-                        TaskEntryPoint = typeof(SmokSmog.Notification.TilesBackgroundTask).FullName,
+                        //TaskEntryPoint = typeof(SmokSmog.Notification.TilesBackgroundTask).FullName,
+                        TaskEntryPoint = "SmokSmog.Notification.TilesBackgroundTask",
 #if WINDOWS_UWP || WINDOWS_PHONE
                         // for Windows 10 and Windows Phone 8.1 we can add Network requirement
                         IsNetworkRequested = true
