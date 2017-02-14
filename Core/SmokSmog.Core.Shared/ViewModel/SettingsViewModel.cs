@@ -1,18 +1,40 @@
-﻿using System;
-using Windows.ApplicationModel.Background;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
+using System;
+using System.Threading.Tasks;
 
 namespace SmokSmog.ViewModel
 {
     public class SettingsViewModel : ViewModelBase
     {
-        public bool PrimaryTileNotificationEnable
+        public SettingsViewModel()
         {
-            get { return TilesManager.Current.IsPrimaryTileNotificationEnable; }
-            set
+        }
+
+        public bool CanPrimaryTileNotificationEnable
+            => TilesManager.Current.CanRegisterBackgroundTasks && Settings.Current.HomeStationId.HasValue;
+
+        public bool IsPrimaryTileNotificationEnable
+            => TilesManager.Current.IsPrimaryTileNotificationEnable;
+
+        public async Task TooglePrimaryTileNotification()
+        {
+            bool registered = false;
+            try
             {
-                TilesManager.Current.IsPrimaryTileNotificationEnable = value;
-                RaisePropertyChanged();
+                if (CanPrimaryTileNotificationEnable)
+                    registered = await TilesManager.Current.RegisterBackgroundTasks();
+                else
+                    TilesManager.Current.UnregisterTasks();
+            }
+            catch (Exception exception)
+            {
+                Diagnostics.Logger.Log(exception);
+            }
+            finally
+            {
+                Settings.Current.PrimaryLiveTileEnable = registered;
+                RaisePropertyChanged(nameof(IsPrimaryTileNotificationEnable));
+                RaisePropertyChanged(nameof(CanPrimaryTileNotificationEnable));
             }
         }
 
@@ -36,9 +58,5 @@ namespace SmokSmog.ViewModel
         //        }
         //    }
         //}
-
-        public SettingsViewModel()
-        {
-        }
     }
 }

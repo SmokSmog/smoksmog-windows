@@ -17,11 +17,11 @@ namespace SmokSmog
             this.Unloaded += MainPageUnloaded;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            //await BackgroundTaskManager.RegisterBackgroundTasks();
+            await TilesManager.Current.Initialize();
 
             ////#if WINDOWS_UWP
             ////            TilesBackgroundTask a = new TilesBackgroundTask();

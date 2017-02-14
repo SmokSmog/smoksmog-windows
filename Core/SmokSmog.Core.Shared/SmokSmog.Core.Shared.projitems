@@ -9,7 +9,6 @@
     <Import_RootNamespace>SmokSmog</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)BackgroundTaskManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Large.xaml.cs">
       <DependentUpon>Large.xaml</DependentUpon>
     </Compile>

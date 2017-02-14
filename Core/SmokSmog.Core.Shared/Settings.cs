@@ -15,7 +15,7 @@ namespace SmokSmog
         public const string LastLaunchedVersionKey = "LastLaunchedVersion";
         public const string LastMainViewKey = "LastMainView";
         public const string PrimaryLiveTileEnableKey = "PrimaryLiveTileEnable";
-        public const string UseLocalizationKey = "UseLocalization";
+        public const string LocalizationEnableKey = "LocalizationEnable";
 
         private static Settings _settings = null;
         private ObservableCollection<int> _favoritesStationsList = null;
@@ -75,9 +75,13 @@ namespace SmokSmog
             }
         }
 
-        public bool? PrimaryLiveTileEnable
+        /// <summary>
+        /// User can enable or disable primary tile updates
+        /// By default it return true (if not specify)
+        /// </summary>
+        public bool PrimaryLiveTileEnable
         {
-            get { return Storage.GetSetting<bool?>(PrimaryLiveTileEnableKey); }
+            get { return Storage.GetSetting<bool?>(PrimaryLiveTileEnableKey) ?? true; }
             set
             {
                 Storage.SetSetting<bool?>(PrimaryLiveTileEnableKey, value);
@@ -85,12 +89,16 @@ namespace SmokSmog
             }
         }
 
-        public bool? UseLocalization
+        /// <summary>
+        /// User can enable or disable Localization Services in application
+        /// By default it return true (if not specify)
+        /// </summary>
+        public bool LocalizationEnable
         {
-            get { return Storage.GetSetting<bool?>(UseLocalizationKey); }
+            get { return Storage.GetSetting<bool?>(LocalizationEnableKey) ?? true; }
             set
             {
-                Storage.SetSetting<bool?>(UseLocalizationKey, value);
+                Storage.SetSetting<bool?>(LocalizationEnableKey, value);
                 RaisePropertyChanged();
             }
         }

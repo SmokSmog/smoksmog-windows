@@ -25,6 +25,45 @@ namespace SmokSmog.ViewModel
     {
         private static bool _isInitialized = false;
 
+        static ViewModelLocator()
+        {
+            Initialize();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the ViewModelLocator class.
+        /// </summary>
+        public ViewModelLocator()
+        {
+            Initialize();
+        }
+
+        public AqiInformationViewModel AqiInformationViewModel
+            => ServiceLocator.Current.GetInstance<AqiInformationViewModel>();
+
+        public FavoritesViewModel FavoritesViewModel
+            => ServiceLocator.Current.GetInstance<FavoritesViewModel>();
+
+        public GeolocationViewModel GeolocationViewModel
+            => ServiceLocator.Current.GetInstance<GeolocationViewModel>();
+
+        public GroupedViewModel GroupedViewModel
+            => ServiceLocator.Current.GetInstance<GroupedViewModel>();
+
+        public SearchViewModel SearchViewModel
+            => ServiceLocator.Current.GetInstance<SearchViewModel>();
+
+        public SettingsViewModel SettingsViewModel
+            => ServiceLocator.Current.GetInstance<SettingsViewModel>();
+
+        public StationViewModel StationViewModel
+            => ServiceLocator.Current.GetInstance<StationViewModel>();
+
+        public static void Cleanup()
+        {
+            // TODO Clear the ViewModels
+        }
+
         public static void Initialize()
         {
             if (_isInitialized) return;
@@ -44,55 +83,8 @@ namespace SmokSmog.ViewModel
             SimpleIoc.Default.Register<GroupedViewModel>();
             SimpleIoc.Default.Register<SearchViewModel>();
             SimpleIoc.Default.Register<StationViewModel>();
+            SimpleIoc.Default.Register<SettingsViewModel>();
             _isInitialized = true;
-        }
-
-        static ViewModelLocator()
-        {
-            Initialize();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the ViewModelLocator class.
-        /// </summary>
-        public ViewModelLocator()
-        {
-            Initialize();
-        }
-
-        public FavoritesViewModel FavoritesViewModel
-        {
-            get { return ServiceLocator.Current.GetInstance<FavoritesViewModel>(); }
-        }
-
-        public GeolocationViewModel GeolocationViewModel
-        {
-            get { return ServiceLocator.Current.GetInstance<GeolocationViewModel>(); }
-        }
-
-        public GroupedViewModel GroupedViewModel
-        {
-            get { return ServiceLocator.Current.GetInstance<GroupedViewModel>(); }
-        }
-
-        public SearchViewModel SearchViewModel
-        {
-            get { return ServiceLocator.Current.GetInstance<SearchViewModel>(); }
-        }
-
-        public StationViewModel StationViewModel
-        {
-            get { return ServiceLocator.Current.GetInstance<StationViewModel>(); }
-        }
-
-        public AqiInformationViewModel AqiInformationViewModel
-        {
-            get { return ServiceLocator.Current.GetInstance<AqiInformationViewModel>(); }
-        }
-
-        public static void Cleanup()
-        {
-            // TODO Clear the ViewModels
         }
     }
 }
