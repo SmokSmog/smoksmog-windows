@@ -6,8 +6,8 @@ $win81 = [pscustomobject]@{
 	Assets = 7,9,10,11,2,6,1,4
 }
 
-$wp81 = [pscustomobject]@{
-	Name = "wp81"
+$wpa81 = [pscustomobject]@{
+	Name = "wpa81"
 	Folder = "./App/SmokSmog.WindowsPhone/"
 	Scales = 240,140,100
 	Target = 0
@@ -22,7 +22,7 @@ $uwp = [pscustomobject]@{
 	Assets = 8,9,10,11,3,6,1,4
 }
 
-$projects = $win81,$wp81,$uwp
+$projects = $win81,$wpa81,$uwp
 
 $filesNames =@{
  1 = "Assets\Badge\BadgeLogo";

@@ -17,16 +17,10 @@ namespace SmokSmog
             this.Unloaded += MainPageUnloaded;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            await Services.ServiceLocator.Current.TilesService.Initialize();
             base.OnNavigatedTo(e);
-
-            //await BackgroundTaskManager.RegisterBackgroundTasks();
-
-            ////#if WINDOWS_UWP
-            ////            TilesBackgroundTask a = new TilesBackgroundTask();
-            ////            await a.RunAction(true);
-            ////#endif
         }
 
         public bool IsMenuOpen

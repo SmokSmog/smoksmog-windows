@@ -157,9 +157,9 @@
       <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
       <Name>SmokSmog.Core.Portable</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\SmokSmog.Core\SmokSmog.Core.csproj">
+    <ProjectReference Include="..\..\Core\SmokSmog.Core.Windows\SmokSmog.Core.win81.csproj">
       <Project>{f8a355db-501a-4cef-9ca4-5a9c61a594a3}</Project>
-      <Name>SmokSmog.Core</Name>
+      <Name>SmokSmog.Core.win81</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Notification\SmokSmog.Notification.Windows\SmokSmog.Notification.win81.csproj">
       <Project>{941b1e36-05de-46d8-8aa3-993455928f97}</Project>
@@ -213,7 +213,6 @@
     <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-80.png" />
   </ItemGroup>
   <Import Project="..\SmokSmog.Shared\SmokSmog.Shared.projitems" Label="Shared" />
-  <Import Project="..\..\Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems" Label="Shared" />
   <Import Project="..\..\Microsoft\Microsoft.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

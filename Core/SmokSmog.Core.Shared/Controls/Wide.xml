@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="SmokSmog.Controls.Tiles.Wide"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vc="using:SmokSmog.Xaml.Data.ValueConverters"
+             x:Name="This"
+             MinWidth="310"
+             MinHeight="150"
+             MaxWidth="310"
+             MaxHeight="150"
+             d:DataContext="{d:DesignData Source=../../DesignData/StationViewModel.xaml}"
+             d:DesignHeight="150"
+             d:DesignWidth="310"
+             DataContext="{Binding Source={StaticResource ViewModelLocator},
+                                   Path=StationViewModel}"
+             FontSize="20"
+             Foreground="White"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <vc:AqiToImage x:Key="AqiToImage" />
+        <vc:BooleanToVisability x:Key="BooleanToVisability" />
+        <vc:StringFormatConverter x:Key="StringFormatConverter" />
+        <vc:NumericFormatConverter x:Key="NumericFormatConverter" />
+    </UserControl.Resources>
+
+    <Grid Background="DimGray">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="FrontContent" Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Source="{Binding AirQualityIndex, Converter={StaticResource AqiToImage}}" />
+
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                <TextBlock FontSize="25" Text="{Binding AirQualityIndex.Text}" />
+                <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='[0:dd.MM.yyyy HH:mm]'}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="LightGray" Text="AQI : &#160;" />
+                    <TextBlock Foreground="LightGray" Text="{Binding AirQualityIndex.Value, Converter={StaticResource NumericFormatConverter}, ConverterParameter='[0:0.0]'}" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <GridView x:Name="BackContent"
+                  Grid.Row="0"
+                  Margin="0,10,0,0"
+                  HorizontalAlignment="Center"
+                  IsItemClickEnabled="True"
+                  ItemsSource="{Binding Parameters}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  SelectionMode="None"
+                  ShowsScrollingPlaceholders="False"
+                  Visibility="Collapsed">
+
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Margin" Value="5,5" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Foreground" Value="White" />
+                </Style>
+            </GridView.ItemContainerStyle>
+
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Width="60"
+                                MinWidth="60"
+                                MinHeight="200"
+                                MaxWidth="60"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                        <TextBlock Text="{Binding Parameter.ShortName}" TextAlignment="Center" />
+                        <Image Source="{Binding Latest.Aqi, Converter={StaticResource AqiToImage}}" />
+                        <TextBlock Text="{Binding Latest.Avg1Hour}" TextAlignment="Center" />
+                        <TextBlock Foreground="LightGray"
+                                   Text="{Binding Parameter.Unit}"
+                                   TextAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+        <TextBlock Grid.Row="1"
+                   Margin="10,0,0,10"
+                   VerticalAlignment="Bottom"
+                   FontSize="18"
+                   Text="{Binding Station.Name}"
+                   Visibility="{Binding ElementName=This,
+                                        Path=ShowName,
+                                        Converter={StaticResource BooleanToVisability}}" />
+    </Grid>
+</UserControl>

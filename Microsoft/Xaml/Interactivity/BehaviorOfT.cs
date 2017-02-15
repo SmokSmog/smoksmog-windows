@@ -22,7 +22,7 @@ namespace Microsoft.Xaml.Interactivity
         {
             get { return base.AssociatedObject as T; }
         }
-
+        
         /// <summary>
         /// Called after the behavior is attached to the <see cref="Microsoft.Xaml.Interactivity.Behavior.AssociatedObject"/>.
         /// </summary>
