@@ -19,7 +19,10 @@ namespace SmokSmog
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await Services.ServiceLocator.Current.TilesService.Initialize();
+            // here is good place to setup background tasks
+
+            var tileService = Services.ServiceLocator.Current.TilesService;
+            await tileService.Initialize();
             base.OnNavigatedTo(e);
         }
 

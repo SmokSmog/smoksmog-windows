@@ -17,6 +17,8 @@
                 IsEnabled="{Binding CanPrimaryTileNotificationEnable}">Show home station statuses on Primary Live Tile</ToggleSwitch>
 
             <ToggleSwitch>Allow using Localization</ToggleSwitch>
+            
+            <TextBlock Name="LogTextBlock"/>
         </StackPanel>
     </Grid>
 </Page>

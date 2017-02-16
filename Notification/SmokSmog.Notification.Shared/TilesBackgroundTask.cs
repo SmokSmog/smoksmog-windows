@@ -109,10 +109,31 @@ namespace SmokSmog.Notification
                 TileUpdateManager.CreateTileUpdaterForApplication().Clear();
                 TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
 
-                var tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Image);
+#if WINDOWS_UWP
+
+                var template =
+                    $"<tile><visual version=\"4\">" +
+                    $"<binding template=\"TileSquare150x150Image\" fallback=\"TileSquareImage\" branding=\"nameAndLogo\" displayName=\"{stationViewModel.Station.Name}\">" +
+                    $"<image id=\"1\" src=\"ms-appdata:///local/LiveTileFront_0.png\"/>" +
+                    $"</binding></visual></tile>";
+
+#elif WINDOWS_APP || WINDOWS_PHONE_APP
+
+                var template =
+                    $"<tile><visual version=\"4\">" +
+                    $"<binding template=\"TileSquare150x150Image\" fallback=\"TileSquareImage\" branding=\"logo\" displayName=\"{stationViewModel.Station.Name}\">" +
+                    $"<image id=\"1\" src=\"ms-appdata:///local/LiveTileFront_0.png\"/>" +
+                    $"</binding></visual></tile>";
+#endif
+
+                //var tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Image);
+                var tileXml = new XmlDocument();
+                tileXml.LoadXml(template);
 
                 var tileImage = tileXml.GetElementsByTagName("image")[0] as XmlElement;
-                tileImage.SetAttribute("src", "ms-appdata:///local/LiveTileFront_0.png");
+                //tileImage?.SetAttribute("src", "ms-appdata:///local/LiveTileFront_0.png");
+                //tileXml.GetElementsByTagName()
+
                 var tileNotification = new TileNotification(tileXml)
                 {
                     Tag = "front",
@@ -120,7 +141,7 @@ namespace SmokSmog.Notification
                 };
                 TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
 
-                tileImage.SetAttribute("src", "ms-appdata:///local/LiveTileBack_0.png");
+                tileImage?.SetAttribute("src", "ms-appdata:///local/LiveTileBack_0.png");
                 tileNotification = new TileNotification(tileXml)
                 {
                     Tag = "back",

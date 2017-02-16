@@ -1,21 +1,24 @@
-﻿using SmokSmog.Diagnostics;
+﻿using GalaSoft.MvvmLight;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
+using Windows.UI.Notifications;
 
 namespace SmokSmog.Services.Notification
 {
+    using Diagnostics;
     using Settings;
     using Storage;
 
-    public sealed class TilesService : ITilesService
+    public sealed class TilesService : ObservableObject, ITilesService
     {
-        private readonly ISettingsService _settingsService;
-        private readonly IStorageService _storageService;
         public const string PrimaryTileTimerUpdateBackgroundTaskName = "primaryTileTimerUpdateBackgroundTask";
         private const string PrimaryTileLastUpdateKey = "TilesManager.PrimaryTileLastUpdate";
+        private readonly ISettingsService _settingsService;
+        private readonly IStorageService _storageService;
+        private BackgroundAccessStatus _lastBackgroundAccessStatus = BackgroundAccessStatus.Unspecified;
 
         internal TilesService(ISettingsService settingsService, IStorageService storageService)
         {
@@ -23,24 +26,18 @@ namespace SmokSmog.Services.Notification
             _storageService = storageService;
         }
 
+        /// <summary>
+        /// For Windows 8.1 call this in OnNavigatedTo form MainPage
+        /// </summary>
+        /// <returns></returns>
         public bool CanRegisterBackgroundTasks
-        {
-            get
-            {
-                // Explicit gets the package-relative application identifier (PRAID) for the process.
-                var praid = Windows.ApplicationModel.Core.CoreApplication.Id;
-                var status = BackgroundExecutionManager.GetAccessStatus(praid);
-                return CanRegisterBackgroundTasksFromStatus(status);
-            }
-        }
-
-        public async Task Initialize()
-        {
-            await RegisterBackgroundTasks();
-        }
+            => CanRegisterBackgroundTasksFromStatus(_lastBackgroundAccessStatus);
 
         public bool IsPrimaryTileNotificationEnable
-            => _settingsService.PrimaryLiveTileEnable && IsPrimaryTileTimerUpdateRegidtered;
+        {
+            get { return _settingsService.PrimaryLiveTileEnable; }
+            set { _settingsService.PrimaryLiveTileEnable = value; }
+        }
 
         public bool IsPrimaryTileTimerUpdateRegidtered
             => PrimaryTileTimerUpdateRegistration != null;
@@ -51,12 +48,21 @@ namespace SmokSmog.Services.Notification
         public DateTime? PrimaryTileLastUpdate
         {
             get { return _storageService.GetSetting<DateTime?>(PrimaryTileLastUpdateKey); }
-            set { _storageService.SetSetting<DateTime?>(PrimaryTileLastUpdateKey, value); }
+            set
+            {
+                _storageService.SetSetting<DateTime?>(PrimaryTileLastUpdateKey, value);
+                RaisePropertyChanged();
+            }
         }
 
         internal IBackgroundTaskRegistration PrimaryTileTimerUpdateRegistration
             => BackgroundTaskRegistration.AllTasks.FirstOrDefault(
                     x => x.Value.Name == PrimaryTileTimerUpdateBackgroundTaskName).Value;
+
+        public async Task Initialize()
+        {
+            await RegisterBackgroundTasks();
+        }
 
         /// <summary>
         /// Register Background Tasks for SmokSmog Application
@@ -70,19 +76,20 @@ namespace SmokSmog.Services.Notification
         {
             try
             {
-                // Without this line sometimes TimeTriggers don't work
-                BackgroundExecutionManager.RemoveAccess();
-
                 // Explicit gets the package-relative application identifier (PRAID) for the process.
                 var praid = Windows.ApplicationModel.Core.CoreApplication.Id;
 
+                // Without this line sometimes TimeTriggers don't work
+                BackgroundExecutionManager.RemoveAccess();
+
                 // this line should be run from UI Thread (even for some Windows 10 Devices)
-                var status = await BackgroundExecutionManager.RequestAccessAsync(praid);
+                _lastBackgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync(praid);
+                RaisePropertyChanged(nameof(CanRegisterBackgroundTasks));
 
                 var registration = PrimaryTileTimerUpdateRegistration;
 
                 // if background task can not be registered or user disable primary live tile in settings
-                if (!CanRegisterBackgroundTasksFromStatus(status) || !_settingsService.PrimaryLiveTileEnable)
+                if (!CanRegisterBackgroundTasks || !IsPrimaryTileNotificationEnable || IsPrimaryTileTimerUpdateRegidtered)
                 {
                     if (registration != null)
                         UnregisterTasks();
@@ -98,7 +105,7 @@ namespace SmokSmog.Services.Notification
                         //TaskEntryPoint = typeof(SmokSmog.Notification.TilesBackgroundTask).FullName,
                         TaskEntryPoint = "SmokSmog.Notification.TilesBackgroundTask",
 #if WINDOWS_UWP || WINDOWS_PHONE
-                        // for Windows 10 and Windows Phone 8.1 we can add Network requirement
+// for Windows 10 and Windows Phone 8.1 we can add Network requirement
                         IsNetworkRequested = true
 #endif
                     };
@@ -131,16 +138,22 @@ namespace SmokSmog.Services.Notification
                 Logger.Log(ex);
                 Debug.WriteLine("The access has already been granted");
             }
+            finally
+            {
+                RaisePropertyChanged(nameof(IsPrimaryTileNotificationEnable));
+                RaisePropertyChanged(nameof(IsPrimaryTileTimerUpdateRegidtered));
+                RaisePropertyChanged(nameof(CanRegisterBackgroundTasks));
+            }
             return false;
         }
 
         public void UnregisterTasks()
         {
-            // Without this line sometimes TimeTriggers don't work
-            BackgroundExecutionManager.RemoveAccess();
-
             // Unregister
             PrimaryTileTimerUpdateRegistration?.Unregister(true);
+
+            // if station is invalid clear and return
+            TileUpdateManager.CreateTileUpdaterForApplication().Clear();
         }
 
         private bool CanRegisterBackgroundTasksFromStatus(BackgroundAccessStatus status)

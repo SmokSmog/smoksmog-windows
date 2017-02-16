@@ -16,6 +16,8 @@ namespace SmokSmog.ViewModel
         {
             _settingsService = settingsService;
             _tilesService = tilesService;
+
+            tilesService.PropertyChanged += TilesService_PropertyChanged;
         }
 
         public bool CanPrimaryTileNotificationEnable
@@ -26,11 +28,11 @@ namespace SmokSmog.ViewModel
 
         public async Task TooglePrimaryTileNotification()
         {
-            bool registered = false;
+            var result = _tilesService.IsPrimaryTileNotificationEnable = !IsPrimaryTileNotificationEnable;
             try
             {
-                if (CanPrimaryTileNotificationEnable)
-                    registered = await _tilesService.RegisterBackgroundTasks();
+                if (CanPrimaryTileNotificationEnable && result)
+                    result = await _tilesService.RegisterBackgroundTasks();
                 else
                     _tilesService.UnregisterTasks();
             }
@@ -40,31 +42,16 @@ namespace SmokSmog.ViewModel
             }
             finally
             {
-                _settingsService.PrimaryLiveTileEnable = registered;
+                _tilesService.IsPrimaryTileNotificationEnable = result;
                 RaisePropertyChanged(nameof(IsPrimaryTileNotificationEnable));
                 RaisePropertyChanged(nameof(CanPrimaryTileNotificationEnable));
             }
         }
 
-        //public bool IsBackgroundTasksEnable
-        //{
-        //    get
-        //    {
-        //        var status = BackgroundExecutionManager.GetAccessStatus("App");
-        //        switch (status)
-        //        {
-        //            case BackgroundAccessStatus.Unspecified:
-        //                break;
-        //            case BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity:
-        //                break;
-        //            case BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity:
-        //                break;
-        //            case BackgroundAccessStatus.Denied:
-        //                break;
-        //            default:
-        //                throw new ArgumentOutOfRangeException();
-        //        }
-        //    }
-        //}
+        private void TilesService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            RaisePropertyChanged(nameof(IsPrimaryTileNotificationEnable));
+            RaisePropertyChanged(nameof(CanPrimaryTileNotificationEnable));
+        }
     }
 }
