@@ -1,11 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using SmokSmog.Services.Data;
-using SmokSmog.Services.Settings;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SmokSmog.ViewModel
 {
+    using Services.Data;
+    using Services.Storage;
+
     public class FavoritesViewModel : StationsListBaseViewMode
     {
         private readonly ISettingsService _settingsService;

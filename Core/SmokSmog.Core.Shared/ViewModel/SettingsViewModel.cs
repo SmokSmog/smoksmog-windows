@@ -1,11 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Threading.Tasks;
 
 namespace SmokSmog.ViewModel
 {
     using Services.Notification;
-    using Services.Settings;
+    using Services.Storage;
 
     public class SettingsViewModel : ViewModelBase
     {
@@ -21,37 +19,33 @@ namespace SmokSmog.ViewModel
         }
 
         public bool CanPrimaryTileNotificationEnable
-            => _tilesService.CanRegisterBackgroundTasks && _settingsService.HomeStationId.HasValue;
+            => _tilesService.CanRegisterBackgroundTasks &&
+            _settingsService.HomeStationId.HasValue &&
+            _tilesService.IsPrimaryTileTimerUpdateRegidtered;
 
         public bool IsPrimaryTileNotificationEnable
-            => _tilesService.IsPrimaryTileNotificationEnable;
-
-        public async Task TooglePrimaryTileNotification()
         {
-            var result = _tilesService.IsPrimaryTileNotificationEnable = !IsPrimaryTileNotificationEnable;
-            try
+            get { return _tilesService.IsPrimaryTileNotificationEnable; }
+            set
             {
-                if (CanPrimaryTileNotificationEnable && result)
-                    result = await _tilesService.RegisterBackgroundTasks();
-                else
-                    _tilesService.UnregisterTasks();
-            }
-            catch (Exception exception)
-            {
-                Diagnostics.Logger.Log(exception);
-            }
-            finally
-            {
-                _tilesService.IsPrimaryTileNotificationEnable = result;
-                RaisePropertyChanged(nameof(IsPrimaryTileNotificationEnable));
-                RaisePropertyChanged(nameof(CanPrimaryTileNotificationEnable));
+                _tilesService.IsPrimaryTileNotificationEnable = value;
+                RaisePropertyChanged();
             }
         }
 
-        private void TilesService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private async void TilesService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(IsPrimaryTileNotificationEnable));
-            RaisePropertyChanged(nameof(CanPrimaryTileNotificationEnable));
+            switch (e.PropertyName)
+            {
+                case nameof(ITilesService.IsPrimaryTileNotificationEnable):
+                    RaisePropertyChanged(nameof(IsPrimaryTileNotificationEnable));
+                    await _tilesService.UpdatePrimaryTile();
+                    break;
+
+                case nameof(ITilesService.CanRegisterBackgroundTasks):
+                    RaisePropertyChanged(nameof(CanPrimaryTileNotificationEnable));
+                    break;
+            }
         }
     }
 }

@@ -1,11 +1,15 @@
-﻿using SmokSmog.Navigation;
-using SmokSmog.Views;
+﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog
 {
+    using Diagnostics;
+    using Navigation;
+    using Services;
+    using Views;
+
     public sealed partial class MainPage : Page
     {
         public MainPage()
@@ -19,10 +23,18 @@ namespace SmokSmog
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            // here is good place to setup background tasks
+            try
+            {
+                // here is good place to setup background tasks
+                var tileService = ServiceLocator.Current.TilesService;
+                await tileService.Initialize();
+                await tileService.UpdatePrimaryTile();
+            }
+            catch (Exception exception)
+            {
+                Logger.Log(exception);
+            }
 
-            var tileService = Services.ServiceLocator.Current.TilesService;
-            await tileService.Initialize();
             base.OnNavigatedTo(e);
         }
 

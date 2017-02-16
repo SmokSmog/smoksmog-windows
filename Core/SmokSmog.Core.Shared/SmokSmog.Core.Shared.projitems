@@ -57,11 +57,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Notification\TilesService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Search\SearchQuerry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ServiceLocator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Settings\ISettingsService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Settings\SettingsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\ISettingsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\IStorageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\SettingsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Storage\StorageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Threading\AsyncBridge.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tiles\MemoryInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tiles\TileRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tiles\Tiles.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tiles\TilesUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AqiInformationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\FavoritesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GeolocationViewModel.cs" />

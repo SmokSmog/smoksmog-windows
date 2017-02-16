@@ -7,7 +7,6 @@ using Windows.UI.Xaml.Controls;
 namespace SmokSmog.Views
 {
     using Navigation;
-    using ViewModel;
 
     [Navigation(ContentType = ContentType.Main)]
     public sealed partial class SettingsPage : Page
@@ -15,15 +14,6 @@ namespace SmokSmog.Views
         public SettingsPage()
         {
             this.InitializeComponent();
-
-            GetBackgroundLog();
-        }
-
-        public async void ToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
-        {
-            var vm = DataContext as SettingsViewModel;
-            if (vm == null) return;
-            await vm.TooglePrimaryTileNotification();
         }
 
         private async void GetBackgroundLog()
@@ -58,6 +48,14 @@ namespace SmokSmog.Views
             }
 
             LogTextBlock.Text = logBuilder.ToString();
+        }
+
+        private void ToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
+        {
+            if (ShowLogSwitch.IsOn)
+                GetBackgroundLog();
+            else
+                LogTextBlock.Text = string.Empty;
         }
     }
 }

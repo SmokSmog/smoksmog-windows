@@ -4,7 +4,6 @@
     using Geolocation;
     using Network;
     using Notification;
-    using Settings;
     using Storage;
 
     public interface IServiceLocator

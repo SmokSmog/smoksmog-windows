@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace SmokSmog.Services.Settings
+namespace SmokSmog.Services.Storage
 {
-    using Storage;
-
     public class SettingsService : ObservableObject, ISettingsService
     {
         public const string FavoritesStationsListKey = "FavoritesStationsList";

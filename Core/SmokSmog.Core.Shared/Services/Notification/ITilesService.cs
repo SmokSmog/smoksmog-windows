@@ -11,14 +11,11 @@ namespace SmokSmog.Services.Notification
         bool CanRegisterBackgroundTasks { get; }
         bool IsPrimaryTileNotificationEnable { get; set; }
         bool IsPrimaryTileTimerUpdateRegidtered { get; }
-        bool IsSecondaryTilesNotificationEnable { get; }
         DateTime? PrimaryTileLastUpdate { get; set; }
 
         Task Initialize();
 
-        Task<bool> RegisterBackgroundTasks();
-
-        void UnregisterTasks();
+        Task UpdatePrimaryTile();
     }
 }
 

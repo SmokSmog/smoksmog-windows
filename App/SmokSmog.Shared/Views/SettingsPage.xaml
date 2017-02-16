@@ -4,21 +4,19 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:SmokSmog.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      DataContext="{Binding Path=SettingsViewModel, Source={StaticResource ViewModelLocator}}"
+      DataContext="{Binding Path=SettingsViewModel,
+                            Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d">
 
     <Grid Background="{StaticResource SmokSmogPageBackgroundBrush}">
 
         <StackPanel>
 
-            <ToggleSwitch
-                Toggled="ToggleSwitch_OnToggled"
-                IsOn="{Binding IsPrimaryTileNotificationEnable}"
-                IsEnabled="{Binding CanPrimaryTileNotificationEnable}">Show home station statuses on Primary Live Tile</ToggleSwitch>
+            <ToggleSwitch IsEnabled="{Binding CanPrimaryTileNotificationEnable}" IsOn="{Binding IsPrimaryTileNotificationEnable, Mode=TwoWay}">Show home station statuses on Primary Live Tile</ToggleSwitch>
 
-            <ToggleSwitch>Allow using Localization</ToggleSwitch>
-            
-            <TextBlock Name="LogTextBlock"/>
+            <ToggleSwitch x:Name="ShowLogSwitch" Toggled="ToggleSwitch_OnToggled">Show Log</ToggleSwitch>
+
+            <TextBlock Name="LogTextBlock" />
         </StackPanel>
     </Grid>
 </Page>

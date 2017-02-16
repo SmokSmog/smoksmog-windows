@@ -9,8 +9,8 @@ using Windows.UI.Notifications;
 namespace SmokSmog.Services.Notification
 {
     using Diagnostics;
-    using Settings;
     using Storage;
+    using Tiles;
 
     public sealed class TilesService : ObservableObject, ITilesService
     {
@@ -18,32 +18,33 @@ namespace SmokSmog.Services.Notification
         private const string PrimaryTileLastUpdateKey = "TilesManager.PrimaryTileLastUpdate";
         private readonly ISettingsService _settingsService;
         private readonly IStorageService _storageService;
-        private BackgroundAccessStatus _lastBackgroundAccessStatus = BackgroundAccessStatus.Unspecified;
 
         internal TilesService(ISettingsService settingsService, IStorageService storageService)
         {
             _settingsService = settingsService;
             _storageService = storageService;
+
+            settingsService.PropertyChanged += SettingsService_PropertyChanged;
         }
 
         /// <summary>
         /// For Windows 8.1 call this in OnNavigatedTo form MainPage
         /// </summary>
         /// <returns></returns>
-        public bool CanRegisterBackgroundTasks
-            => CanRegisterBackgroundTasksFromStatus(_lastBackgroundAccessStatus);
+        public bool CanRegisterBackgroundTasks { get; private set; }
 
         public bool IsPrimaryTileNotificationEnable
         {
             get { return _settingsService.PrimaryLiveTileEnable; }
-            set { _settingsService.PrimaryLiveTileEnable = value; }
+            set
+            {
+                _settingsService.PrimaryLiveTileEnable = value;
+                RaisePropertyChanged();
+            }
         }
 
         public bool IsPrimaryTileTimerUpdateRegidtered
             => PrimaryTileTimerUpdateRegistration != null;
-
-        // TODO implement secondary tiles
-        public bool IsSecondaryTilesNotificationEnable => false;
 
         public DateTime? PrimaryTileLastUpdate
         {
@@ -59,11 +60,6 @@ namespace SmokSmog.Services.Notification
             => BackgroundTaskRegistration.AllTasks.FirstOrDefault(
                     x => x.Value.Name == PrimaryTileTimerUpdateBackgroundTaskName).Value;
 
-        public async Task Initialize()
-        {
-            await RegisterBackgroundTasks();
-        }
-
         /// <summary>
         /// Register Background Tasks for SmokSmog Application
         /// For Windows 8.1 it must be called from UI Thread (best place is MainPage OnNavigatedTo method)
@@ -72,29 +68,83 @@ namespace SmokSmog.Services.Notification
         /// </summary>
         /// <seealso cref="https://docs.microsoft.com/en-us/uwp/api/Windows.ApplicationModel.Background.BackgroundExecutionManager#Windows_ApplicationModel_Background_BackgroundExecutionManager_RequestAccessAsync_System_String_"/>
         /// <returns></returns>
-        public async Task<bool> RegisterBackgroundTasks()
+        public async Task Initialize()
+        {
+            // if there is at least one registered task it means we can register
+            // there is a bug on Windows 8.1 WinRT (PC)
+            // when we ask for access more then once we got always Denied
+            if (IsPrimaryTileTimerUpdateRegidtered)
+            {
+                CanRegisterBackgroundTasks = true;
+                return;
+            }
+
+            // Without this line sometimes TimeTriggers don't work
+            BackgroundExecutionManager.RemoveAccess();
+
+            // Explicit gets the package-relative application identifier (PRAID) for the process.
+            var praid = Windows.ApplicationModel.Core.CoreApplication.Id;
+
+            // this line should be run from UI Thread (even for some Windows 10 Devices)
+            var status = await BackgroundExecutionManager.RequestAccessAsync(praid);
+
+            CanRegisterBackgroundTasks = CanRegisterBackgroundTasksFromStatus(status);
+
+            RaisePropertyChanged(nameof(CanRegisterBackgroundTasks));
+
+            if (CanRegisterBackgroundTasks)
+                RegisterBackgroundTasks();
+            else
+                UnregisterTasks();
+        }
+
+        public async Task UpdatePrimaryTile()
+        {
+            if (IsPrimaryTileNotificationEnable &&
+                IsPrimaryTileTimerUpdateRegidtered &&
+                _settingsService.HomeStationId.HasValue)
+            {
+                TilesUpdater tilesUpdater = new TilesUpdater();
+                await tilesUpdater.PrimaryTileRenderAndUpdate();
+            }
+        }
+
+        private bool CanRegisterBackgroundTasksFromStatus(BackgroundAccessStatus status)
+        {
+            // Obsolete in Windows 10 - CS0618
+            // but still works and on some Phones with Windows 10 we still get old statuses
+#pragma warning disable 618
+            switch (status)
+            {
+                // Those are for Windows 8.1 and Windows 8.1 Phone
+                case BackgroundAccessStatus.Unspecified:
+                case BackgroundAccessStatus.Denied:
+                    return false;
+
+                case BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity:
+                case BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity:
+                    return true;
+
+                // Those are for Windows 10 Devices
+#if WINDOWS_UWP
+                case BackgroundAccessStatus.DeniedBySystemPolicy:
+                case BackgroundAccessStatus.DeniedByUser:
+                    return false;
+
+                case BackgroundAccessStatus.AlwaysAllowed:
+                case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
+                    return true;
+#endif
+                // For future if something change it should still react properly
+                default: return false;
+            }
+        }
+
+        private bool RegisterBackgroundTasks()
         {
             try
             {
-                // Explicit gets the package-relative application identifier (PRAID) for the process.
-                var praid = Windows.ApplicationModel.Core.CoreApplication.Id;
-
-                // Without this line sometimes TimeTriggers don't work
-                BackgroundExecutionManager.RemoveAccess();
-
-                // this line should be run from UI Thread (even for some Windows 10 Devices)
-                _lastBackgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync(praid);
-                RaisePropertyChanged(nameof(CanRegisterBackgroundTasks));
-
                 var registration = PrimaryTileTimerUpdateRegistration;
-
-                // if background task can not be registered or user disable primary live tile in settings
-                if (!CanRegisterBackgroundTasks || !IsPrimaryTileNotificationEnable || IsPrimaryTileTimerUpdateRegidtered)
-                {
-                    if (registration != null)
-                        UnregisterTasks();
-                    return false;
-                }
 
                 // if there is no registration build new one
                 if (registration == null)
@@ -147,44 +197,28 @@ namespace SmokSmog.Services.Notification
             return false;
         }
 
-        public void UnregisterTasks()
+        private async void SettingsService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (e.PropertyName == nameof(ISettingsService.HomeStationId))
+                {
+                    await UpdatePrimaryTile();
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.Log(exception);
+            }
+        }
+
+        private void UnregisterTasks()
         {
             // Unregister
             PrimaryTileTimerUpdateRegistration?.Unregister(true);
 
             // if station is invalid clear and return
             TileUpdateManager.CreateTileUpdaterForApplication().Clear();
-        }
-
-        private bool CanRegisterBackgroundTasksFromStatus(BackgroundAccessStatus status)
-        {
-            // Obsolete in Windows 10 - CS0618
-            // but still works and on some Phones with Windows 10 we still get old statuses
-#pragma warning disable 618
-            switch (status)
-            {
-                // Those are for Windows 8.1 and Windows 8.1 Phone
-                case BackgroundAccessStatus.Unspecified:
-                case BackgroundAccessStatus.Denied:
-                    return false;
-
-                case BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity:
-                case BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity:
-                    return true;
-
-                // Those are for Windows 10 Devices
-#if WINDOWS_UWP
-                case BackgroundAccessStatus.DeniedBySystemPolicy:
-                case BackgroundAccessStatus.DeniedByUser:
-                    return false;
-
-                case BackgroundAccessStatus.AlwaysAllowed:
-                case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
-                    return true;
-#endif
-                // For future if something change it should still react properly
-                default: return false;
-            }
         }
     }
 }
