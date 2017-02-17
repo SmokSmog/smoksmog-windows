@@ -86,7 +86,7 @@ namespace SmokSmog.Tiles
                 //tileXml.GetElementsByTagName()
 
                 var date = stationViewModel.AirQualityIndex.DateUtc;
-                var expiration = new DateTime(date.Year, date.Month, date.Day, date.Hour + 1, 30, 0, DateTimeKind.Utc);
+                var expiration = new DateTime(date.Year, date.Month, date.Day, date.Hour + 2, 15, 0, DateTimeKind.Utc);
 
                 var tileNotification = new TileNotification(tileXml)
                 {

@@ -4,6 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:SmokSmog.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d">
 
     <ScrollViewer Background="{StaticResource SmokSmogPageBackgroundBrush}"
@@ -33,7 +34,7 @@
                                FontSize="42"
                                TextAlignment="Center"
                                TextWrapping="WrapWholeWords">
-                        <Run Text="{Binding Name, Source={StaticResource ApplicationInfo}}" />
+                        <Run Text="{Binding ApplicationName}" />
                         <Run Text="{Binding LocalizedResources.StringFor, Source={StaticResource LocalizedStrings}}" />
                         <Run Text="Windows" />
                     </TextBlock>
@@ -42,7 +43,7 @@
                                FontSize="22"
                                TextAlignment="Center">
                         <Run Text="{Binding LocalizedResources.StringVersion, Source={StaticResource LocalizedStrings}}" />
-                        <Run Text="{Binding Path=Version, Source={StaticResource ApplicationInfo}}" />
+                        <Run Text="{Binding ApplicationVersion}" />
                     </TextBlock>
                 </StackPanel>
             </Grid>

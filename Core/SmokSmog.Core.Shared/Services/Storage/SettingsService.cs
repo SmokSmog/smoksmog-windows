@@ -54,10 +54,15 @@ namespace SmokSmog.Services.Storage
 
         public Version LastLaunchedVersion
         {
-            get { return _storage.GetSetting<Version>(LastLaunchedVersionKey); }
+            get
+            {
+                Version version = null;
+                Version.TryParse(_storage.GetSetting<string>(LastLaunchedVersionKey), out version);
+                return version;
+            }
             set
             {
-                _storage.SetSetting<Version>(LastLaunchedVersionKey, value);
+                _storage.SetSetting<string>(LastLaunchedVersionKey, value.ToString());
                 RaisePropertyChanged();
             }
         }

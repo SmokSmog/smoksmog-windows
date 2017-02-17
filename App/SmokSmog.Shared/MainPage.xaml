@@ -11,6 +11,8 @@
       xmlns:nav="using:SmokSmog.Navigation"
       x:Name="This"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      DataContext="{Binding Path=MainViewModel,
+                            Source={StaticResource ViewModelLocator}}"
       RequestedTheme="Light"
       mc:Ignorable="d">
 
@@ -114,14 +116,14 @@
 
                         <!--  Favorites Button  -->
                         <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}">
-                            <StackPanel Orientation="Horizontal">
-                                <i:Interaction.Behaviors>
-                                    <ic:EventTriggerBehavior EventName="Tapped">
-                                        <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
-                                        <nav:NavigateAction TargetPage="FavoritesPage" />
-                                    </ic:EventTriggerBehavior>
-                                </i:Interaction.Behaviors>
+                            <i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="Tapped">
+                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction TargetPage="FavoritesPage" />
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
 
+                            <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                           Height="{StaticResource SmokSmogMenuButtonHeight}"
                                           FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
@@ -173,7 +175,7 @@
                                    FontWeight="Bold"
                                    Foreground="{StaticResource SmokSmogMenuForegroundBrush}">
 
-                            <Run Text="{Binding Name, Source={StaticResource ApplicationInfo}}" />
+                            <Run Text="{Binding ApplicationName}" />
                             <Run Text="{Binding LocalizedResources.StringFor, Source={StaticResource LocalizedStrings}}" />
                             <Run Text="Windows" />
                         </TextBlock>
@@ -183,7 +185,7 @@
                                    FontWeight="Bold"
                                    Foreground="{StaticResource SmokSmogMenuForegroundBrush}">
                             <Run Text="{Binding LocalizedResources.StringVersion, Source={StaticResource LocalizedStrings}}" />
-                            <Run Text="{Binding Version, Source={StaticResource ApplicationInfo}}" />
+                            <Run Text="{Binding ApplicationVersionString}" />
                         </TextBlock>
                     </StackPanel>
 
@@ -195,13 +197,13 @@
                             Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
                             Padding="0"
                             Style="{StaticResource SmokSmogButtonStyle}">
+                        <i:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Tapped">
+                                <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                <nav:NavigateAction TargetPage="InformationPage" />
+                            </ic:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
                         <StackPanel Orientation="Horizontal">
-                            <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="Tapped">
-                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
-                                    <nav:NavigateAction TargetPage="InformationPage" />
-                                </ic:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
 
                             <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                       Height="{StaticResource SmokSmogMenuButtonHeight}"
@@ -218,17 +220,17 @@
                     </Button>
 
                     <Button BorderThickness="0"
-                            Visibility="Visible"
                             Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
                             Padding="0"
-                            Style="{StaticResource SmokSmogButtonStyle}">
+                            Style="{StaticResource SmokSmogButtonStyle}"
+                            Visibility="Visible">
+                        <i:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Tapped">
+                                <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                <nav:NavigateAction TargetPage="SettingsPage" />
+                            </ic:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
                         <StackPanel Orientation="Horizontal">
-                            <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="Tapped">
-                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
-                                    <nav:NavigateAction TargetPage="SettingsPage" />
-                                </ic:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
 
                             <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
                                       Height="{StaticResource SmokSmogMenuButtonHeight}"
@@ -265,8 +267,7 @@
                        FontFamily="Segoe UI"
                        FontSize="30"
                        Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
-                       Text="{Binding Name,
-                                      Source={StaticResource ApplicationInfo}}" />
+                       Text="{Binding ApplicationName}" />
 
             <controls:SearchBox x:Name="SearchTextBox"
                                 Grid.Column="1"
@@ -334,7 +335,7 @@
                 </Frame.ContentTransitions>
             </Frame>
 
-            <Grid Background="DarkGray" Grid.Column="1"></Grid>
+            <Grid Grid.Column="1" Background="DarkGray" />
 
             <!--  Page Content for main content  -->
             <Frame x:Name="MainFrame"

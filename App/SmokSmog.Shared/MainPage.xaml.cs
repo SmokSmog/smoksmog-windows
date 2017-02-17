@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -33,6 +34,15 @@ namespace SmokSmog
             catch (Exception exception)
             {
                 Logger.Log(exception);
+            }
+
+            // if application run first time since last update (or first install)
+            // show short change log
+            if (ViewModelLocator.MainViewModel.IsFirstRunAfterUpdate)
+            {
+                MessageDialog md = new MessageDialog(ViewModelLocator.MainViewModel.Changelog, "Co nowego");
+                md.Commands.Add(new UICommand("OK", new UICommandInvokedHandler((cmd) => { })));
+                await md.ShowAsync();
             }
 
             base.OnNavigatedTo(e);

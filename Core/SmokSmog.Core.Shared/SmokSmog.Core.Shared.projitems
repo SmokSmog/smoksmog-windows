@@ -70,6 +70,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\FavoritesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GeolocationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GroupedViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ParameterViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SettingsViewModel.cs" />
