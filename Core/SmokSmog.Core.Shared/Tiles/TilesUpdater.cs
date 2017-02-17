@@ -1,8 +1,4 @@
-﻿using SmokSmog.Diagnostics;
-using SmokSmog.Model;
-using SmokSmog.Notification;
-using SmokSmog.ViewModel;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +7,11 @@ using Windows.UI.Notifications;
 
 namespace SmokSmog.Tiles
 {
+    using Diagnostics;
+    using Model;
+    using Notification;
+    using ViewModel;
+
     public class TilesUpdater
     {
         public async Task PrimaryTileRenderAndUpdate(CancellationToken token = default(CancellationToken))

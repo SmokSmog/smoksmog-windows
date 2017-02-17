@@ -1,20 +1,17 @@
-﻿using SmokSmog.Navigation;
-
-#if WINDOWS_UWP
-using SmokSmog.Notification;
-#endif
-
-using SmokSmog.ViewModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
 
 namespace SmokSmog.Views
 {
+
+    using Navigation;
+    using ViewModel;
+
     [Navigation(ContentType = ContentType.Main)]
-    public sealed partial class NotificationPage : Page
+    public sealed partial class DebugPage : Page
     {
-        public NotificationPage()
+        public DebugPage()
         {
             this.InitializeComponent();
 

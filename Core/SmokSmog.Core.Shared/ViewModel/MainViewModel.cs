@@ -1,11 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
-using SmokSmog.Services.Storage;
 using System;
 using System.Text;
 using Windows.ApplicationModel;
 
 namespace SmokSmog.ViewModel
 {
+    using Services.Storage;
+
     public class MainViewModel : ViewModelBase
     {
         private readonly ISettingsService _settingsService;
@@ -21,6 +22,26 @@ namespace SmokSmog.ViewModel
                 IsFirstRunAfterUpdate = true;
 
             _settingsService.LastLaunchedVersion = ApplicationVersion;
+        }
+
+        public string ApplicationName
+        {
+            get
+            {
+                if (IsInDesignModeStatic)
+                    return "SmokSmog";
+
+                var package = Package.Current;
+                var invariantPackageName = package.Id.Name.ToLowerInvariant();
+
+                if (invariantPackageName.Contains("alpha"))
+                    return "SmokSmog Alpha";
+
+                if (invariantPackageName.Contains("beta"))
+                    return "SmokSmog Beta";
+
+                return "SmokSmog";
+            }
         }
 
         public Version ApplicationVersion
@@ -40,30 +61,6 @@ namespace SmokSmog.ViewModel
         public string ApplicationVersionString
             => string.Format("{0}.{1}.{2}", ApplicationVersion.Major, ApplicationVersion.Minor, ApplicationVersion.Build);
 
-        public string ApplicationName
-        {
-            get
-            {
-                if (IsInDesignModeStatic)
-                    return "SmokSmog";
-
-                var package = Package.Current;
-                var invariantPackageName = package.Id.Name.ToLowerInvariant();
-
-                if (invariantPackageName.Contains("alpha"))
-                    return "SmokSmog Aplha";
-
-                if (invariantPackageName.Contains("beta"))
-                    return "SmokSmog Beta";
-
-                return "SmokSmog";
-            }
-        }
-
-        public bool IsFirstRun { get; private set; }
-
-        public bool IsFirstRunAfterUpdate { get; private set; }
-
         public string Changelog
         {
             get
@@ -75,18 +72,26 @@ namespace SmokSmog.ViewModel
                 changeLogSb.AppendLine();
 
                 changeLogSb.AppendLine("NOWOŚCI:");
-                changeLogSb.AppendLine("-Live Tile dla Stacji domowej");
-                changeLogSb.AppendLine("-Dodano obsługę PM₂ ̦ ₅");
-                changeLogSb.AppendLine("-Dodano stronę ustawień");
+                changeLogSb.AppendLine("- Live Tile dla Stacji domowej");
+                changeLogSb.AppendLine("- Dodano obsługę PM₂ ̦ ₅");
+                changeLogSb.AppendLine("- Dodano stronę ustawień");
                 changeLogSb.AppendLine();
 
                 changeLogSb.AppendLine("Poprawki:");
-                changeLogSb.AppendLine("-Naprwione menu kontekstowe");
-                changeLogSb.AppendLine("-Drobne poprawki UI");
-                changeLogSb.AppendLine("-Poprawki w szukajce :D");
+                changeLogSb.AppendLine("- Naprwione menu kontekstowe");
+                changeLogSb.AppendLine("- Drobne poprawki UI");
+                changeLogSb.AppendLine("- Poprawki w szukajce :D");
+                changeLogSb.AppendLine();
+
+                changeLogSb.AppendLine("Zmiany:");
+                changeLogSb.AppendLine("- Strona stacji domowej jako startowa");
 
                 return changeLogSb.ToString();
             }
         }
+
+        public bool IsFirstRun { get; private set; }
+
+        public bool IsFirstRunAfterUpdate { get; private set; }
     }
 }
