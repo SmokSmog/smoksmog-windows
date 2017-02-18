@@ -50,8 +50,11 @@ namespace SmokSmog.ViewModel
         public GroupedViewModel GroupedViewModel
             => ServiceLocator.Current.GetInstance<GroupedViewModel>();
 
+        public MainViewModel MainViewModel
+            => ServiceLocator.Current.GetInstance<MainViewModel>();
+
         public SearchViewModel SearchViewModel
-            => ServiceLocator.Current.GetInstance<SearchViewModel>();
+                    => ServiceLocator.Current.GetInstance<SearchViewModel>();
 
         public SettingsViewModel SettingsViewModel
             => ServiceLocator.Current.GetInstance<SettingsViewModel>();
@@ -77,6 +80,7 @@ namespace SmokSmog.ViewModel
             SimpleIoc.Default.Register<SearchViewModel>();
             SimpleIoc.Default.Register<StationViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
+            SimpleIoc.Default.Register<MainViewModel>();
 
             _isInitialized = true;
         }

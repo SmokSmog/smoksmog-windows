@@ -8,7 +8,6 @@ namespace SmokSmog.Services
     using Geolocation;
     using Network;
     using Notification;
-    using Settings;
     using Storage;
 
     public class ServiceLocator : IServiceLocator

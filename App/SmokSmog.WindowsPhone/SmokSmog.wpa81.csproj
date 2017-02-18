@@ -177,7 +177,6 @@
     <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-240.png" />
   </ItemGroup>
   <Import Project="..\SmokSmog.Shared\SmokSmog.Shared.projitems" Label="Shared" />
-  <Import Project="..\..\Microsoft\Microsoft.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

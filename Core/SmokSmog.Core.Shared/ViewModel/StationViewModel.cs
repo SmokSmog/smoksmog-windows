@@ -105,7 +105,16 @@ namespace SmokSmog.ViewModel
             {
                 var dataService = ServiceLocator.Current.DataService;
                 var station = await dataService.GetStationAsync(id);
-                Station = station;
+                try
+                {
+                    _loadDataFlag = false;
+                    Station = station;
+                    await LoadData(station);
+                }
+                finally
+                {
+                    _loadDataFlag = true;
+                }
             }
             catch (Exception ex)
             {
@@ -146,8 +155,11 @@ namespace SmokSmog.ViewModel
             RaisePropertyChanged(nameof(AirQualityIndex));
         }
 
+        private bool _loadDataFlag = true;
+
         private async void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            if (!_loadDataFlag) return;
             if (e.PropertyName == nameof(Station) && Station.Id > 0)
             {
                 await LoadData(Station);

@@ -66,10 +66,8 @@ Global
 		Notification\SmokSmog.Notification.Shared\SmokSmog.Notification.Shared.projitems*{6c123131-803f-4eb8-a0e1-c60fe639dc43}*SharedItemsImports = 4
 		Microsoft\Microsoft.projitems*{7de3d0ef-68e6-4323-acdb-ba3be5d1e11e}*SharedItemsImports = 13
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{9389ea2d-bee5-45a4-8624-2d2ce8a2ec99}*SharedItemsImports = 4
-		Microsoft\Microsoft.projitems*{9389ea2d-bee5-45a4-8624-2d2ce8a2ec99}*SharedItemsImports = 4
 		Notification\SmokSmog.Notification.Shared\SmokSmog.Notification.Shared.projitems*{941b1e36-05de-46d8-8aa3-993455928f97}*SharedItemsImports = 4
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{c011b579-ac19-4d54-ba90-f288a7556530}*SharedItemsImports = 4
-		Microsoft\Microsoft.projitems*{c011b579-ac19-4d54-ba90-f288a7556530}*SharedItemsImports = 4
 		App\SmokSmog.Shared\SmokSmog.Shared.projitems*{e0a6623e-dd65-43a9-9967-63f1cea9a872}*SharedItemsImports = 4
 		Core\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems*{f8a355db-501a-4cef-9ca4-5a9c61a594a3}*SharedItemsImports = 4
 		Microsoft\Microsoft.projitems*{f8a355db-501a-4cef-9ca4-5a9c61a594a3}*SharedItemsImports = 4

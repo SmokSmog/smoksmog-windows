@@ -232,6 +232,9 @@ Please check your internet connection and try again later.</value>
   <data name="StringSettings" xml:space="preserve">
     <value>settings</value>
   </data>
+  <data name="StringSettingsStringHomeStationLiveTile" xml:space="preserve">
+    <value>Show home station statuses on primary live tile</value>
+  </data>
   <data name="StringStationList" xml:space="preserve">
     <value>Station list</value>
   </data>

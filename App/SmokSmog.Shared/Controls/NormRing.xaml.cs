@@ -76,8 +76,13 @@ namespace SmokSmog.Controls
             {
                 Percent = string.Format(LocalizedStrings.LocalizedString("StringNA"));
                 EndAngle = -180d;
+                PrecentTextBlock.Visibility = Visibility.Collapsed;
+
                 return;
             }
+
+            if (PrecentTextBlock.Visibility != Visibility.Visible)
+                PrecentTextBlock.Visibility = Visibility.Visible;
 
             double ratio = average.Value / norm.Value;
             string format = "{0:0.0}%";

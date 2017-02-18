@@ -1,11 +1,16 @@
-﻿using SmokSmog.Navigation;
-using SmokSmog.Views;
+﻿using System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog
 {
+    using Diagnostics;
+    using Navigation;
+    using Services;
+    using Views;
+
     public sealed partial class MainPage : Page
     {
         public MainPage()
@@ -15,12 +20,6 @@ namespace SmokSmog
 
             this.Loaded += MainPageLoaded;
             this.Unloaded += MainPageUnloaded;
-        }
-
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            await Services.ServiceLocator.Current.TilesService.Initialize();
-            base.OnNavigatedTo(e);
         }
 
         public bool IsMenuOpen
@@ -83,6 +82,32 @@ namespace SmokSmog
             if (IsSearchOpen) CloseSearch(); else OpenSearch();
         }
 
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            try
+            {
+                // here is good place to setup background tasks
+                var tileService = ServiceLocator.Current.TilesService;
+                await tileService.Initialize();
+                await tileService.UpdatePrimaryTile();
+            }
+            catch (Exception exception)
+            {
+                Logger.Log(exception);
+            }
+
+            // if application run first time since last update (or first install)
+            // show short change log
+            if (ViewModelLocator.MainViewModel.IsFirstRunAfterUpdate)
+            {
+                MessageDialog md = new MessageDialog(ViewModelLocator.MainViewModel.Changelog, "Co nowego");
+                md.Commands.Add(new UICommand("OK", new UICommandInvokedHandler((cmd) => { })));
+                await md.ShowAsync();
+            }
+
+            base.OnNavigatedTo(e);
+        }
+
         private void MainPageLoaded(object sender, RoutedEventArgs e)
         {
             SizeChanged += MainPageSizeChanged;
@@ -90,9 +115,17 @@ namespace SmokSmog
 
             var navProvider = Application.Current as INavigationProvider;
             navProvider?.NavigationService?.NavigateTo(nameof(StationListPage));
-            navProvider?.NavigationService?.NavigateTo(nameof(InformationPage));
 
-            navProvider?.NavigationService?.NavigateTo(nameof(NotificationPage));
+            var homeStationId = ServiceLocator.Current.SettingsService.HomeStationId;
+
+            if (homeStationId.HasValue)
+                navProvider?.NavigationService?.NavigateTo(nameof(StationPage), "Home");
+            else
+                navProvider?.NavigationService?.NavigateTo(nameof(InformationPage));
+
+#if DEBUG
+            //navProvider?.NavigationService?.NavigateTo(nameof(DebugPage));
+#endif
         }
 
         private void MainPageSizeChanged(object sender, SizeChangedEventArgs e)

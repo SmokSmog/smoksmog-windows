@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace SmokSmog.Services.Settings
+namespace SmokSmog.Services.Storage
 {
-    using Storage;
-
     public class SettingsService : ObservableObject, ISettingsService
     {
         public const string FavoritesStationsListKey = "FavoritesStationsList";
@@ -56,10 +54,15 @@ namespace SmokSmog.Services.Settings
 
         public Version LastLaunchedVersion
         {
-            get { return _storage.GetSetting<Version>(LastLaunchedVersionKey); }
+            get
+            {
+                Version version = null;
+                Version.TryParse(_storage.GetSetting<string>(LastLaunchedVersionKey), out version);
+                return version;
+            }
             set
             {
-                _storage.SetSetting<Version>(LastLaunchedVersionKey, value);
+                _storage.SetSetting<string>(LastLaunchedVersionKey, value.ToString());
                 RaisePropertyChanged();
             }
         }

@@ -1,11 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Threading.Tasks;
 
 namespace SmokSmog.ViewModel
 {
     using Services.Notification;
-    using Services.Settings;
+    using Services.Storage;
 
     public class SettingsViewModel : ViewModelBase
     {
@@ -16,55 +14,38 @@ namespace SmokSmog.ViewModel
         {
             _settingsService = settingsService;
             _tilesService = tilesService;
+
+            tilesService.PropertyChanged += TilesService_PropertyChanged;
         }
 
         public bool CanPrimaryTileNotificationEnable
-            => _tilesService.CanRegisterBackgroundTasks && _settingsService.HomeStationId.HasValue;
+            => _tilesService.CanRegisterBackgroundTasks &&
+            _settingsService.HomeStationId.HasValue &&
+            _tilesService.IsPrimaryTileTimerUpdateRegidtered;
 
         public bool IsPrimaryTileNotificationEnable
-            => _tilesService.IsPrimaryTileNotificationEnable;
-
-        public async Task TooglePrimaryTileNotification()
         {
-            bool registered = false;
-            try
+            get { return _tilesService.IsPrimaryTileNotificationEnable; }
+            set
             {
-                if (CanPrimaryTileNotificationEnable)
-                    registered = await _tilesService.RegisterBackgroundTasks();
-                else
-                    _tilesService.UnregisterTasks();
-            }
-            catch (Exception exception)
-            {
-                Diagnostics.Logger.Log(exception);
-            }
-            finally
-            {
-                _settingsService.PrimaryLiveTileEnable = registered;
-                RaisePropertyChanged(nameof(IsPrimaryTileNotificationEnable));
-                RaisePropertyChanged(nameof(CanPrimaryTileNotificationEnable));
+                _tilesService.IsPrimaryTileNotificationEnable = value;
+                RaisePropertyChanged();
             }
         }
 
-        //public bool IsBackgroundTasksEnable
-        //{
-        //    get
-        //    {
-        //        var status = BackgroundExecutionManager.GetAccessStatus("App");
-        //        switch (status)
-        //        {
-        //            case BackgroundAccessStatus.Unspecified:
-        //                break;
-        //            case BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity:
-        //                break;
-        //            case BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity:
-        //                break;
-        //            case BackgroundAccessStatus.Denied:
-        //                break;
-        //            default:
-        //                throw new ArgumentOutOfRangeException();
-        //        }
-        //    }
-        //}
+        private async void TilesService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(ITilesService.IsPrimaryTileNotificationEnable):
+                    RaisePropertyChanged(nameof(IsPrimaryTileNotificationEnable));
+                    await _tilesService.UpdatePrimaryTile();
+                    break;
+
+                case nameof(ITilesService.CanRegisterBackgroundTasks):
+                    RaisePropertyChanged(nameof(CanPrimaryTileNotificationEnable));
+                    break;
+            }
+        }
     }
 }

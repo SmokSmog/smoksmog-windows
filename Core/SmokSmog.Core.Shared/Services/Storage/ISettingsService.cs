@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace SmokSmog.Services.Settings
+namespace SmokSmog.Services.Storage
 {
     public interface ISettingsService : INotifyPropertyChanged
     {

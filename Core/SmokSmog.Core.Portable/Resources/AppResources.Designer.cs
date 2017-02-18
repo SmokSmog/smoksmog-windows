@@ -405,6 +405,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show home station statuses on primary live tile.
+        /// </summary>
+        public static string StringSettingsStringHomeStationLiveTile {
+            get {
+                return ResourceManager.GetString("StringSettingsStringHomeStationLiveTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Station list.
         /// </summary>
         public static string StringStationList {

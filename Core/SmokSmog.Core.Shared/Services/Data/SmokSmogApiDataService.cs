@@ -140,7 +140,7 @@ namespace SmokSmog.Services.Data
                     var shortName = (item["short_name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim();
                     if (shortName == "PM\u2082.\u2085")
                     {
-                        shortName = "PM\u2082\u200A\u05c5\u200A\u2085";
+                        shortName = "PM\u2082\u200A\u0326\u200A\u2085";
                     }
 
                     var parameter = new Parameter(station, id.Value)

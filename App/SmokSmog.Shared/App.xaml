@@ -5,7 +5,6 @@
              xmlns:globalization="using:SmokSmog.Globalization"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:navigation="using:SmokSmog.Navigation"
-             xmlns:properties="using:SmokSmog.Properties"
              xmlns:services="using:SmokSmog.Services"
              xmlns:valueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
              xmlns:viewmodel="using:SmokSmog.ViewModel"
@@ -14,7 +13,6 @@
     <!--  Windows Store  -->
     <Application.Resources>
         <ResourceDictionary>
-            <properties:ApplicationInfo x:Key="ApplicationInfo" />
             <navigation:NavigationService x:Key="NavigationService" />
             <services:ServiceLocator x:Key="ServiceLocator" d:IsDataSource="True" />
             <viewmodel:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />

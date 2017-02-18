@@ -1,12 +1,10 @@
-﻿using System;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog.Views
 {
     using Model;
     using Navigation;
-    using Notification;
     using Services;
     using ViewModel;
 
@@ -48,8 +46,6 @@ namespace SmokSmog.Views
                 var settings = ServiceLocator.Current.SettingsService;
                 if (settings.HomeStationId.HasValue)
                     await StationViewModel.SetStationAsync(settings.HomeStationId.Value);
-                TilesBackgroundTask task = new TilesBackgroundTask();
-                await task.RunAction(false).AsTask();
             }
         }
     }

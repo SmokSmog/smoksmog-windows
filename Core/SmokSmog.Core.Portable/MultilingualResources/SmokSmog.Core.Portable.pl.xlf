@@ -188,6 +188,10 @@ Please check your internet connection and try again later.</source>
           <target state="translated">Nie znaleziono połączenia z API.
 Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</target>
         </trans-unit>
+        <trans-unit id="StringSettingsStringHomeStationLiveTile" translate="yes" xml:space="preserve">
+          <source>Show home station statuses on primary live tile</source>
+          <target state="translated">Pokazuj status stacji domowej na głównym kafelku</target>
+        </trans-unit>
       </group>
     </body>
   </file>
