@@ -57,7 +57,9 @@ namespace SmokSmog.Tiles
         {
             try
             {
-                //TileUpdateManager.CreateTileUpdaterForApplication().Clear();
+                // it is required to proper tiles refresh 
+                // sometimes Windows 10 without this don't update tile
+                TileUpdateManager.CreateTileUpdaterForApplication().Clear();
                 TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
 
 #if WINDOWS_UWP

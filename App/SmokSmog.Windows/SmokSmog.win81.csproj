@@ -20,6 +20,8 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <PackageCertificateThumbprint>AE5613913DF5DC0BF9F4AC73F86245AEA140A083</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
