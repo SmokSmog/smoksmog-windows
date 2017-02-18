@@ -148,4 +148,7 @@
     <value>Nie znaleziono połączenia z API.
 Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</value>
   </data>
+  <data name="StringSettingsStringHomeStationLiveTile" xml:space="preserve">
+    <value>Pokazuj status stacji domowej na głównym kafelku</value>
+  </data>
 </root>

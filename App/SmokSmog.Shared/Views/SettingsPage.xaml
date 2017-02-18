@@ -10,11 +10,13 @@
 
     <Grid Background="{StaticResource SmokSmogPageBackgroundBrush}">
 
-        <StackPanel>
+        <StackPanel Margin="12">
 
-            <ToggleSwitch IsEnabled="{Binding CanPrimaryTileNotificationEnable}" IsOn="{Binding IsPrimaryTileNotificationEnable, Mode=TwoWay}">Show home station statuses on Primary Live Tile</ToggleSwitch>
+            <ToggleSwitch IsEnabled="{Binding CanPrimaryTileNotificationEnable}" IsOn="{Binding IsPrimaryTileNotificationEnable, Mode=TwoWay}">
+                <TextBlock Text="{Binding LocalizedResources.StringSettingsStringHomeStationLiveTile, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap" />
+            </ToggleSwitch>
 
-            <ToggleSwitch x:Name="ShowLogSwitch" Toggled="ToggleSwitch_OnToggled">Show Log</ToggleSwitch>
+            <!--<ToggleSwitch x:Name="ShowLogSwitch" Toggled="ToggleSwitch_OnToggled">Show Log</ToggleSwitch>-->
 
             <TextBlock Name="LogTextBlock" />
         </StackPanel>

@@ -70,6 +70,7 @@ namespace SmokSmog.Tiles
 
 #elif WINDOWS_APP || WINDOWS_PHONE_APP
 
+                // TODO - figure out how to show station name on primary tile
                 var template =
                     $"<tile><visual version=\"4\">" +
                     $"<binding template=\"TileSquare150x150Image\" fallback=\"TileSquareImage\" branding=\"name\" displayName=\"{stationViewModel.Station.Name}\">" +
@@ -86,8 +87,10 @@ namespace SmokSmog.Tiles
                 //tileImage?.SetAttribute("src", "ms-appdata:///local/LiveTileFront_0.png");
                 //tileXml.GetElementsByTagName()
 
-                var date = stationViewModel.AirQualityIndex.DateUtc;
-                var expiration = new DateTime(date.Year, date.Month, date.Day, date.Hour + 2, 15, 0, DateTimeKind.Utc);
+                // calculate expiration time from local time (on UTC it does not work properly)
+                var date = stationViewModel.AirQualityIndex.Date;
+                date = date.AddHours(1);
+                var expiration = new DateTime(date.Year, date.Month, date.Day, date.Hour, 30, 0);
 
                 var tileNotification = new TileNotification(tileXml)
                 {
