@@ -1,4 +1,4 @@
-﻿using SmokSmog.Services.Geolocation;
+﻿using SmokSmog.Services.Storage;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,16 +6,15 @@ using Windows.Devices.Geolocation;
 
 namespace SmokSmog.Services.Geolocation
 {
+    using Model;
+
     public class GeolocationService : IGeolocationService
     {
+        private readonly ISettingsService _settingsService;
         private readonly Geolocator _geolocator;
-
-        private CancellationTokenSource _cts = null;
 
         //half an kilometer
         private uint? _desiredAccuracyInMeters = 500;
-
-        public event GeolocationStatusChangeHandler OnStatusChange;
 
         public uint? DesiredAccuracyInMeters
         {
@@ -27,29 +26,24 @@ namespace SmokSmog.Services.Geolocation
             }
         }
 
-        public GeolocationService()
+        public GeolocationService(ISettingsService settingsService)
         {
+            _settingsService = settingsService;
             // If DesiredAccuracy or DesiredAccuracyInMeters are not set (or value is 0),
             // DesiredAccuracy.Default is used.
             _geolocator = new Geolocator { DesiredAccuracyInMeters = _desiredAccuracyInMeters };
         }
 
+        public bool LocalizationEnabledInSettings => _settingsService.LocalizationEnable;
+
         public GeolocationStatus Status
         {
             get
             {
-                if (_cts != null && IsCancellationRequested)
-                {
-                    return GeolocationStatus.Canceling;
-                }
+                if (!_settingsService.LocalizationEnable)
+                    return GeolocationStatus.Disabled;
 
-                // check if actually request is processing
-                if (_cts != null)
-                {
-                    return GeolocationStatus.Processing;
-                }
-
-                var locationStatus = new Geolocator().LocationStatus;
+                var locationStatus = _geolocator.LocationStatus;
                 switch (locationStatus)
                 {
                     case PositionStatus.Disabled:
@@ -67,52 +61,17 @@ namespace SmokSmog.Services.Geolocation
                 }
             }
         }
+        public Task<Geocoordinate> GetGeocoordinateAsync()
+            => GetGeocoordinateAsync(default(CancellationToken));
 
-        private bool IsCancellationRequested = false;
-
-        public bool CancelGetGeocoordinate()
-        {
-            if (_cts != null)
-            {
-                IsCancellationRequested = true;
-                OnStatusChange?.Invoke(this, null);
-
-                _cts.Cancel(true);
-                _cts = null;
-
-                IsCancellationRequested = false;
-                return true;
-            }
-            return false;
-        }
-
-        public SmokSmog.Model.Geocoordinate GetGeocoordinate()
-        {
-            Geoposition pos = _geolocator.GetGeopositionAsync().GetResults();
-            return new Model.Geocoordinate()
-            {
-                Accuracy = pos.Coordinate.Accuracy,
-                Altitude = pos.Coordinate.Point.Position.Altitude,
-                Latitude = pos.Coordinate.Point.Position.Latitude,
-                Longitude = pos.Coordinate.Point.Position.Longitude,
-                Speed = pos.Coordinate.Speed
-            };
-        }
-
-        public async Task<SmokSmog.Model.Geocoordinate> GetGeocoordinateAsync()
+        public async Task<Geocoordinate> GetGeocoordinateAsync(CancellationToken token)
         {
             try
             {
-                // Get cancellation token
-                _cts = new CancellationTokenSource();
-                CancellationToken token = _cts.Token;
-
-                OnStatusChange?.Invoke(this, null);
-
                 // Carry out the operation
-                Geoposition pos = await _geolocator.GetGeopositionAsync().AsTask(token);
+                var pos = await _geolocator.GetGeopositionAsync().AsTask(token);
 
-                return new Model.Geocoordinate()
+                return new Geocoordinate()
                 {
                     Accuracy = pos.Coordinate.Accuracy,
                     Altitude = pos.Coordinate.Point.Position.Altitude,
@@ -127,37 +86,29 @@ namespace SmokSmog.Services.Geolocation
             }
             catch (Exception ex)
             {
+                // TODO - handle timeout
                 // If there are no location sensors GetGeopositionAsync() will timeout -- that is acceptable.
-                //TODO - handle timeout
-                if (ex.HResult == unchecked((int)0x80070102)) // WAIT_TIMEOUT
+                switch (ex.HResult)
                 {
-                    throw new Geolocation.GeolocationTimeOutException();
-                }
-                else if (ex.HResult == unchecked((int)0x80004004))
-                {
-                    // the application does not have the right capability or the location master
-                    // switch is off
-                    throw new System.Exception("Location is disabled in phone settings.");
-                }
-                else if (ex.HResult == unchecked((int)0x80070005)) //E_ACCESSDENIED
-                {
-                    throw;
-                }
+                    case unchecked((int)0x80070102):
+                        throw new GeolocationTimeOutException(); // WAIT_TIMEOUT
 
+                    case unchecked((int)0x80004004):
+                        // the application does not have the right capability
+                        // or the location master switch is off
+                        throw new GeolocationDisabledException();
+
+                    case unchecked((int)0x80070005):
+                        // E_ACCESSDENIED
+                        // An exception of type 'System.UnauthorizedAccessException' occurred in mscorlib.ni.dll but was not handled in user code
+                        // Your App does not have permission to access location data.
+                        // Make sure you have defined ID_CAP_LOCATION in the application manifest and that on your phone, you have turned on location by checking Settings > Location.
+                        // If there is a handler for this exception, the program may be safely continued.
+
+                        throw;
+                }
                 throw;
             }
-            finally
-            {
-                _cts = null;
-                OnStatusChange?.Invoke(this, null);
-            }
-        }
-
-#pragma warning disable 1998
-
-        public async Task<bool> CancelGetGeocoordinateAsync()
-        {
-            return CancelGetGeocoordinate();
         }
     }
 }

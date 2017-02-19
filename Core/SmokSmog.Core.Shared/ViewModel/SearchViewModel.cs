@@ -1,7 +1,4 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using SmokSmog.Extensions;
-using SmokSmog.Model;
-using SmokSmog.Services.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace SmokSmog.ViewModel
 {
-    public class SearchViewModel : StationsListBaseViewMode
+    using Extensions;
+    using Model;
+    using Services.Data;
+
+    public class SearchViewModel : StationsListBaseViewModel
     {
         private CancellationTokenSource _lastFilterRequestTokenSource = new CancellationTokenSource();
-        private Dictionary<Model.Station, string> _searchHashes;
+        private Dictionary<Station, string> _searchHashes;
         private string _searchString = string.Empty;
 
-        private List<Model.Station> _stationListFiltered = new List<Station>();
+        private List<Station> _stationListFiltered = new List<Station>();
 
         private readonly Dictionary<string, string> _characterMapping = new Dictionary<string, string>()
         {
@@ -32,7 +33,8 @@ namespace SmokSmog.ViewModel
             {"ń","n"}
         };
 
-        public SearchViewModel(IDataProvider dataService) : base(dataService)
+        public SearchViewModel(IDataProvider dataService)
+            : base(dataService)
         {
             _searchHashes = GenerateSearchHashes(StationsList);
             PropertyChanged += SearchViewModel_PropertyChanged;
@@ -50,22 +52,22 @@ namespace SmokSmog.ViewModel
             {
                 if (_searchString == value) return;
                 _searchString = value;
-                RaisePropertyChanged(nameof(SearchString));
+                RaisePropertyChanged();
             }
         }
 
-        public List<Model.Station> StationListFiltered
+        public List<Station> StationListFiltered
         {
             get { return _stationListFiltered; }
             set
             {
                 _stationListFiltered = value;
-                RaisePropertyChanged(nameof(StationListFiltered));
+                RaisePropertyChanged();
                 RaisePropertyChanged(nameof(IsStationFilterOn));
             }
         }
 
-        public async Task FilterAsync(CancellationToken token)
+        public async void FilterAsync(CancellationToken token)
         {
             await Task.Delay(200, token);
 
@@ -81,7 +83,8 @@ namespace SmokSmog.ViewModel
                 {
                     querry = querry.Replace(mapping.Key, mapping.Value);
 
-                    if (token.IsCancellationRequested) return;
+                    if (token.IsCancellationRequested)
+                        return;
                 }
 
                 queries = Regex.Replace(querry, @"[\s\n]{1,}", " ").Split(' ');
@@ -105,7 +108,7 @@ namespace SmokSmog.ViewModel
             RaisePropertyChanged(nameof(SearchString));
         }
 
-        private bool EvaluateQueries(Model.Station station, string[] queries)
+        private bool EvaluateQueries(Station station, string[] queries)
         {
             if (queries == null || queries.Length == 0)
                 return true;
@@ -114,10 +117,10 @@ namespace SmokSmog.ViewModel
                    _searchHashes[station].ContainsAll(queries, StringComparison.OrdinalIgnoreCase);
         }
 
-        private Dictionary<Model.Station, string> GenerateSearchHashes(IEnumerable<Model.Station> stationList)
+        private Dictionary<Station, string> GenerateSearchHashes(IEnumerable<Station> stationList)
         {
             var list = stationList?.Distinct();
-            var dict = new Dictionary<Model.Station, string>();
+            var dict = new Dictionary<Station, string>();
 
             if (list == null)
                 return dict;
@@ -135,7 +138,7 @@ namespace SmokSmog.ViewModel
             return dict;
         }
 
-        private async void SearchViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void SearchViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(SearchString))
             {
@@ -143,7 +146,7 @@ namespace SmokSmog.ViewModel
                 {
                     _lastFilterRequestTokenSource.Cancel();
                     _lastFilterRequestTokenSource = new CancellationTokenSource();
-                    await FilterAsync(_lastFilterRequestTokenSource.Token);
+                    FilterAsync(_lastFilterRequestTokenSource.Token);
                 }
                 catch (TaskCanceledException) { }
             }

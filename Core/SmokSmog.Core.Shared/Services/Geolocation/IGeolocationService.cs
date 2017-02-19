@@ -1,13 +1,9 @@
-﻿using System;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 namespace SmokSmog.Services.Geolocation
 {
-    /// <summary>
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    public delegate void GeolocationStatusChangeHandler(IGeolocationService sender, EventArgs e);
+    using Model;
 
     /// <summary>
     /// </summary>
@@ -19,26 +15,12 @@ namespace SmokSmog.Services.Geolocation
 
         /// <summary>
         /// </summary>
-        event GeolocationStatusChangeHandler OnStatusChange;
+        /// <returns></returns>
+        Task<Geocoordinate> GetGeocoordinateAsync();
 
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        bool CancelGetGeocoordinate();
-
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        Task<bool> CancelGetGeocoordinateAsync();
-
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        Model.Geocoordinate GetGeocoordinate();
-
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        Task<Model.Geocoordinate> GetGeocoordinateAsync();
+        Task<Geocoordinate> GetGeocoordinateAsync(CancellationToken token);
     }
 }

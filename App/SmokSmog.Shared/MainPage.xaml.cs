@@ -125,6 +125,7 @@ namespace SmokSmog
 
 #if DEBUG
             //navProvider?.NavigationService?.NavigateTo(nameof(DebugPage));
+            navProvider?.NavigationService?.NavigateTo(nameof(GeoStationList));
 #endif
         }
 

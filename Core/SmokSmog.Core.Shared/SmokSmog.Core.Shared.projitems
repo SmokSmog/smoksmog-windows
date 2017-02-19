@@ -44,6 +44,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Data\IDataProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Data\RestDataServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Data\SmokSmogApiDataService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationDisabledException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationStatus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Geolocation\GeolocationTimeOutException.cs" />
@@ -68,13 +69,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tiles\TilesUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AqiInformationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\FavoritesViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GeolocationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GeoStationListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GroupedViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ParameterViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SettingsViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\StationsListBaseViewMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\StationsListBaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\StationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiToBrush.cs" />

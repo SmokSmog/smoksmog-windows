@@ -29,6 +29,8 @@ namespace SmokSmog.Model
             _accuracy = accuracy;
         }
 
+        public enum DistanceType { Miles, Kilometers, Meters };
+
         /// <summary>
         /// Coordinate accuracy
         /// </summary>
@@ -109,6 +111,51 @@ namespace SmokSmog.Model
         public static bool operator ==(Geocoordinate left, Geocoordinate right)
         {
             return Equals(left, right);
+        }
+
+        /// <summary>
+        /// Distance calculated using Haversine formula
+        /// </summary>
+        /// <param name="geocoordinate"></param>
+        /// <param name="type"></param>
+        /// <seealso cref="http://stackoverflow.com/questions/28569246/how-to-get-distance-between-two-locations-in-windows-phone-8-1"/>
+        /// <seealso cref="https://en.wikipedia.org/wiki/Haversine_formula"/>
+        /// <returns></returns>
+        public double Distance(Geocoordinate geocoordinate, DistanceType type)
+        {
+            if (double.IsNaN(this.Latitude) || double.IsNaN(this.Longitude) ||
+                double.IsNaN(geocoordinate.Latitude) || double.IsNaN(geocoordinate.Longitude))
+            {
+                throw new ArgumentException("Argument_LatitudeOrLongitudeIsNotANumber");
+            }
+
+            Func<double, double> toRadian = degree => Math.PI / 180 * degree;
+
+            double r = 6371d;
+
+            switch (type)
+            {
+                case DistanceType.Miles:
+                    r = 3960d;
+                    break;
+
+                case DistanceType.Kilometers:
+                    r = 6371d;
+                    break;
+
+                case DistanceType.Meters:
+                    r = 6371000d;
+                    break;
+            }
+
+            double dLat = toRadian(geocoordinate.Latitude - this.Latitude);
+            double dLon = toRadian(geocoordinate.Longitude - this.Longitude);
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                Math.Cos(toRadian(this.Latitude)) * Math.Cos(toRadian(geocoordinate.Latitude)) *
+                Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+            double c = 2 * Math.Asin(Math.Min(1, Math.Sqrt(a)));
+            double d = r * c;
+            return d;
         }
 
         public override bool Equals(object obj)
