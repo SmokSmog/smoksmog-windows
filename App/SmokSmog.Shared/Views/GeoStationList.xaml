@@ -29,7 +29,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
+
         <ListView IsHoldingEnabled="True"
                   ItemsSource="{Binding Path=NearestStations}"
                   SelectedIndex="-1"
@@ -41,7 +41,7 @@
                     <Button Command="{Binding GetGeolocationCommand}">Get</Button>
                 </StackPanel>
             </ListView.Header>
-            
+
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Padding" Value="0" />
@@ -52,10 +52,10 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <controls:StationListItem DataContext="{Binding}">
+                    <controls:StationListItem Station="{Binding Station}" Distance="{Binding DistanceString}">
                         <i:Interaction.Behaviors>
                             <ic:EventTriggerBehavior EventName="Tapped">
-                                <nav:NavigateAction Parameter="{Binding}" TargetPage="StationPage" />
+                                <nav:NavigateAction Parameter="{Binding Station}" TargetPage="StationPage" />
                             </ic:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </controls:StationListItem>

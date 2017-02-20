@@ -13,10 +13,34 @@ namespace SmokSmog.ViewModel
 {
     public class GeoStationListViewModel : StationsListBaseViewModel
     {
+        public class GeoStation
+        {
+            public GeoStation(Station station, Geocoordinate geocoordinate)
+            {
+                Station = station;
+                try
+                {
+                    Distance = station.Geocoordinate.Distance(geocoordinate, DistanceType);
+                }
+                catch (Exception e)
+                {
+                    Logger.Log(e);
+                }
+            }
+
+            public Station Station { get; }
+
+            public double? Distance { get; }
+
+            public string DistanceString => Distance.HasValue ? $"{Distance:0.0} km" : "--- km";
+
+            private Geocoordinate.DistanceType DistanceType => Geocoordinate.DistanceType.Kilometers;
+        }
+
         private readonly IGeolocationService _geolocationService;
 
         private CancellationTokenSource _cancellationTokenSource = null;
-        private List<Station> _nearestStations = new List<Station>();
+        private List<GeoStation> _nearestStations = new List<GeoStation>();
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -32,7 +56,7 @@ namespace SmokSmog.ViewModel
         public RelayCommand GetGeolocationCommand => new RelayCommand(GetGeolocationAsync,
             () => _geolocationService.Status == GeolocationStatus.Available);
 
-        public List<Station> NearestStations
+        public List<GeoStation> NearestStations
         {
             get { return _nearestStations; }
             set
@@ -62,7 +86,9 @@ namespace SmokSmog.ViewModel
 
                 var geocoordinate = await _geolocationService.GetGeocoordinateAsync(_cancellationTokenSource.Token);
                 NearestStations = StationsList
-                    .OrderBy(s => s.Geocoordinate.Distance(geocoordinate, Geocoordinate.DistanceType.Meters))
+                    .Select(station => new GeoStation(station, geocoordinate))
+                    .Where(o => o.Distance.HasValue)
+                    .OrderBy(o => o.Distance)
                     .Take(10)
                     .ToList();
             }

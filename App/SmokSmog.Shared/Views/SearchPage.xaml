@@ -42,7 +42,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <controls:StationListItem DataContext="{Binding}" SearchString="{Binding Path=SearchViewModel.SearchString, Source={StaticResource ViewModelLocator}}">
+                    <controls:StationListItem Station="{Binding}" SearchString="{Binding Path=SearchViewModel.SearchString, Source={StaticResource ViewModelLocator}}">
                         <i:Interaction.Behaviors>
                             <ic:EventTriggerBehavior EventName="Tapped">
                                 <nav:NavigateAction Parameter="{Binding}" TargetPage="StationPage" />

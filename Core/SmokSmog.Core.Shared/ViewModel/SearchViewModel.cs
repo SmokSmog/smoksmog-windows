@@ -69,7 +69,14 @@ namespace SmokSmog.ViewModel
 
         public async void FilterAsync(CancellationToken token)
         {
-            await Task.Delay(200, token);
+            try
+            {
+                await Task.Delay(100, token);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
 
             if (token.IsCancellationRequested)
                 return;

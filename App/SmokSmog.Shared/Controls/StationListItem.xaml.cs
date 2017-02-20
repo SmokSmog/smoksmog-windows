@@ -1,34 +1,51 @@
-﻿using Windows.UI.Xaml;
+﻿using GalaSoft.MvvmLight.Command;
+using SmokSmog.Model;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace SmokSmog.Controls
 {
     public sealed partial class StationListItem : UserControl
     {
+        // Using a DependencyProperty as the backing store for Distance.
+        public static readonly DependencyProperty DistanceProperty =
+            DependencyProperty.Register("Distance", typeof(string), typeof(StationListItem), new PropertyMetadata(string.Empty));
+
+        // Using a DependencyProperty as the backing store for SearchString.
+        public static readonly DependencyProperty SearchStringProperty =
+            DependencyProperty.Register("SearchString", typeof(string), typeof(StationListItem), new PropertyMetadata(string.Empty));
+
+        // Using a DependencyProperty as the backing store for Station.
+        public static readonly DependencyProperty StationProperty =
+            DependencyProperty.Register("Station", typeof(Station), typeof(StationListItem), new PropertyMetadata(new Station(-1),
+                (sender, args) =>
+                {
+                    //var listItem = sender as StationListItem;
+                    //if (listItem != null)
+                    //{
+                    //    var a = new ViewModel.ViewModelLocator();
+                    //    a.FavoritesViewModel.AddStationToFavoritesCommand.RaiseCanExecuteChanged();
+                    //    a.FavoritesViewModel.RemoveStationFromFavoritesCommand.RaiseCanExecuteChanged();
+                    //    a.FavoritesViewModel.SetHomeStationCommand.RaiseCanExecuteChanged();
+                    //    //CommandManager.InvalidateRequerySuggested();
+                    //}
+                }));
+
         public StationListItem()
         {
             this.InitializeComponent();
+
+            var a = new ViewModel.ViewModelLocator();
+            a.FavoritesViewModel.AddStationToFavoritesCommand.RaiseCanExecuteChanged();
+            a.FavoritesViewModel.RemoveStationFromFavoritesCommand.RaiseCanExecuteChanged();
+            a.FavoritesViewModel.SetHomeStationCommand.RaiseCanExecuteChanged();
         }
 
-        //public Model.Station Station
-        //{
-        //    get { return (Model.Station)GetValue(StationProperty); }
-        //    set { SetValue(StationProperty, value); }
-        //}
-
-        //// Using a DependencyProperty as the backing store for Station.
-        //public static readonly DependencyProperty StationProperty =
-        //    DependencyProperty.Register("Station", typeof(Model.Station), typeof(StationListItem), new PropertyMetadata(Model.Station.Empty, OnStationPropertyChanged));
-
-        //private static void OnStationPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        //{
-        //    StationListItem stationListItem = sender as StationListItem;
-        //    if (stationListItem != null)
-        //    {
-        //    }
-        //}
+        public string Distance
+        {
+            get { return (string)GetValue(DistanceProperty); }
+            set { SetValue(DistanceProperty, value); }
+        }
 
         public string SearchString
         {
@@ -36,8 +53,10 @@ namespace SmokSmog.Controls
             set { SetValue(SearchStringProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SearchString.
-        public static readonly DependencyProperty SearchStringProperty =
-            DependencyProperty.Register("SearchString", typeof(string), typeof(StationListItem), new PropertyMetadata(string.Empty));
+        public Station Station
+        {
+            get { return (Station)GetValue(StationProperty); }
+            set { SetValue(StationProperty, value); }
+        }
     }
 }
