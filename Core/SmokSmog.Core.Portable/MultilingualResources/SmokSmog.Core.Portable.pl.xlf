@@ -192,6 +192,22 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</target>
           <source>Show home station statuses on primary live tile</source>
           <target state="translated">Pokazuj status stacji domowej na głównym kafelku</target>
         </trans-unit>
+        <trans-unit id="StringLocalizationOff" translate="yes" xml:space="preserve">
+          <source>Localization is disabled in your device</source>
+          <target state="new">Localization is disabled in your device</target>
+        </trans-unit>
+        <trans-unit id="StringLocalizationTryAgain" translate="yes" xml:space="preserve">
+          <source>Enable localization and try again</source>
+          <target state="new">Enable localization and try again</target>
+        </trans-unit>
+        <trans-unit id="StringLocalizing" translate="yes" xml:space="preserve">
+          <source>Localizing ...</source>
+          <target state="new">Localizing ...</target>
+        </trans-unit>
+        <trans-unit id="StringRetry" translate="yes" xml:space="preserve">
+          <source>Retry</source>
+          <target state="new">Retry</target>
+        </trans-unit>
       </group>
     </body>
   </file>

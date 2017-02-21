@@ -1,5 +1,4 @@
-﻿<Page
-    x:Class="SmokSmog.Views.GeoStationList"
+﻿<Page x:Class="SmokSmog.Views.GeoStationList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:SmokSmog.Controls"
@@ -9,6 +8,7 @@
       xmlns:is="using:SmokSmog.Xaml.Interactions"
       xmlns:local="using:SmokSmog"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:mv="using:SmokSmog.ViewModel"
       xmlns:nav="using:SmokSmog.Navigation"
       x:Name="This"
       d:DataContext="{Binding Path=GeoStationListViewModel,
@@ -16,12 +16,14 @@
       DataContext="{Binding Path=GeoStationListViewModel,
                             Source={StaticResource ViewModelLocator}}"
       RequestedTheme="Light"
+      
       mc:Ignorable="d">
 
     <Page.Resources />
 
-    <Grid Background="{StaticResource SmokSmogPageBackgroundBrush}">
 
+
+    <Grid Background="{StaticResource SmokSmogPageBackgroundBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -30,7 +32,24 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ListView IsHoldingEnabled="True"
+        <i:Interaction.Behaviors>
+            <ic:EventTriggerBehavior EventName="Loaded">
+                <ic:CallMethodAction MethodName="Load" TargetObject="{Binding}" />
+            </ic:EventTriggerBehavior>
+            <ic:DataTriggerBehavior Binding="{Binding State}"
+                                    ComparisonCondition="Equal"
+                                    Value="Localizing" >
+                <ic:GoToStateAction TargetObject="{Binding ElementName=This}" StateName="LocalizingLayout" UseTransitions="True"></ic:GoToStateAction>
+            </ic:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
+
+        <!--<is: :PropertyChangedTrigger Binding="{Binding CurrentState}">
+                <ic:GoToStateAction StateName="{Binding CurrentState}" />
+            </is:>
+        </i:Interaction.>-->
+
+        <ListView x:Name="ListView"
+                  IsHoldingEnabled="True"
                   ItemsSource="{Binding Path=NearestStations}"
                   SelectedIndex="-1"
                   SelectionMode="None"
@@ -52,7 +71,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <controls:StationListItem Station="{Binding Station}" Distance="{Binding DistanceString}">
+                    <controls:StationListItem Distance="{Binding DistanceString}" Station="{Binding Station}">
                         <i:Interaction.Behaviors>
                             <ic:EventTriggerBehavior EventName="Tapped">
                                 <nav:NavigateAction Parameter="{Binding Station}" TargetPage="StationPage" />
@@ -62,5 +81,95 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <StackPanel x:Name="Localizing"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Visibility="Collapsed">
+            <FontIcon Margin="10,10,5,10"
+                      HorizontalAlignment="Center"
+                      FontFamily="Segoe MDL2 Assets"
+                      FontSize="64"
+                      Glyph="&#xE1C4;" />
+            <TextBlock HorizontalAlignment="Center" Text="{Binding LocalizedResources.StringLocalizing, Source={StaticResource LocalizedStrings}}" />
+            <ProgressBar Margin="10" IsIndeterminate="True" />
+        </StackPanel>
+
+        <StackPanel x:Name="Information"
+                    Visibility="Collapsed"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center">
+            <FontIcon Margin="10,10,5,10"
+                      HorizontalAlignment="Center"
+                      FontFamily="Segoe MDL2 Assets"
+                      FontSize="64"
+                      Glyph="&#xE1C4;" />
+            <TextBlock HorizontalAlignment="Center"
+                       Text="{Binding LocalizedResources.StringLocalizationOff,
+                                      Source={StaticResource LocalizedStrings}}"
+                       TextWrapping="Wrap" />
+
+            <TextBlock HorizontalAlignment="Center"
+                       Text="{Binding LocalizedResources.StringLocalizationTryAgain,
+                                      Source={StaticResource LocalizedStrings}}"
+                       TextWrapping="Wrap" />
+
+            <Button Margin="10"
+                    HorizontalAlignment="Center"
+                    Content="{Binding LocalizedResources.StringRetry,
+                                      Source={StaticResource LocalizedStrings}}" />
+        </StackPanel>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutStates">
+                <VisualState x:Name="LocalizingLayout">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ListView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Localizing" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Information" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="InformationLayout">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ListView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Localizing" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Information" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="ListLayout">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ListView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Localizing" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Information" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

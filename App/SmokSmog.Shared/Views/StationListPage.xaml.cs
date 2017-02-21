@@ -2,6 +2,7 @@
 using SmokSmog.ViewModel;
 using SmokSmog.Xaml.Data.ValueConverters;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog.Views
@@ -26,7 +27,7 @@ namespace SmokSmog.Views
                         ),
                 };
 
-                menuItem.Tapped += (object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+                menuItem.Tapped += (object sender, TappedRoutedEventArgs e)
                     => _vm.CurrentStationGroupingMode = item;
 
                 ChangeGrouppingModeFlyout.Items.Add(menuItem);

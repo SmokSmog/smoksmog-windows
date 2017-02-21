@@ -269,6 +269,33 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Localization is disabled in your device.
+        /// </summary>
+        public static string StringLocalizationOff {
+            get {
+                return ResourceManager.GetString("StringLocalizationOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable localization and try again.
+        /// </summary>
+        public static string StringLocalizationTryAgain {
+            get {
+                return ResourceManager.GetString("StringLocalizationTryAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Localizing ....
+        /// </summary>
+        public static string StringLocalizing {
+            get {
+                return ResourceManager.GetString("StringLocalizing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Measure.
         /// </summary>
         public static string StringMeasure {
@@ -356,6 +383,15 @@ namespace SmokSmog.Resources {
         public static string StringRemoveFromFavorites {
             get {
                 return ResourceManager.GetString("StringRemoveFromFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retry.
+        /// </summary>
+        public static string StringRetry {
+            get {
+                return ResourceManager.GetString("StringRetry", resourceCulture);
             }
         }
         

@@ -58,7 +58,7 @@ namespace SmokSmog.Navigation
 
             if (MainPage.IsSearchOpen)
             {
-                MainPage.CloseSearch();
+                MainPage.CloseSearch(null, null);
                 return true;
             }
 
@@ -111,7 +111,7 @@ namespace SmokSmog.Navigation
 
             if (MainPage.IsSearchOpen)
             {
-                MainPage.CloseSearch();
+                MainPage.CloseSearch(null, null);
             }
 
             var type = GetPageTypeByKey(pageKey);

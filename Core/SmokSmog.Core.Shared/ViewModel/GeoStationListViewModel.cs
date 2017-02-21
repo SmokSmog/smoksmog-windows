@@ -5,6 +5,7 @@ using SmokSmog.Services.Data;
 using SmokSmog.Services.Geolocation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,34 +14,13 @@ namespace SmokSmog.ViewModel
 {
     public class GeoStationListViewModel : StationsListBaseViewModel
     {
-        public class GeoStation
-        {
-            public GeoStation(Station station, Geocoordinate geocoordinate)
-            {
-                Station = station;
-                try
-                {
-                    Distance = station.Geocoordinate.Distance(geocoordinate, DistanceType);
-                }
-                catch (Exception e)
-                {
-                    Logger.Log(e);
-                }
-            }
-
-            public Station Station { get; }
-
-            public double? Distance { get; }
-
-            public string DistanceString => Distance.HasValue ? $"{Distance:0.0} km" : "--- km";
-
-            private Geocoordinate.DistanceType DistanceType => Geocoordinate.DistanceType.Kilometers;
-        }
-
         private readonly IGeolocationService _geolocationService;
 
         private CancellationTokenSource _cancellationTokenSource = null;
+
         private List<GeoStation> _nearestStations = new List<GeoStation>();
+
+        private string _state = States.Init.ToString();
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -51,10 +31,34 @@ namespace SmokSmog.ViewModel
             _geolocationService = geolocationService;
         }
 
+        public enum States
+        {
+            Init,
+            Localizing,
+            Disabled,
+            Cancelled,
+            Ready,
+            Error
+        }
+
         public RelayCommand CancelGeolocationCommand => new RelayCommand(CancelGetGeolocation, () => true);
 
         public RelayCommand GetGeolocationCommand => new RelayCommand(GetGeolocationAsync,
             () => _geolocationService.Status == GeolocationStatus.Available);
+
+        public RelayCommand RefreshGeolocationCommand => new RelayCommand(RefreshGeolocationAsync,
+            () => _geolocationService.Status == GeolocationStatus.Available);
+
+        private void RefreshGeolocationAsync()
+        {
+            GetGeolocationAsync();
+        }
+
+        public void Load(object sender, object parameters)
+        {
+            Debugger.Break();
+            State = States.Localizing.ToString();
+        }
 
         public List<GeoStation> NearestStations
         {
@@ -64,6 +68,17 @@ namespace SmokSmog.ViewModel
                 if (_nearestStations == value)
                     return;
                 _nearestStations = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string State
+        {
+            get { return _state; }
+            set
+            {
+                if (_state == value) return;
+                _state = value;
                 RaisePropertyChanged();
             }
         }
@@ -117,6 +132,27 @@ namespace SmokSmog.ViewModel
                 Logger.Log(e);
             }
             //IsGetGeolocationButtonVisable = true;
+        }
+
+        public class GeoStation
+        {
+            public GeoStation(Station station, Geocoordinate geocoordinate)
+            {
+                Station = station;
+                try
+                {
+                    Distance = station.Geocoordinate.Distance(geocoordinate, DistanceType);
+                }
+                catch (Exception e)
+                {
+                    Logger.Log(e);
+                }
+            }
+
+            public double? Distance { get; }
+            public string DistanceString => Distance.HasValue ? $"{Distance:0.0} km" : "--- km";
+            public Station Station { get; }
+            private Geocoordinate.DistanceType DistanceType => Geocoordinate.DistanceType.Kilometers;
         }
     }
 }
