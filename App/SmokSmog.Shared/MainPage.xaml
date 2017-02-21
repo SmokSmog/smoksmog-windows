@@ -83,7 +83,7 @@
             </Border>
 
             <Grid x:Name="RightSideMenuGrid"
-                  
+                  Width="0"
                   MinWidth="{StaticResource SmokSmogMenuButtonWidth}"
                   Margin="0,48,0,0"
                   HorizontalAlignment="Left"
