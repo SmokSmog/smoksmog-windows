@@ -70,10 +70,6 @@
           <source>Unknown</source>
           <target state="translated">Nieznany</target>
         </trans-unit>
-        <trans-unit id="StringDeterminingLocation" translate="yes" xml:space="preserve">
-          <source>Determining location</source>
-          <target state="translated">Ustalanie lokalizacji</target>
-        </trans-unit>
         <trans-unit id="StringStationList" translate="yes" xml:space="preserve">
           <source>Station list</source>
           <target state="translated">Lista stacji</target>
@@ -194,19 +190,31 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</target>
         </trans-unit>
         <trans-unit id="StringLocalizationOff" translate="yes" xml:space="preserve">
           <source>Localization is disabled in your device</source>
-          <target state="new">Localization is disabled in your device</target>
+          <target state="translated">Lokalizacja jest wyłączona na twoim urządzeniu</target>
         </trans-unit>
         <trans-unit id="StringLocalizationTryAgain" translate="yes" xml:space="preserve">
           <source>Enable localization and try again</source>
-          <target state="new">Enable localization and try again</target>
+          <target state="translated">Włącz lokalizację i spróbuj ponownie</target>
         </trans-unit>
         <trans-unit id="StringLocalizing" translate="yes" xml:space="preserve">
           <source>Localizing ...</source>
-          <target state="new">Localizing ...</target>
+          <target state="translated">Lokalizowanie ...</target>
         </trans-unit>
         <trans-unit id="StringRetry" translate="yes" xml:space="preserve">
           <source>Retry</source>
-          <target state="new">Retry</target>
+          <target state="translated">Ponów</target>
+        </trans-unit>
+        <trans-unit id="StringCancel" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="translated">Anuluj</target>
+        </trans-unit>
+        <trans-unit id="StringInitialization" translate="yes" xml:space="preserve">
+          <source>Initialization</source>
+          <target state="translated">Inicjalizowanie</target>
+        </trans-unit>
+        <trans-unit id="StringNearestStations" translate="yes" xml:space="preserve">
+          <source>Nearest stations</source>
+          <target state="translated">Najbliższe stacje</target>
         </trans-unit>
       </group>
     </body>

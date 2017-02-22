@@ -169,6 +169,31 @@
                                                           Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                             </StackPanel>
                         </Button>
+
+                        <!--  Nearest Stations List Button  -->
+                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}" MinHeight="{StaticResource SmokSmogMenuItemHeight}">
+                            <i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="Tapped">
+                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction TargetPage="NearestStationList" />
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Width="{StaticResource SmokSmogMenuItemWidth}"
+                                          Height="{StaticResource SmokSmogMenuItemHeight}"
+                                          FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                                          FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
+                                          Glyph="&#xE1C4;" />
+                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Normal"
+                                           FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
+                                           Text="{Binding LocalizedResources.StringNearestStations,
+                                                          Source={StaticResource LocalizedStrings},
+                                                          Converter={StaticResource StringToSentenceCaseValueConverter}}" />
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </ScrollViewer>
                 <StackPanel Grid.Column="0"

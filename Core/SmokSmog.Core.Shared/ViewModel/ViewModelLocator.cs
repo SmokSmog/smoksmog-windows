@@ -44,17 +44,17 @@ namespace SmokSmog.ViewModel
         public FavoritesViewModel FavoritesViewModel
             => ServiceLocator.Current.GetInstance<FavoritesViewModel>();
 
-        public GeoStationListViewModel GeoStationListViewModel
-            => ServiceLocator.Current.GetInstance<GeoStationListViewModel>();
-
         public GroupedViewModel GroupedViewModel
             => ServiceLocator.Current.GetInstance<GroupedViewModel>();
 
         public MainViewModel MainViewModel
             => ServiceLocator.Current.GetInstance<MainViewModel>();
 
+        public NearestStationListViewModel NearestStationListViewModel
+            => ServiceLocator.Current.GetInstance<NearestStationListViewModel>();
+
         public SearchViewModel SearchViewModel
-                    => ServiceLocator.Current.GetInstance<SearchViewModel>();
+            => ServiceLocator.Current.GetInstance<SearchViewModel>();
 
         public SettingsViewModel SettingsViewModel
             => ServiceLocator.Current.GetInstance<SettingsViewModel>();
@@ -71,11 +71,11 @@ namespace SmokSmog.ViewModel
         {
             if (_isInitialized) return;
 
-            SmokSmog.Services.ServiceLocator.Initialize();
+            Services.ServiceLocator.Initialize();
 
             SimpleIoc.Default.Register<AqiInformationViewModel>();
             SimpleIoc.Default.Register<FavoritesViewModel>();
-            SimpleIoc.Default.Register<GeoStationListViewModel>();
+            SimpleIoc.Default.Register<NearestStationListViewModel>();
             SimpleIoc.Default.Register<GroupedViewModel>();
             SimpleIoc.Default.Register<SearchViewModel>();
             SimpleIoc.Default.Register<StationViewModel>();

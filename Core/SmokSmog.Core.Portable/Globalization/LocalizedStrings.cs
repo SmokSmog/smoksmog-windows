@@ -11,24 +11,29 @@ namespace SmokSmog.Globalization
     /// </summary>
     public class LocalizedStrings
     {
-        static LocalizedStrings()
-        {
-            _localizedResources = new AppResources();
-        }
+        //static LocalizedStrings()
+        //{
+        //    _localizedResources = new AppResources();
+        //}
 
         private static AppResources _localizedResources;
 
         private static ResourceManager _resourceManager;
 
-        public AppResources LocalizedResources
+        public AppResources LocalizedResources => LocalizedResourcesStatic;
+
+        public static AppResources LocalizedResourcesStatic
         {
             get
             {
-                var CurrentUICulture = System.Globalization.CultureInfo.CurrentUICulture;
-                CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(CurrentUICulture.Name);
-                CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(CurrentUICulture.Name);
-                Resources.AppResources.Culture = new CultureInfo(System.Globalization.CultureInfo.CurrentUICulture.Name);
-                _localizedResources = new AppResources();
+                if (_localizedResources == null)
+                {
+                    var currentUiCulture = CultureInfo.CurrentUICulture;
+                    CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(currentUiCulture.Name);
+                    CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(currentUiCulture.Name);
+                    AppResources.Culture = new CultureInfo(CultureInfo.CurrentUICulture.Name);
+                    _localizedResources = new AppResources();
+                }
                 //_localizedResources.ToString();
                 return _localizedResources;
             }

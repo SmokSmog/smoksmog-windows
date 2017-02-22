@@ -143,6 +143,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string StringCancel {
+            get {
+                return ResourceManager.GetString("StringCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to click RMB.
         /// </summary>
         public static string StringClickRMB {
@@ -166,15 +175,6 @@ namespace SmokSmog.Resources {
         public static string StringComponents {
             get {
                 return ResourceManager.GetString("StringComponents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Determining location.
-        /// </summary>
-        public static string StringDeterminingLocation {
-            get {
-                return ResourceManager.GetString("StringDeterminingLocation", resourceCulture);
             }
         }
         
@@ -260,6 +260,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initialization.
+        /// </summary>
+        public static string StringInitialization {
+            get {
+                return ResourceManager.GetString("StringInitialization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to legend.
         /// </summary>
         public static string StringLegend {
@@ -319,6 +328,15 @@ namespace SmokSmog.Resources {
         public static string StringNA {
             get {
                 return ResourceManager.GetString("StringNA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nearest stations.
+        /// </summary>
+        public static string StringNearestStations {
+            get {
+                return ResourceManager.GetString("StringNearestStations", resourceCulture);
             }
         }
         

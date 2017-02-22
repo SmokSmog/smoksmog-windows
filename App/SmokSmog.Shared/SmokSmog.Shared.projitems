@@ -57,7 +57,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\GeoStationList.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\NearestStationList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,8 +117,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\FavoritesPage.xaml.cs">
       <DependentUpon>FavoritesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\GeoStationList.xaml.cs">
-      <DependentUpon>GeoStationList.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\NearestStationList.xaml.cs">
+      <DependentUpon>NearestStationList.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>

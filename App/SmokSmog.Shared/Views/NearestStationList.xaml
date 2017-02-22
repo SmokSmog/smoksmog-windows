@@ -1,4 +1,4 @@
-﻿<Page x:Class="SmokSmog.Views.GeoStationList"
+﻿<Page x:Class="SmokSmog.Views.NearestStationList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:SmokSmog.Controls"
@@ -11,17 +11,14 @@
       xmlns:mv="using:SmokSmog.ViewModel"
       xmlns:nav="using:SmokSmog.Navigation"
       x:Name="This"
-      d:DataContext="{Binding Path=GeoStationListViewModel,
+      d:DataContext="{Binding Path=NearestStationListViewModel,
                               Source={StaticResource ViewModelLocator}}"
-      DataContext="{Binding Path=GeoStationListViewModel,
+      DataContext="{Binding Path=NearestStationListViewModel,
                             Source={StaticResource ViewModelLocator}}"
       RequestedTheme="Light"
-      
       mc:Ignorable="d">
 
     <Page.Resources />
-
-
 
     <Grid Background="{StaticResource SmokSmogPageBackgroundBrush}">
         <Grid.ColumnDefinitions>
@@ -36,17 +33,34 @@
             <ic:EventTriggerBehavior EventName="Loaded">
                 <ic:CallMethodAction MethodName="Load" TargetObject="{Binding}" />
             </ic:EventTriggerBehavior>
-            <ic:DataTriggerBehavior Binding="{Binding State}"
+
+            <!--  Localizing  -->
+            <ic:DataTriggerBehavior Binding="{Binding VisualStateString}"
                                     ComparisonCondition="Equal"
-                                    Value="Localizing" >
-                <ic:GoToStateAction TargetObject="{Binding ElementName=This}" StateName="LocalizingLayout" UseTransitions="True"></ic:GoToStateAction>
+                                    Value="Localizing">
+                <ic:GoToStateAction StateName="LocalizingLayout"
+                                    TargetObject="{Binding ElementName=This}"
+                                    UseTransitions="True" />
+            </ic:DataTriggerBehavior>
+
+            <!--  Ready  -->
+            <ic:DataTriggerBehavior Binding="{Binding VisualStateString}"
+                                    ComparisonCondition="Equal"
+                                    Value="Ready">
+                <ic:GoToStateAction StateName="ListLayout"
+                                    TargetObject="{Binding ElementName=This}"
+                                    UseTransitions="True" />
+            </ic:DataTriggerBehavior>
+
+            <!--  Information  -->
+            <ic:DataTriggerBehavior Binding="{Binding VisualStateString}"
+                                    ComparisonCondition="Equal"
+                                    Value="Information">
+                <ic:GoToStateAction StateName="InformationLayout"
+                                    TargetObject="{Binding ElementName=This}"
+                                    UseTransitions="True" />
             </ic:DataTriggerBehavior>
         </i:Interaction.Behaviors>
-
-        <!--<is: :PropertyChangedTrigger Binding="{Binding CurrentState}">
-                <ic:GoToStateAction StateName="{Binding CurrentState}" />
-            </is:>
-        </i:Interaction.>-->
 
         <ListView x:Name="ListView"
                   IsHoldingEnabled="True"
@@ -54,12 +68,6 @@
                   SelectedIndex="-1"
                   SelectionMode="None"
                   ShowsScrollingPlaceholders="True">
-
-            <ListView.Header>
-                <StackPanel>
-                    <Button Command="{Binding GetGeolocationCommand}">Get</Button>
-                </StackPanel>
-            </ListView.Header>
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -88,34 +96,39 @@
                     Visibility="Collapsed">
             <FontIcon Margin="10,10,5,10"
                       HorizontalAlignment="Center"
-                      FontFamily="Segoe MDL2 Assets"
+                      FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                       FontSize="64"
                       Glyph="&#xE1C4;" />
             <TextBlock HorizontalAlignment="Center" Text="{Binding LocalizedResources.StringLocalizing, Source={StaticResource LocalizedStrings}}" />
             <ProgressBar Margin="10" IsIndeterminate="True" />
+
+            <Button Margin="10"
+                    HorizontalAlignment="Center"
+                    Command="{Binding CancelGeolocationCommand}"
+                    Content="{Binding LocalizedResources.StringCancel,
+                                      Source={StaticResource LocalizedStrings}}" />
         </StackPanel>
 
         <StackPanel x:Name="Information"
-                    Visibility="Collapsed"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Visibility="Collapsed">
             <FontIcon Margin="10,10,5,10"
                       HorizontalAlignment="Center"
-                      FontFamily="Segoe MDL2 Assets"
+                      FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                       FontSize="64"
                       Glyph="&#xE1C4;" />
             <TextBlock HorizontalAlignment="Center"
-                       Text="{Binding LocalizedResources.StringLocalizationOff,
-                                      Source={StaticResource LocalizedStrings}}"
+                       Text="{Binding InformationLine1}"
                        TextWrapping="Wrap" />
 
             <TextBlock HorizontalAlignment="Center"
-                       Text="{Binding LocalizedResources.StringLocalizationTryAgain,
-                                      Source={StaticResource LocalizedStrings}}"
+                       Text="{Binding InformationLine2}"
                        TextWrapping="Wrap" />
 
             <Button Margin="10"
                     HorizontalAlignment="Center"
+                    Command="{Binding RefreshGeolocationCommand}"
                     Content="{Binding LocalizedResources.StringRetry,
                                       Source={StaticResource LocalizedStrings}}" />
         </StackPanel>

@@ -60,9 +60,6 @@
   <data name="StringUnknown" xml:space="preserve">
     <value>Nieznany</value>
   </data>
-  <data name="StringDeterminingLocation" xml:space="preserve">
-    <value>Ustalanie lokalizacji</value>
-  </data>
   <data name="StringStationList" xml:space="preserve">
     <value>Lista stacji</value>
   </data>
@@ -150,5 +147,26 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</value>
   </data>
   <data name="StringSettingsStringHomeStationLiveTile" xml:space="preserve">
     <value>Pokazuj status stacji domowej na głównym kafelku</value>
+  </data>
+  <data name="StringLocalizationOff" xml:space="preserve">
+    <value>Lokalizacja jest wyłączona na twoim urządzeniu</value>
+  </data>
+  <data name="StringLocalizationTryAgain" xml:space="preserve">
+    <value>Włącz lokalizację i spróbuj ponownie</value>
+  </data>
+  <data name="StringLocalizing" xml:space="preserve">
+    <value>Lokalizowanie ...</value>
+  </data>
+  <data name="StringRetry" xml:space="preserve">
+    <value>Ponów</value>
+  </data>
+  <data name="StringCancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="StringInitialization" xml:space="preserve">
+    <value>Inicjalizowanie</value>
+  </data>
+  <data name="StringNearestStations" xml:space="preserve">
+    <value>Najbliższe stacje</value>
   </data>
 </root>

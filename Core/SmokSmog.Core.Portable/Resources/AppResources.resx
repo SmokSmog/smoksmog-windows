@@ -144,6 +144,9 @@
   <data name="StringBad" xml:space="preserve">
     <value>Bad</value>
   </data>
+  <data name="StringCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="StringClickRMB" xml:space="preserve">
     <value>click RMB</value>
   </data>
@@ -152,9 +155,6 @@
   </data>
   <data name="StringComponents" xml:space="preserve">
     <value>Components</value>
-  </data>
-  <data name="StringDeterminingLocation" xml:space="preserve">
-    <value>Determining location</value>
   </data>
   <data name="StringFavorites" xml:space="preserve">
     <value>favorites</value>
@@ -183,6 +183,9 @@
   <data name="StringInformation" xml:space="preserve">
     <value>information</value>
   </data>
+  <data name="StringInitialization" xml:space="preserve">
+    <value>Initialization</value>
+  </data>
   <data name="StringLegend" xml:space="preserve">
     <value>legend</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="StringNA" xml:space="preserve">
     <value>N/A</value>
+  </data>
+  <data name="StringNearestStations" xml:space="preserve">
+    <value>Nearest stations</value>
   </data>
   <data name="StringNoApiConnection" xml:space="preserve">
     <value>No API connection has been found.
