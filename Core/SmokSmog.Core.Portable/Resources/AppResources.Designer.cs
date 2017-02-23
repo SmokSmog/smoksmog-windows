@@ -179,6 +179,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred.
+        /// </summary>
+        public static string StringErrorOccurred {
+            get {
+                return ResourceManager.GetString("StringErrorOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to favorites.
         /// </summary>
         public static string StringFavorites {
@@ -274,6 +283,24 @@ namespace SmokSmog.Resources {
         public static string StringLegend {
             get {
                 return ResourceManager.GetString("StringLegend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Localizing canceled.
+        /// </summary>
+        public static string StringLocalizationCanceled {
+            get {
+                return ResourceManager.GetString("StringLocalizationCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We can&apos;t find device localization.
+        /// </summary>
+        public static string StringLocalizationNotFound {
+            get {
+                return ResourceManager.GetString("StringLocalizationNotFound", resourceCulture);
             }
         }
         

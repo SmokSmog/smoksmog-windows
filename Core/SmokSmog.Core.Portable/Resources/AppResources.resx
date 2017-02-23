@@ -156,6 +156,9 @@
   <data name="StringComponents" xml:space="preserve">
     <value>Components</value>
   </data>
+  <data name="StringErrorOccurred" xml:space="preserve">
+    <value>An error occurred</value>
+  </data>
   <data name="StringFavorites" xml:space="preserve">
     <value>favorites</value>
   </data>
@@ -188,6 +191,12 @@
   </data>
   <data name="StringLegend" xml:space="preserve">
     <value>legend</value>
+  </data>
+  <data name="StringLocalizationCanceled" xml:space="preserve">
+    <value>Localizing canceled</value>
+  </data>
+  <data name="StringLocalizationNotFound" xml:space="preserve">
+    <value>We can't find device localization</value>
   </data>
   <data name="StringLocalizationOff" xml:space="preserve">
     <value>Localization is disabled in your device</value>

@@ -169,4 +169,13 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</value>
   <data name="StringNearestStations" xml:space="preserve">
     <value>Najbliższe stacje</value>
   </data>
+  <data name="StringErrorOccurred" xml:space="preserve">
+    <value>Wystąpił błąd</value>
+  </data>
+  <data name="StringLocalizationCanceled" xml:space="preserve">
+    <value>Anulowano lokalizowanie</value>
+  </data>
+  <data name="StringLocalizationNotFound" xml:space="preserve">
+    <value>Nie udało się ustalić lokalizacji</value>
+  </data>
 </root>

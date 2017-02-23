@@ -206,7 +206,7 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</target>
         </trans-unit>
         <trans-unit id="StringCancel" translate="yes" xml:space="preserve">
           <source>Cancel</source>
-          <target state="translated">Anuluj</target>
+          <target state="final">Anuluj</target>
         </trans-unit>
         <trans-unit id="StringInitialization" translate="yes" xml:space="preserve">
           <source>Initialization</source>
@@ -215,6 +215,18 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</target>
         <trans-unit id="StringNearestStations" translate="yes" xml:space="preserve">
           <source>Nearest stations</source>
           <target state="translated">Najbliższe stacje</target>
+        </trans-unit>
+        <trans-unit id="StringErrorOccurred" translate="yes" xml:space="preserve">
+          <source>An error occurred</source>
+          <target state="translated">Wystąpił błąd</target>
+        </trans-unit>
+        <trans-unit id="StringLocalizationCanceled" translate="yes" xml:space="preserve">
+          <source>Localizing canceled</source>
+          <target state="translated">Anulowano lokalizowanie</target>
+        </trans-unit>
+        <trans-unit id="StringLocalizationNotFound" translate="yes" xml:space="preserve">
+          <source>We can't find device localization</source>
+          <target state="translated">Nie udało się ustalić lokalizacji</target>
         </trans-unit>
       </group>
     </body>

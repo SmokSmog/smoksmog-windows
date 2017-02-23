@@ -21,6 +21,7 @@ namespace SmokSmog.ViewModel
 
         private string _informationLine1 = string.Empty;
         private string _informationLine2 = string.Empty;
+        private string _lastErrorMessage = string.Empty;
         private List<GeoStation> _nearestStations = new List<GeoStation>();
 
         private States _state = States.Init;
@@ -126,15 +127,16 @@ namespace SmokSmog.ViewModel
                         break;
 
                     case States.Timeout:
-                        InformationLine1 = "Timeout";
+                        InformationLine1 = AppResources.StringLocalizationNotFound;
                         break;
 
                     case States.Cancelled:
-                        InformationLine1 = "Canceled";
+                        InformationLine1 = AppResources.StringLocalizationCanceled;
                         break;
 
                     case States.Error:
-                        InformationLine1 = "Error";
+                        InformationLine1 = AppResources.StringErrorOccurred;
+                        InformationLine2 = _lastErrorMessage;
                         break;
                 }
             }
@@ -221,6 +223,7 @@ namespace SmokSmog.ViewModel
             {
                 Logger.Log(e);
                 State = States.Error;
+                _lastErrorMessage = e.Message;
             }
         }
 
