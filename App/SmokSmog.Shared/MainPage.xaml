@@ -194,6 +194,33 @@
                                                           Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                             </StackPanel>
                         </Button>
+
+                        <!--  Map Button  -->
+                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
+                                Style="{StaticResource SmokSmogButtonStyle}"
+                                MinHeight="{StaticResource SmokSmogMenuItemHeight}">
+                            <i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="Tapped">
+                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction TargetPage="MapPage" />
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Width="{StaticResource SmokSmogMenuItemWidth}"
+                                          Height="{StaticResource SmokSmogMenuItemHeight}"
+                                          FontFamily="{StaticResource FontAwesomeFontFamily}"
+                                          FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
+                                          Glyph="&#xF278;" />
+                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Normal"
+                                           FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
+                                           Text="{Binding LocalizedResources.StringMap,
+                                                          Source={StaticResource LocalizedStrings},
+                                                          Converter={StaticResource StringToSentenceCaseValueConverter}}" />
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </ScrollViewer>
                 <StackPanel Grid.Column="0"
@@ -252,10 +279,10 @@
                         </StackPanel>
                     </Button>
 
-                    <Button 
+                    <Button
                             Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
                             MinHeight="{StaticResource SmokSmogMenuItemHeight}"
-                            
+
                             Style="{StaticResource SmokSmogButtonStyle}"
                             Visibility="Visible">
                         <i:Interaction.Behaviors>

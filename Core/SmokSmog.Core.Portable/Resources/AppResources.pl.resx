@@ -178,4 +178,7 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</value>
   <data name="StringLocalizationNotFound" xml:space="preserve">
     <value>Nie udało się ustalić lokalizacji</value>
   </data>
+  <data name="StringMap" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
 </root>

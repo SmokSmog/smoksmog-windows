@@ -1,6 +1,13 @@
+$projectPath = "."
+
+if($env:APPVEYOR)
+{
+	$projectPath = $env:APPVEYOR_BUILD_FOLDER
+}
+
 $win81 = [pscustomobject]@{
 	Name = "win81"
-	Folder = "./App/SmokSmog.Windows/"
+	Folder = "$projectPath/App/SmokSmog.Windows/"
 	Scales = 180,140,100,80
 	Target = 16,24,32,48,256
 	Assets = 7,9,10,11,2,6,1,4
@@ -8,7 +15,7 @@ $win81 = [pscustomobject]@{
 
 $wpa81 = [pscustomobject]@{
 	Name = "wpa81"
-	Folder = "./App/SmokSmog.WindowsPhone/"
+	Folder = "$projectPath/App/SmokSmog.WindowsPhone/"
 	Scales = 240,140,100
 	Target = 0
 	Assets = 8,9,10,3,6,1,5
@@ -16,7 +23,7 @@ $wpa81 = [pscustomobject]@{
 
 $uwp = [pscustomobject]@{
 	Name = "uwp"
-	Folder = "./App/SmokSmog.WindowsUniversal/"
+	Folder = "$projectPath/App/SmokSmog.WindowsUniversal/"
 	Scales = 400,200,150,125,100
 	Target = 16,24,32,48,256
 	Assets = 8,9,10,11,3,6,1,4
@@ -39,7 +46,7 @@ $filesNames =@{
 
 $folders = "Badge", "Icon", "SplashScreen", "Store", "Tiles"
 $tiles = "Small","Medium","Wide","Large"
-$sharedPath = "./App/SmokSmog.Shared/"
+$sharedPath = "$projectPath/App/SmokSmog.Shared/"
 
 foreach ($project in $projects) {
 	$path = "$($project.Folder)"
@@ -82,7 +89,7 @@ foreach ($project in $projects) {
 }
 
 If (Test-Path "C:/Windows/Fonts/SEGMDL2.TTF"){
-	Copy-Item "C:/Windows/Fonts/SEGMDL2.TTF" "./App/SmokSmog.Shared/Assets/Fonts/SEGMDL2.TTF" -force
+	Copy-Item "C:/Windows/Fonts/SEGMDL2.TTF" "$projectPath/App/SmokSmog.Shared/Assets/Fonts/SEGMDL2.TTF" -force
 } Else {
-	Copy-Item "./README.md" "./App/SmokSmog.Shared/Assets/Fonts/SEGMDL2.TTF" -force
+	Copy-Item "$projectPath/README.md" "$projectPath/App/SmokSmog.Shared/Assets/Fonts/SEGMDL2.TTF" -force
 }

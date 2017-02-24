@@ -108,6 +108,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Map\BingMapConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\INavigationProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigateAction.cs" />
@@ -146,6 +147,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\FontAwesome.otf" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\SEGMDL2.TTF" />
   </ItemGroup>
 </Project>

@@ -153,6 +153,9 @@
     <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
       <Name>Behaviors SDK %28XAML%29</Name>
     </SDKReference>
+    <SDKReference Include="Bing.Maps.Xaml, Version=1.313.0825.0">
+      <Name>Bing Maps for C#, C++, or Visual Basic</Name>
+    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -194,6 +197,17 @@
     <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-140.png" />
     <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-180.png" />
     <Content Include="Assets\Tiles\Wide\Wide310x150Logo.scale-80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\MapPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Views\MapPage.xaml.cs">
+      <DependentUpon>MapPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="..\SmokSmog.Shared\SmokSmog.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">

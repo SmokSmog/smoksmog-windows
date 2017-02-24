@@ -207,6 +207,9 @@
   <data name="StringLocalizing" xml:space="preserve">
     <value>Localizing ...</value>
   </data>
+  <data name="StringMap" xml:space="preserve">
+    <value>Map</value>
+  </data>
   <data name="StringMeasure" xml:space="preserve">
     <value>Measure</value>
   </data>

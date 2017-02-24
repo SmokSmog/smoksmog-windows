@@ -228,6 +228,10 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</target>
           <source>We can't find device localization</source>
           <target state="translated">Nie udało się ustalić lokalizacji</target>
         </trans-unit>
+        <trans-unit id="StringMap" translate="yes" xml:space="preserve">
+          <source>Map</source>
+          <target state="translated">Mapa</target>
+        </trans-unit>
       </group>
     </body>
   </file>

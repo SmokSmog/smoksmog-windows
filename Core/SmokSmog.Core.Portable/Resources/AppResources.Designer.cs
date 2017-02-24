@@ -332,6 +332,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Map.
+        /// </summary>
+        public static string StringMap {
+            get {
+                return ResourceManager.GetString("StringMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Measure.
         /// </summary>
         public static string StringMeasure {
