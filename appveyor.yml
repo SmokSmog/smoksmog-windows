@@ -18,9 +18,9 @@ clone_folder: C:\projects\smoksmog-windows
 # scripts that run after cloning repository
 install:
 - ps: >-
-    "$($env:APPVEYOR_BUILD_FOLDER)\scripts\import-PfxCertificates.ps1"
+    & "$($env:APPVEYOR_BUILD_FOLDER)\scripts\import-PfxCertificates.ps1"
     
-    "$($env:APPVEYOR_BUILD_FOLDER)\scripts\install-dependencies.ps1"
+    & "$($env:APPVEYOR_BUILD_FOLDER)\scripts\install-dependencies.ps1"
     
 #---------------------------------#
 #       build configuration       #
@@ -37,11 +37,11 @@ build:
 
 before_build:
 - ps: >-
-    "$($env:APPVEYOR_BUILD_FOLDER)\.nuget\NuGet.exe" update -self > $null 2> $null
+    & "$($env:APPVEYOR_BUILD_FOLDER)\.nuget\NuGet.exe" update -self > $null 2> $null
 
-    "$($env:APPVEYOR_BUILD_FOLDER)\.nuget\NuGet.exe" restore > $null 2> $null
+    & "$($env:APPVEYOR_BUILD_FOLDER)\.nuget\NuGet.exe" restore > $null 2> $null
 
-    "$($env:APPVEYOR_BUILD_FOLDER)\scripts\restore-assets.ps1" > $null 2> $null
+    & "$($env:APPVEYOR_BUILD_FOLDER)\scripts\restore-assets.ps1" > $null 2> $null
 
 #---------------------------------#
 #       tests configuration       #
@@ -49,7 +49,7 @@ before_build:
 
 after_test:
 - ps: >-
-    "$($env:APPVEYOR_BUILD_FOLDER)\scripts\codecov.ps1
+    & "$($env:APPVEYOR_BUILD_FOLDER)\scripts\codecov.ps1"
 
 #---------------------------------#
 #     deployment configuration    #
