@@ -115,9 +115,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryBad.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryGood-square.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\VeryGood.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Controls\Large.xml" />
-    <Content Include="$(MSBuildThisFileDirectory)Controls\Medium.xml" />
-    <Content Include="$(MSBuildThisFileDirectory)Controls\Wide.xml" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Controls\Large.xaml">

@@ -1,8 +1,5 @@
 ﻿using SmokSmog.Resources;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Resources;
 
 namespace SmokSmog.Globalization
 {
@@ -11,14 +8,7 @@ namespace SmokSmog.Globalization
     /// </summary>
     public class LocalizedStrings
     {
-        //static LocalizedStrings()
-        //{
-        //    _localizedResources = new AppResources();
-        //}
-
         private static AppResources _localizedResources;
-
-        private static ResourceManager _resourceManager;
 
         public AppResources LocalizedResources => LocalizedResourcesStatic;
 
@@ -26,15 +16,14 @@ namespace SmokSmog.Globalization
         {
             get
             {
-                if (_localizedResources == null)
-                {
-                    var currentUiCulture = CultureInfo.CurrentUICulture;
-                    CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(currentUiCulture.Name);
-                    CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(currentUiCulture.Name);
-                    AppResources.Culture = new CultureInfo(CultureInfo.CurrentUICulture.Name);
-                    _localizedResources = new AppResources();
-                }
-                //_localizedResources.ToString();
+                if (_localizedResources != null)
+                    return _localizedResources;
+
+                var currentUiCulture = CultureInfo.CurrentUICulture;
+                CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(currentUiCulture.Name);
+                CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(currentUiCulture.Name);
+                AppResources.Culture = new CultureInfo(CultureInfo.CurrentUICulture.Name);
+                _localizedResources = new AppResources();
                 return _localizedResources;
             }
         }
@@ -43,14 +32,6 @@ namespace SmokSmog.Globalization
         {
             try
             {
-                if (_resourceManager == null)
-                {
-                    _resourceManager = (ResourceManager)
-                        (typeof(SmokSmog.Resources.AppResources).GetRuntimeFields()
-                        .First(m => m.Name == "resourceMan").GetValue(null));
-                }
-                //ResourceManager temp = new ResourceManager("SmokSmog.Resources.AppResources", typeof(LocalizedStrings).GetTypeInfo().Assembly);
-                //return _resourceManager.GetString(resourceKey);
                 return AppResources.ResourceManager.GetString(resourceKey);
             }
             catch (System.Exception)
