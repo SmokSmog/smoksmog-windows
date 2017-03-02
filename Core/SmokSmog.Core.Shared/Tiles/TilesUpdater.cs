@@ -17,6 +17,9 @@ namespace SmokSmog.Tiles
     {
         public async Task PrimaryTileRenderAndUpdate(CancellationToken token = default(CancellationToken))
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             var tilesService = Services.ServiceLocator.Current.TilesService;
             var settingsService = Services.ServiceLocator.Current.SettingsService;
 
@@ -52,6 +55,9 @@ namespace SmokSmog.Tiles
                     TileUpdateManager.CreateTileUpdaterForApplication().Clear();
                 }
             }
+
+            stopwatch.Stop();
+            Debug.WriteLine("Total Seconds Elapsed: {0}", stopwatch.ElapsedMilliseconds);
         }
 
         public void PrimaryTileUpdate(StationViewModel stationViewModel)
@@ -77,6 +83,10 @@ namespace SmokSmog.Tiles
                 xmlTileUpdate.Append($"<image id=\"1\" src=\"ms-appdata:///local/LiveTileFront_1.png\"/>");
                 xmlTileUpdate.Append($"</binding>");
 
+                xmlTileUpdate.Append($"<binding template=\"TileSquare310x310Image\" fallback=\"TileSquareImage\" branding=\"name\" displayName=\"{stationViewModel.Station.Name}\">");
+                xmlTileUpdate.Append($"<image id=\"1\" src=\"ms-appdata:///local/LiveTileFront_2.png\"/>");
+                xmlTileUpdate.Append($"</binding>");
+
                 xmlTileUpdate.Append($"</visual></tile>");
 
                 var template = xmlTileUpdate.ToString();
@@ -89,6 +99,7 @@ namespace SmokSmog.Tiles
                     $"<binding template=\"TileSquare150x150Image\" fallback=\"TileSquareImage\" branding=\"name\" displayName=\"{stationViewModel.Station.Name}\">" +
                     $"<image id=\"1\" src=\"ms-appdata:///local/LiveTileFront_0.png\"/>" +
                     $"<text id=\"2\">{stationViewModel.Station.Name}</text>" +
+                    $"</binding>" +
                     $"<binding template=\"TileWideImage\" fallback=\"TileSquareImage\" branding=\"name\" displayName=\"{stationViewModel.Station.Name}\">" +
                     $"<image id=\"1\" src=\"ms-appdata:///local/LiveTileFront_1.png\"/>" +
                     $"<text id=\"2\">{stationViewModel.Station.Name}</text>" +
@@ -142,24 +153,32 @@ namespace SmokSmog.Tiles
                 {
                     MemoryInfo.DebugMemoryStatus("Before Rendering Start");
 
-                    await tileRenderer.RenderMediumTileFrontAsync($"LiveTileFront_0.png", stationViewModel);
+                    //float dpi = 96f; // 100%
+                    float dpi = 192f; // 200%
+
+                    await tileRenderer.RenderMediumTileFrontAsync($"LiveTileFront_0.png", stationViewModel, dpi);
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                     GC.Collect();
 
-                    await tileRenderer.RenderWideTileFrontAsync($"LiveTileFront_1.png", stationViewModel);
+                    await tileRenderer.RenderWideTileFrontAsync($"LiveTileFront_1.png", stationViewModel, dpi);
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    GC.Collect();
+
+                    await tileRenderer.RenderLargeTileFrontAsync($"LiveTileFront_2.png", stationViewModel, dpi);
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                     GC.Collect();
 
                     if (stationViewModel.AirQualityIndex.Level != AirQualityLevel.NotAvailable)
                     {
-                        await tileRenderer.RenderMediumTileBackAsync($"LiveTileBack_0.png", stationViewModel);
+                        await tileRenderer.RenderMediumTileBackAsync($"LiveTileBack_0.png", stationViewModel, dpi);
                         GC.Collect();
                         GC.WaitForPendingFinalizers();
                         GC.Collect();
 
-                        await tileRenderer.RenderWideTileBackAsync($"LiveTileBack_1.png", stationViewModel);
+                        await tileRenderer.RenderWideTileBackAsync($"LiveTileBack_1.png", stationViewModel, dpi);
                         GC.Collect();
                         GC.WaitForPendingFinalizers();
                         GC.Collect();
