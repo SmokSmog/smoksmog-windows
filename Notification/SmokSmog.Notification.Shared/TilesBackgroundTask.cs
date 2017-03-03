@@ -20,26 +20,33 @@ namespace SmokSmog.Notification
         /// <param name="taskInstance"></param>
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            // Get a deferral, to prevent the task from closing prematurely while asynchronous code
-            // is still running.
-            _deferral = taskInstance.GetDeferral();
+            try
+            {
+                // Get a deferral, to prevent the task from closing prematurely while asynchronous code
+                // is still running.
+                _deferral = taskInstance.GetDeferral();
 
-            // Query BackgroundWorkCost
-            // Guidance: If BackgroundWorkCost is high, then perform only the minimum amount
-            // of work in the background task and return immediately.
-            var log = await ApplicationData.Current.LocalFolder.CreateFileAsync("BackgroundTask.Execution.log", CreationCollisionOption.ReplaceExisting);
-            await FileIO.AppendTextAsync(log, $"\"Start\": \"{DateTime.Now:G}\", " +
-                                              $"\"Cost\": \"{BackgroundWorkCost.CurrentBackgroundWorkCost}\",");
+                // Query BackgroundWorkCost
+                // Guidance: If BackgroundWorkCost is high, then perform only the minimum amount
+                // of work in the background task and return immediately.
+                var log = await ApplicationData.Current.LocalFolder.CreateFileAsync("BackgroundTask.Execution.log", CreationCollisionOption.ReplaceExisting);
+                await FileIO.AppendTextAsync(log, $"\"Start\": \"{DateTime.Now:O}\", " +
+                                                  $"\"Cost\": \"{BackgroundWorkCost.CurrentBackgroundWorkCost}\",");
 
-            // Associate a cancellation handler with the background task.
-            taskInstance.Canceled += new BackgroundTaskCanceledEventHandler(OnCanceled);
+                // Associate a cancellation handler with the background task.
+                taskInstance.Canceled += new BackgroundTaskCanceledEventHandler(OnCanceled);
 
-            TilesUpdater tilesUpdater = new TilesUpdater();
-            await tilesUpdater.PrimaryTileRenderAndUpdate();
+                TilesUpdater tilesUpdater = new TilesUpdater();
+                await tilesUpdater.PrimaryTileRenderAndUpdate();
 
-            await FileIO.AppendTextAsync(log, $"\"End\" : \"{DateTime.Now:G}\"");
-            // Inform the system that the task is finished.
-            _deferral.Complete();
+                log = await ApplicationData.Current.LocalFolder.CreateFileAsync("BackgroundTask.Execution.log", CreationCollisionOption.OpenIfExists);
+                await FileIO.AppendTextAsync(log, $"\"End\" : \"{DateTime.Now:G}\"");
+            }
+            finally
+            {
+                // Inform the system that the task is finished.
+                _deferral?.Complete();
+            }
         }
 
         // Handles background task cancellation.

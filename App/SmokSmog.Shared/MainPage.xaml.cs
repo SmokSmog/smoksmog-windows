@@ -39,7 +39,7 @@ namespace SmokSmog
 #endif
         }
 
-        public void CloseSearch()
+        public void CloseSearch(object sender, object parameters)
         {
             SearchTextBox.SearchString = string.Empty;
             IsSearchOpen = false;
@@ -60,7 +60,7 @@ namespace SmokSmog
 #endif
         }
 
-        public void OpenSearch()
+        public void OpenSearch(object sender, object parameters)
         {
             var navProvider = Application.Current as INavigationProvider;
             if (navProvider?.NavigationService?.CurrentSecondPageKey != nameof(SearchPage))
@@ -79,7 +79,10 @@ namespace SmokSmog
 
         public void ToggleSearch()
         {
-            if (IsSearchOpen) CloseSearch(); else OpenSearch();
+            if (IsSearchOpen)
+                CloseSearch(null, null);
+            else
+                OpenSearch(null, null);
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -124,7 +127,7 @@ namespace SmokSmog
                 navProvider?.NavigationService?.NavigateTo(nameof(InformationPage));
 
 #if DEBUG
-            //navProvider?.NavigationService?.NavigateTo(nameof(DebugPage));
+            navProvider?.NavigationService?.NavigateTo(nameof(DebugPage));
 #endif
         }
 
@@ -142,13 +145,13 @@ namespace SmokSmog
         private void SearchTextBox_OnGotFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(SearchTextBox.SearchString))
-                OpenSearch();
+                OpenSearch(null, null);
         }
 
         private void SearchTextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(SearchTextBox.SearchString))
-                CloseSearch();
+                CloseSearch(null, null);
         }
 
         private void SetRootLayout()

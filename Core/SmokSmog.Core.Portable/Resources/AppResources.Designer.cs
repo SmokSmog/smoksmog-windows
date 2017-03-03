@@ -143,6 +143,15 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string StringCancel {
+            get {
+                return ResourceManager.GetString("StringCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to click RMB.
         /// </summary>
         public static string StringClickRMB {
@@ -170,11 +179,11 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Determining location.
+        ///   Looks up a localized string similar to An error occurred.
         /// </summary>
-        public static string StringDeterminingLocation {
+        public static string StringErrorOccurred {
             get {
-                return ResourceManager.GetString("StringDeterminingLocation", resourceCulture);
+                return ResourceManager.GetString("StringErrorOccurred", resourceCulture);
             }
         }
         
@@ -260,11 +269,74 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initialization.
+        /// </summary>
+        public static string StringInitialization {
+            get {
+                return ResourceManager.GetString("StringInitialization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to legend.
         /// </summary>
         public static string StringLegend {
             get {
                 return ResourceManager.GetString("StringLegend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Localizing canceled.
+        /// </summary>
+        public static string StringLocalizationCanceled {
+            get {
+                return ResourceManager.GetString("StringLocalizationCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We can&apos;t find device localization.
+        /// </summary>
+        public static string StringLocalizationNotFound {
+            get {
+                return ResourceManager.GetString("StringLocalizationNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Localization is disabled in your device.
+        /// </summary>
+        public static string StringLocalizationOff {
+            get {
+                return ResourceManager.GetString("StringLocalizationOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable localization and try again.
+        /// </summary>
+        public static string StringLocalizationTryAgain {
+            get {
+                return ResourceManager.GetString("StringLocalizationTryAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Localizing ....
+        /// </summary>
+        public static string StringLocalizing {
+            get {
+                return ResourceManager.GetString("StringLocalizing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map.
+        /// </summary>
+        public static string StringMap {
+            get {
+                return ResourceManager.GetString("StringMap", resourceCulture);
             }
         }
         
@@ -292,6 +364,15 @@ namespace SmokSmog.Resources {
         public static string StringNA {
             get {
                 return ResourceManager.GetString("StringNA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nearest stations.
+        /// </summary>
+        public static string StringNearestStations {
+            get {
+                return ResourceManager.GetString("StringNearestStations", resourceCulture);
             }
         }
         
@@ -356,6 +437,15 @@ namespace SmokSmog.Resources {
         public static string StringRemoveFromFavorites {
             get {
                 return ResourceManager.GetString("StringRemoveFromFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retry.
+        /// </summary>
+        public static string StringRetry {
+            get {
+                return ResourceManager.GetString("StringRetry", resourceCulture);
             }
         }
         

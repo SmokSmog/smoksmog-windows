@@ -8,16 +8,6 @@
         Available,
 
         /// <summary>
-        /// Processing request
-        /// </summary>
-        Processing,
-
-        /// <summary>
-        /// Cacneling request
-        /// </summary>
-        Canceling,
-
-        /// <summary>
         /// The location provider is disabled. This status indicates that the user has not granted
         /// the application permission to access location.
         /// </summary>

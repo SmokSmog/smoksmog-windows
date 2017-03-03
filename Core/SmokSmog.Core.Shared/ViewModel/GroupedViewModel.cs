@@ -19,7 +19,7 @@ namespace SmokSmog.ViewModel
     /// <para>You can also use Blend to data bind with the tool's support.</para>
     /// <para>See http://www.galasoft.ch/mvvm</para>
     /// </summary>
-    public sealed class GroupedViewModel : StationsListBaseViewMode
+    public sealed class GroupedViewModel : StationsListBaseViewModel
     {
         // default sort by Name of station
         private StationGroupingModeEnum _currentStationGroupingMode = StationGroupingModeEnum.Name;

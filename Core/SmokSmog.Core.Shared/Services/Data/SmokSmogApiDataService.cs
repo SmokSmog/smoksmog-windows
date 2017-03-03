@@ -65,31 +65,31 @@ namespace SmokSmog.Services.Data
                     if (parameter == null) continue;
 
                     var dateString = item["date"]?.Value<string>();
+                    var avg1Hour = item["value"]?.Value<double?>();
+                    var avg24Hour = item["avg"]?.Value<double?>();
+
+                    // sometimes there we have negative value
+                    if (avg1Hour.HasValue && avg1Hour.Value < 0)
+                        avg1Hour = 0d;
+
+                    // sometimes there we have negative value
+                    if (avg24Hour.HasValue && avg24Hour.Value < 0)
+                        avg24Hour = 0d;
+
                     DateTime date;
-                    DateTime.TryParse(dateString, out date);
+                    var validDate = DateTime.TryParse(dateString, out date);
+
+                    if (!validDate || !avg1Hour.HasValue)
+                        continue;
 
                     Measurement measurement = new Measurement(station, parameter)
                     {
                         Date = date,
-                        Avg1Hour = item["value"].Value<double?>(),
-                        Avg24Hour = item["avg"]?.Value<double?>()
+                        Avg1Hour = avg1Hour,
+                        Avg24Hour = avg24Hour,
                     };
 
                     measurements.Add(measurement);
-
-                    //if (parameter.Type != ParameterType.PM25 && parameter.Type != ParameterType.C6H6)
-                    //{
-                    //    var avg = item["avg"]?.Value<double?>();
-                    //    if (avg.HasValue)
-                    //    {
-                    //        measurements.Add(new Measurement(station, parameter)
-                    //        {
-                    //            Aggregation = AggregationType.Avg24Hour,
-                    //            Value = avg.Value,
-                    //            Date = date,
-                    //        });
-                    //    }
-                    //}
                 }
 
                 return measurements;
@@ -137,6 +137,7 @@ namespace SmokSmog.Services.Data
                     var norm = item["norm"].Value<double?>();
                     var normAggregation = AggregationType.Avg24Hour;
 
+                    // naming fix for proper subscript on PM2.5
                     var shortName = (item["short_name"].Value<string>() ?? "")?.RemoveWhiteSpaces()?.Trim();
                     if (shortName == "PM\u2082.\u2085")
                     {

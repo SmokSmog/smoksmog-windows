@@ -1,6 +1,7 @@
 ﻿using SmokSmog.Xaml.Data.ValueConverters;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using SmokSmog.Tiles;
 
 namespace SmokSmog.Controls.Tiles
 {

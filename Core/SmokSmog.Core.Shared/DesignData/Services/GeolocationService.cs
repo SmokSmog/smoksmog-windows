@@ -1,40 +1,28 @@
-﻿using System;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using SmokSmog.Services.Geolocation;
 
 namespace SmokSmog.DesignData.Services
 {
+    using Model;
+    using SmokSmog.Services.Geolocation;
+
     public class GeolocationService : IGeolocationService
     {
         GeolocationStatus IGeolocationService.Status
+            => GeolocationStatus.Available;
+
+#pragma warning disable 1998
+
+        public async Task<Geocoordinate> GetGeocoordinateAsync()
         {
-            get { return GeolocationStatus.Available; }
-        }
-
-#pragma warning disable 0067
-
-        public event GeolocationStatusChangeHandler OnStatusChange;
-
-        public bool CancelGetGeocoordinate()
-        {
-            return true;
-        }
-
-        public Task<bool> CancelGetGeocoordinateAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public SmokSmog.Model.Geocoordinate GetGeocoordinate()
-        {
-            return new SmokSmog.Model.Geocoordinate(49.99, 19.91, 500);
+            return new Geocoordinate(49.99, 19.91, 500);
         }
 
 #pragma warning disable 1998
 
-        public async Task<SmokSmog.Model.Geocoordinate> GetGeocoordinateAsync()
+        public async Task<Geocoordinate> GetGeocoordinateAsync(CancellationToken token)
         {
-            return new SmokSmog.Model.Geocoordinate(49.99, 19.91, 500);
+            return new Geocoordinate(49.99, 19.91, 500);
         }
     }
 }

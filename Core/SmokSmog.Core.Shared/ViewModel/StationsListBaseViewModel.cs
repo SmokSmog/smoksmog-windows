@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace SmokSmog.ViewModel
 {
-    public abstract class StationsListBaseViewMode : ViewModelBase
+    public abstract class StationsListBaseViewModel : ViewModelBase
     {
-        protected IDataProvider _dataService;
+        protected readonly IDataProvider DataService;
 
-        protected StationsListBaseViewMode(IDataProvider dataService)
+        protected StationsListBaseViewModel(IDataProvider dataService)
         {
-            _dataService = dataService;
+            DataService = dataService;
             LoadStationListBase();
         }
 
@@ -24,7 +24,7 @@ namespace SmokSmog.ViewModel
             private set
             {
                 _stationsList = value;
-                RaisePropertyChanged("StationList");
+                RaisePropertyChanged();
                 OnStationListChanged();
             }
         }
@@ -36,7 +36,7 @@ namespace SmokSmog.ViewModel
         private async void LoadStationListBase()
         {
             //TODO make catch and retry 3 times then when it fails return message
-            var result = await _dataService.GetStationsAsync();
+            var result = await DataService.GetStationsAsync();
             StationsList = result?.ToList() ?? new List<Model.Station>();
         }
     }

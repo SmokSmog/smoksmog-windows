@@ -7,7 +7,7 @@ namespace SmokSmog.ViewModel
     using Services.Data;
     using Services.Storage;
 
-    public class FavoritesViewModel : StationsListBaseViewMode
+    public class FavoritesViewModel : StationsListBaseViewModel
     {
         private readonly ISettingsService _settingsService;
 

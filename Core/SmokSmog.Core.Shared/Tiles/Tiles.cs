@@ -11,10 +11,55 @@
 //using Windows.UI.Notifications;
 //using Windows.UI.StartScreen;
 
-//namespace SmokSmog.Notification
-//{
-//    public class Tiles
-//    {
+namespace SmokSmog.Tiles
+{
+    using Device;
+
+    public enum TileSite
+    {
+        Front = 0,
+        Back = 1
+    }
+
+    public enum TileSize
+    {
+        Small = 0,
+        Medium = 1,
+        Wide = 2,
+        Large = 3
+    }
+
+    public class Tiles
+    {
+        public static bool IsTileSizeSupported(TileSize tileSize)
+        {
+            switch (tileSize)
+            {
+                case TileSize.Medium:
+                case TileSize.Small:
+                    return true;
+
+                case TileSize.Large:
+                    var deviceType = DeviceInfo.GetDeviceType();
+                    return deviceType == DeviceType.Desktop || deviceType == DeviceType.Tablet;
+
+                case TileSize.Wide:
+                    deviceType = DeviceInfo.GetDeviceType();
+                    switch (deviceType)
+                    {
+                        case DeviceType.Phone:
+                        case DeviceType.Desktop:
+                        case DeviceType.Tablet:
+                            return true;
+                    }
+                    break;
+            }
+
+            return false;
+        }
+    }
+}
+
 //        public static TileContent GenerateTileContent(List<Measurement> measurements)
 //        {
 //            return new TileContent()

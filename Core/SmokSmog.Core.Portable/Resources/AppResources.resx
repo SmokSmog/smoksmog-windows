@@ -144,6 +144,9 @@
   <data name="StringBad" xml:space="preserve">
     <value>Bad</value>
   </data>
+  <data name="StringCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="StringClickRMB" xml:space="preserve">
     <value>click RMB</value>
   </data>
@@ -153,8 +156,8 @@
   <data name="StringComponents" xml:space="preserve">
     <value>Components</value>
   </data>
-  <data name="StringDeterminingLocation" xml:space="preserve">
-    <value>Determining location</value>
+  <data name="StringErrorOccurred" xml:space="preserve">
+    <value>An error occurred</value>
   </data>
   <data name="StringFavorites" xml:space="preserve">
     <value>favorites</value>
@@ -183,8 +186,29 @@
   <data name="StringInformation" xml:space="preserve">
     <value>information</value>
   </data>
+  <data name="StringInitialization" xml:space="preserve">
+    <value>Initialization</value>
+  </data>
   <data name="StringLegend" xml:space="preserve">
     <value>legend</value>
+  </data>
+  <data name="StringLocalizationCanceled" xml:space="preserve">
+    <value>Localizing canceled</value>
+  </data>
+  <data name="StringLocalizationNotFound" xml:space="preserve">
+    <value>We can't find device localization</value>
+  </data>
+  <data name="StringLocalizationOff" xml:space="preserve">
+    <value>Localization is disabled in your device</value>
+  </data>
+  <data name="StringLocalizationTryAgain" xml:space="preserve">
+    <value>Enable localization and try again</value>
+  </data>
+  <data name="StringLocalizing" xml:space="preserve">
+    <value>Localizing ...</value>
+  </data>
+  <data name="StringMap" xml:space="preserve">
+    <value>Map</value>
   </data>
   <data name="StringMeasure" xml:space="preserve">
     <value>Measure</value>
@@ -194,6 +218,9 @@
   </data>
   <data name="StringNA" xml:space="preserve">
     <value>N/A</value>
+  </data>
+  <data name="StringNearestStations" xml:space="preserve">
+    <value>Nearest stations</value>
   </data>
   <data name="StringNoApiConnection" xml:space="preserve">
     <value>No API connection has been found.
@@ -216,6 +243,9 @@ Please check your internet connection and try again later.</value>
   </data>
   <data name="StringRemoveFromFavorites" xml:space="preserve">
     <value>Remove from favorites</value>
+  </data>
+  <data name="StringRetry" xml:space="preserve">
+    <value>Retry</value>
   </data>
   <data name="StringSearch" xml:space="preserve">
     <value>search</value>

@@ -79,6 +79,7 @@
     <FontFamily x:Key="SmokSmogFontFamilySemiLight">Segoe UI SemiLight</FontFamily>
     <FontFamily x:Key="SmokSmogFontFamilySemiBold">Segoe UI Semibold</FontFamily>
     <FontFamily x:Key="SmokSmogFontFamilySymbol">/Assets/Fonts/SEGMDL2.TTF#Segoe MDL2 Assets</FontFamily>
+    <FontFamily x:Key="FontAwesomeFontFamily">/Assets/Fonts/FontAwesome.otf#FontAwesome</FontFamily>
     <!--#endregion-->
 
     <!--  SmokSmog style for Windows.UI.Xaml.Controls.Button  -->

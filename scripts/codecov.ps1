@@ -1,10 +1,13 @@
-# # AppVeyor
-$projectPath = "C:\projects\smoksmog-windows"
-$pythonPath= "C:\Python35"
+#local
+$projectPath = "."
+$pythonPath= "C:\Program Files (x86)\Python35-32"
 
-# #local
-#$projectPath = "D:\dev\Visual Studio 2015\Projects\smoksmog-windows"
-#$pythonPath= "C:\Program Files (x86)\Python35-32"
+# AppVeyor
+if($env:APPVEYOR)
+{
+	$projectPath = $env:APPVEYOR_BUILD_FOLDER
+	$pythonPath= "C:\Python35"
+}
 
 # Build setup
 $Configuration = "Release"

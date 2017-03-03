@@ -4,7 +4,6 @@ using Windows.UI.Xaml.Controls;
 
 namespace SmokSmog.Views
 {
-
     using Navigation;
     using ViewModel;
 

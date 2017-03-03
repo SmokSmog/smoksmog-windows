@@ -19,9 +19,13 @@
     <Page.Resources>
         <x:Double x:Key="SmokSmogMenuButtonWidth">48</x:Double>
         <x:Double x:Key="SmokSmogMenuButtonHeight">48</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonIconFontSize">18</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonTextFontSize">16</x:Double>
-        <x:Double x:Key="SmokSmogMenuButtonTextBlockWidth">250</x:Double>
+        <x:Double x:Key="SmokSmogMenuButtonIconFontSize">20</x:Double>
+
+        <x:Double x:Key="SmokSmogMenuItemWidth">48</x:Double>
+        <x:Double x:Key="SmokSmogMenuItemHeight">48</x:Double>
+        <x:Double x:Key="SmokSmogMenuItemIconFontSize">16</x:Double>
+        <x:Double x:Key="SmokSmogMenuItemTextFontSize">16</x:Double>
+        <x:Double x:Key="SmokSmogMenuItemTextBlockWidth">250</x:Double>
 
         <Thickness x:Key="SmokSmogContentMargin">48,0,0,0</Thickness>
     </Page.Resources>
@@ -91,7 +95,8 @@
                     <StackPanel VerticalAlignment="Top">
 
                         <!--  Home Station Button  -->
-                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}">
+                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
+                                Style="{StaticResource SmokSmogButtonStyle}" MinHeight="{StaticResource SmokSmogMenuItemHeight}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
                                     <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
@@ -100,14 +105,15 @@
                             </i:Interaction.Behaviors>
 
                             <StackPanel Orientation="Horizontal">
-                                <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
-                                          Height="{StaticResource SmokSmogMenuButtonHeight}"
+                                <FontIcon Width="{StaticResource SmokSmogMenuItemWidth}"
+                                          Height="{StaticResource SmokSmogMenuItemHeight}"
                                           FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                                          FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                                          FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                           Glyph="&#xE10F;" />
-                                <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
+                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                            VerticalAlignment="Center"
-                                           FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
+                                           FontWeight="Normal"
+                                           FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                            Text="{Binding Path=LocalizedResources.StringHomePage,
                                                           Source={StaticResource LocalizedStrings},
                                                           Converter={StaticResource StringToSentenceCaseValueConverter}}" />
@@ -115,7 +121,7 @@
                         </Button>
 
                         <!--  Favorites Button  -->
-                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}">
+                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}" MinHeight="{StaticResource SmokSmogMenuItemHeight}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
                                     <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
@@ -124,14 +130,15 @@
                             </i:Interaction.Behaviors>
 
                             <StackPanel Orientation="Horizontal">
-                                <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
-                                          Height="{StaticResource SmokSmogMenuButtonHeight}"
+                                <FontIcon Width="{StaticResource SmokSmogMenuItemWidth}"
+                                          Height="{StaticResource SmokSmogMenuItemHeight}"
                                           FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                                          FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                                          FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                           Glyph="&#xE728;" />
-                                <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
+                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                            VerticalAlignment="Center"
-                                           FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
+                                           FontWeight="Normal"
+                                           FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                            Text="{Binding LocalizedResources.StringFavorites,
                                                           Source={StaticResource LocalizedStrings},
                                                           Converter={StaticResource StringToSentenceCaseValueConverter}}" />
@@ -139,7 +146,7 @@
                         </Button>
 
                         <!--  Station List Button  -->
-                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}">
+                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}" MinHeight="{StaticResource SmokSmogMenuItemHeight}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Tapped">
                                     <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
@@ -148,15 +155,68 @@
                             </i:Interaction.Behaviors>
 
                             <StackPanel Orientation="Horizontal">
-                                <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
-                                          Height="{StaticResource SmokSmogMenuButtonHeight}"
+                                <FontIcon Width="{StaticResource SmokSmogMenuItemWidth}"
+                                          Height="{StaticResource SmokSmogMenuItemHeight}"
                                           FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                                          FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                                          FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                           Glyph="&#xE14C;" />
-                                <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
+                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                            VerticalAlignment="Center"
-                                           FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
+                                           FontWeight="Normal"
+                                           FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                            Text="{Binding LocalizedResources.StringStationList,
+                                                          Source={StaticResource LocalizedStrings},
+                                                          Converter={StaticResource StringToSentenceCaseValueConverter}}" />
+                            </StackPanel>
+                        </Button>
+
+                        <!--  Nearest Stations List Button  -->
+                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}" Style="{StaticResource SmokSmogButtonStyle}" MinHeight="{StaticResource SmokSmogMenuItemHeight}">
+                            <i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="Tapped">
+                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction TargetPage="NearestStationList" />
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Width="{StaticResource SmokSmogMenuItemWidth}"
+                                          Height="{StaticResource SmokSmogMenuItemHeight}"
+                                          FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
+                                          FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
+                                          Glyph="&#xE1C4;" />
+                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Normal"
+                                           FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
+                                           Text="{Binding LocalizedResources.StringNearestStations,
+                                                          Source={StaticResource LocalizedStrings},
+                                                          Converter={StaticResource StringToSentenceCaseValueConverter}}" />
+                            </StackPanel>
+                        </Button>
+
+                        <!--  Map Button  -->
+                        <Button Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
+                                Style="{StaticResource SmokSmogButtonStyle}"
+                                MinHeight="{StaticResource SmokSmogMenuItemHeight}">
+                            <i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="Tapped">
+                                    <ic:CallMethodAction MethodName="CloseMenu" TargetObject="{Binding ElementName=This}" />
+                                    <nav:NavigateAction TargetPage="MapPage" />
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Width="{StaticResource SmokSmogMenuItemWidth}"
+                                          Height="{StaticResource SmokSmogMenuItemHeight}"
+                                          FontFamily="{StaticResource FontAwesomeFontFamily}"
+                                          FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
+                                          Glyph="&#xF278;" />
+                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Normal"
+                                           FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
+                                           Text="{Binding LocalizedResources.StringMap,
                                                           Source={StaticResource LocalizedStrings},
                                                           Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                             </StackPanel>
@@ -172,7 +232,7 @@
                         <TextBlock Margin="0,0,10,0"
                                    HorizontalAlignment="Right"
                                    FontSize="14"
-                                   FontWeight="Bold"
+                                   FontWeight="Normal"
                                    Foreground="{StaticResource SmokSmogMenuForegroundBrush}">
 
                             <Run Text="{Binding ApplicationName}" />
@@ -182,7 +242,7 @@
                         <TextBlock Margin="0,0,10,0"
                                    HorizontalAlignment="Right"
                                    FontSize="11"
-                                   FontWeight="Bold"
+                                   FontWeight="Normal"
                                    Foreground="{StaticResource SmokSmogMenuForegroundBrush}">
                             <Run Text="{Binding LocalizedResources.StringVersion, Source={StaticResource LocalizedStrings}}" />
                             <Run Text="{Binding ApplicationVersionString}" />
@@ -191,11 +251,10 @@
 
                     <Border VerticalAlignment="Bottom"
                             BorderBrush="{StaticResource SmokSmogMenuForegroundBrush}"
-                            BorderThickness="0,4,0,0" />
+                            BorderThickness="0,2,0,0" />
 
-                    <Button BorderThickness="0"
+                    <Button MinHeight="{StaticResource SmokSmogMenuItemHeight}"
                             Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
-                            Padding="0"
                             Style="{StaticResource SmokSmogButtonStyle}">
                         <i:Interaction.Behaviors>
                             <ic:EventTriggerBehavior EventName="Tapped">
@@ -205,23 +264,25 @@
                         </i:Interaction.Behaviors>
                         <StackPanel Orientation="Horizontal">
 
-                            <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
-                                      Height="{StaticResource SmokSmogMenuButtonHeight}"
+                            <FontIcon Width="{StaticResource SmokSmogMenuItemWidth}"
+                                      Height="{StaticResource SmokSmogMenuItemHeight}"
                                       FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                                      FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                                      FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                       Glyph="&#xEA1F;" />
-                            <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
+                            <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                        VerticalAlignment="Center"
-                                       FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
+                                       FontWeight="Normal"
+                                       FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                        Text="{Binding LocalizedResources.StringInformation,
                                                       Source={StaticResource LocalizedStrings},
                                                       Converter={StaticResource StringToSentenceCaseValueConverter}}" />
                         </StackPanel>
                     </Button>
 
-                    <Button BorderThickness="0"
+                    <Button
                             Foreground="{StaticResource SmokSmogMenuForegroundBrush}"
-                            Padding="0"
+                            MinHeight="{StaticResource SmokSmogMenuItemHeight}"
+
                             Style="{StaticResource SmokSmogButtonStyle}"
                             Visibility="Visible">
                         <i:Interaction.Behaviors>
@@ -232,14 +293,15 @@
                         </i:Interaction.Behaviors>
                         <StackPanel Orientation="Horizontal">
 
-                            <FontIcon Width="{StaticResource SmokSmogMenuButtonWidth}"
-                                      Height="{StaticResource SmokSmogMenuButtonHeight}"
+                            <FontIcon Width="{StaticResource SmokSmogMenuItemWidth}"
+                                      Height="{StaticResource SmokSmogMenuItemHeight}"
                                       FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
-                                      FontSize="{StaticResource SmokSmogMenuButtonIconFontSize}"
+                                      FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                       Glyph="&#xE115;" />
-                            <TextBlock Width="{StaticResource SmokSmogMenuButtonTextBlockWidth}"
+                            <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                        VerticalAlignment="Center"
-                                       FontSize="{StaticResource SmokSmogMenuButtonTextFontSize}"
+                                       FontWeight="Normal"
+                                       FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                        Text="{Binding LocalizedResources.StringSettings,
                                                       Source={StaticResource LocalizedStrings},
                                                       Converter={StaticResource StringToSentenceCaseValueConverter}}" />

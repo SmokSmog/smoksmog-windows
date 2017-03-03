@@ -183,7 +183,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <controls:StationListItem>
+                    <controls:StationListItem Station="{Binding}">
                         <i:Interaction.Behaviors>
                             <ic:EventTriggerBehavior EventName="Tapped">
                                 <nav:NavigateAction Parameter="{Binding}" TargetPage="StationPage" />
