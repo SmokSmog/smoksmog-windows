@@ -1,5 +1,6 @@
 ﻿using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Text;
+using SmokSmog.Device;
 using SmokSmog.Model;
 using SmokSmog.Tiles;
 using SmokSmog.ViewModel;
@@ -9,7 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.UI;
 
@@ -46,9 +46,7 @@ namespace SmokSmog.Notification
 
         public async Task<Dictionary<TileSize, string[]>> RenderAllTiles(string name, StationViewModel stationViewModel)
         {
-            var scaleFactor = (int)DisplayInformation.GetForCurrentView().ResolutionScale / 100f;
-            float dpi = 96f * scaleFactor; // 100%
-            return await RenderAllTiles(name, stationViewModel, dpi);
+            return await RenderAllTiles(name, stationViewModel, DeviceInfo.GetDeviceDpi());
         }
 
         public async Task<Dictionary<TileSize, string[]>> RenderAllTiles(string name, StationViewModel stationViewModel, float dpi)
@@ -68,9 +66,7 @@ namespace SmokSmog.Notification
 
         public async Task<string[]> RenderTile(string name, StationViewModel stationViewModel, TileSize tileSize)
         {
-            var scaleFactor = (int)DisplayInformation.GetForCurrentView().ResolutionScale / 100f;
-            float dpi = 96f * scaleFactor; // 100%
-            return await RenderTile(name, stationViewModel, tileSize, dpi);
+            return await RenderTile(name, stationViewModel, tileSize, DeviceInfo.GetDeviceDpi());
         }
 
         public async Task<string[]> RenderTile(string name, StationViewModel stationViewModel, TileSize tileSize, float dpi)

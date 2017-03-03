@@ -85,14 +85,15 @@ namespace SmokSmog.Tiles
                 var expiration = new DateTime(date.Year, date.Month, date.Day, date.Hour, 30, 0);
 
                 var tileXmls = BuildXmlTileUpdates(stationViewModel.Station.Name, files);
-                foreach (var xml in tileXmls)
+
+                for (int i = 0; i < tileXmls.Length; i++)
                 {
-                    if (xml == null)
-                        return;
+                    var xml = tileXmls[i];
+                    if (xml == null) return;
 
                     var tileNotification = new TileNotification(xml)
                     {
-                        Tag = "front",
+                        Tag = $"update{i}",
                         ExpirationTime = new DateTimeOffset(expiration)
                     };
                     TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
@@ -135,7 +136,7 @@ namespace SmokSmog.Tiles
 
                 foreach (var pair in filenames)
                 {
-                    if (pair.Value.Length >= count)
+                    if (pair.Value.Length > i)
                         filename[pair.Key] = pair.Value[i];
                 }
                 var xml = BuildXmlTileUpdate(displayName, filename);
