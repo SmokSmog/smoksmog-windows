@@ -15,13 +15,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Medium.xaml.cs">
       <DependentUpon>Medium.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\TileSite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Wide.xaml.cs">
       <DependentUpon>Wide.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DesignData\Services\ApiDataProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DesignData\Services\GeolocationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DesignData\ViewModel\StationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\DeviceInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Diagnostics\Logger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ApplicationException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UserInterruptedException.cs" />
