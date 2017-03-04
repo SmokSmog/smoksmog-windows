@@ -26,11 +26,11 @@ namespace SmokSmog.Views
             StationViewModel vm = new StationViewModel();
             await vm.SetStationAsync(4);
             await Task.Delay(1000);
-            Large.DataContext = vm;
-            WideO.DataContext = vm;
-            WideD.DataContext = vm;
-            MediumO.DataContext = vm;
-            MediumD.DataContext = vm;
+            //Large.DataContext = vm;
+            //WideO.DataContext = vm;
+            //WideD.DataContext = vm;
+            //MediumO.DataContext = vm;
+            //MediumD.DataContext = vm;
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using SmokSmog.Extensions;
-using SmokSmog.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +8,8 @@ using Windows.Web.Http;
 
 namespace SmokSmog.Services.Data
 {
+    using Extensions;
+    using Model;
     using Network;
     using Storage;
 
@@ -37,7 +37,7 @@ namespace SmokSmog.Services.Data
         private string language
             => (_settingsService.LanguageCode?.ToLowerInvariant()?.Substring(0, 2) ?? "en").Equals("pl") ? "pl" : "en";
 
-        public override async Task<List<Measurement>> GetMeasurementsAsync(Model.Station station, IEnumerable<Parameter> parameters, CancellationToken cancellationToken)
+        public override async Task<List<Measurement>> GetMeasurementsAsync(Station station, IEnumerable<Parameter> parameters, CancellationToken cancellationToken)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace SmokSmog.Services.Data
         /// <param name="station">          </param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public override async Task<List<Parameter>> GetParametersAsync(Model.Station station, CancellationToken cancellationToken)
+        public override async Task<List<Parameter>> GetParametersAsync(Station station, CancellationToken cancellationToken)
         {
             try
             {

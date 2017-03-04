@@ -68,6 +68,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tiles\Tiles.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tiles\TilesUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AqiInformationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\DebugViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\FavoritesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\NearestStationListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GroupedViewModel.cs" />

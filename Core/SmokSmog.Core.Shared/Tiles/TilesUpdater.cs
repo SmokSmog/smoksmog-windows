@@ -128,6 +128,9 @@ namespace SmokSmog.Tiles
         {
             var result = new List<XmlDocument>();
 
+            if (!filenames.Any())
+                return result.ToArray();
+
             var count = filenames.Max(o => o.Value.Length);
 
             for (int i = 0; i < count; i++)
