@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
-  <file datatype="xml" source-language="en" target-language="pl" original="SMOKSMOG.CORE.PORTABLE/RESOURCES/APPRESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+  <file datatype="xml" source-language="en-US" target-language="pl" original="SMOKSMOG.CORE.PORTABLE/RESOURCES/APPRESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
     <header>
       <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1605.0" tool-company="Microsoft" />
     </header>
@@ -185,8 +185,8 @@ Please check your internet connection and try again later.</source>
 Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</target>
         </trans-unit>
         <trans-unit id="StringSettingsStringHomeStationLiveTile" translate="yes" xml:space="preserve">
-          <source>Show home station statuses on primary live tile</source>
-          <target state="translated">Pokazuj status stacji domowej na głównym kafelku</target>
+          <source>Show home station statuses on primary live tile.</source>
+          <target state="translated">Pokazuj status stacji domowej na głównym kafelku.</target>
         </trans-unit>
         <trans-unit id="StringLocalizationOff" translate="yes" xml:space="preserve">
           <source>Localization is disabled in your device</source>
@@ -231,6 +231,12 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</target>
         <trans-unit id="StringMap" translate="yes" xml:space="preserve">
           <source>Map</source>
           <target state="translated">Mapa</target>
+        </trans-unit>
+        <trans-unit id="StringSettingsLocalization" translate="yes" xml:space="preserve">
+          <source>Allow application to use GPS. 
+That allow you to find nearest stations.</source>
+          <target state="translated">Zezwalaj aplikacji na używanie GPS.
+Pozwoli to znaleźć najbliższe stacje.</target>
         </trans-unit>
       </group>
     </body>

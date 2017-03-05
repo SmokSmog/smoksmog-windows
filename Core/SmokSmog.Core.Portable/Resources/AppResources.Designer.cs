@@ -495,7 +495,17 @@ namespace SmokSmog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show home station statuses on primary live tile.
+        ///   Looks up a localized string similar to Allow application to use GPS. 
+        ///That allow you to find nearest stations..
+        /// </summary>
+        public static string StringSettingsLocalization {
+            get {
+                return ResourceManager.GetString("StringSettingsLocalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show home station statuses on primary live tile..
         /// </summary>
         public static string StringSettingsStringHomeStationLiveTile {
             get {

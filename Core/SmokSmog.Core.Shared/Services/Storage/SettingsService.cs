@@ -12,6 +12,7 @@ namespace SmokSmog.Services.Storage
         public const string HomeStationIdKey = "HomeStationId";
         public const string LastLaunchedVersionKey = "LastLaunchedVersion";
         public const string LastMainViewKey = "LastMainView";
+        public const string LastScreenScalingKey = "LastScreenScaling";
         public const string LocalizationEnableKey = "LocalizationEnable";
         public const string PrimaryLiveTileEnableKey = "PrimaryLiveTileEnable";
 
@@ -108,6 +109,16 @@ namespace SmokSmog.Services.Storage
         private void _favoritesStationsList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             _storage.SetSetting(FavoritesStationsListKey, _favoritesStationsList.ToList());
+        }
+
+        public float LastScreenScaling
+        {
+            get { return _storage.GetSetting<float?>(LastScreenScalingKey) ?? 1.0f; }
+            set
+            {
+                _storage.SetSetting<float?>(LastScreenScalingKey, value);
+                RaisePropertyChanged();
+            }
         }
     }
 }

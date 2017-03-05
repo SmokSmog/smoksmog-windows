@@ -1,23 +1,20 @@
 using GalaSoft.MvvmLight;
-using SmokSmog.Model;
-using SmokSmog.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SmokSmog.ViewModel
 {
+    using Diagnostics;
+    using Model;
+    using Services;
+
     public class ParameterViewModel : ViewModelBase
     {
-        private AirQualityIndex _airQualityIndex = AirQualityIndex.Unavaible;
-        private Measurement _latest = null;
-        private Parameter _parameter = null;
-        private Station _station = Station.Empty;
-
         public ParameterViewModel(Station station, Parameter parameter)
         {
-            _station = station;
-            _parameter = parameter;
+            Station = station;
+            Parameter = parameter;
             Clear();
         }
 
@@ -30,18 +27,20 @@ namespace SmokSmog.ViewModel
                 throw new NotSupportedException();
         }
 
-        public AirQualityIndex AirQualityIndex => _airQualityIndex;
+        public AirQualityIndex AirQualityIndex { get; private set; } = AirQualityIndex.Unavaible;
 
-        public Measurement Latest => _latest;
+        public Measurement Latest { get; private set; } = null;
+
         public Measurements Measurements { get; } = new Measurements();
 
-        public Parameter Parameter => _parameter;
-        public Station Station => _station;
+        public Parameter Parameter { get; } = null;
+
+        public Station Station { get; } = Station.Empty;
 
         public void Clear()
         {
-            _airQualityIndex = AirQualityIndex.Unavaible;
-            _latest = new Measurement(Station, Parameter);
+            AirQualityIndex = AirQualityIndex.Unavaible;
+            Latest = new Measurement(Station, Parameter);
             Measurements.Clear();
 
             RaisePropertyChanged(nameof(AirQualityIndex));
@@ -67,15 +66,15 @@ namespace SmokSmog.ViewModel
                         {
                             Measurements.Add(measurement);
                         }
-                        _latest = querry.First();
-                        _airQualityIndex = _latest.Aqi;
+                        Latest = querry.First();
+                        AirQualityIndex = Latest.Aqi;
                     }
                 }
             }
             catch (Exception exception)
             {
                 //TODO - catch all and show notification to user
-                SmokSmog.Diagnostics.Logger.Log(exception);
+                Logger.Log(exception);
             }
             finally
             {

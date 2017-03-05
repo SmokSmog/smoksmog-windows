@@ -37,7 +37,7 @@ namespace SmokSmog.ViewModel
             : base(dataService)
         {
             _searchHashes = GenerateSearchHashes(StationsList);
-            PropertyChanged += SearchViewModel_PropertyChanged;
+            PropertyChanged += SearchViewModelPropertyChanged;
             RaisePropertyChanged(nameof(SearchString));
         }
 
@@ -71,41 +71,42 @@ namespace SmokSmog.ViewModel
         {
             try
             {
-                await Task.Delay(100, token);
+                // ReSharper disable once MethodSupportsCancellation
+                await Task.Delay(500);
+
+                if (token.IsCancellationRequested)
+                    return;
+
+                string[] queries = null;
+
+                if (!string.IsNullOrWhiteSpace(SearchString))
+                {
+                    var querry = SearchString;
+                    foreach (var mapping in _characterMapping)
+                    {
+                        querry = querry.Replace(mapping.Key, mapping.Value);
+
+                        if (token.IsCancellationRequested)
+                            return;
+                    }
+
+                    queries = Regex.Replace(querry, @"[\s\n]{1,}", " ").Split(' ');
+                }
+
+                var list = (from station in StationsList
+                            where EvaluateQueries(station, queries)
+                            orderby station.Name ascending
+                            select station).ToList();
+
+                if (token.IsCancellationRequested)
+                    return;
+
+                StationListFiltered = list;
             }
             catch (Exception)
             {
                 // ignored
             }
-
-            if (token.IsCancellationRequested)
-                return;
-
-            string[] queries = null;
-
-            if (!string.IsNullOrWhiteSpace(SearchString))
-            {
-                var querry = SearchString;
-                foreach (var mapping in _characterMapping)
-                {
-                    querry = querry.Replace(mapping.Key, mapping.Value);
-
-                    if (token.IsCancellationRequested)
-                        return;
-                }
-
-                queries = Regex.Replace(querry, @"[\s\n]{1,}", " ").Split(' ');
-            }
-
-            var list = (from station in StationsList
-                        where EvaluateQueries(station, queries)
-                        orderby station.Name ascending
-                        select station).ToList();
-
-            if (token.IsCancellationRequested)
-                return;
-
-            StationListFiltered = list;
         }
 
         protected override void OnStationListChanged()
@@ -145,17 +146,21 @@ namespace SmokSmog.ViewModel
             return dict;
         }
 
-        private void SearchViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void SearchViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(SearchString))
+            try
             {
-                try
+                if (e.PropertyName == nameof(SearchString))
                 {
                     _lastFilterRequestTokenSource.Cancel();
                     _lastFilterRequestTokenSource = new CancellationTokenSource();
                     FilterAsync(_lastFilterRequestTokenSource.Token);
                 }
-                catch (TaskCanceledException) { }
+            }
+            catch (Exception)
+            {
+                // TODO - make proper handling search errors
+                // ignored
             }
         }
     }

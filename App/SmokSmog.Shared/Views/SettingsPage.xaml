@@ -16,8 +16,10 @@
                 <TextBlock Text="{Binding LocalizedResources.StringSettingsStringHomeStationLiveTile, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap" />
             </ToggleSwitch>
 
-            <!--<ToggleSwitch x:Name="ShowLogSwitch" Toggled="ToggleSwitch_OnToggled">Show Log</ToggleSwitch>-->
-
+            <ToggleSwitch IsEnabled="{Binding CanLocalizationEnable}" IsOn="{Binding IsLocalizationEnable, Mode=TwoWay}">
+                <TextBlock Text="{Binding LocalizedResources.StringSettingsLocalization, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap" />
+            </ToggleSwitch>
+            
             <TextBlock Name="LogTextBlock" />
         </StackPanel>
     </Grid>

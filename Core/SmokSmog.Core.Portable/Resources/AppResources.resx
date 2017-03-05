@@ -262,8 +262,12 @@ Please check your internet connection and try again later.</value>
   <data name="StringSettings" xml:space="preserve">
     <value>settings</value>
   </data>
+  <data name="StringSettingsLocalization" xml:space="preserve">
+    <value>Allow application to use GPS. 
+That allow you to find nearest stations.</value>
+  </data>
   <data name="StringSettingsStringHomeStationLiveTile" xml:space="preserve">
-    <value>Show home station statuses on primary live tile</value>
+    <value>Show home station statuses on primary live tile.</value>
   </data>
   <data name="StringStationList" xml:space="preserve">
     <value>Station list</value>

@@ -1,9 +1,4 @@
-﻿using SmokSmog.Diagnostics;
-using SmokSmog.Globalization;
-using SmokSmog.Navigation;
-using SmokSmog.Resources;
-using SmokSmog.ViewModel;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -14,6 +9,13 @@ using Windows.UI.Xaml.Navigation;
 
 namespace SmokSmog
 {
+    using Diagnostics;
+    using Globalization;
+    using Navigation;
+    using Resources;
+    using Services;
+    using ViewModel;
+
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
@@ -34,23 +36,23 @@ namespace SmokSmog
             this.Suspending += this.OnSuspending;
         }
 
-        public SmokSmog.Navigation.INavigationService NavigationService
+        public INavigationService NavigationService
         {
             get
             {
                 object obj = null;
                 Resources.TryGetValue("NavigationService", out obj);
-                return obj as SmokSmog.Navigation.NavigationService;
+                return obj as NavigationService;
             }
         }
 
-        public SmokSmog.Services.IServiceLocator ServiceLocator
+        public IServiceLocator ServiceLocator
         {
             get
             {
                 object obj = null;
                 Resources.TryGetValue("ServiceLocator", out obj);
-                return obj as SmokSmog.Services.IServiceLocator;
+                return obj as IServiceLocator;
             }
         }
 

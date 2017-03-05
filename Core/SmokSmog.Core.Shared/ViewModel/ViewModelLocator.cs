@@ -41,6 +41,9 @@ namespace SmokSmog.ViewModel
         public AqiInformationViewModel AqiInformationViewModel
             => ServiceLocator.Current.GetInstance<AqiInformationViewModel>();
 
+        public DebugViewModel DebugViewModel
+            => ServiceLocator.Current.GetInstance<DebugViewModel>();
+
         public FavoritesViewModel FavoritesViewModel
             => ServiceLocator.Current.GetInstance<FavoritesViewModel>();
 
@@ -74,6 +77,7 @@ namespace SmokSmog.ViewModel
             Services.ServiceLocator.Initialize();
 
             SimpleIoc.Default.Register<AqiInformationViewModel>();
+            SimpleIoc.Default.Register<DebugViewModel>();
             SimpleIoc.Default.Register<FavoritesViewModel>();
             SimpleIoc.Default.Register<NearestStationListViewModel>();
             SimpleIoc.Default.Register<GroupedViewModel>();

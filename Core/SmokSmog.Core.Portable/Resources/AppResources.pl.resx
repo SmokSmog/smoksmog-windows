@@ -146,7 +146,7 @@
 Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</value>
   </data>
   <data name="StringSettingsStringHomeStationLiveTile" xml:space="preserve">
-    <value>Pokazuj status stacji domowej na głównym kafelku</value>
+    <value>Pokazuj status stacji domowej na głównym kafelku.</value>
   </data>
   <data name="StringLocalizationOff" xml:space="preserve">
     <value>Lokalizacja jest wyłączona na twoim urządzeniu</value>
@@ -180,5 +180,9 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</value>
   </data>
   <data name="StringMap" xml:space="preserve">
     <value>Mapa</value>
+  </data>
+  <data name="StringSettingsLocalization" xml:space="preserve">
+    <value>Zezwalaj aplikacji na używanie GPS.
+Pozwoli to znaleźć najbliższe stacje.</value>
   </data>
 </root>

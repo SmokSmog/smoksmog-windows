@@ -1,4 +1,5 @@
-﻿using Windows.Graphics.Display;
+﻿using System;
+using Windows.Graphics.Display;
 
 #if WINDOWS_UWP
 
@@ -23,6 +24,11 @@ namespace SmokSmog.Device
 
     public static class DeviceInfo
     {
+        public static float GetDeviceDpi()
+        {
+            return 96f * GetScreenScaling();
+        }
+
         /// <summary>
         ///
         /// </summary>
@@ -47,9 +53,11 @@ namespace SmokSmog.Device
                     return DeviceType.Phone;
 
                 case "Windows.Desktop":
-                    return UIViewSettings.GetForCurrentView().UserInteractionMode == UserInteractionMode.Mouse
-                        ? DeviceType.Desktop
-                        : DeviceType.Tablet;
+                    // For background Task CurrentView doesn't exist
+                    //return UIViewSettings.GetForCurrentView().UserInteractionMode == UserInteractionMode.Mouse
+                    //    ? DeviceType.Desktop
+                    //    : DeviceType.Tablet;
+                    return DeviceType.Desktop;
 
                 case "Windows.Universal":
                     return DeviceType.IoT;
@@ -58,7 +66,7 @@ namespace SmokSmog.Device
                     return DeviceType.SurfaceHub;
 
                 default:
-                    //TODO: extend for Xbox, Hololeans
+                    //TODO: extend for Xbox, Hololens
                     return DeviceType.Other;
             }
 
@@ -73,22 +81,21 @@ namespace SmokSmog.Device
         public static float GetScreenScaling()
         {
             float scale = 1.0f; // 100%
-
+            try
+            {
 #if WINDOWS_APP
-
-            scale = (int)DisplayInformation.GetForCurrentView().ResolutionScale / 100f;
-
+                scale = (int)DisplayInformation.GetForCurrentView().ResolutionScale / 100f;
 #elif WINDOWS_UWP || WINDOWS_PHONE_APP
-
-            scale = (float)DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
-
+                scale = (float)DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
 #endif
-            return scale;
-        }
+                Services.ServiceLocator.Current.SettingsService.LastScreenScaling = scale;
+            }
+            catch (Exception)
+            {
+                scale = Services.ServiceLocator.Current.SettingsService.LastScreenScaling;
+            }
 
-        public static float GetDeviceDpi()
-        {
-            return 96f * GetScreenScaling();
+            return scale;
         }
     }
 }

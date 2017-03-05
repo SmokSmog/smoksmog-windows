@@ -40,7 +40,7 @@ namespace SmokSmog.Notification
                 await tilesUpdater.PrimaryTileRenderAndUpdate();
 
                 log = await ApplicationData.Current.LocalFolder.CreateFileAsync("BackgroundTask.Execution.log", CreationCollisionOption.OpenIfExists);
-                await FileIO.AppendTextAsync(log, $"\"End\" : \"{DateTime.Now:G}\"");
+                await FileIO.AppendTextAsync(log, $"\"End\" : \"{DateTime.Now:O}\"");
             }
             finally
             {

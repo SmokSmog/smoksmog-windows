@@ -10,6 +10,7 @@ namespace SmokSmog.Services.Storage
         int? HomeStationId { get; set; }
         Version LastLaunchedVersion { get; set; }
         string LastMainView { get; set; }
+        float LastScreenScaling { get; set; }
         bool LocalizationEnable { get; set; }
         bool PrimaryLiveTileEnable { get; set; }
     }
