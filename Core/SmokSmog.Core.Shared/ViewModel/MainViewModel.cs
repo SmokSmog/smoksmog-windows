@@ -70,23 +70,38 @@ namespace SmokSmog.ViewModel
                 //TODO - figure out how to provide proper change log handling, this is only for time saving for release 2.0.2xx Beta
                 var changeLogSb = new StringBuilder();
 
+                // Header
                 changeLogSb.AppendLine($"Wersja {ApplicationVersionString}");
                 changeLogSb.AppendLine();
 
-                changeLogSb.AppendLine("NOWOŚCI:");
-                changeLogSb.AppendLine("- Live Tile dla Stacji domowej");
-                changeLogSb.AppendLine("- Dodano obsługę PM₂ ̦ ₅");
-                changeLogSb.AppendLine("- Dodano stronę ustawień");
-                changeLogSb.AppendLine();
+                if (ApplicationVersion > new Version(2, 0, 230))
+                {
+                    changeLogSb.AppendLine("NOWOŚCI:");
+                    changeLogSb.AppendLine("- Nowe rozmiary Live Tile");
+                    changeLogSb.AppendLine("- Lista najbliżej położonych stacji (GPS)");
+                    changeLogSb.AppendLine();
 
-                changeLogSb.AppendLine("Poprawki:");
-                changeLogSb.AppendLine("- Naprwione menu kontekstowe");
-                changeLogSb.AppendLine("- Drobne poprawki UI");
-                changeLogSb.AppendLine("- Poprawki w szukajce :D");
-                changeLogSb.AppendLine();
+                    changeLogSb.AppendLine("Poprawki:");
+                    changeLogSb.AppendLine("- Poprawiono szybkość wyszukiwania na niektórych urządzeniach");
+                    changeLogSb.AppendLine();
+                }
+                else
+                {
+                    changeLogSb.AppendLine("NOWOŚCI:");
+                    changeLogSb.AppendLine("- Live Tile dla Stacji domowej");
+                    changeLogSb.AppendLine("- Dodano obsługę PM₂ ̦ ₅");
+                    changeLogSb.AppendLine("- Dodano stronę ustawień");
+                    changeLogSb.AppendLine();
 
-                changeLogSb.AppendLine("Zmiany:");
-                changeLogSb.AppendLine("- Strona stacji domowej jako startowa");
+                    changeLogSb.AppendLine("Poprawki:");
+                    changeLogSb.AppendLine("- Naprwione menu kontekstowe");
+                    changeLogSb.AppendLine("- Drobne poprawki UI");
+                    changeLogSb.AppendLine("- Poprawki w szukajce :D");
+                    changeLogSb.AppendLine();
+
+                    changeLogSb.AppendLine("Zmiany:");
+                    changeLogSb.AppendLine("- Strona stacji domowej jako startowa");
+                }
 
                 return changeLogSb.ToString();
             }
