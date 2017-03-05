@@ -22,6 +22,8 @@ namespace SmokSmog.ViewModel
                 IsFirstRunAfterUpdate = true;
 
             _settingsService.LastLaunchedVersion = ApplicationVersion;
+
+            _settingsService.PropertyChanged += SettingsServicePropertyChanged;
         }
 
         public string ApplicationName
@@ -93,5 +95,29 @@ namespace SmokSmog.ViewModel
         public bool IsFirstRun { get; private set; }
 
         public bool IsFirstRunAfterUpdate { get; private set; }
+
+        // TODO - write features manager
+        public bool IsMapFeatureEnable
+        {
+            get
+            {
+#if DEBUG
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
+
+        // TODO - write features manager
+        public bool IsNearestStationFeatureEnable => _settingsService.LocalizationEnable;
+
+        private void SettingsServicePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ISettingsService.LocalizationEnable))
+            {
+                RaisePropertyChanged(nameof(IsNearestStationFeatureEnable));
+            }
+        }
     }
 }

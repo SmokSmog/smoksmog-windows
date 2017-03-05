@@ -47,5 +47,17 @@ namespace SmokSmog.ViewModel
                     break;
             }
         }
+
+        public bool CanLocalizationEnable => true;
+
+        public bool IsLocalizationEnable
+        {
+            get { return _settingsService.LocalizationEnable; }
+            set
+            {
+                _settingsService.LocalizationEnable = value;
+                RaisePropertyChanged();
+            }
+        }
     }
 }

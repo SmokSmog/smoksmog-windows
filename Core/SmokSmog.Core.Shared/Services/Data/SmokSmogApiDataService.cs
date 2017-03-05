@@ -34,7 +34,7 @@ namespace SmokSmog.Services.Data
 
         public override string Name => "SmokSmog REST API";
 
-        private string language
+        private string Language
             => (_settingsService.LanguageCode?.ToLowerInvariant()?.Substring(0, 2) ?? "en").Equals("pl") ? "pl" : "en";
 
         public override async Task<List<Measurement>> GetMeasurementsAsync(Station station, IEnumerable<Parameter> parameters, CancellationToken cancellationToken)
@@ -45,7 +45,7 @@ namespace SmokSmog.Services.Data
                     throw new ArgumentNullException(nameof(station));
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get,
-                    new Uri(BaseUri, $"{language}/stations/{station.Id}"));
+                    new Uri(BaseUri, $"{Language}/stations/{station.Id}"));
                 request.Headers.Add("X-Smog-AdditionalMeasurements", "pm25");
 
                 Task<string> task = SendAsync(request, cancellationToken);
@@ -118,7 +118,7 @@ namespace SmokSmog.Services.Data
                 //X-Smog-AdditionalMeasurements pm25
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get,
-                    new Uri(BaseUri, $"{language}/stations/{station.Id}"));
+                    new Uri(BaseUri, $"{Language}/stations/{station.Id}"));
                 request.Headers.Add("X-Smog-AdditionalMeasurements", "pm25");
 
                 //Task<string> task = GetStringAsync($"{language}/stations/{station.Id}", cancellationToken);
@@ -191,8 +191,8 @@ namespace SmokSmog.Services.Data
 
             try
             {
-                Task<string> stationTask = GetStringAsync($"{language}/stations", cancellationToken);
-                Task<string> provincesTask = GetStringAsync($"{language}/provinces", cancellationToken);
+                Task<string> stationTask = GetStringAsync($"{Language}/stations", cancellationToken);
+                Task<string> provincesTask = GetStringAsync($"{Language}/provinces", cancellationToken);
 
                 string stationResponse = await stationTask;
                 var stationsJArray = JArray.Parse(stationResponse);
