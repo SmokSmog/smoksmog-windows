@@ -12,7 +12,7 @@
   </Prerequisites>
   <Resources>
     <Resource Language="x-generate" />
-    <Resource Language="pl" />
+    <Resource Language="pl-PL" />
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SmokSmog.App">
