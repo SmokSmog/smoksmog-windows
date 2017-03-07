@@ -131,4 +131,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Resources\en-US\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Resources\pl-PL\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <XliffResource Include="$(MSBuildThisFileDirectory)MultilingualResources\SmokSmog.Core.Shared.pl-PL.xlf" />
+  </ItemGroup>
 </Project>
