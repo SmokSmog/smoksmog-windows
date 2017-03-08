@@ -12,13 +12,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationTitle" xml:space="preserve">
-    <value>SmokSmog</value>
-  </data>
   <data name="StationSortModeEnumName" xml:space="preserve">
     <value>nazwy</value>
   </data>
-  <data name="StringGroupBy" xml:space="preserve">
+  <data name="GroupBy" xml:space="preserve">
     <value>grupuj według</value>
   </data>
   <data name="StationSortModeEnumCity" xml:space="preserve">
@@ -27,161 +24,158 @@
   <data name="StationSortModeEnumProvince" xml:space="preserve">
     <value>województwa</value>
   </data>
-  <data name="StringFindStation" xml:space="preserve">
+  <data name="FindStation" xml:space="preserve">
     <value>znajdź stację</value>
   </data>
-  <data name="StringHomeStation" xml:space="preserve">
+  <data name="HomeStation" xml:space="preserve">
     <value>stacja domowa</value>
   </data>
-  <data name="StringInformation" xml:space="preserve">
+  <data name="Information" xml:space="preserve">
     <value>informacje</value>
   </data>
-  <data name="StringSettings" xml:space="preserve">
+  <data name="Settings" xml:space="preserve">
     <value>ustawienia</value>
   </data>
-  <data name="StringFor" xml:space="preserve">
+  <data name="For" xml:space="preserve">
     <value>dla</value>
   </data>
-  <data name="StringVersion" xml:space="preserve">
+  <data name="Version" xml:space="preserve">
     <value>wersja</value>
   </data>
-  <data name="StringSearch" xml:space="preserve">
+  <data name="Search" xml:space="preserve">
     <value>szukaj</value>
   </data>
-  <data name="StringAddToFavorites" xml:space="preserve">
+  <data name="AddToFavorites" xml:space="preserve">
     <value>Dodaj do ulubionych</value>
   </data>
-  <data name="StringPinToStart" xml:space="preserve">
+  <data name="PinToStart" xml:space="preserve">
     <value>Przypnij</value>
   </data>
-  <data name="StringSetAsHomeStation" xml:space="preserve">
+  <data name="SetAsHomeStation" xml:space="preserve">
     <value>Ustaw jako stację domową</value>
   </data>
-  <data name="StringUnknown" xml:space="preserve">
+  <data name="Unknown" xml:space="preserve">
     <value>Nieznany</value>
   </data>
-  <data name="StringStationList" xml:space="preserve">
+  <data name="StationList" xml:space="preserve">
     <value>Lista stacji</value>
   </data>
-  <data name="StringHomePage" xml:space="preserve">
+  <data name="HomePage" xml:space="preserve">
     <value>Strona domowa</value>
   </data>
-  <data name="StringFavorites" xml:space="preserve">
+  <data name="Favorites" xml:space="preserve">
     <value>Ulubione</value>
   </data>
-  <data name="StringRemoveFromFavorites" xml:space="preserve">
+  <data name="RemoveFromFavorites" xml:space="preserve">
     <value>Usuń z ulubionych</value>
   </data>
-  <data name="StringClickRMB" xml:space="preserve">
+  <data name="ClickRMB" xml:space="preserve">
     <value>kliknij PPM</value>
   </data>
-  <data name="StringHold" xml:space="preserve">
+  <data name="Hold" xml:space="preserve">
     <value>przytrzymaj</value>
   </data>
-  <data name="StringOr" xml:space="preserve">
+  <data name="Or" xml:space="preserve">
     <value>lub</value>
   </data>
-  <data name="StringSelect" xml:space="preserve">
+  <data name="Select" xml:space="preserve">
     <value>wybierz</value>
   </data>
-  <data name="StringSelectFromList" xml:space="preserve">
+  <data name="SelectFromList" xml:space="preserve">
     <value>wybierz z listy</value>
   </data>
-  <data name="StringWantToAddYourFavoriteStation" xml:space="preserve">
+  <data name="WantToAddYourFavoriteStation" xml:space="preserve">
     <value>Chcesz dodać ulubioną stację?</value>
   </data>
-  <data name="StringAirQualityIndex" xml:space="preserve">
+  <data name="AirQualityIndex" xml:space="preserve">
     <value>Indeks Jakości Powietrza</value>
   </data>
-  <data name="StringMeasure" xml:space="preserve">
+  <data name="Measure" xml:space="preserve">
     <value>Pomiar</value>
   </data>
-  <data name="StringNorm" xml:space="preserve">
+  <data name="Norm" xml:space="preserve">
     <value>Norma</value>
   </data>
-  <data name="StringComponents" xml:space="preserve">
+  <data name="Components" xml:space="preserve">
     <value>Składniki</value>
   </data>
-  <data name="StringAverage" xml:space="preserve">
+  <data name="Average" xml:space="preserve">
     <value>Średnia</value>
   </data>
-  <data name="StringAirQuality" xml:space="preserve">
+  <data name="AirQuality" xml:space="preserve">
     <value>jakość powietrza</value>
   </data>
-  <data name="StringBad" xml:space="preserve">
-    <value>Zła</value>
-  </data>
-  <data name="StringGood" xml:space="preserve">
+  <data name="Good" xml:space="preserve">
     <value>Dobra</value>
   </data>
-  <data name="StringModerate" xml:space="preserve">
+  <data name="Moderate" xml:space="preserve">
     <value>Umiarkowana</value>
   </data>
-  <data name="StringNA" xml:space="preserve">
+  <data name="NA" xml:space="preserve">
     <value>N/D</value>
   </data>
-  <data name="StringNotAvailable" xml:space="preserve">
+  <data name="NotAvailable" xml:space="preserve">
     <value>Nie Dostępna</value>
   </data>
-  <data name="StringSufficient" xml:space="preserve">
+  <data name="Sufficient" xml:space="preserve">
     <value>Dostateczna</value>
   </data>
-  <data name="StringVeryBad" xml:space="preserve">
+  <data name="VeryBad" xml:space="preserve">
     <value>Bardzo Zła</value>
   </data>
-  <data name="StringVeryGood" xml:space="preserve">
+  <data name="VeryGood" xml:space="preserve">
     <value>Bardzo Dobra</value>
   </data>
-  <data name="StringNote" xml:space="preserve">
+  <data name="Note" xml:space="preserve">
     <value>Uwaga</value>
   </data>
-  <data name="StringLegend" xml:space="preserve">
+  <data name="Legend" xml:space="preserve">
     <value>legenda</value>
   </data>
-  <data name="StringClose" xml:space="preserve">
+  <data name="Close" xml:space="preserve">
     <value>Zamknij</value>
   </data>
-  <data name="StringNoApiConnection" xml:space="preserve">
+  <data name="NoApiConnection" xml:space="preserve">
     <value>Nie znaleziono połączenia z API.
 Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</value>
   </data>
-  <data name="StringSettingsStringHomeStationLiveTile" xml:space="preserve">
+  <data name="SettingsStringHomeStationLiveTile" xml:space="preserve">
     <value>Pokazuj status stacji domowej na głównym kafelku.</value>
   </data>
-  <data name="StringLocalizationOff" xml:space="preserve">
+  <data name="LocalizationOff" xml:space="preserve">
     <value>Lokalizacja jest wyłączona na twoim urządzeniu</value>
   </data>
-  <data name="StringLocalizationTryAgain" xml:space="preserve">
+  <data name="LocalizationTryAgain" xml:space="preserve">
     <value>Włącz lokalizację i spróbuj ponownie</value>
   </data>
-  <data name="StringLocalizing" xml:space="preserve">
+  <data name="Localizing" xml:space="preserve">
     <value>Lokalizowanie ...</value>
   </data>
-  <data name="StringRetry" xml:space="preserve">
+  <data name="Retry" xml:space="preserve">
     <value>Ponów</value>
   </data>
-  <data name="StringCancel" xml:space="preserve">
+  <data name="Cancel" xml:space="preserve">
     <value>Anuluj</value>
   </data>
-  <data name="StringInitialization" xml:space="preserve">
+  <data name="Initialization" xml:space="preserve">
     <value>Inicjalizowanie</value>
   </data>
-  <data name="StringNearestStations" xml:space="preserve">
+  <data name="NearestStations" xml:space="preserve">
     <value>Najbliższe stacje</value>
   </data>
-  <data name="StringErrorOccurred" xml:space="preserve">
+  <data name="ErrorOccurred" xml:space="preserve">
     <value>Wystąpił błąd</value>
   </data>
-  <data name="StringLocalizationCanceled" xml:space="preserve">
+  <data name="LocalizationCanceled" xml:space="preserve">
     <value>Anulowano lokalizowanie</value>
   </data>
-  <data name="StringLocalizationNotFound" xml:space="preserve">
+  <data name="LocalizationNotFound" xml:space="preserve">
     <value>Nie udało się ustalić lokalizacji</value>
   </data>
-  <data name="StringMap" xml:space="preserve">
+  <data name="Map" xml:space="preserve">
     <value>Mapa</value>
   </data>
-  <data name="StringSettingsLocalization" xml:space="preserve">
+  <data name="SettingsLocalization" xml:space="preserve">
     <value>Zezwalaj aplikacji na używanie GPS.
 Pozwoli to znaleźć najbliższe stacje.</value>
   </data>

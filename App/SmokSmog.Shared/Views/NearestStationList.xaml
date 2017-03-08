@@ -99,14 +99,14 @@
                       FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                       FontSize="64"
                       Glyph="&#xE1C4;" />
-            <TextBlock HorizontalAlignment="Center" Text="{Binding LocalizedResources.StringLocalizing, Source={StaticResource LocalizedStrings}}" />
+            <TextBlock HorizontalAlignment="Center" x:Uid="Localizing" Text="(localizing)" />
             <ProgressBar Margin="10" IsIndeterminate="True" />
 
             <Button Margin="10"
+                    x:Uid="Cancel"
                     HorizontalAlignment="Center"
                     Command="{Binding CancelGeolocationCommand}"
-                    Content="{Binding LocalizedResources.StringCancel,
-                                      Source={StaticResource LocalizedStrings}}" />
+                    Content="(Cancel)" />
         </StackPanel>
 
         <StackPanel x:Name="Information"
@@ -127,10 +127,10 @@
                        TextWrapping="Wrap" />
 
             <Button Margin="10"
+                    x:Uid="Retry"
                     HorizontalAlignment="Center"
                     Command="{Binding RefreshGeolocationCommand}"
-                    Content="{Binding LocalizedResources.StringRetry,
-                                      Source={StaticResource LocalizedStrings}}" />
+                    Content="(Retry)" />
         </StackPanel>
 
         <VisualStateManager.VisualStateGroups>

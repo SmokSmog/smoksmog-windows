@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Parameter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Station.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\StationData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\LocalizedStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\WinRTResourceManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Data\AsyncDataProviderBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Data\GiosRestApiDataService.cs" />
@@ -132,8 +133,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="$(MSBuildThisFileDirectory)Resources\en-US\Resources.resw" />
-    <PRIResource Include="$(MSBuildThisFileDirectory)Resources\pl-PL\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Resources\en-US\Strings.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Resources\pl-PL\Strings.resw" />
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="$(MSBuildThisFileDirectory)MultilingualResources\SmokSmog.Core.Shared.pl-PL.xlf" />

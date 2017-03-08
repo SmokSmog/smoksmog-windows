@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using Windows.Storage;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 namespace SmokSmog.Views
 {

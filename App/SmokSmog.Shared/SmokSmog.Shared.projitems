@@ -150,4 +150,11 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\FontAwesome.otf" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\SEGMDL2.TTF" />
   </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\pl-PL\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <XliffResource Include="$(MSBuildThisFileDirectory)MultilingualResources\SmokSmog.Shared.pl-PL.xlf" />
+  </ItemGroup>
 </Project>

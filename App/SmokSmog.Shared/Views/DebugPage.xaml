@@ -20,8 +20,13 @@
 
             <TextBox FontSize="25" Text="{Binding ElementName=This, Path=InstallLocaltion}" />
             <TextBox FontSize="25" Text="{Binding ElementName=This, Path=LocalFolder}" />
+
+            <TextBlock>
+                <Run x:Uid="/SmokSmog.Core/Strings/Bad"></Run>
+            </TextBlock>
+
         </StackPanel>
 
-        <oxyplot:PlotView Model="{Binding Model}" Background="Transparent"/>
+        <!--<oxyplot:PlotView Model="{Binding Model}" Background="Transparent"/>-->
     </Grid>
 </Page>
