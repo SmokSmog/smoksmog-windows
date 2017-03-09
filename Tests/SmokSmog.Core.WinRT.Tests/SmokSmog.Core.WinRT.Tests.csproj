@@ -130,10 +130,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\SmokSmog.Core.Portable\SmokSmog.Core.Portable.csproj">
-      <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
-      <Name>SmokSmog.Core.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\SmokSmog.Core.WindowsUniversal\SmokSmog.Core.UWP.csproj">
       <Project>{64a549f2-f17a-4357-affb-7bb76bea6fa2}</Project>
       <Name>SmokSmog.Core.UWP</Name>

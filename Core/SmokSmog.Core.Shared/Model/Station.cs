@@ -5,15 +5,17 @@ using System.Runtime.Serialization;
 
 namespace SmokSmog.Model
 {
+    using Resources;
+
     [DataContract(Namespace = "SmokSmog.Model")]
     public partial class Station : ObservableObject, IComparable<int>
     {
-        private string _address = Resources.AppResources.StringUnknown;
-        private string _city = Resources.AppResources.StringUnknown;
+        private string _address = LocalizedStrings.GetString("Unknown");
+        private string _city = LocalizedStrings.GetString("Unknown");
         private Geocoordinate _geocoordinate = new Geocoordinate();
-        private string _name = Resources.AppResources.StringUnknown;
+        private string _name = LocalizedStrings.GetString("Unknown");
         private List<Parameter> _parameters = new List<Parameter>();
-        private string _province = Resources.AppResources.StringUnknown;
+        private string _province = LocalizedStrings.GetString("Unknown");
 
         public Station(int id)
         {
@@ -109,7 +111,7 @@ namespace SmokSmog.Model
         public List<Parameter> Parameters
         {
             get { return _parameters; }
-           internal set
+            internal set
             {
                 if (_parameters == value) return;
                 _parameters = value;

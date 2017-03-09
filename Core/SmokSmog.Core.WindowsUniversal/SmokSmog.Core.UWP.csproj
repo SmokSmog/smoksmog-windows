@@ -97,12 +97,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\SmokSmog.Core.WindowsUniversal.rd.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SmokSmog.Core.Portable\SmokSmog.Core.Portable.csproj">
-      <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
-      <Name>SmokSmog.Core.Portable</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="..\SmokSmog.Core.Shared\SmokSmog.Core.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

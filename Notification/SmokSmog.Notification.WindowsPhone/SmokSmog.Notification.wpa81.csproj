@@ -78,10 +78,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\SmokSmog.Core.Portable\SmokSmog.Core.Portable.csproj">
-      <Project>{6ff46aad-41b8-4ad7-af45-532082df2ebd}</Project>
-      <Name>SmokSmog.Core.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\SmokSmog.Core.WindowsPhone\SmokSmog.Core.wpa81.csproj">
       <Project>{145671f5-dc0d-4a9d-bbc5-edfc6f572260}</Project>
       <Name>SmokSmog.Core.wpa81</Name>

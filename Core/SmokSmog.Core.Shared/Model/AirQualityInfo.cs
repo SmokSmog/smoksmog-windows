@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace SmokSmog.Model
 {
+    using Resources;
+
     public class AirQualityInfo : IComparable
     {
         private static readonly HashSet<AirQualityInfo> Infos = new HashSet<AirQualityInfo>();
@@ -15,49 +17,49 @@ namespace SmokSmog.Model
             switch (Level)
             {
                 case AirQualityLevel.VeryGood:
-                    Text = Resources.AppResources.StringVeryGood;
+                    Text = LocalizedStrings.GetString("VeryGood");
                     Color = "#FF00b050";
                     Minimum = 0d;
                     Maximum = 1d;
                     break;
 
                 case AirQualityLevel.Good:
-                    Text = Resources.AppResources.StringGood;
+                    Text = LocalizedStrings.GetString("Good");
                     Color = "#FF92D050";
                     Minimum = 1d;
                     Maximum = 3d;
                     break;
 
                 case AirQualityLevel.Moderate:
-                    Text = Resources.AppResources.StringModerate;
+                    Text = LocalizedStrings.GetString("Moderate");
                     Color = "#FFFFFF00";
                     Minimum = 3d;
                     Maximum = 5d;
                     break;
 
                 case AirQualityLevel.Sufficient:
-                    Text = Resources.AppResources.StringSufficient;
+                    Text = LocalizedStrings.GetString("Sufficient");
                     Color = "#FFFFC000";
                     Minimum = 5d;
                     Maximum = 7d;
                     break;
 
                 case AirQualityLevel.Bad:
-                    Text = Resources.AppResources.StringBad;
+                    Text = LocalizedStrings.GetString("Bad");
                     Color = "#FFFF0000";
                     Minimum = 7d;
                     Maximum = 10d;
                     break;
 
                 case AirQualityLevel.VeryBad:
-                    Text = Resources.AppResources.StringVeryBad;
+                    Text = LocalizedStrings.GetString("VeryBad");
                     Color = "#FFC00000";
                     Minimum = 10d;
                     Maximum = Double.PositiveInfinity;
                     break;
 
                 default:
-                    Text = Resources.AppResources.StringNotAvailable;
+                    Text = LocalizedStrings.GetString("NotAvailable");
                     Color = "Gray";
                     Minimum = Double.NegativeInfinity;
                     Maximum = 0;

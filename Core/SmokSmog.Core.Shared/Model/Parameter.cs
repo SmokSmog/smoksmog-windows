@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using SmokSmog.Resources;
 using System;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
@@ -61,10 +62,10 @@ namespace SmokSmog.Model
     public partial class Parameter : ObservableObject
     {
         private string _description = string.Empty;
-        private string _name = Resources.AppResources.StringUnknown;
+        private string _name = LocalizedStrings.GetString("Unknown");
         private Norm _norm = null;
-        private string _shortName = Resources.AppResources.StringUnknown;
-        private string _unit = Resources.AppResources.StringUnknown;
+        private string _shortName = LocalizedStrings.GetString("Unknown");
+        private string _unit = LocalizedStrings.GetString("Unknown");
 
         public Parameter(Station station, int id)
         {

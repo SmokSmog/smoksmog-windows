@@ -118,24 +118,24 @@ namespace SmokSmog.ViewModel
                 switch (value)
                 {
                     case States.Init:
-                        InformationLine1 = AppResources.StringInitialization;
+                        InformationLine1 = LocalizedStrings.GetString("Initialization");
                         break;
 
                     case States.Disabled:
-                        InformationLine1 = AppResources.StringLocalizationOff;
-                        InformationLine2 = AppResources.StringLocalizationTryAgain;
+                        InformationLine1 = LocalizedStrings.GetString("LocalizationOff");
+                        InformationLine2 = LocalizedStrings.GetString("LocalizationTryAgain");
                         break;
 
                     case States.Timeout:
-                        InformationLine1 = AppResources.StringLocalizationNotFound;
+                        InformationLine1 = LocalizedStrings.GetString("LocalizationNotFound");
                         break;
 
                     case States.Cancelled:
-                        InformationLine1 = AppResources.StringLocalizationCanceled;
+                        InformationLine1 = LocalizedStrings.GetString("LocalizationCanceled");
                         break;
 
                     case States.Error:
-                        InformationLine1 = AppResources.StringErrorOccurred;
+                        InformationLine1 = LocalizedStrings.GetString("ErrorOccurred");
                         InformationLine2 = _lastErrorMessage;
                         break;
                 }
