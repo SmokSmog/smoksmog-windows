@@ -8,7 +8,8 @@ namespace SmokSmog.Resources
 
         static LocalizedStrings()
         {
-            _resourceLoader = new ResourceLoader("SmokSmog.Core/Strings");
+            //_resourceLoader = new ResourceLoader("SmokSmog.Core/Strings");
+            _resourceLoader = ResourceLoader.GetForViewIndependentUse("SmokSmog.Core/Strings");
         }
 
         private LocalizedStrings()
