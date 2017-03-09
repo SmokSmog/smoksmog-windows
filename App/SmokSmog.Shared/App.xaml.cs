@@ -29,6 +29,8 @@ namespace SmokSmog
             // inject WinRT Resource Manager into Resx Generated App Resources Classes
             //WinRTResourceManager.InjectIntoResxGeneratedAppResources(typeof(SmokSmog.Resources.AppResources));
 
+            //HockeyClient.Current.Configure("");
+
             Services.ServiceLocator.Initialize();
 
             this.InitializeComponent();

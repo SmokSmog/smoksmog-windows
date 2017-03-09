@@ -1,6 +1,8 @@
 ﻿{
   "dependencies": {
     "CommonServiceLocator": "1.3.0",
+    "HockeySDK.Core": "4.1.6",
+    "HockeySDK.UWP": "4.1.6",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Microsoft.Toolkit.Uwp.Notifications": "1.3.1",
     "Microsoft.Xaml.Behaviors.Uwp.Managed": "2.0.0",
