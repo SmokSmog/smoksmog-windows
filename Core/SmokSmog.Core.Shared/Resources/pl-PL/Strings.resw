@@ -179,4 +179,7 @@ Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</value>
     <value>Zezwalaj aplikacji na używanie GPS.
 Pozwoli to znaleźć najbliższe stacje.</value>
   </data>
+  <data name="Bad" xml:space="preserve">
+    <value>Zła</value>
+  </data>
 </root>

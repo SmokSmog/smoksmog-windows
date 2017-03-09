@@ -232,7 +232,7 @@ Pozwoli to znaleźć najbliższe stacje.</target>
         </trans-unit>
         <trans-unit id="Bad" translate="yes" xml:space="preserve">
           <source>Bad</source>
-          <target state="new">Bad</target>
+          <target state="translated">Zła</target>
         </trans-unit>
       </group>
     </body>
