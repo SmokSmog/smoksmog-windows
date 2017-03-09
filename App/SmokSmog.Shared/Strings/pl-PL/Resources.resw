@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FindStation.Text" xml:space="preserve">
-    <value>wyszukaj stację</value>
+    <value>znajdź stację</value>
   </data>
   <data name="Or.Text" xml:space="preserve">
     <value>lub</value>
@@ -23,5 +23,92 @@
   </data>
   <data name="WantToAddYourFavoriteStation.Text" xml:space="preserve">
     <value>Chcesz dodać swoją ulubioną stację?</value>
+  </data>
+  <data name="Hold.Text" xml:space="preserve">
+    <value>przytrzymaj</value>
+  </data>
+  <data name="OrClickRMB.Text" xml:space="preserve">
+    <value>lub kliknij PPM</value>
+  </data>
+  <data name="SetAsHomeStation.Text" xml:space="preserve">
+    <value>Ustaw jako stację domową</value>
+  </data>
+  <data name="AddToFavorites.Text" xml:space="preserve">
+    <value>Dodaj do ulubionych</value>
+  </data>
+  <data name="Select.Text" xml:space="preserve">
+    <value>wybierz</value>
+  </data>
+  <data name="ForWindows.Text" xml:space="preserve">
+    <value>dla Windows</value>
+  </data>
+  <data name="Version.Text" xml:space="preserve">
+    <value>wersja</value>
+  </data>
+  <data name="Localizing.Text" xml:space="preserve">
+    <value>lokalizowanie ...</value>
+  </data>
+  <data name="Cancel.Content" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Retry.Content" xml:space="preserve">
+    <value>Ponów</value>
+  </data>
+  <data name="SettingsEnableLocalization.Text" xml:space="preserve">
+    <value>Zezwalaj aplikacji na używanie GPS. Pozwoli to znaleźć najbliższe stacje.</value>
+  </data>
+  <data name="SettingsShowHomeStationLiveTile.Text" xml:space="preserve">
+    <value>Pokazuj status stacji domowej na głównym kafelku.</value>
+  </data>
+  <data name="GroupBy.Text" xml:space="preserve">
+    <value>grupuj według</value>
+  </data>
+  <data name="AirQualityIndex.Text" xml:space="preserve">
+    <value>Indeks Jakości Powietrza</value>
+  </data>
+  <data name="Components.Text" xml:space="preserve">
+    <value>składniki</value>
+  </data>
+  <data name="Legend.Text" xml:space="preserve">
+    <value>legenda</value>
+  </data>
+  <data name="AirQuality.Text" xml:space="preserve">
+    <value>jakość powietrza</value>
+  </data>
+  <data name="Measure.Text" xml:space="preserve">
+    <value>pomiar</value>
+  </data>
+  <data name="Norm.Text" xml:space="preserve">
+    <value>norma</value>
+  </data>
+  <data name="Average.Text" xml:space="preserve">
+    <value>średnia</value>
+  </data>
+  <data name="MenuItemFavorites.Text" xml:space="preserve">
+    <value>Ulubione</value>
+  </data>
+  <data name="MenuItemStationList.Text" xml:space="preserve">
+    <value>Lista stacji</value>
+  </data>
+  <data name="MenuItemHomeStation.Text" xml:space="preserve">
+    <value>Stacja domowa</value>
+  </data>
+  <data name="MenuItemNearestStations.Text" xml:space="preserve">
+    <value>Najbliższe stacje</value>
+  </data>
+  <data name="MenuItemInformation.Text" xml:space="preserve">
+    <value>Informacje</value>
+  </data>
+  <data name="MenuItemMap.Text" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="MenuItemSettings.Text" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="SearchTextBox.PlaceholderText" xml:space="preserve">
+    <value>szukaj</value>
+  </data>
+  <data name="RemoveFromFavorites.Text" xml:space="preserve">
+    <value>Usuń z ulubionych</value>
   </data>
 </root>

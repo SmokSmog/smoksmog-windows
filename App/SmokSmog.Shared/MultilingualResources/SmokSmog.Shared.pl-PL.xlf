@@ -8,7 +8,7 @@
       <group id="SMOKSMOG.SHARED/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
         <trans-unit id="FindStation.Text" translate="yes" xml:space="preserve">
           <source>find station</source>
-          <target state="translated">wyszukaj stację</target>
+          <target state="translated">znajdź stację</target>
         </trans-unit>
         <trans-unit id="Or.Text" translate="yes" xml:space="preserve">
           <source>or</source>
@@ -24,119 +24,119 @@
         </trans-unit>
         <trans-unit id="Hold.Text" translate="yes" xml:space="preserve">
           <source>hold</source>
-          <target state="new">hold</target>
+          <target state="translated">przytrzymaj</target>
         </trans-unit>
         <trans-unit id="OrClickRMB.Text" translate="yes" xml:space="preserve">
           <source>or click RMB</source>
-          <target state="new">or click RMB</target>
+          <target state="translated">lub kliknij PPM</target>
         </trans-unit>
         <trans-unit id="SetAsHomeStation.Text" translate="yes" xml:space="preserve">
           <source>Set as home station</source>
-          <target state="new">Set as home station</target>
+          <target state="translated">Ustaw jako stację domową</target>
         </trans-unit>
         <trans-unit id="AddToFavorites.Text" translate="yes" xml:space="preserve">
           <source>Add to favorites</source>
-          <target state="new">Add to favorites</target>
+          <target state="translated">Dodaj do ulubionych</target>
         </trans-unit>
         <trans-unit id="Select.Text" translate="yes" xml:space="preserve">
           <source>select</source>
-          <target state="new">select</target>
+          <target state="translated">wybierz</target>
         </trans-unit>
         <trans-unit id="ForWindows.Text" translate="yes" xml:space="preserve">
           <source>for Windows</source>
-          <target state="new">for Windows</target>
+          <target state="translated">dla Windows</target>
         </trans-unit>
         <trans-unit id="Version.Text" translate="yes" xml:space="preserve">
           <source>version</source>
-          <target state="new">version</target>
+          <target state="translated">wersja</target>
         </trans-unit>
         <trans-unit id="Localizing.Text" translate="yes" xml:space="preserve">
           <source>localizing...</source>
-          <target state="new">localizing...</target>
+          <target state="translated">lokalizowanie ...</target>
         </trans-unit>
         <trans-unit id="Cancel.Content" translate="yes" xml:space="preserve">
           <source>Cancel</source>
-          <target state="new">Cancel</target>
+          <target state="translated">Anuluj</target>
         </trans-unit>
         <trans-unit id="Retry.Content" translate="yes" xml:space="preserve">
           <source>Retry</source>
-          <target state="new">Retry</target>
+          <target state="translated">Ponów</target>
         </trans-unit>
         <trans-unit id="SettingsEnableLocalization.Text" translate="yes" xml:space="preserve">
           <source>Allow application to use GPS. That allow you to find nearest stations.</source>
-          <target state="new">Allow application to use GPS. That allow you to find nearest stations.</target>
+          <target state="translated">Zezwalaj aplikacji na używanie GPS. Pozwoli to znaleźć najbliższe stacje.</target>
         </trans-unit>
         <trans-unit id="SettingsShowHomeStationLiveTile.Text" translate="yes" xml:space="preserve">
           <source>Show home station statuses on primary live tile.</source>
-          <target state="new">Show home station statuses on primary live tile.</target>
+          <target state="translated">Pokazuj status stacji domowej na głównym kafelku.</target>
         </trans-unit>
         <trans-unit id="GroupBy.Text" translate="yes" xml:space="preserve">
           <source>group by</source>
-          <target state="new">group by</target>
+          <target state="translated">grupuj według</target>
         </trans-unit>
         <trans-unit id="AirQualityIndex.Text" translate="yes" xml:space="preserve">
           <source>Air Quality Index</source>
-          <target state="new">Air Quality Index</target>
+          <target state="translated">Indeks Jakości Powietrza</target>
         </trans-unit>
         <trans-unit id="Components.Text" translate="yes" xml:space="preserve">
           <source>components</source>
-          <target state="new">components</target>
+          <target state="translated">składniki</target>
         </trans-unit>
         <trans-unit id="Legend.Text" translate="yes" xml:space="preserve">
           <source>legend</source>
-          <target state="new">legend</target>
+          <target state="translated">legenda</target>
         </trans-unit>
         <trans-unit id="AirQuality.Text" translate="yes" xml:space="preserve">
           <source>air quality</source>
-          <target state="new">air quality</target>
+          <target state="translated">jakość powietrza</target>
         </trans-unit>
         <trans-unit id="Measure.Text" translate="yes" xml:space="preserve">
           <source>measure</source>
-          <target state="new">measure</target>
+          <target state="translated">pomiar</target>
         </trans-unit>
         <trans-unit id="Norm.Text" translate="yes" xml:space="preserve">
           <source>norm</source>
-          <target state="new">norm</target>
+          <target state="translated">norma</target>
         </trans-unit>
         <trans-unit id="Average.Text" translate="yes" xml:space="preserve">
           <source>average</source>
-          <target state="new">average</target>
+          <target state="translated">średnia</target>
         </trans-unit>
         <trans-unit id="MenuItemFavorites.Text" translate="yes" xml:space="preserve">
           <source>Favorites</source>
-          <target state="new">Favorites</target>
+          <target state="translated">Ulubione</target>
         </trans-unit>
         <trans-unit id="MenuItemStationList.Text" translate="yes" xml:space="preserve">
           <source>Station list</source>
-          <target state="new">Station list</target>
+          <target state="translated">Lista stacji</target>
         </trans-unit>
         <trans-unit id="MenuItemHomeStation.Text" translate="yes" xml:space="preserve">
           <source>Home station</source>
-          <target state="new">Home station</target>
+          <target state="translated">Stacja domowa</target>
         </trans-unit>
         <trans-unit id="MenuItemNearestStations.Text" translate="yes" xml:space="preserve">
           <source>Nearest stations</source>
-          <target state="new">Nearest stations</target>
+          <target state="translated">Najbliższe stacje</target>
         </trans-unit>
         <trans-unit id="MenuItemInformation.Text" translate="yes" xml:space="preserve">
           <source>Information</source>
-          <target state="new">Information</target>
+          <target state="translated">Informacje</target>
         </trans-unit>
         <trans-unit id="MenuItemMap.Text" translate="yes" xml:space="preserve">
           <source>Map</source>
-          <target state="new">Map</target>
+          <target state="translated">Mapa</target>
         </trans-unit>
         <trans-unit id="MenuItemSettings.Text" translate="yes" xml:space="preserve">
           <source>Settings</source>
-          <target state="new">Settings</target>
+          <target state="translated">Ustawienia</target>
         </trans-unit>
         <trans-unit id="SearchTextBox.PlaceholderText" translate="yes" xml:space="preserve">
           <source>search</source>
-          <target state="new">search</target>
+          <target state="translated">szukaj</target>
         </trans-unit>
         <trans-unit id="RemoveFromFavorites.Text" translate="yes" xml:space="preserve">
           <source>Remove from favorites</source>
-          <target state="new">Remove from favorites</target>
+          <target state="translated">Usuń z ulubionych</target>
         </trans-unit>
       </group>
     </body>
