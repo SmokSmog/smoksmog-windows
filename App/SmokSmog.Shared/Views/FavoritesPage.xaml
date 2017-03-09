@@ -90,6 +90,7 @@
                         FontSize="25"
                         Glyph="&#xE11A;" />
                     
+                    <!-- TODO redirection to search page -->
                     <TextBlock
                         x:Uid="FindStation"
                         Grid.Row="2"
@@ -100,7 +101,7 @@
                         Text="(find station)"
                         TextAlignment="Center">
                         <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Tapped">
+                            <ic:EventTriggerBehavior EventName="Tapped"> 
                                 <nav:NavigateAction TargetPage="StationListPage" />
                             </ic:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
