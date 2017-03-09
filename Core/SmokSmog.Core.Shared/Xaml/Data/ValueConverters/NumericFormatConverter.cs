@@ -1,16 +1,17 @@
-﻿using SmokSmog.Globalization;
-using System;
+﻿using System;
 using System.Globalization;
 
 namespace SmokSmog.Xaml.Data.ValueConverters
 {
+    using Resources;
+
     public class NumericFormatConverter : ValueConverterBase
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo cultureOrlanguage)
         {
             if (value == null)
             {
-                return LocalizedStrings.LocalizedString("StringNA");
+                return LocalizedStrings.GetString("NA");
             }
 
             double val = 0;
@@ -27,7 +28,7 @@ namespace SmokSmog.Xaml.Data.ValueConverters
                 return string.Format(((parameter as string) ?? "{0}").Replace('[', '{').Replace(']', '}'), val);
             }
 
-            return LocalizedStrings.LocalizedString("StringNA");
+            return LocalizedStrings.GetString("NA");
         }
     }
 }

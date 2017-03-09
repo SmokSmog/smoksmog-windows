@@ -10,7 +10,6 @@ using Windows.UI.Xaml.Navigation;
 namespace SmokSmog
 {
     using Diagnostics;
-    using Globalization;
     using Navigation;
     using Resources;
     using Services;
@@ -146,15 +145,15 @@ namespace SmokSmog
             }
             catch (Exception ex)
             {
-                SmokSmog.Diagnostics.Logger.Log(ex);
+                Logger.Log(ex);
 
                 // Create the message dialog and set its content
-                var messageDialog = new MessageDialog(LocalizedStrings.LocalizedString("StringNoApiConnection"));
+                var messageDialog = new MessageDialog(LocalizedStrings.GetString("NoApiConnection"));
 
                 // Add commands and set their callbacks; both buttons use the same callback function
                 // instead of inline event handlers
                 messageDialog.Commands.Add(new UICommand(
-                    LocalizedStrings.LocalizedString("StringClose"),
+                    LocalizedStrings.GetString("Close"),
                     new UICommandInvokedHandler(command => { Exit(); })));
 
                 // Set the command that will be invoked by default

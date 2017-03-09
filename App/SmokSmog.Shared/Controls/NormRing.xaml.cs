@@ -1,4 +1,4 @@
-﻿using SmokSmog.Globalization;
+﻿using SmokSmog.Resources;
 using SmokSmog.ViewModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -41,7 +41,7 @@ namespace SmokSmog.Controls
 
         // Using a DependencyProperty as the backing store for Percent.
         public static readonly DependencyProperty PercentProperty =
-            DependencyProperty.Register("Percent", typeof(string), typeof(NormRing), new PropertyMetadata(LocalizedStrings.LocalizedString("StringNA")));
+            DependencyProperty.Register("Percent", typeof(string), typeof(NormRing), new PropertyMetadata(LocalizedStrings.GetString("NA")));
 
         public ParameterViewModel Parameter
         {
@@ -74,7 +74,7 @@ namespace SmokSmog.Controls
 
             if (norm == null || !average.HasValue)
             {
-                Percent = string.Format(LocalizedStrings.LocalizedString("StringNA"));
+                Percent = string.Format(LocalizedStrings.GetString("NA"));
                 EndAngle = -180d;
                 PrecentTextBlock.Visibility = Visibility.Collapsed;
 

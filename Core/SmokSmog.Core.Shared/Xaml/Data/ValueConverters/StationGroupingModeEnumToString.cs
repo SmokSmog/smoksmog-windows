@@ -3,6 +3,8 @@ using System.Globalization;
 
 namespace SmokSmog.Xaml.Data.ValueConverters
 {
+    using Resources;
+
     public class StationGroupingModeEnumToString : ValueConverterBase
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo cultureOrlanguage)
@@ -13,13 +15,13 @@ namespace SmokSmog.Xaml.Data.ValueConverters
                 switch ((ViewModel.StationGroupingModeEnum)value)
                 {
                     case ViewModel.StationGroupingModeEnum.Name:
-                        return Globalization.LocalizedStrings.LocalizedString("StationSortModeEnumName");
+                        return LocalizedStrings.GetString("StationSortModeEnumName");
 
                     //case ViewModel.StationGroupingModeEnum.City:
-                    //    return Globalization.LocalizedStrings("StationSortModeEnumCity");
+                    //    return Globalization.GetString("StationSortModeEnumCity");
 
                     case ViewModel.StationGroupingModeEnum.Province:
-                        return Globalization.LocalizedStrings.LocalizedString("StationSortModeEnumProvince");
+                        return LocalizedStrings.GetString("StationSortModeEnumProvince");
                 }
             }
             return "String not found";
