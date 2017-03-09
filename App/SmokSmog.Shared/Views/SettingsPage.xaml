@@ -1,26 +1,31 @@
-﻿<Page x:Class="SmokSmog.Views.SettingsPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="using:SmokSmog.Views"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      DataContext="{Binding Path=SettingsViewModel,
-                            Source={StaticResource ViewModelLocator}}"
-      mc:Ignorable="d">
+﻿<Page
+    x:Class="SmokSmog.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:SmokSmog.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding Path=SettingsViewModel, Source={StaticResource ViewModelLocator}}"
+    mc:Ignorable="d">
 
     <Grid Background="{StaticResource SmokSmogPageBackgroundBrush}">
 
         <StackPanel Margin="12">
 
             <ToggleSwitch IsEnabled="{Binding CanPrimaryTileNotificationEnable}" IsOn="{Binding IsPrimaryTileNotificationEnable, Mode=TwoWay}">
-                <TextBlock Text="{Binding LocalizedResources.StringSettingsStringHomeStationLiveTile, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap" />
+                <TextBlock
+                    x:Uid="SettingsShowHomeStationLiveTile"
+                    Text="Show home station statuses on primary live tile."
+                    TextWrapping="Wrap" />
             </ToggleSwitch>
 
             <ToggleSwitch IsEnabled="{Binding CanLocalizationEnable}" IsOn="{Binding IsLocalizationEnable, Mode=TwoWay}">
-                <TextBlock Text="{Binding LocalizedResources.StringSettingsLocalization, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap" />
+                <TextBlock
+                    x:Uid="SettingsEnableLocalization"
+                    Text="Allow application to use GPS. That allow you to find nearest stations."
+                    TextWrapping="Wrap" />
             </ToggleSwitch>
-            
-            <TextBlock Name="LogTextBlock" />
+
         </StackPanel>
     </Grid>
 </Page>

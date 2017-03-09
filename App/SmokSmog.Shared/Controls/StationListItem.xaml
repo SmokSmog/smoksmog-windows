@@ -1,23 +1,27 @@
-﻿<UserControl x:Class="SmokSmog.Controls.StationListItem"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:i="using:Microsoft.Xaml.Interactivity"
-             xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-             xmlns:is="using:SmokSmog.Xaml.Interactions"
-             xmlns:local="using:SmokSmog.Controls"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             x:Name="This"
-             d:DesignHeight="100"
-             d:DesignWidth="400"
-             mc:Ignorable="d">
+﻿<UserControl
+    x:Class="SmokSmog.Controls.StationListItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:is="using:SmokSmog.Xaml.Interactions"
+    xmlns:local="using:SmokSmog.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="This"
+    d:DesignHeight="100"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
 
-    <Border Margin="0"
-            BorderThickness="0"
-            Padding="{Binding Padding,
-                              ElementName=This}">
+    <Border
+        Margin="0"
+        Padding="{Binding Padding, ElementName=This}"
+        BorderThickness="0">
         <!--  https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.uielement.righttapped  -->
-        <Grid Margin="10,5" Background="{Binding Background, ElementName=This}" DataContext="{Binding ElementName=This}">
+        <Grid
+            Margin="10,5"
+            Background="{Binding Background, ElementName=This}"
+            DataContext="{Binding ElementName=This}">
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="Holding">
                     <is:ShowAttachedFlyoutAction />
@@ -29,12 +33,12 @@
 
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem x:Name="SetHomeStationMenuItem"
-                                    Command="{Binding Source={StaticResource ViewModelLocator},
-                                                      Path=FavoritesViewModel.SetHomeStationCommand}"
-                                    CommandParameter="{Binding Station}"
-                                    Text="{Binding LocalizedResources.StringSetAsHomeStation,
-                                                   Source={StaticResource LocalizedStrings}}">
+                    <MenuFlyoutItem
+                        x:Name="SetHomeStationMenuItem"
+                        x:Uid="SetAsHomeStation"
+                        Command="{Binding Source={StaticResource ViewModelLocator}, Path=FavoritesViewModel.SetHomeStationCommand}"
+                        CommandParameter="{Binding Station}"
+                        Text="(Set as home station)">
                         <i:Interaction.Behaviors>
                             <ic:DataTriggerBehavior Binding="{Binding IsEnabled, ElementName=SetHomeStationMenuItem}" Value="True">
                                 <ic:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
@@ -45,12 +49,12 @@
                         </i:Interaction.Behaviors>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem x:Name="AddStationToFavoritesMenuItem"
-                                    Command="{Binding Source={StaticResource ViewModelLocator},
-                                                      Path=FavoritesViewModel.AddStationToFavoritesCommand}"
-                                    CommandParameter="{Binding Station}"
-                                    Text="{Binding LocalizedResources.StringAddToFavorites,
-                                                   Source={StaticResource LocalizedStrings}}">
+                    <MenuFlyoutItem
+                        x:Name="AddStationToFavoritesMenuItem"
+                        x:Uid="AddToFavorites"
+                        Command="{Binding Source={StaticResource ViewModelLocator}, Path=FavoritesViewModel.AddStationToFavoritesCommand}"
+                        CommandParameter="{Binding Station}"
+                        Text="(Add to favorites)">
 
                         <i:Interaction.Behaviors>
                             <ic:DataTriggerBehavior Binding="{Binding IsEnabled, ElementName=AddStationToFavoritesMenuItem}" Value="True">
@@ -62,13 +66,13 @@
                         </i:Interaction.Behaviors>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem x:Name="RemoveStationFromFavoritesMenuItem"
-                                    Command="{Binding Source={StaticResource ViewModelLocator},
-                                                      Path=FavoritesViewModel.RemoveStationFromFavoritesCommand}"
-                                    CommandParameter="{Binding Station}"
-                                    Text="{Binding LocalizedResources.StringRemoveFromFavorites,
-                                                   Source={StaticResource LocalizedStrings}}"
-                                    Visibility="Collapsed">
+                    <MenuFlyoutItem
+                        x:Name="RemoveStationFromFavoritesMenuItem"
+                        x:Uid="RemoveFromFavorites"
+                        Command="{Binding Source={StaticResource ViewModelLocator}, Path=FavoritesViewModel.RemoveStationFromFavoritesCommand}"
+                        CommandParameter="{Binding Station}"
+                        Text="(Remove from favorites)"
+                        Visibility="Collapsed">
 
                         <i:Interaction.Behaviors>
                             <ic:DataTriggerBehavior Binding="{Binding IsEnabled, ElementName=RemoveStationFromFavoritesMenuItem}" Value="True">
@@ -94,33 +98,36 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0"
-                       Grid.ColumnSpan="2"
-                       FontSize="18"
-                       FontWeight="Bold"
-                       Style="{ThemeResource BaseTextBlockStyle}"
-                       Text="{Binding Station.Name}">
+            <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                FontSize="18"
+                FontWeight="Bold"
+                Style="{ThemeResource BaseTextBlockStyle}"
+                Text="{Binding Station.Name}">
                 <i:Interaction.Behaviors>
                     <is:TextBlockHighlightBehavior Highlight="{StaticResource SmokSmogAccentBrush}" SearchString="{Binding SearchString, ElementName=This}" />
                 </i:Interaction.Behaviors>
             </TextBlock>
 
-            <TextBlock Grid.Row="1"
-                       Grid.Column="0"
-                       FontSize="12"
-                       Style="{ThemeResource BaseTextBlockStyle}"
-                       Text="{Binding Station.Province}">
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                FontSize="12"
+                Style="{ThemeResource BaseTextBlockStyle}"
+                Text="{Binding Station.Province}">
                 <i:Interaction.Behaviors>
                     <is:TextBlockHighlightBehavior Highlight="{StaticResource SmokSmogAccentBrush}" SearchString="{Binding SearchString, ElementName=This}" />
                 </i:Interaction.Behaviors>
             </TextBlock>
 
-            <TextBlock Grid.Row="1"
-                       Grid.Column="1"
-                       HorizontalAlignment="Right"
-                       FontSize="12"
-                       Style="{ThemeResource BaseTextBlockStyle}"
-                       Text="{Binding Distance}" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                FontSize="12"
+                Style="{ThemeResource BaseTextBlockStyle}"
+                Text="{Binding Distance}" />
         </Grid>
     </Border>
 </UserControl>

@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="pl-PL" original="SMOKSMOG.SHARED/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1795.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="SMOKSMOG.SHARED/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="FindStation.Text" translate="yes" xml:space="preserve">
+          <source>find station</source>
+          <target state="translated">wyszukaj stację</target>
+        </trans-unit>
+        <trans-unit id="Or.Text" translate="yes" xml:space="preserve">
+          <source>or</source>
+          <target state="translated">lub</target>
+        </trans-unit>
+        <trans-unit id="SelectFromList.Text" translate="yes" xml:space="preserve">
+          <source>select from list</source>
+          <target state="translated">wybierz z listy</target>
+        </trans-unit>
+        <trans-unit id="WantToAddYourFavoriteStation.Text" translate="yes" xml:space="preserve">
+          <source>Want to add your favorite station?</source>
+          <target state="translated">Chcesz dodać swoją ulubioną stację?</target>
+        </trans-unit>
+        <trans-unit id="Hold.Text" translate="yes" xml:space="preserve">
+          <source>hold</source>
+          <target state="new">hold</target>
+        </trans-unit>
+        <trans-unit id="OrClickRMB.Text" translate="yes" xml:space="preserve">
+          <source>or click RMB</source>
+          <target state="new">or click RMB</target>
+        </trans-unit>
+        <trans-unit id="SetAsHomeStation.Text" translate="yes" xml:space="preserve">
+          <source>Set as home station</source>
+          <target state="new">Set as home station</target>
+        </trans-unit>
+        <trans-unit id="AddToFavorites.Text" translate="yes" xml:space="preserve">
+          <source>Add to favorites</source>
+          <target state="new">Add to favorites</target>
+        </trans-unit>
+        <trans-unit id="Select.Text" translate="yes" xml:space="preserve">
+          <source>select</source>
+          <target state="new">select</target>
+        </trans-unit>
+        <trans-unit id="ForWindows.Text" translate="yes" xml:space="preserve">
+          <source>for Windows</source>
+          <target state="new">for Windows</target>
+        </trans-unit>
+        <trans-unit id="Version.Text" translate="yes" xml:space="preserve">
+          <source>version</source>
+          <target state="new">version</target>
+        </trans-unit>
+        <trans-unit id="Localizing.Text" translate="yes" xml:space="preserve">
+          <source>localizing...</source>
+          <target state="new">localizing...</target>
+        </trans-unit>
+        <trans-unit id="Cancel.Content" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="new">Cancel</target>
+        </trans-unit>
+        <trans-unit id="Retry.Content" translate="yes" xml:space="preserve">
+          <source>Retry</source>
+          <target state="new">Retry</target>
+        </trans-unit>
+        <trans-unit id="SettingsEnableLocalization.Text" translate="yes" xml:space="preserve">
+          <source>Allow application to use GPS. That allow you to find nearest stations.</source>
+          <target state="new">Allow application to use GPS. That allow you to find nearest stations.</target>
+        </trans-unit>
+        <trans-unit id="SettingsShowHomeStationLiveTile.Text" translate="yes" xml:space="preserve">
+          <source>Show home station statuses on primary live tile.</source>
+          <target state="new">Show home station statuses on primary live tile.</target>
+        </trans-unit>
+        <trans-unit id="GroupBy.Text" translate="yes" xml:space="preserve">
+          <source>group by</source>
+          <target state="new">group by</target>
+        </trans-unit>
+        <trans-unit id="AirQualityIndex.Text" translate="yes" xml:space="preserve">
+          <source>Air Quality Index</source>
+          <target state="new">Air Quality Index</target>
+        </trans-unit>
+        <trans-unit id="Components.Text" translate="yes" xml:space="preserve">
+          <source>components</source>
+          <target state="new">components</target>
+        </trans-unit>
+        <trans-unit id="Legend.Text" translate="yes" xml:space="preserve">
+          <source>legend</source>
+          <target state="new">legend</target>
+        </trans-unit>
+        <trans-unit id="AirQuality.Text" translate="yes" xml:space="preserve">
+          <source>air quality</source>
+          <target state="new">air quality</target>
+        </trans-unit>
+        <trans-unit id="Measure.Text" translate="yes" xml:space="preserve">
+          <source>measure</source>
+          <target state="new">measure</target>
+        </trans-unit>
+        <trans-unit id="Norm.Text" translate="yes" xml:space="preserve">
+          <source>norm</source>
+          <target state="new">norm</target>
+        </trans-unit>
+        <trans-unit id="Average.Text" translate="yes" xml:space="preserve">
+          <source>average</source>
+          <target state="new">average</target>
+        </trans-unit>
+        <trans-unit id="MenuItemFavorites.Text" translate="yes" xml:space="preserve">
+          <source>Favorites</source>
+          <target state="new">Favorites</target>
+        </trans-unit>
+        <trans-unit id="MenuItemStationList.Text" translate="yes" xml:space="preserve">
+          <source>Station list</source>
+          <target state="new">Station list</target>
+        </trans-unit>
+        <trans-unit id="MenuItemHomeStation.Text" translate="yes" xml:space="preserve">
+          <source>Home station</source>
+          <target state="new">Home station</target>
+        </trans-unit>
+        <trans-unit id="MenuItemNearestStations.Text" translate="yes" xml:space="preserve">
+          <source>Nearest stations</source>
+          <target state="new">Nearest stations</target>
+        </trans-unit>
+        <trans-unit id="MenuItemInformation.Text" translate="yes" xml:space="preserve">
+          <source>Information</source>
+          <target state="new">Information</target>
+        </trans-unit>
+        <trans-unit id="MenuItemMap.Text" translate="yes" xml:space="preserve">
+          <source>Map</source>
+          <target state="new">Map</target>
+        </trans-unit>
+        <trans-unit id="MenuItemSettings.Text" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="new">Settings</target>
+        </trans-unit>
+        <trans-unit id="SearchTextBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>search</source>
+          <target state="new">search</target>
+        </trans-unit>
+        <trans-unit id="RemoveFromFavorites.Text" translate="yes" xml:space="preserve">
+          <source>Remove from favorites</source>
+          <target state="new">Remove from favorites</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

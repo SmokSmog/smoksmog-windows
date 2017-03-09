@@ -1,16 +1,16 @@
-<Application x:Class="SmokSmog.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:globalization="using:SmokSmog.Globalization"
-             xmlns:map="using:SmokSmog.Map"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:navigation="using:SmokSmog.Navigation"
-             xmlns:services="using:SmokSmog.Services"
-             xmlns:valueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
-             xmlns:viewmodel="using:SmokSmog.ViewModel"
-             RequestedTheme="Light"
-             mc:Ignorable="d">
+<Application
+    x:Class="SmokSmog.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:map="using:SmokSmog.Map"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:navigation="using:SmokSmog.Navigation"
+    xmlns:services="using:SmokSmog.Services"
+    xmlns:valueConverters="using:SmokSmog.Xaml.Data.ValueConverters"
+    xmlns:viewmodel="using:SmokSmog.ViewModel"
+    RequestedTheme="Light"
+    mc:Ignorable="d">
     <!--  Windows Store  -->
     <Application.Resources>
         <ResourceDictionary>
@@ -18,7 +18,6 @@
             <navigation:NavigationService x:Key="NavigationService" />
             <services:ServiceLocator x:Key="ServiceLocator" d:IsDataSource="True" />
             <viewmodel:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
-            <globalization:LocalizedStrings x:Key="LocalizedStrings" d:IsDataSource="True" />
 
             <map:BingMapConfig x:Key="BingMapConfig" />
 

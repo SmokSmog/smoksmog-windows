@@ -57,7 +57,7 @@ namespace SmokSmog.DesignData.Services
             var result = new List<Station>()
             {
                 new Station(1) { Name="Andrychów", City="Andrychów", Province="Małopolska" },
-                new Station(2) { Name="Kraków - Ditla", City="Kraków", Province="Małopolska" },
+                new Station(2) { Name="Kraków - Dietla", City="Kraków", Province="Małopolska" },
                 new Station(3) { Name="Kraków - Bronowice", City="Kraków", Province="Małopolska" },
                 new Station(4) { Name="Kraków - Aleja Kraśińskiego", City="Kraków", Province="Małopolska" },
                 new Station(5) { Name="Kraków - Nowa Huta", City="Kraków", Province="Małopolska" },

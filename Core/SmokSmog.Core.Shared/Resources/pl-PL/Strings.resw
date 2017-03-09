@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="StationSortModeEnumName" xml:space="preserve">
+    <value>nazwy</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>grupuj według</value>
+  </data>
+  <data name="StationSortModeEnumCity" xml:space="preserve">
+    <value>miasta</value>
+  </data>
+  <data name="StationSortModeEnumProvince" xml:space="preserve">
+    <value>województwa</value>
+  </data>
+  <data name="FindStation" xml:space="preserve">
+    <value>znajdź stację</value>
+  </data>
+  <data name="HomeStation" xml:space="preserve">
+    <value>stacja domowa</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>informacje</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>ustawienia</value>
+  </data>
+  <data name="For" xml:space="preserve">
+    <value>dla</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>wersja</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>szukaj</value>
+  </data>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>Dodaj do ulubionych</value>
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value>Przypnij</value>
+  </data>
+  <data name="SetAsHomeStation" xml:space="preserve">
+    <value>Ustaw jako stację domową</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Nieznany</value>
+  </data>
+  <data name="StationList" xml:space="preserve">
+    <value>Lista stacji</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Strona domowa</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Ulubione</value>
+  </data>
+  <data name="RemoveFromFavorites" xml:space="preserve">
+    <value>Usuń z ulubionych</value>
+  </data>
+  <data name="ClickRMB" xml:space="preserve">
+    <value>kliknij PPM</value>
+  </data>
+  <data name="Hold" xml:space="preserve">
+    <value>przytrzymaj</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>lub</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>wybierz</value>
+  </data>
+  <data name="SelectFromList" xml:space="preserve">
+    <value>wybierz z listy</value>
+  </data>
+  <data name="WantToAddYourFavoriteStation" xml:space="preserve">
+    <value>Chcesz dodać ulubioną stację?</value>
+  </data>
+  <data name="AirQualityIndex" xml:space="preserve">
+    <value>Indeks Jakości Powietrza</value>
+  </data>
+  <data name="Measure" xml:space="preserve">
+    <value>Pomiar</value>
+  </data>
+  <data name="Norm" xml:space="preserve">
+    <value>Norma</value>
+  </data>
+  <data name="Components" xml:space="preserve">
+    <value>Składniki</value>
+  </data>
+  <data name="Average" xml:space="preserve">
+    <value>Średnia</value>
+  </data>
+  <data name="AirQuality" xml:space="preserve">
+    <value>jakość powietrza</value>
+  </data>
+  <data name="Good" xml:space="preserve">
+    <value>Dobra</value>
+  </data>
+  <data name="Moderate" xml:space="preserve">
+    <value>Umiarkowana</value>
+  </data>
+  <data name="NA" xml:space="preserve">
+    <value>N/D</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Nie Dostępna</value>
+  </data>
+  <data name="Sufficient" xml:space="preserve">
+    <value>Dostateczna</value>
+  </data>
+  <data name="VeryBad" xml:space="preserve">
+    <value>Bardzo Zła</value>
+  </data>
+  <data name="VeryGood" xml:space="preserve">
+    <value>Bardzo Dobra</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Uwaga</value>
+  </data>
+  <data name="Legend" xml:space="preserve">
+    <value>legenda</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
+  <data name="NoApiConnection" xml:space="preserve">
+    <value>Nie znaleziono połączenia z API.
+Proszę sprawdź swoje połączenie z internetem i spróbuj ponownie.</value>
+  </data>
+  <data name="SettingsStringHomeStationLiveTile" xml:space="preserve">
+    <value>Pokazuj status stacji domowej na głównym kafelku.</value>
+  </data>
+  <data name="LocalizationOff" xml:space="preserve">
+    <value>Lokalizacja jest wyłączona na twoim urządzeniu</value>
+  </data>
+  <data name="LocalizationTryAgain" xml:space="preserve">
+    <value>Włącz lokalizację i spróbuj ponownie</value>
+  </data>
+  <data name="Localizing" xml:space="preserve">
+    <value>Lokalizowanie ...</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Ponów</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Initialization" xml:space="preserve">
+    <value>Inicjalizowanie</value>
+  </data>
+  <data name="NearestStations" xml:space="preserve">
+    <value>Najbliższe stacje</value>
+  </data>
+  <data name="ErrorOccurred" xml:space="preserve">
+    <value>Wystąpił błąd</value>
+  </data>
+  <data name="LocalizationCanceled" xml:space="preserve">
+    <value>Anulowano lokalizowanie</value>
+  </data>
+  <data name="LocalizationNotFound" xml:space="preserve">
+    <value>Nie udało się ustalić lokalizacji</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="SettingsLocalization" xml:space="preserve">
+    <value>Zezwalaj aplikacji na używanie GPS.
+Pozwoli to znaleźć najbliższe stacje.</value>
+  </data>
+</root>

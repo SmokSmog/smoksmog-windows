@@ -35,14 +35,13 @@
                                TextAlignment="Center"
                                TextWrapping="WrapWholeWords">
                         <Run Text="{Binding ApplicationName}" />
-                        <Run Text="{Binding LocalizedResources.StringFor, Source={StaticResource LocalizedStrings}}" />
-                        <Run Text="Windows" />
+                        <Run x:Uid="ForWindows" Text="(for Windows)" />
                     </TextBlock>
 
                     <TextBlock HorizontalAlignment="Center"
                                FontSize="22"
                                TextAlignment="Center">
-                        <Run Text="{Binding LocalizedResources.StringVersion, Source={StaticResource LocalizedStrings}}" />
+                        <Run x:Uid="Version" Text="(version)" />
                         <Run Text="{Binding ApplicationVersion}" />
                     </TextBlock>
                 </StackPanel>

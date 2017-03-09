@@ -1,52 +1,52 @@
-﻿<UserControl x:Class="SmokSmog.Controls.SearchBox"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:globalization="using:SmokSmog.Globalization"
-             xmlns:local="using:SmokSmog.Controls"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="50"
-             d:DesignWidth="400"
-             FontSize="15"
-             x:Name="This"
-             mc:Ignorable="d">
+﻿<UserControl
+    x:Class="SmokSmog.Controls.SearchBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:SmokSmog.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="This"
+    d:DesignHeight="50"
+    d:DesignWidth="400"
+    FontSize="15"
+    mc:Ignorable="d">
 
-    <Grid x:Name="SearchRoot"
-          HorizontalAlignment="Stretch"
-          Background="White">
+    <Grid
+        x:Name="SearchRoot"
+        HorizontalAlignment="Stretch"
+        Background="White">
 
-        <TextBox x:Name="SearchTextBox"
-                 Margin="0,0"
-                 FontSize="{Binding ElementName=This,Path=FontSize}"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Center"
-                 Background="Transparent"
-                 BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"
-                 Padding="7,3,40,3"
-                 PlaceholderText="{Binding LocalizedResources.StringSearch,
-                                           Source={StaticResource LocalizedStrings}}"
-                 RequestedTheme="Light"
-                 TextChanged="SearchTextBox_TextChanged" />
+        <TextBox
+            x:Name="SearchTextBox"
+            x:Uid="SearchTextBox"
+            Margin="0,0"
+            Padding="7,3,40,3"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"
+            FontSize="{Binding ElementName=This, Path=FontSize}"
+            PlaceholderText="(search)"
+            RequestedTheme="Light"
+            TextChanged="SearchTextBox_TextChanged" />
 
-
-
-            <Button x:Name="CancelationButton"
-                    Width="32"
-                    Height="32"
-                    MinWidth="32"
-                    MinHeight="32"
-                    MaxWidth="32"
-                    MaxHeight="32"
-                    BorderBrush="Transparent"
-                    BorderThickness="0"
-                    HorizontalAlignment="Right"
-                    Click="CancelationButton_Click"
-                    Content="&#x2715;"
-                    FontFamily="Segoe UI"
-                    FontSize="15"
-                    FontWeight="Black"
-                    Style="{StaticResource SmokSmogButtonStyle}"
-                    Visibility="Collapsed" />
-
+        <Button
+            x:Name="CancelationButton"
+            Width="32"
+            Height="32"
+            MinWidth="32"
+            MinHeight="32"
+            MaxWidth="32"
+            MaxHeight="32"
+            HorizontalAlignment="Right"
+            BorderBrush="Transparent"
+            BorderThickness="0"
+            Click="CancelationButton_Click"
+            Content="&#x2715;"
+            FontFamily="Segoe UI"
+            FontSize="15"
+            FontWeight="Black"
+            Style="{StaticResource SmokSmogButtonStyle}"
+            Visibility="Collapsed" />
     </Grid>
 </UserControl>
