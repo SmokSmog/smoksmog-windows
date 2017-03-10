@@ -27,7 +27,7 @@
         <x:Double x:Key="SmokSmogMenuItemTextFontSize">16</x:Double>
         <x:Double x:Key="SmokSmogMenuItemTextBlockWidth">250</x:Double>
 
-        <Thickness x:Key="SmokSmogContentMargin">48,0,0,0</Thickness>
+        <!--<Thickness x:Key="SmokSmogContentMargin">48,0,0,0</Thickness>-->
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot"
@@ -111,11 +111,11 @@
                                           FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                           FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                           Glyph="&#xE10F;" />
-                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                                <TextBlock x:Uid="MenuItemHomeStation"
+                                           Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                            VerticalAlignment="Center"
                                            FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                            FontWeight="Normal"
-                                           x:Uid="MenuItemHomeStation"
                                            Text="(Home station)" />
                             </StackPanel>
                         </Button>
@@ -137,11 +137,11 @@
                                           FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                           FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                           Glyph="&#xE728;" />
-                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                                <TextBlock x:Uid="MenuItemFavorites"
+                                           Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                            VerticalAlignment="Center"
                                            FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                            FontWeight="Normal"
-                                           x:Uid="MenuItemFavorites"
                                            Text="(Favorites)" />
                             </StackPanel>
                         </Button>
@@ -163,11 +163,11 @@
                                           FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                           FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                           Glyph="&#xE14C;" />
-                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                                <TextBlock x:Uid="MenuItemStationList"
+                                           Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                            VerticalAlignment="Center"
                                            FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                            FontWeight="Normal"
-                                           x:Uid="MenuItemStationList"
                                            Text="(Station list)" />
                             </StackPanel>
                         </Button>
@@ -191,11 +191,11 @@
                                           FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                           FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                           Glyph="&#xE1C4;" />
-                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                                <TextBlock x:Uid="MenuItemNearestStations"
+                                           Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                            VerticalAlignment="Center"
                                            FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                            FontWeight="Normal"
-                                           x:Uid="MenuItemNearestStations"
                                            Text="(Nearest stations)" />
                             </StackPanel>
                         </Button>
@@ -219,11 +219,11 @@
                                           FontFamily="{StaticResource FontAwesomeFontFamily}"
                                           FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                           Glyph="&#xF278;" />
-                                <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                                <TextBlock x:Uid="MenuItemMap"
+                                           Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                            VerticalAlignment="Center"
                                            FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                            FontWeight="Normal"
-                                           x:Uid="MenuItemMap"
                                            Text="(Map)" />
                             </StackPanel>
                         </Button>
@@ -274,11 +274,11 @@
                                       FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                       FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                       Glyph="&#xEA1F;" />
-                            <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                            <TextBlock x:Uid="MenuItemInformation"
+                                       Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                        VerticalAlignment="Center"
                                        FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                        FontWeight="Normal"
-                                       x:Uid="MenuItemInformation"
                                        Text="(Information)" />
                         </StackPanel>
                     </Button>
@@ -300,11 +300,11 @@
                                       FontFamily="{StaticResource SmokSmogFontFamilySymbol}"
                                       FontSize="{StaticResource SmokSmogMenuItemIconFontSize}"
                                       Glyph="&#xE115;" />
-                            <TextBlock Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
+                            <TextBlock x:Uid="MenuItemSettings"
+                                       Width="{StaticResource SmokSmogMenuItemTextBlockWidth}"
                                        VerticalAlignment="Center"
                                        FontSize="{StaticResource SmokSmogMenuItemTextFontSize}"
                                        FontWeight="Normal"
-                                       x:Uid="MenuItemSettings"
                                        Text="(Settings)" />
                         </StackPanel>
                     </Button>
@@ -316,7 +316,8 @@
         <Grid x:Name="TitleRoot"
               Grid.Row="0"
               Height="{StaticResource SmokSmogMenuButtonHeight}"
-              Margin="{StaticResource SmokSmogContentMargin}">
+              Margin="48,0,0,0">
+            <!--  Margin="{StaticResource SmokSmogContentMargin}">  -->
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -385,12 +386,14 @@
 
             <!--  Page Content for list  -->
             <Frame x:Name="SecondFrame"
-                   Margin="{StaticResource SmokSmogContentMargin}"
+                   Margin="48,0,0,0"
                    x:FieldModifier="public"
                    Background="#dddddd"
                    Canvas.ZIndex="0"
                    RequestedTheme="{Binding RequestedTheme,
                                             ElementName=This}">
+                <!--  Margin="{StaticResource SmokSmogContentMargin}">  -->
+
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition Edge="Left" />
@@ -503,7 +506,8 @@
                         </ObjectAnimationUsingKeyFrames>
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainFrame" Storyboard.TargetProperty="Margin">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmokSmogContentMargin}" />
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="48,0,0,0" />
+                            <!--  Margin="{StaticResource SmokSmogContentMargin}">  -->
                         </ObjectAnimationUsingKeyFrames>
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainFrame" Storyboard.TargetProperty="(Grid.Column)">
@@ -511,7 +515,8 @@
                         </ObjectAnimationUsingKeyFrames>
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SecondFrame" Storyboard.TargetProperty="Margin">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmokSmogContentMargin}" />
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="48,0,0,0" />
+                            <!--  Margin="{StaticResource SmokSmogContentMargin}">  -->
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>

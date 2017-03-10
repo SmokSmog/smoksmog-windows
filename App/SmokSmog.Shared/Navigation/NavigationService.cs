@@ -97,11 +97,10 @@ namespace SmokSmog.Navigation
                 return xamlType.UnderlyingType;
 
             xamlType = metadataProvider?.GetXamlType($"SmokSmog.Views.{pageKey}");
-            if (xamlType != null) return xamlType.UnderlyingType;
+            return xamlType?.UnderlyingType;
 
-            // This will happen if there are no XAML files in the project other than App.xaml. The
-            // markup compiler doesn't bother implementing IXamlMetadataProvider on the app in that case.
-            return null;
+            // null reference will happen if there are no XAML files in the project other than App.xaml. The
+            // markup compiler doesn't bother implementing IXamlMetadataProvider on the application in that case.
         }
 
         private void NavigateTo(string pageKey, object parameter, bool pushToStack)
@@ -115,25 +114,29 @@ namespace SmokSmog.Navigation
             }
 
             var type = GetPageTypeByKey(pageKey);
+
             var attr = type?.GetTypeInfo().GetCustomAttribute<NavigationAttribute>();
             if (attr == null) return;
 
             if (MainPage == null) return;
 
-            bool navigated = false;
             switch (attr.ContentType)
             {
                 case ContentType.Main:
                     VisualStateManager.GoToState(MainPage, "MainFrameActive", true);
-                    if (navigated = MainPage.MainFrame?.Navigate(type, parameter) == true)
+                    var navigated = MainPage.MainFrame?.Navigate(type, parameter);
+                    if (navigated == true)
+                    {
                         CurrentPageKey = pageKey;
-                    if (pushToStack && navigated)
-                        _navigationStack.Push(new NavigationStack.Item(pageKey, parameter));
+                        if (pushToStack)
+                            _navigationStack.Push(new NavigationStack.Item(pageKey, parameter));
+                    }
                     break;
 
                 case ContentType.Second:
                     VisualStateManager.GoToState(MainPage, "SecondFrameActive", true);
-                    if (navigated = MainPage.SecondFrame?.Navigate(type, parameter) == true)
+                    navigated = MainPage.SecondFrame?.Navigate(type, parameter);
+                    if (navigated == true)
                     {
                         LastSecondPageKey = CurrentSecondPageKey;
                         CurrentSecondPageKey = pageKey;
