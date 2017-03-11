@@ -9,7 +9,7 @@ namespace SmokSmog.Navigation
     }
 
     [AttributeUsage(AttributeTargets.Class)]
-    internal class NavigationAttribute : System.Attribute
+    internal class NavigationAttribute : Attribute
     {
         public ContentType ContentType { get; set; }
     }

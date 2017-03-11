@@ -18,7 +18,10 @@ namespace SmokSmog.Resources
 
         public static string GetString(string key)
         {
-            return _resourceLoader.GetString(key);
+            //TODO - notify about missing resources during testing
+
+            string str = _resourceLoader.GetString(key);
+            return string.IsNullOrWhiteSpace(str) ? $"({key})" : str;
         }
     }
 }

@@ -80,6 +80,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\StationsListBaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\StationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\StatefulViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiToBrush.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\AqiToImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Data\ValueConverters\BooleanToVisability.cs" />
