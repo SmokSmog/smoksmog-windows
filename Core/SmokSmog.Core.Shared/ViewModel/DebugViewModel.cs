@@ -1,12 +1,13 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
-using System;
 
 namespace SmokSmog.ViewModel
 {
-    public class DebugViewModel : ViewModelBase
+    public class DebugViewModel : StatefulViewModelBase
     {
         public DebugViewModel()
         {
@@ -36,14 +37,21 @@ namespace SmokSmog.ViewModel
 
         public PlotModel Model { get; private set; }
 
-        private async void Load()
+        protected override async Task<IState> OnLoad(object parameter, CancellationToken token)
         {
             var vml = new ViewModelLocator();
             var stationViewModel = vml.StationViewModel;
-
             await stationViewModel.SetStationAsync(4);
 
-            //stationViewModel.Parameters[0].LoadData()
+            await Task.Delay(5000);
+
+            return new ReadyState();
+        }
+
+        protected override Task<IState> OnReload(CancellationToken token)
+        {
+            IState state = new ReadyState();
+            return Task.FromResult(state);
         }
     }
 }

@@ -104,6 +104,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\Interactions\TypeConverterHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\PropertyChangeEventSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xaml\SvgData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Xaml\UI\AsyncPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\Notification\Bad-square.png" />

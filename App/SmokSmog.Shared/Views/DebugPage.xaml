@@ -1,4 +1,4 @@
-﻿<Page x:Class="SmokSmog.Views.DebugPage"
+﻿<ui:StatefulPage x:Class="SmokSmog.Views.DebugPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,6 +7,7 @@
       xmlns:local="using:SmokSmog.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:oxyplot="using:OxyPlot.Windows"
+      xmlns:ui="using:SmokSmog.Xaml.UI"
       x:Name="This"
       DataContext="{Binding DebugViewModel,
                             Source={StaticResource ViewModelLocator}}"
@@ -15,7 +16,7 @@
     <Page.Resources />
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+       
         <StackPanel>
 
             <TextBox FontSize="25" Text="{Binding ElementName=This, Path=InstallLocaltion}" />
@@ -29,4 +30,4 @@
 
         <!--<oxyplot:PlotView Model="{Binding Model}" Background="Transparent"/>-->
     </Grid>
-</Page>
+</ui:StatefulPage>
